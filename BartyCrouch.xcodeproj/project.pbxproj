@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82CDE24A1C6ABB3300055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2491C6ABB3300055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82CDE2511C6ABB3400055FE6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE2461C6ABB3300055FE6 /* BartyCrouch.framework */; };
-		82CDE2561C6ABB3400055FE6 /* BartyCrouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2551C6ABB3400055FE6 /* BartyCrouchTests.swift */; };
+		82CDE2661C6ABBF500055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,11 +23,10 @@
 
 /* Begin PBXFileReference section */
 		82CDE2461C6ABB3300055FE6 /* BartyCrouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		82CDE2491C6ABB3300055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
-		82CDE24B1C6ABB3300055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE2501C6ABB3400055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82CDE2551C6ABB3400055FE6 /* BartyCrouchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartyCrouchTests.swift; sourceTree = "<group>"; };
-		82CDE2571C6ABB3400055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
+		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +51,8 @@
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
-				82CDE2481C6ABB3300055FE6 /* BartyCrouch */,
-				82CDE2541C6ABB3400055FE6 /* BartyCrouchTests */,
+				82CDE2611C6ABBF500055FE6 /* Sources */,
+				82CDE2681C6ABC0200055FE6 /* Tests */,
 				82CDE2471C6ABB3300055FE6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +66,61 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		82CDE2481C6ABB3300055FE6 /* BartyCrouch */ = {
+		82CDE2611C6ABBF500055FE6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2491C6ABB3300055FE6 /* BartyCrouch.h */,
-				82CDE24B1C6ABB3300055FE6 /* Info.plist */,
+				82CDE2621C6ABBF500055FE6 /* Code */,
+				82CDE2631C6ABBF500055FE6 /* Supporting Files */,
 			);
-			path = BartyCrouch;
+			path = Sources;
 			sourceTree = "<group>";
 		};
-		82CDE2541C6ABB3400055FE6 /* BartyCrouchTests */ = {
+		82CDE2621C6ABBF500055FE6 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2551C6ABB3400055FE6 /* BartyCrouchTests.swift */,
-				82CDE2571C6ABB3400055FE6 /* Info.plist */,
 			);
-			path = BartyCrouchTests;
+			path = Code;
+			sourceTree = "<group>";
+		};
+		82CDE2631C6ABBF500055FE6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */,
+				82CDE2651C6ABBF500055FE6 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		82CDE2681C6ABC0200055FE6 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2691C6ABC0200055FE6 /* Code */,
+				82CDE26A1C6ABC0200055FE6 /* Supporting Files */,
+				82CDE26C1C6ABC0200055FE6 /* User Interface */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		82CDE2691C6ABC0200055FE6 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		82CDE26A1C6ABC0200055FE6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE26E1C6ABD8800055FE6 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		82CDE26C1C6ABC0200055FE6 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "User Interface";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,7 +130,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82CDE24A1C6ABB3300055FE6 /* BartyCrouch.h in Headers */,
+				82CDE2661C6ABBF500055FE6 /* BartyCrouch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +238,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82CDE2561C6ABB3400055FE6 /* BartyCrouchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,8 +348,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BartyCrouch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -328,8 +365,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BartyCrouch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -340,7 +378,7 @@
 		82CDE25E1C6ABB3400055FE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = BartyCrouchTests/Info.plist;
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -350,7 +388,7 @@
 		82CDE25F1C6ABB3400055FE6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = BartyCrouchTests/Info.plist;
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,6 +414,7 @@
 				82CDE25C1C6ABB3400055FE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		82CDE25D1C6ABB3400055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +423,7 @@
 				82CDE25F1C6ABB3400055FE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
