@@ -69,8 +69,6 @@ func run() {
             return
         }
     }
-
-    print("Trying to extract strings from Storyboard at path '\(inputStoryboardPath)' to Strings files at paths '\(outputStringsFilesPaths)' ... please wait")
     
     let extractedStringsFilePath = inputStoryboardPath + ".tmpstrings"
     
@@ -92,6 +90,7 @@ func run() {
     
     do {
         try NSFileManager.defaultManager().removeItemAtPath(extractedStringsFilePath)
+        print("BartyCrouch: Successfully updated Strings files from Storyboard.")
     } catch {
         print("Error! Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'")
         return
