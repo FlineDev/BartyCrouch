@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BartyCrouch
 
 let currentPath = Process.arguments[0]
 
@@ -25,12 +26,12 @@ func run() {
     }()
     
     guard let inputStoryboardIndex = inputStoryboardIndexOptional else {
-        print("missing input key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
+        print("Error! Missing input key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
         return
     }
     
     guard inputStoryboardIndex+1 <= Process.arguments.count else {
-        print("missing input path after key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
+        print("Error! Missing input path after key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
         return
     }
     
@@ -46,19 +47,35 @@ func run() {
     }()
     
     guard let outputStringsFilesIndex = outputStringsFilesIndexOptional else {
-        print("missing output key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
+        print("Error! Missing output key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
         return
     }
     
     guard outputStringsFilesIndex+1 <= Process.arguments.count else {
-        print("missing input path after key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
+        print("Error! Missing input path after key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
         return
     }
 
     let outputStringsFilesPaths = Process.arguments[outputStringsFilesIndex+1].componentsSeparatedByString(",")
     
+    guard NSFileManager.defaultManager().fileExistsAtPath(inputStoryboardPath) else {
+        print("Error! No file exists at input path '\(inputStoryboardPath)'")
+        return
+    }
+    
+    for outputStringsFilePath in outputStringsFilesPaths {
+        guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
+            print("Error! No file exists at output path '\(outputStringsFilePath)'")
+            return
+        }
+    }
 
-    print("Trying to extract strings from Storyboard at path '\(inputStoryboardPath)' to Strings files at paths '\(outputStringsFilesPaths)'...")
+    print("Trying to extract strings from Storyboard at path '\(inputStoryboardPath)' to Strings files at paths '\(outputStringsFilesPaths)' ... please wait")
+    
+    let extractedStringsFilePath = inputStoryboardPath + ".tmpstrings"
+    
+    let ibtoolCommander = IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromStoryboardAtPath: inputStoryboardPath)
+    
 }
 
 run()
