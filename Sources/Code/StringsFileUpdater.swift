@@ -19,9 +19,10 @@ public class StringsFileUpdater {
     public init?(path: String) {
         self.path = path
         do {
-            let contentString = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            let contentString = try String(contentsOfFile: path)
             self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
         } catch {
+            print((error as NSError).description)
             self.linesInFile = []
             return nil
         }

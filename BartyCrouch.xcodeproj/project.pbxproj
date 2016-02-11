@@ -46,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
+		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
 		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,9 +60,6 @@
 		82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommanderTests.swift; sourceTree = "<group>"; };
 		82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileReaderTests.swift; sourceTree = "<group>"; };
 		82CDE2F71C6C08F800055FE6 /* BartyCrouchTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BartyCrouchTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		82CDE2FA1C6C0BAA00055FE6 /* Example-iOS.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-iOS.strings"; sourceTree = "<group>"; };
-		82CDE2FC1C6C0BAA00055FE6 /* Example-OSX.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-OSX.strings"; sourceTree = "<group>"; };
-		82CDE2FE1C6C0BAA00055FE6 /* Example-tvOS.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-tvOS.strings"; sourceTree = "<group>"; };
 		82CDE3011C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
 		82CDE3031C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
 		82CDE3051C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
@@ -170,7 +169,7 @@
 		82CDE26C1C6ABC0200055FE6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2F81C6C0BAA00055FE6 /* Strings */,
+				82CDE2F81C6C0BAA00055FE6 /* StringsFiles */,
 				82CDE2FF1C6C0BAA00055FE6 /* Storyboards */,
 			);
 			path = Assets;
@@ -184,38 +183,13 @@
 			path = "BartyCrouch CLI";
 			sourceTree = "<group>";
 		};
-		82CDE2F81C6C0BAA00055FE6 /* Strings */ = {
+		82CDE2F81C6C0BAA00055FE6 /* StringsFiles */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2F91C6C0BAA00055FE6 /* iOS */,
-				82CDE2FB1C6C0BAA00055FE6 /* OSX */,
-				82CDE2FD1C6C0BAA00055FE6 /* tvOS */,
+				8203A2971C6D159D00BCE479 /* NewExample.strings */,
+				8203A2981C6D159D00BCE479 /* OldExample.strings */,
 			);
-			path = Strings;
-			sourceTree = "<group>";
-		};
-		82CDE2F91C6C0BAA00055FE6 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				82CDE2FA1C6C0BAA00055FE6 /* Example-iOS.strings */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		82CDE2FB1C6C0BAA00055FE6 /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				82CDE2FC1C6C0BAA00055FE6 /* Example-OSX.strings */,
-			);
-			path = OSX;
-			sourceTree = "<group>";
-		};
-		82CDE2FD1C6C0BAA00055FE6 /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				82CDE2FE1C6C0BAA00055FE6 /* Example-tvOS.strings */,
-			);
-			path = tvOS;
+			path = StringsFiles;
 			sourceTree = "<group>";
 		};
 		82CDE2FF1C6C0BAA00055FE6 /* Storyboards */ = {
