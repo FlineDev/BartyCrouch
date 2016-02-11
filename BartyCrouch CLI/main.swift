@@ -74,7 +74,29 @@ func run() {
     
     let extractedStringsFilePath = inputStoryboardPath + ".tmpstrings"
     
-    let ibtoolCommander = IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromStoryboardAtPath: inputStoryboardPath)
+    guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromStoryboardAtPath: inputStoryboardPath) else {
+        print("Error! Could not extract strings from Storyboard at path '\(inputStoryboardPath)'")
+        return
+    }
+    
+    for outputStringsFilePath in outputStringsFilesPaths {
+        
+        guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
+            print("Error! Could not update strings file at path '\(outputStringsFilePath)'")
+            return
+        }
+        
+        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath)
+        
+    }
+    
+    do {
+        try NSFileManager.defaultManager().removeItemAtPath(extractedStringsFilePath)
+    } catch {
+        print("Error! Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'")
+        return
+    }
+    
     
 }
 
