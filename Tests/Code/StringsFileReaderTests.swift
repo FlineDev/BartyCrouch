@@ -12,6 +12,10 @@ import XCTest
 
 class StringsFileReaderTests: XCTestCase {
     
+    let oldStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
+    let newStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
+    let testStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
+    
     override func setUp() {
         do {
             try NSFileManager.defaultManager().removeItemAtPath("\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings")
@@ -20,10 +24,31 @@ class StringsFileReaderTests: XCTestCase {
         }
     }
     
+    func testFindTranslationsInLines() {
+        
+        let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
+        
+        let expectedTranslations = [
+            ("35F-cl-mdI.normalTitle", "Example Button 1", " Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; "),
+            ("COa-YO-eGf.normalTitle", "Example Button 2", " Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
+            ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; ")
+        ]
+        
+        let results = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+        
+        var index = 0
+        
+        expectedTranslations.forEach { (key, value, comment) in
+            XCTAssertEqual(results[index].0, key)
+            XCTAssertEqual(results[index].1, value)
+            XCTAssertEqual(results[index].2, comment)
+            
+            index += 1
+        }
+        
+    }
+    
     func testExampleStringsFileWithEmptyNewValues() {
-        let oldStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
-        let newStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
-        let testStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
         
         do {
             try NSFileManager.defaultManager().copyItemAtPath(oldStringsFilePath, toPath: testStringsFilePath)
@@ -68,9 +93,6 @@ class StringsFileReaderTests: XCTestCase {
     }
     
     func testExampleStringsFileWithPrefilledNewValues() {
-        let oldStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
-        let newStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
-        let testStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
         
         do {
             try NSFileManager.defaultManager().copyItemAtPath(oldStringsFilePath, toPath: testStringsFilePath)
