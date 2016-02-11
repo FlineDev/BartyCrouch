@@ -11,7 +11,7 @@ import Foundation
 public class StringsFileUpdater {
     
     let path: String
-    let linesInFile: [String]
+    var linesInFile: [String]
 
     
     // MARK: - Initializers
@@ -36,7 +36,56 @@ public class StringsFileUpdater {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
             let linesInNewFile = newContentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
             
-            // TODO: not yet finished
+            let oldTranslations = self.findTranslationsInLines(self.linesInFile)
+            let newTranslations = self.findTranslationsInLines(linesInNewFile)
+            
+            let updatedTranslations: [(key: String, value: String, comment: String?)] = {
+                
+                var translations: [(key: String, value: String, comment: String?)] = []
+                
+                newTranslations.forEach { (key, value, comment) in
+                 
+                    let updatedValue: String = {
+                       
+                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                        if let existingValue = oldTranslation?.1 {
+                            return existingValue
+                        }
+                        
+                        if !addNewValuesAsEmpty {
+                            return value
+                        }
+                        
+                        return ""
+                        
+                    }()
+                    
+                    let updatedComment: String? = {
+                        
+                        let oldComment = oldTranslations.filter{ $0.0 == key }.first
+                        if let existingComment = oldComment?.2 {
+                            return existingComment
+                        }
+                        
+                        return comment
+                    }()
+                    
+                    let updatedTranslation = (key, updatedValue, updatedComment)
+                    translations.append(updatedTranslation)
+                }
+                
+                return translations
+                
+            }()
+            
+            let newContentsOfFile = self.stringFromTranslations(updatedTranslations)
+            
+            try NSFileManager.defaultManager().removeItemAtPath(self.path)
+            try newContentsOfFile.writeToFile(self.path, atomically: true, encoding: NSUTF8StringEncoding)
+            
+            let contentString = try String(contentsOfFile: self.path)
+            self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            
         } catch {
             print((error as NSError).description)
         }
@@ -77,6 +126,20 @@ public class StringsFileUpdater {
         
         return foundTranslations
         
+    }
+    
+    func stringFromTranslations(translations: [(key: String, value: String, comment: String?)]) -> String {
+        
+        var resultingString = "\n"
+        
+        let translationStrings = translations.map { (key, value, comment) -> String in
+            let translationString: String = comment != nil ? "/*\(comment!)*/\n" : ""
+            return translationString + "\"\(key)\" = \"\(value)\";"
+        }
+        
+        resultingString += translationStrings.joinWithSeparator("\n\n")
+        
+        return resultingString + "\n"
     }
     
 }

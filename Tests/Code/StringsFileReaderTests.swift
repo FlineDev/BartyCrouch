@@ -48,6 +48,23 @@ class StringsFileReaderTests: XCTestCase {
         
     }
     
+    func testStringFromTranslations() {
+        
+        let translations: [(key: String, value: String, comment: String?)] = [
+            ("key1", "value1", "comment1"),
+            ("key2", "value2", nil),
+            ("key3", "value3", "comment3")
+        ]
+        
+        let expectedString = "\n/*comment1*/\n\"key1\" = \"value1\";\n\n\"key2\" = \"value2\";\n\n/*comment3*/\n\"key3\" = \"value3\";\n"
+        
+        let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
+        let resultingString = stringsFileUpdater.stringFromTranslations(translations)
+        
+        XCTAssertEqual(resultingString, expectedString)
+        
+    }
+    
     func testExampleStringsFileWithEmptyNewValues() {
         
         do {
@@ -69,7 +86,7 @@ class StringsFileReaderTests: XCTestCase {
             
             XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesBeforeIncrementalUpdate)
             
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true)
             
             let expectedLinesAfterIncrementalUpdate = [
                 "",
@@ -79,7 +96,7 @@ class StringsFileReaderTests: XCTestCase {
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"\";",
                 ""
             ]
@@ -113,7 +130,7 @@ class StringsFileReaderTests: XCTestCase {
             
             XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesBeforeIncrementalUpdate)
             
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false)
             
             let expectedLinesAfterIncrementalUpdate = [
                 "",
@@ -123,8 +140,8 @@ class StringsFileReaderTests: XCTestCase {
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"Example Button 4\";",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
+                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
                 ""
             ]
             
