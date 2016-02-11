@@ -19,10 +19,7 @@ public class IBToolCommander {
     // MARK: - Instance Methods
     
     public func export(stringsFileToPath stringsFilePath: String, fromStoryboardAtPath storyboardPath: String) -> Bool {
-        let command = "ibtool --export-strings-file \(stringsFilePath) \(storyboardPath)"
-        let (output, exitCode) = self.shell(command)
-        
-        print("Shell script command `\(command)` was run, output: \(output)")
+        let (_, exitCode) = self.shell(["ibtool", "--export-strings-file", stringsFilePath, storyboardPath])
         
         if exitCode == 0 {
             return true
@@ -31,9 +28,7 @@ public class IBToolCommander {
         }
     }
     
-    func shell(input: String) -> (output: String, exitCode: Int32) {
-        let arguments = input.characters.split { $0 == " " }.map(String.init)
-        
+    func shell(arguments: [String]) -> (output: String, exitCode: Int32) {
         let task = NSTask()
         task.launchPath = "/usr/bin/env"
         task.arguments = arguments
