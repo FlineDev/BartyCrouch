@@ -31,7 +31,7 @@ public class IBToolCommander {
         }
     }
     
-    private func shell(input: String) -> (output: String, exitCode: Int32) {
+    func shell(input: String) -> (output: String, exitCode: Int32) {
         let arguments = input.characters.split { $0 == " " }.map(String.init)
         
         let task = NSTask()

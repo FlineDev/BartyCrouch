@@ -10,8 +10,8 @@ import Foundation
 
 public class StringsFileUpdater {
     
-    private let path: String
-    private var linesInFile: [String]
+    let path: String
+    var linesInFile: [String]
 
     
     // MARK: - Initializers
@@ -92,7 +92,7 @@ public class StringsFileUpdater {
         
     }
     
-    private func findTranslationsInLines(lines: [String]) -> [(key: String, value: String, comment: String?)] {
+    func findTranslationsInLines(lines: [String]) -> [(key: String, value: String, comment: String?)] {
         
         var foundTranslations: [(key: String, value: String, comment: String?)] = []
         var lastCommentLine: String?
@@ -128,7 +128,7 @@ public class StringsFileUpdater {
         
     }
     
-    private func stringFromTranslations(translations: [(key: String, value: String, comment: String?)]) -> String {
+    func stringFromTranslations(translations: [(key: String, value: String, comment: String?)]) -> String {
         
         var resultingString = "\n"
         
