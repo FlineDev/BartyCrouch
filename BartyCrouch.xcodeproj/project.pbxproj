@@ -10,7 +10,7 @@
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2891C6ABF3A00055FE6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82CDE2E01C6BF35500055FE6 /* StringsFileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileReader.swift */; };
+		82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
 		82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
 		82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */; };
 		82CDE2EF1C6BFE9D00055FE6 /* StringsFileReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */; };
@@ -53,14 +53,17 @@
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82CDE2DF1C6BF35500055FE6 /* StringsFileReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileReader.swift; sourceTree = "<group>"; };
+		82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileUpdater.swift; sourceTree = "<group>"; };
 		82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommander.swift; sourceTree = "<group>"; };
 		82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommanderTests.swift; sourceTree = "<group>"; };
 		82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileReaderTests.swift; sourceTree = "<group>"; };
-		82CDE2F41C6C06A700055FE6 /* Example-tvOS.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Example-tvOS.storyboard"; sourceTree = "<group>"; };
-		82CDE2F51C6C06A700055FE6 /* Example-OSX.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Example-OSX.storyboard"; sourceTree = "<group>"; };
-		82CDE2F61C6C06A700055FE6 /* Example-iOS.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Example-iOS.storyboard"; sourceTree = "<group>"; };
 		82CDE2F71C6C08F800055FE6 /* BartyCrouchTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BartyCrouchTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		82CDE2FA1C6C0BAA00055FE6 /* Example-iOS.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-iOS.strings"; sourceTree = "<group>"; };
+		82CDE2FC1C6C0BAA00055FE6 /* Example-OSX.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-OSX.strings"; sourceTree = "<group>"; };
+		82CDE2FE1C6C0BAA00055FE6 /* Example-tvOS.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Example-tvOS.strings"; sourceTree = "<group>"; };
+		82CDE3011C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
+		82CDE3031C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
+		82CDE3051C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +124,7 @@
 		82CDE2621C6ABBF500055FE6 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2DF1C6BF35500055FE6 /* StringsFileReader.swift */,
+				82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */,
 				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
 			);
 			path = Code;
@@ -167,9 +170,8 @@
 		82CDE26C1C6ABC0200055FE6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2F41C6C06A700055FE6 /* Example-tvOS.storyboard */,
-				82CDE2F51C6C06A700055FE6 /* Example-OSX.storyboard */,
-				82CDE2F61C6C06A700055FE6 /* Example-iOS.storyboard */,
+				82CDE2F81C6C0BAA00055FE6 /* Strings */,
+				82CDE2FF1C6C0BAA00055FE6 /* Storyboards */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -180,6 +182,74 @@
 				82CDE2751C6ABE5D00055FE6 /* main.swift */,
 			);
 			path = "BartyCrouch CLI";
+			sourceTree = "<group>";
+		};
+		82CDE2F81C6C0BAA00055FE6 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2F91C6C0BAA00055FE6 /* iOS */,
+				82CDE2FB1C6C0BAA00055FE6 /* OSX */,
+				82CDE2FD1C6C0BAA00055FE6 /* tvOS */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		82CDE2F91C6C0BAA00055FE6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2FA1C6C0BAA00055FE6 /* Example-iOS.strings */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		82CDE2FB1C6C0BAA00055FE6 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2FC1C6C0BAA00055FE6 /* Example-OSX.strings */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
+		82CDE2FD1C6C0BAA00055FE6 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2FE1C6C0BAA00055FE6 /* Example-tvOS.strings */,
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
+		82CDE2FF1C6C0BAA00055FE6 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE3001C6C0BAA00055FE6 /* iOS */,
+				82CDE3021C6C0BAA00055FE6 /* OSX */,
+				82CDE3041C6C0BAA00055FE6 /* tvOS */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		82CDE3001C6C0BAA00055FE6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE3011C6C0BAA00055FE6 /* Example.storyboard */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		82CDE3021C6C0BAA00055FE6 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE3031C6C0BAA00055FE6 /* Example.storyboard */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
+		82CDE3041C6C0BAA00055FE6 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE3051C6C0BAA00055FE6 /* Example.storyboard */,
+			);
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82CDE2E01C6BF35500055FE6 /* StringsFileReader.swift in Sources */,
+				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
