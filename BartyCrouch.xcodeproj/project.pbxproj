@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
+		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2891C6ABF3A00055FE6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,6 +50,20 @@
 /* Begin PBXFileReference section */
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
 		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
+		821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearch.swift; sourceTree = "<group>"; };
+		821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearchTests.swift; sourceTree = "<group>"; };
+		821DED3F1C70D11F00B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
+		821DED401C70D14300B8353B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
+		821DED411C70D14A00B8353B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
+		821DED421C70D16300B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
+		821DED451C70D16500B8353B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Example.strings; sourceTree = "<group>"; };
+		821DED471C70D16F00B8353B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
+		821DED491C70D17000B8353B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
+		821DED4A1C70D17500B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
+		8249B7C71C70D1CF002F1BB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Example.strings; sourceTree = "<group>"; };
+		8249B7C91C70D1D6002F1BB7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
+		8249B7CB1C70D1D8002F1BB7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
+		8249B7CD1C70D1FA002F1BB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Example.strings; sourceTree = "<group>"; };
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
 		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,9 +76,6 @@
 		82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommanderTests.swift; sourceTree = "<group>"; };
 		82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileReaderTests.swift; sourceTree = "<group>"; };
 		82CDE2F71C6C08F800055FE6 /* BartyCrouchTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BartyCrouchTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		82CDE3011C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
-		82CDE3031C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
-		82CDE3051C6C0BAA00055FE6 /* Example.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Example.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +138,7 @@
 			children = (
 				82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */,
 				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
+				821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -153,6 +167,7 @@
 			children = (
 				82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */,
 				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
+				821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -205,7 +220,7 @@
 		82CDE3001C6C0BAA00055FE6 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE3011C6C0BAA00055FE6 /* Example.storyboard */,
+				821DED3E1C70D11500B8353B /* Example.storyboard */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -213,7 +228,7 @@
 		82CDE3021C6C0BAA00055FE6 /* OSX */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE3031C6C0BAA00055FE6 /* Example.storyboard */,
+				821DED431C70D16300B8353B /* Example.storyboard */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
@@ -221,7 +236,7 @@
 		82CDE3041C6C0BAA00055FE6 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE3051C6C0BAA00055FE6 /* Example.storyboard */,
+				821DED4B1C70D17500B8353B /* Example.storyboard */,
 			);
 			path = tvOS;
 			sourceTree = "<group>";
@@ -321,6 +336,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
+				ja,
+				de,
 			);
 			mainGroup = 82CDE23C1C6ABB3300055FE6;
 			productRefGroup = 82CDE2471C6ABB3300055FE6 /* Products */;
@@ -364,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
 			);
@@ -374,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */,
+				821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */,
 				82CDE2EF1C6BFE9D00055FE6 /* StringsFileReaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,6 +412,42 @@
 			targetProxy = 82CDE2961C6ABFB100055FE6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		821DED3E1C70D11500B8353B /* Example.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				821DED3F1C70D11F00B8353B /* Base */,
+				821DED401C70D14300B8353B /* ja */,
+				821DED411C70D14A00B8353B /* de */,
+				8249B7CD1C70D1FA002F1BB7 /* en */,
+			);
+			name = Example.storyboard;
+			sourceTree = "<group>";
+		};
+		821DED431C70D16300B8353B /* Example.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				821DED421C70D16300B8353B /* Base */,
+				821DED451C70D16500B8353B /* en */,
+				821DED471C70D16F00B8353B /* ja */,
+				821DED491C70D17000B8353B /* de */,
+			);
+			name = Example.storyboard;
+			sourceTree = "<group>";
+		};
+		821DED4B1C70D17500B8353B /* Example.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				821DED4A1C70D17500B8353B /* Base */,
+				8249B7C71C70D1CF002F1BB7 /* en */,
+				8249B7C91C70D1D6002F1BB7 /* ja */,
+				8249B7CB1C70D1D8002F1BB7 /* de */,
+			);
+			name = Example.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		82CDE2581C6ABB3400055FE6 /* Debug */ = {
@@ -486,7 +542,7 @@
 		82CDE2781C6ABE5D00055FE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -496,7 +552,7 @@
 		82CDE2791C6ABE5D00055FE6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -507,12 +563,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -530,12 +587,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
