@@ -6,12 +6,12 @@ BartyCrouch can **search a Storyboard file for localizable strings** and **updat
 ## Installation
 
 Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
-```
+``` shell
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Then simply run
-```
+``` shell
 brew install Flinesoft/BartyCrouch/formula
 ```
 to install BartyCrouch.
@@ -44,7 +44,7 @@ If you use base internationalization (recommended) you can also let BartyCrouch 
 
 All of the above put together, you can run the following (replace `path`):
 
-```
+``` shell
 bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings"
 bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings,path/de.lproj/Main.strings"
 bartycrouch -in "path/Base.lproj/Main.storyboard" -all
@@ -54,8 +54,13 @@ bartycrouch -in "path/Base.lproj/Main.storyboard" -all
 
 You may want to **update your `.strings` files on each build automatically** what you can easily do by adding a run script to your target in Xcode. In order to do this select your target in Xcode, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
 
-```
-// TODO: not yet documented
+``` shell
+if which bartycrouch > /dev/null; then
+    # copy the following line and specify path for each of your storyboards
+    bartycrouch -in "path/to/Base.lproj/Some.storyboard" -all
+else
+    echo "BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
+fi
 ```
 
 Now place the relative path(s) of your Storyboard(s) to translate into the `storyboards` array and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
