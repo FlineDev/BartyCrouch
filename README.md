@@ -40,6 +40,16 @@ You can pass a list of `strings` files to be incrementally updated using  `--out
 
 If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--output-all-languages` or `-all` using the shorthand syntax.
 
+### Complete Examples
+
+All of the above put together, you can run something similar to these:
+
+```
+bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings"
+bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings,path/de.lproj/Main.strings"
+bartycrouch -in "path/Base.lproj/Main.storyboard" -all
+```
+
 ### Build Script
 
 You may want to **update your `.strings` files on each build automatically** what you can easily do by adding a run script to your target in Xcode. In order to do this select your target in Xcode, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
