@@ -13,6 +13,13 @@ let currentPath = Process.arguments[0]
 
 let inputStoryboardArguments = ["--input-storyboard", "-in"]
 let outputStringsFilesArguments = ["--output-strings-files", "-out"]
+let outputAllLanguagesArguments = ["--output-all-languages", "-all"]
+
+enum OutputType {
+    case StringsFiles
+    case AllLanguages
+    case None
+}
 
 func run() {
     
@@ -46,17 +53,56 @@ func run() {
         return nil
     }()
     
-    guard let outputStringsFilesIndex = outputStringsFilesIndexOptional else {
-        print("Error! Missing output key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
+    let outputAllLanguagesIndexOptional: Int? = {
+        for outputAllLanguagesArgument in outputAllLanguagesArguments {
+            if let index = Process.arguments.indexOf(outputAllLanguagesArgument) {
+                return index
+            }
+        }
+        return nil
+    }()
+    
+    let outputType: OutputType = {
+        if outputStringsFilesIndexOptional != nil {
+            return .StringsFiles
+        }
+        if outputAllLanguagesIndexOptional != nil {
+            return .AllLanguages
+        }
+        return .None
+    }()
+    
+    guard outputType != .None else {
+        print("Error! Missing output key '\(outputStringsFilesArguments[1])' or '\(outputAllLanguagesArguments[1])'")
         return
     }
     
-    guard outputStringsFilesIndex+1 <= Process.arguments.count else {
-        print("Error! Missing input path after key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
+    let outputIndex: Int = {
+        switch outputType {
+        case .StringsFiles:
+            return outputStringsFilesIndexOptional!
+        case .AllLanguages:
+            return outputAllLanguagesIndexOptional!
+        case .None:
+            return -1
+        }
+    }()
+    
+    guard outputType == .AllLanguages || outputIndex+1 <= Process.arguments.count else {
+        print("Error! Missing input path(s) after key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
         return
     }
 
-    let outputStringsFilesPaths = Process.arguments[outputStringsFilesIndex+1].componentsSeparatedByString(",")
+    let outputStringsFilesPaths: [String] = {
+        switch outputType {
+        case .StringsFiles:
+            return Process.arguments[outputIndex+1].componentsSeparatedByString(",")
+        case .AllLanguages:
+            return StringsFilesSearch.sharedInstance.findAll(inputStoryboardPath)
+        case .None:
+            return []
+        }
+    }()
     
     guard NSFileManager.defaultManager().fileExistsAtPath(inputStoryboardPath) else {
         print("Error! No file exists at input path '\(inputStoryboardPath)'")

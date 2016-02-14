@@ -6,17 +6,14 @@ BartyCrouch can **search a Storyboard file for localizable strings** and **updat
 ## Installation
 
 Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
-
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Then simply run
-
 ```
 brew install Flinesoft/BartyCrouch/formula
 ```
-
 to install BartyCrouch.
 
 
@@ -55,9 +52,11 @@ Now place the relative path(s) of your Storyboard(s) to translate into the `stor
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
+
 ## Contributing
 
 Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature there or send a Pull Request with your suggestion. Please also make sure to write tests for your changes in order to make sure they don't break in the future.
+
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
