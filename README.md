@@ -36,7 +36,7 @@ You can specify the input storyboard file using `--input-storyboard "path/to/my.
 
 You can pass a list of `strings` files to be incrementally updated using  `--output-strings-files "path/to/en.strings,path/to/de.strings"` or `-out "path/to/en.strings,path/to/de.strings"` using the shorthand syntax.
 
-### Input-Storyboard and Output-All-Languages
+### Output-All-Languages
 
 If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--output-all-languages` or `-all` using the shorthand syntax.
 
