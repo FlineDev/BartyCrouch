@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
+		828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
+		828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
+		828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2891C6ABF3A00055FE6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,13 +23,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		82CDE28A1C6ABF3A00055FE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 82CDE23D1C6ABB3300055FE6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 82CDE27E1C6ABF3A00055FE6;
-			remoteInfo = BartyCrouch;
-		};
-		82CDE2961C6ABFB100055FE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 82CDE23D1C6ABB3300055FE6 /* Project object */;
 			proxyType = 1;
@@ -67,7 +63,7 @@
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
 		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "BartyCrouch CLI"; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CDE2731C6ABE5C00055FE6 /* bartycrouch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bartycrouch; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,7 +113,7 @@
 		82CDE2471C6ABB3300055FE6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */,
+				82CDE2731C6ABE5C00055FE6 /* bartycrouch */,
 				82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */,
 				82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */,
 			);
@@ -266,11 +262,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				82CDE2971C6ABFB100055FE6 /* PBXTargetDependency */,
 			);
 			name = "BartyCrouch CLI";
 			productName = "BartyCrouch CLI";
-			productReference = 82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */;
+			productReference = 82CDE2731C6ABE5C00055FE6 /* bartycrouch */;
 			productType = "com.apple.product-type.tool";
 		};
 		82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */ = {
@@ -374,6 +369,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
+				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
+				828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */,
 				82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,11 +403,6 @@
 			isa = PBXTargetDependency;
 			target = 82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */;
 			targetProxy = 82CDE28A1C6ABF3A00055FE6 /* PBXContainerItemProxy */;
-		};
-		82CDE2971C6ABFB100055FE6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */;
-			targetProxy = 82CDE2961C6ABFB100055FE6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -544,7 +537,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -554,7 +547,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 			};
 			name = Release;
