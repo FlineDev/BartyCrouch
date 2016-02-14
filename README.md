@@ -24,7 +24,7 @@ Before using BartyCrouch please **make sure you have committed your code**.
 
 ### Commands Overview
 
-The command to be called in order to run BartyCrouch is named `bartycrouch`. `bartycrouch` accepts one of the following two combinations of commands:
+The `bartycrouch` main command accepts one of the following two combinations of arguments:
 
 1. Input-Storyboard and Output-Strings-Files
 2. Input-Storyboard and Output-All-Languages
@@ -68,14 +68,14 @@ else
 fi
 ```
 
-Now place the relative path(s) of your Storyboard(s) to translate into the `storyboards` array and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
+Add a `bartycrouch -in ... -all` line for each of your base internationalized storyboards and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
 
 ## Contributing
 
-Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature there or send a Pull Request with your suggestion. Please also make sure to write tests for your changes in order to make sure they don't break in the future.
+Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature there or send a Pull Request with your suggestion. Please also make sure to write tests for your changes in order to make sure they don't break in the future. Please note that there is a framework target within the project alongside the command line utility target to make testing easier.
 
 
 ## License
