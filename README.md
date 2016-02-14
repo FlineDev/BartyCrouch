@@ -10,9 +10,10 @@ Install Homebrew first if you don't have it already (more about Homebrew [here](
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Then simply run
+Then simply run the commands
 ``` shell
-brew install Flinesoft/BartyCrouch/formula
+brew tap flinesoft/bartycrouch
+brew install flinesoft/bartycrouch/bartycrouch
 ```
 to install BartyCrouch.
 
