@@ -57,8 +57,12 @@ You may want to **update your `.strings` files on each build automatically** wha
 
 ``` shell
 if which bartycrouch > /dev/null; then
-    # copy the following line and specify path for each of your storyboards
-    bartycrouch -in "path/to/Base.lproj/Some.storyboard" -all
+    # Set path to base internationalized storyboards
+    BASE_PATH="$PROJECT_DIR/Sources/User Interface/Base.lproj"
+
+    # Incrementally update all storyboards strings files
+    bartycrouch -in "$BASE_PATH/Main.storyboard" -all
+    bartycrouch -in "$BASE_PATH/LaunchScreen.storyboard" -all
 else
     echo "BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
