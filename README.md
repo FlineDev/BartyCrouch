@@ -3,6 +3,18 @@
       width=600 height=167>
 </p>
 
+<p align="center">
+    <a href="#">
+    <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
+       alt="Swift: 2.1">
+    </a>
+    <a href="https://github.com/Flinesoft/BartyCrouch/blob/develop/LICENSE.md">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg"
+             alt="license: MIT">
+    </a>
+</p>
+
+
 # BartyCrouch
 
 BartyCrouch can **search a Storyboard file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
