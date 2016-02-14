@@ -1,3 +1,8 @@
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/develop/Logo.png"
+      width=600 height=167>
+</p>
+
 # BartyCrouch
 
 BartyCrouch can **search a Storyboard file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
