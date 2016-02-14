@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82290A671C70BA770026A6C6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */; };
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2891C6ABF3A00055FE6 /* BartyCrouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -71,7 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82290A671C70BA770026A6C6 /* BartyCrouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,8 +487,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks $(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -501,8 +497,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks $(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
