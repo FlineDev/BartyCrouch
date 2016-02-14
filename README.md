@@ -42,7 +42,7 @@ If you use base internationalization (recommended) you can also let BartyCrouch 
 
 ### Complete Examples
 
-All of the above put together, you can run something similar to these:
+All of the above put together, you can run the following (replace `path`):
 
 ```
 bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings"
