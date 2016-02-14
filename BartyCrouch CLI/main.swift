@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import BartyCrouch
 
 let currentPath = Process.arguments[0]
 
