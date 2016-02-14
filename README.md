@@ -39,22 +39,22 @@ to install BartyCrouch.
 
 Before using BartyCrouch please **make sure you have committed your code**.
 
-### Commands Overview
+### Command Overview
 
 The `bartycrouch` main command accepts one of the following two combinations of arguments:
 
 1. Input-Storyboard and Output-Strings-Files
 2. Input-Storyboard and Output-All-Languages
 
-### Input-Storyboard
+#### Input-Storyboard (aka `-in`)
 
 You can specify the input storyboard file using `--input-storyboard "path/to/my.storyboard"` or `-in "path/to/my.storyboard"` using the shorthand syntax.
 
-### Output-Strings-Files
+#### Output-Strings-Files (aka `-out`)
 
 You can pass a list of `strings` files to be incrementally updated using  `--output-strings-files "path/to/en.strings,path/to/de.strings"` or `-out "path/to/en.strings,path/to/de.strings"` using the shorthand syntax.
 
-### Output-All-Languages
+#### Output-All-Languages (aka `-all`)
 
 If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--output-all-languages` or `-all` using the shorthand syntax.
 
