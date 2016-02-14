@@ -67,7 +67,7 @@
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
 		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "BartyCrouch CLI"; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CDE2731C6ABE5C00055FE6 /* bartycrouch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bartycrouch; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,7 +117,7 @@
 		82CDE2471C6ABB3300055FE6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */,
+				82CDE2731C6ABE5C00055FE6 /* bartycrouch */,
 				82CDE27F1C6ABF3A00055FE6 /* BartyCrouch.framework */,
 				82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */,
 			);
@@ -270,7 +270,7 @@
 			);
 			name = "BartyCrouch CLI";
 			productName = "BartyCrouch CLI";
-			productReference = 82CDE2731C6ABE5C00055FE6 /* BartyCrouch CLI */;
+			productReference = 82CDE2731C6ABE5C00055FE6 /* bartycrouch */;
 			productType = "com.apple.product-type.tool";
 		};
 		82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */ = {
@@ -544,7 +544,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -554,7 +554,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 			};
 			name = Release;
