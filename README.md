@@ -90,6 +90,15 @@ Add a `bartycrouch -in ... -all` line for each of your base internationalized st
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
+### Exclude specific views from localization
+
+Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are set programmatically**.
+For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file.
+This will tell BartyCrouch to ignore this specific view when updating your `.strings` files.
+
+Here's an example of how a base localized view in a XIB file with partly ignored strings might look like:
+
+<img src="Exclusion-Example.png">
 
 ## Contributing
 
