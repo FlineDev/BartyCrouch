@@ -30,7 +30,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool = true) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool = true, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -43,10 +43,15 @@ public class StringsFileUpdater {
                 
                 var translations: [(key: String, value: String, comment: String?)] = []
                 
-                newTranslations.forEach { (key, value, comment) in
-                 
+                for (key, value, comment) in newTranslations {
+                    
+                    // skip keys marked for ignore
+                    guard !value.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
+                        continue
+                    }
+                    
                     let updatedValue: String = {
-                       
+                        
                         let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
                         if let existingValue = oldTranslation?.1 {
                             return existingValue
@@ -72,6 +77,7 @@ public class StringsFileUpdater {
                     
                     let updatedTranslation = (key, updatedValue, updatedComment)
                     translations.append(updatedTranslation)
+                    
                 }
                 
                 return translations
@@ -140,6 +146,22 @@ public class StringsFileUpdater {
         resultingString += translationStrings.joinWithSeparator("\n\n")
         
         return resultingString + "\n"
+    }
+    
+}
+
+
+// MARK: - String Extension
+
+extension String {
+    
+    func containsAny(ofStrings substrings: [String]) -> Bool {
+        for substring in substrings {
+            if self.containsString(substring) {
+                return true
+            }
+        }
+        return false
     }
     
 }

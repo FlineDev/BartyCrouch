@@ -1,5 +1,5 @@
 //
-//  StringsFileReaderTests.swift
+//  StringsFileUpdaterTests.swift
 //  BartyCrouch
 //
 //  Created by Cihat Gündüz on 11.02.16.
@@ -10,7 +10,7 @@ import XCTest
 
 @testable import BartyCrouch
 
-class StringsFileReaderTests: XCTestCase {
+class StringsFileUpdaterTests: XCTestCase {
     
     let oldStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
     let newStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
@@ -81,6 +81,12 @@ class StringsFileReaderTests: XCTestCase {
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
                 "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
+                "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";",
+                "",
+                "/* Completely custom comment structure in one line to be ignored */",
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";",
                 ""
             ]
             
@@ -98,6 +104,9 @@ class StringsFileReaderTests: XCTestCase {
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"\";",
+                "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";",
                 ""
             ]
             
@@ -125,6 +134,12 @@ class StringsFileReaderTests: XCTestCase {
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
                 "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
+                "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";",
+                "",
+                "/* Completely custom comment structure in one line to be ignored */",
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";",
                 ""
             ]
             
@@ -142,6 +157,9 @@ class StringsFileReaderTests: XCTestCase {
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
+                "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";",
                 ""
             ]
             

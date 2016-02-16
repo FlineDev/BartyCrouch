@@ -18,7 +18,7 @@
 		82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
 		82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
 		82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */; };
-		82CDE2EF1C6BFE9D00055FE6 /* StringsFileReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */; };
+		82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,7 @@
 		82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileUpdater.swift; sourceTree = "<group>"; };
 		82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommander.swift; sourceTree = "<group>"; };
 		82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommanderTests.swift; sourceTree = "<group>"; };
-		82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileReaderTests.swift; sourceTree = "<group>"; };
+		82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileUpdaterTests.swift; sourceTree = "<group>"; };
 		82CDE2F71C6C08F800055FE6 /* BartyCrouchTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BartyCrouchTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,7 +161,7 @@
 		82CDE2691C6ABC0200055FE6 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2EE1C6BFE9D00055FE6 /* StringsFileReaderTests.swift */,
+				82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */,
 				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
 				821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */,
 			);
@@ -392,7 +392,7 @@
 			files = (
 				82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */,
 				821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */,
-				82CDE2EF1C6BFE9D00055FE6 /* StringsFileReaderTests.swift in Sources */,
+				82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
