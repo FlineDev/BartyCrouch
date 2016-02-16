@@ -17,7 +17,7 @@
 
 # BartyCrouch
 
-BartyCrouch can **search a Storyboard file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
+BartyCrouch can **search a Storyboard/xib file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
 
 
 ## Installation
@@ -80,12 +80,13 @@ if which bartycrouch > /dev/null; then
     # Incrementally update all storyboards strings files
     bartycrouch -in "$BASE_PATH/Main.storyboard" -all
     bartycrouch -in "$BASE_PATH/LaunchScreen.storyboard" -all
+    bartycrouch -in "$BASE_PATH/CustomView.xib" -all
 else
     echo "BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
 
-Add a `bartycrouch -in ... -all` line for each of your base internationalized storyboards and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
+Add a `bartycrouch -in ... -all` line for each of your base internationalized storyboards/xibs and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
