@@ -43,29 +43,29 @@ Before using BartyCrouch please **make sure you have committed your code**.
 
 The `bartycrouch` main command accepts one of the following two combinations of arguments:
 
-1. Input-Storyboard and Output-Strings-Files
-2. Input-Storyboard and Output-All-Languages
+1. Input and Output
+2. Input and Auto
 
-#### Input-Storyboard (aka `-in`)
+#### Input (aka `-i`)
 
-You can specify the input storyboard file using `--input-storyboard "path/to/my.storyboard"` or `-in "path/to/my.storyboard"` using the shorthand syntax.
+You can specify the input Storyboard or XIB file using `--input "path/to/my.storyboard"` or `-i "path/to/my.storyboard"` using the shorthand syntax.
 
-#### Output-Strings-Files (aka `-out`)
+#### Output (aka `-o`)
 
-You can pass a list of `strings` files to be incrementally updated using  `--output-strings-files "path/to/en.strings,path/to/de.strings"` or `-out "path/to/en.strings,path/to/de.strings"` using the shorthand syntax.
+You can pass a list of `.strings` files to be incrementally updated using  `--output "path/to/en.strings" "path/to/de.strings"` or `-o "path/to/en.strings" "path/to/de.strings"` using the shorthand syntax.
 
-#### Output-All-Languages (aka `-all`)
+#### Auto (aka `-a`)
 
-If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--output-all-languages` or `-all` using the shorthand syntax.
+If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--auto` or `-a` using the shorthand syntax.
 
 ### Complete Examples
 
 All of the above put together, you can run the following (replace `path`):
 
 ``` shell
-bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings"
-bartycrouch -in "path/Base.lproj/Main.storyboard" -out "path/en.lproj/Main.strings,path/de.lproj/Main.strings"
-bartycrouch -in "path/Base.lproj/Main.storyboard" -all
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings"
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings" "path/de.lproj/Main.strings"
+bartycrouch -i "path/Base.lproj/Main.storyboard" -a
 ```
 
 ### Build Script
@@ -74,19 +74,19 @@ You may want to **update your `.strings` files on each build automatically** wha
 
 ``` shell
 if which bartycrouch > /dev/null; then
-    # Set path to base internationalized storyboards
+    # Set path to base internationalized Storyboard/XIB files
     BASE_PATH="$PROJECT_DIR/Sources/User Interface/Base.lproj"
 
-    # Incrementally update all storyboards strings files
-    bartycrouch -in "$BASE_PATH/Main.storyboard" -all
-    bartycrouch -in "$BASE_PATH/LaunchScreen.storyboard" -all
-    bartycrouch -in "$BASE_PATH/CustomView.xib" -all
+    # Incrementally update all Storyboards/XIBs strings files
+    bartycrouch -i "$BASE_PATH/Main.storyboard" -a
+    bartycrouch -i "$BASE_PATH/LaunchScreen.storyboard" -a
+    bartycrouch -i "$BASE_PATH/CustomView.xib" -a
 else
     echo "BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
 
-Add a `bartycrouch -in ... -all` line for each of your base internationalized storyboards/xibs and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
+Add a `bartycrouch -i ... -a` line for each of your base internationalized Storyboards/XIBs and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 

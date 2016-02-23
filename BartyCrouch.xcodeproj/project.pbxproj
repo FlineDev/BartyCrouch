@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		820649D31C7CA71E009E501E /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D01C7CA71E009E501E /* CommandLine.swift */; };
+		820649D41C7CA71E009E501E /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D11C7CA71E009E501E /* Option.swift */; };
+		820649D51C7CA71E009E501E /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D21C7CA71E009E501E /* StringExtensions.swift */; };
 		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
 		828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
@@ -46,6 +49,10 @@
 /* Begin PBXFileReference section */
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
 		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
+		820649CD1C7CA636009E501E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		820649D01C7CA71E009E501E /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; };
+		820649D11C7CA71E009E501E /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		820649D21C7CA71E009E501E /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearch.swift; sourceTree = "<group>"; };
 		821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearchTests.swift; sourceTree = "<group>"; };
 		821DED3F1C70D11F00B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
@@ -100,13 +107,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		820649CE1C7CA6FA009E501E /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				820649CF1C7CA705009E501E /* CommandLine */,
+			);
+			path = Carthage;
+			sourceTree = "<group>";
+		};
+		820649CF1C7CA705009E501E /* CommandLine */ = {
+			isa = PBXGroup;
+			children = (
+				820649D01C7CA71E009E501E /* CommandLine.swift */,
+				820649D11C7CA71E009E501E /* Option.swift */,
+				820649D21C7CA71E009E501E /* StringExtensions.swift */,
+			);
+			name = CommandLine;
+			path = Checkouts/CommandLine/CommandLine;
+			sourceTree = "<group>";
+		};
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
+				820649CD1C7CA636009E501E /* Cartfile */,
 				82CDE2611C6ABBF500055FE6 /* Sources */,
 				82CDE2681C6ABC0200055FE6 /* Tests */,
 				82CDE2741C6ABE5D00055FE6 /* BartyCrouch CLI */,
 				82CDE2471C6ABB3300055FE6 /* Products */,
+				820649CE1C7CA6FA009E501E /* Carthage */,
 			);
 			sourceTree = "<group>";
 		};
@@ -369,9 +397,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820649D31C7CA71E009E501E /* CommandLine.swift in Sources */,
 				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
 				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
+				820649D51C7CA71E009E501E /* StringExtensions.swift in Sources */,
 				828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */,
+				820649D41C7CA71E009E501E /* Option.swift in Sources */,
 				82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
