@@ -39,7 +39,24 @@ to install BartyCrouch.
 
 Before using BartyCrouch please **make sure you have committed your code**.
 
-### Command Overview
+### Complete Examples (TL;DR)
+
+With BartyCrouch you can run commands like these:
+
+``` shell
+# Incrementally update English strings of Main.storyboard
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings"
+
+# Incrementally update English and German strings of Main.storyboard
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings" "path/de.lproj/Main.strings"
+
+# Incrementally update all languages of Main.storyboard
+bartycrouch -i "path/Base.lproj/Main.storyboard" -a
+```
+
+Make your life easier by using the **build script method** described [below](#build-script).
+
+### Commands Overview
 
 The `bartycrouch` main command accepts one of the following two combinations of arguments:
 
@@ -58,15 +75,6 @@ You can pass a list of `.strings` files to be incrementally updated using  `-o "
 
 If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--auto` or `-a` using the shorthand syntax.
 
-### Complete Examples
-
-All of the above put together, you can run the following (replace `path`):
-
-``` shell
-bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings"
-bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings" "path/de.lproj/Main.strings"
-bartycrouch -i "path/Base.lproj/Main.storyboard" -a
-```
 
 ### Build Script
 
