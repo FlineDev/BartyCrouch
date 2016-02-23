@@ -18,8 +18,8 @@ public class IBToolCommander {
     
     // MARK: - Instance Methods
     
-    public func export(stringsFileToPath stringsFilePath: String, fromStoryboardAtPath storyboardPath: String) -> Bool {
-        let (_, exitCode) = self.shell(["ibtool", "--export-strings-file", stringsFilePath, storyboardPath])
+    public func export(stringsFileToPath stringsFilePath: String, fromIbFileAtPath ibFilePath: String) -> Bool {
+        let (_, exitCode) = self.shell(["ibtool", "--export-strings-file", stringsFilePath, ibFilePath])
         
         if exitCode == 0 {
             return true

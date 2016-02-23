@@ -8,125 +8,103 @@
 
 import Foundation
 
-let currentPath = Process.arguments[0]
 
-let inputStoryboardArguments = ["--input-storyboard", "-in"]
-let outputStringsFilesArguments = ["--output-strings-files", "-out"]
-let outputAllLanguagesArguments = ["--output-all-languages", "-all"]
+// Configure command line interface
+
+let cli = CommandLine()
+
+let input = StringOption(
+    shortFlag: "i",
+    longFlag: "input",
+    required: true,
+    helpMessage: "Path to your Storyboard or XIB source file to be translated."
+)
+
+let output = MultiStringOption(
+    shortFlag: "o",
+    longFlag: "output",
+    required: false,
+    helpMessage: "A list of paths to your strings files to be incrementally updated."
+)
+
+let auto = BoolOption(
+    shortFlag: "a",
+    longFlag: "auto",
+    required: false,
+    helpMessage: "Automatically finds all strings files to update based on the Xcode defaults."
+)
+
+cli.addOptions(input, output, auto)
+
+
+// Parse input data or exit with usage instructions
+
+do {
+    try cli.parse()
+} catch {
+    cli.printUsage(error)
+    exit(EX_USAGE)
+}
+
+
+// Do requested action(s)
 
 enum OutputType {
     case StringsFiles
-    case AllLanguages
+    case Automatic
     case None
 }
 
 func run() {
-    
-    let inputStoryboardIndexOptional: Int? = {
-        for inputStoryboardArgument in inputStoryboardArguments {
-            if let index = Process.arguments.indexOf(inputStoryboardArgument) {
-                return index
-            }
-        }
-        return nil
-    }()
-    
-    guard let inputStoryboardIndex = inputStoryboardIndexOptional else {
-        print("Error! Missing input key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
-        return
-    }
-    
-    guard inputStoryboardIndex+1 <= Process.arguments.count else {
-        print("Error! Missing input path after key '\(inputStoryboardArguments[0])' or '\(inputStoryboardArguments[1])'")
-        return
-    }
-    
-    let inputStoryboardPath = Process.arguments[inputStoryboardIndex+1]
-    
-    let outputStringsFilesIndexOptional: Int? = {
-        for outputStringsFilesArgument in outputStringsFilesArguments {
-            if let index = Process.arguments.indexOf(outputStringsFilesArgument) {
-                return index
-            }
-        }
-        return nil
-    }()
-    
-    let outputAllLanguagesIndexOptional: Int? = {
-        for outputAllLanguagesArgument in outputAllLanguagesArguments {
-            if let index = Process.arguments.indexOf(outputAllLanguagesArgument) {
-                return index
-            }
-        }
-        return nil
-    }()
-    
+
     let outputType: OutputType = {
-        if outputStringsFilesIndexOptional != nil {
+        if output.wasSet {
             return .StringsFiles
         }
-        if outputAllLanguagesIndexOptional != nil {
-            return .AllLanguages
+        if auto.wasSet {
+            return .Automatic
         }
         return .None
     }()
     
-    guard outputType != .None else {
-        print("Error! Missing output key '\(outputStringsFilesArguments[1])' or '\(outputAllLanguagesArguments[1])'")
-        return
-    }
-    
-    let outputIndex: Int = {
-        switch outputType {
-        case .StringsFiles:
-            return outputStringsFilesIndexOptional!
-        case .AllLanguages:
-            return outputAllLanguagesIndexOptional!
-        case .None:
-            return -1
-        }
-    }()
-    
-    guard outputType == .AllLanguages || outputIndex+1 <= Process.arguments.count else {
-        print("Error! Missing input path(s) after key '\(outputStringsFilesArguments[0])' or '\(outputStringsFilesArguments[1])'")
-        return
-    }
+    let inputIbFilePath = input.value!
 
     let outputStringsFilesPaths: [String] = {
         switch outputType {
         case .StringsFiles:
-            return Process.arguments[outputIndex+1].componentsSeparatedByString(",")
-        case .AllLanguages:
-            return StringsFilesSearch.sharedInstance.findAll(inputStoryboardPath)
+            return output.value!
+        case .Automatic:
+            return StringsFilesSearch.sharedInstance.findAll(inputIbFilePath)
         case .None:
-            return []
+            print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
+            exit(EX_USAGE)
         }
     }()
     
-    guard NSFileManager.defaultManager().fileExistsAtPath(inputStoryboardPath) else {
-        print("Error! No file exists at input path '\(inputStoryboardPath)'")
-        return
+    guard NSFileManager.defaultManager().fileExistsAtPath(inputIbFilePath) else {
+        print("Error! No file exists at input path '\(inputIbFilePath)'")
+        exit(EX_NOINPUT)
     }
     
     for outputStringsFilePath in outputStringsFilesPaths {
         guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
-            print("Error! No file exists at output path '\(outputStringsFilePath)'")
-            return
+            print("Error! No file exists at output path '\(outputStringsFilePath)'.")
+            exit(EX_CONFIG)
         }
     }
     
-    let extractedStringsFilePath = inputStoryboardPath + ".tmpstrings"
+    let extractedStringsFilePath = inputIbFilePath + ".tmpstrings"
     
-    guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromStoryboardAtPath: inputStoryboardPath) else {
-        print("Error! Could not extract strings from Storyboard at path '\(inputStoryboardPath)'")
-        return
+    guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputIbFilePath) else {
+        print("Error! Could not extract strings from Storyboard or XIB at path '\(inputIbFilePath)'.")
+        exit(EX_UNAVAILABLE)
     }
     
     for outputStringsFilePath in outputStringsFilesPaths {
         
         guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-            print("Error! Could not update strings file at path '\(outputStringsFilePath)'")
-            return
+            print("Error! Could not read strings file at path '\(outputStringsFilePath)'")
+            exit(EX_CONFIG)
         }
         
         stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath)
@@ -135,12 +113,12 @@ func run() {
     
     do {
         try NSFileManager.defaultManager().removeItemAtPath(extractedStringsFilePath)
-        print("BartyCrouch: Successfully updated Strings files from Storyboard.")
     } catch {
         print("Error! Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'")
-        return
+        exit(EX_IOERR)
     }
     
+    print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.")
     
 }
 

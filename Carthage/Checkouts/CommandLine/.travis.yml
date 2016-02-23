@@ -1,0 +1,5 @@
+language: objective-c # this is a lie
+xcode_project: CommandLine.xcodeproj
+xcode_scheme: CommandLine
+script: xcodebuild -scheme CommandLine test
+osx_image: xcode7

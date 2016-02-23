@@ -61,16 +61,6 @@
             ReferencedContainer = "container:BartyCrouch.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-in &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -all"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-in &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -out &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/de.lproj/Main.strings,/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/en.lproj/Main.strings&quot;"
-            isEnabled = "NO">
-         </CommandLineArgument>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
