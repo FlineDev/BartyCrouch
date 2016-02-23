@@ -4,13 +4,17 @@
 </p>
 
 <p align="center">
+    <a href="https://github.com/Flinesoft/BartyCrouch/tags">
+        <img src="https://img.shields.io/github/tag/Flinesoft/BartyCrouch.svg"
+             alt="GitHub tag">
+    </a>
     <a href="#">
-    <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
-       alt="Swift: 2.1">
+        <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
+             alt="Swift version">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/develop/LICENSE.md">
-        <img src="https://img.shields.io/badge/license-MIT-blue.svg"
-             alt="license: MIT">
+        <img src="https://img.shields.io/github/license/Flinesoft/BartyCrouch.svg"
+              alt="GitHub license">
     </a>
 </p>
 
