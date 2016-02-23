@@ -63,12 +63,12 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-in &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -all"
+            argument = "-i &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -a"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-in &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -out &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/de.lproj/Main.strings,/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/en.lproj/Main.strings&quot;"
-            isEnabled = "NO">
+            argument = "-i &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/Base.lproj/Main.storyboard&quot; -o &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/de.lproj/Main.strings&quot; &quot;/Users/Dschee/Code/Flinesoft/iOS/Cruciverber/Sources/User Interface/en.lproj/Main.strings&quot;"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
