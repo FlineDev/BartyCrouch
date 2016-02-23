@@ -94,7 +94,9 @@ else
 fi
 ```
 
-Add a `bartycrouch -i ... -a` line for each of your base internationalized Storyboards/XIBs and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
+<img src="Build-Script-Example.png">
+
+Now update the `BASE_PATH` to point to your Base.lproj directory, add a `bartycrouch -i ... -a` for each of your base internationalized Storyboards/XIBs (if any) and you're good to go. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
