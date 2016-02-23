@@ -58,7 +58,7 @@ bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings"
 bartycrouch -i "path/Base.lproj/Main.storyboard" -a
 ```
 
-Make your life easier by using the **build script method** described [below](#build-script).
+Also you can make your life a lot easier by using the **build script method** described [below](#build-script).
 
 ### Commands Overview
 
