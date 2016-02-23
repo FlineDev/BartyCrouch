@@ -48,11 +48,11 @@ The `bartycrouch` main command accepts one of the following two combinations of 
 
 #### Input (aka `-i`)
 
-You can specify the input Storyboard or XIB file using `--input "path/to/my.storyboard"` or `-i "path/to/my.storyboard"` using the shorthand syntax.
+You can specify the input Storyboard or XIB file using `-i "path/to/my.storyboard"` (`-i` is short `--input`).
 
 #### Output (aka `-o`)
 
-You can pass a list of `.strings` files to be incrementally updated using  `--output "path/to/en.strings" "path/to/de.strings"` or `-o "path/to/en.strings" "path/to/de.strings"` using the shorthand syntax.
+You can pass a list of `.strings` files to be incrementally updated using  `-o "path/to/en.strings" "path/to/de.strings"` (`-o` is short for `--output`).
 
 #### Auto (aka `-a`)
 
@@ -99,6 +99,19 @@ This will tell BartyCrouch to ignore this specific view when updating your `.str
 Here's an example of how a base localized view in a XIB file with partly ignored strings might look like:
 
 <img src="Exclusion-Example.png">
+
+## Migration Guides
+
+This project follows [Semantic Versioning](http://semver.org). Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 0.3 -> 1.0).
+
+### Upgrade from 0.x to 1.x
+
+- `--input-storyboard` and `-in` were **renamed** to `--input` and `-i`
+- `--output-strings-files` and `-out` were **renamed** to `--output` and `-o`
+- Multiple paths passed to `-output` are now **separated by whitespace instead of comma**
+  - e.g. `-out "path/one,path/two"` should now be `-o "path/one" "path/two"`
+- `--output-all-languages` and `-all` were **renamed** to `--auto` and `-a`
+
 
 ## Contributing
 
