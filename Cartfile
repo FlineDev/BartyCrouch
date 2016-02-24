@@ -1,2 +1,5 @@
 # A pure Swift library for creating command-line interfaces
 github "jatoben/CommandLine"
+
+# A simple Swift API for Microsoft Translator
+github "ayanonagon/Polyglot"
