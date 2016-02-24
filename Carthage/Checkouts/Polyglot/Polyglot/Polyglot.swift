@@ -104,7 +104,9 @@ public class Polyglot {
     */
     public func translate(text: String, callback: ((translation: String) -> (Void))) {
         session.getAccessToken { token in
-            self.fromLanguage = text.language
+            if self.fromLanguage == nil {
+                self.fromLanguage = text.language
+            }
             let toLanguageComponent = "&to=\(self.toLanguage.rawValue.urlEncoded!)"
             let fromLanguageComponent = (self.fromLanguage != nil) ? "&from=\(self.fromLanguage!.rawValue.urlEncoded!)" : ""
             let urlString = "http://api.microsofttranslator.com/v2/Http.svc/Translate?text=\(text.urlEncoded!)\(toLanguageComponent)\(fromLanguageComponent)"
@@ -112,7 +114,7 @@ public class Polyglot {
             let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
             request.HTTPMethod = "GET"
             request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
-
+            
             let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {(data, response, error) in
                 let translation: String
                 guard
@@ -126,9 +128,7 @@ public class Polyglot {
                 translation = self.translationFromXML(xmlString)
 
                 defer {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        callback(translation: translation)
-                    }
+                    callback(translation: translation)
                 }
             }
             task.resume()

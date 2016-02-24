@@ -303,6 +303,24 @@ public class StringsFileUpdater {
         }
         
     }
+    
+    /// - Returns: The Microsoft Translator API language defined in Polyglot via an enumeration.
+    func translatorLanguage(forLanguage language: String, region: String?) -> Language? {
+        
+        guard let region = region else {
+            return Language(rawValue: language)
+        }
+        
+        switch (language, region) {
+        case ("zh", "Hans"):
+            return Language(rawValue: "zh-CHS")
+        case ("zh", "Hant"):
+            return Language(rawValue: "zh-CHT")
+        default:
+            return Language(rawValue: language)
+        }
+        
+    }
 
     
 }
