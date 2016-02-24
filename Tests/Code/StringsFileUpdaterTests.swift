@@ -171,4 +171,34 @@ class StringsFileUpdaterTests: XCTestCase {
         
     }
     
+    func testExtractLocale() {
+
+        let updater = StringsFileUpdater(path: newStringsFilePath)!
+        
+        let expectedPairs: [String: (String, String?)?] = [
+            "bli/bla/blubb/de.lproj/Main.strings":              ("de", nil),
+            "bli/bla/blubb/en-GB.lproj/Main.strings":           ("en", "GB"),
+            "bli/bla/blubb/pt-BR.lproj/Main.strings":           ("pt", "BR"),
+            "bli/bla/blubb/zh-Hans.lproj/Main.strings":         ("zh", "Hans"),
+            "bli/bla/blubb/No-Locale/de-DE/Main.strings":       nil
+        ]
+        
+        expectedPairs.forEach { path, expectedResult in
+            
+            if expectedResult == nil {
+                
+                XCTAssertNil(updater.extractLocale(fromPath: path))
+                
+            } else {
+                
+                let result = updater.extractLocale(fromPath: path)
+                XCTAssertEqual(result?.0, expectedResult?.0)
+                XCTAssertEqual(result?.1, expectedResult?.1)
+                
+            }
+            
+        }
+        
+    }
+    
 }

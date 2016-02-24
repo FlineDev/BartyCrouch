@@ -148,6 +148,46 @@ public class StringsFileUpdater {
         return resultingString + "\n"
     }
     
+    
+    /// Extracts locale from a path containing substring `{language}-{region}.lproj` or `{language}.lproj`.
+    ///
+    /// - Parameters:
+    ///   - fromPath: The path to extract the locale from.
+    /// - Returns: A tuple containing the extracted language and region (if any) or nil if couldn't find locale in path.
+    func extractLocale(fromPath path: String) -> (language: String, region: String?)? {
+        
+        do {
+            // Initialize regular expressions
+            let languageRegex = try NSRegularExpression(pattern: "(\\w{2})-{0,1}\\w*\\.lproj", options: .CaseInsensitive)
+            let regionRegex = try NSRegularExpression(pattern: "\\w{2}-(\\w+)\\.lproj", options: .CaseInsensitive)
+            
+            let fullRange = NSMakeRange(0, path.characters.count)
+            
+            
+            // Get language from path
+            guard let languageMatch = languageRegex.matchesInString(path, options: .ReportCompletion, range: fullRange).last else {
+                return nil
+            }
+            let language = (path as NSString).substringWithRange(languageMatch.rangeAtIndex(1))
+            
+            
+            // Get region from path if existent
+            var region: String? = nil
+            
+            if let regionMatch = regionRegex.matchesInString(path, options: .ReportCompletion, range: fullRange).last {
+                region = (path as NSString).substringWithRange(regionMatch.rangeAtIndex(1))
+            }
+            
+            return (language, region)
+            
+        } catch {
+            print("Error! Could not instantiate regular expressions. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
+            return nil
+        }
+        
+    }
+
+    
 }
 
 
