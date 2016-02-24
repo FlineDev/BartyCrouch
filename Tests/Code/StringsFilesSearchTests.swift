@@ -15,7 +15,7 @@ class StringsFilesSearchTests: XCTestCase {
     func testiOSFindAllWithBaseStoryboardPath() {
         
         let baseStoryboardPath = examplePath(platform: "iOS", locale: "base", type: ".storyboard")
-        let expectedStringsPaths = ["de", "en", "ja"].map { examplePath(platform: "iOS", locale: $0, type: ".strings") }
+        let expectedStringsPaths = ["de", "en", "ja", "zh-Hans"].map { examplePath(platform: "iOS", locale: $0, type: ".strings") }
         
         let results = StringsFilesSearch.sharedInstance.findAll(baseStoryboardPath)
         

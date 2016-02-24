@@ -84,13 +84,7 @@ public class StringsFileUpdater {
                 
             }()
             
-            let newContentsOfFile = self.stringFromTranslations(updatedTranslations)
-            
-            try NSFileManager.defaultManager().removeItemAtPath(self.path)
-            try newContentsOfFile.writeToFile(self.path, atomically: true, encoding: NSUTF8StringEncoding)
-            
-            let contentString = try String(contentsOfFile: self.path)
-            self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            self.rewriteFileWithTranslations(updatedTranslations)
             
         } catch {
             print((error as NSError).description)
@@ -98,6 +92,129 @@ public class StringsFileUpdater {
         
     }
     
+    /// Rewrites file with specified translations and reloads lines from new file.
+    func rewriteFileWithTranslations(translations: [(key: String, value: String, comment: String?)]) {
+        
+        do {
+            let newContentsOfFile = self.stringFromTranslations(translations)
+            
+            try NSFileManager.defaultManager().removeItemAtPath(self.path)
+            try newContentsOfFile.writeToFile(self.path, atomically: true, encoding: NSUTF8StringEncoding)
+            
+            let contentString = try String(contentsOfFile: self.path)
+            self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+
+        } catch {
+            print((error as NSError).description)
+        }
+        
+    }
+    
+    
+    /// Translates all empty values of this instances strings file using the Microsoft Translator API.
+    /// Note that this will only work for languages supported by the Microsoft Translator API and Polyglot.
+    /// See here for a full list: https://www.microsoft.com/en-us/translator/faq.aspx
+    ///
+    /// Note that you need to register for the Microsoft Translator API here:
+    /// https://datamarket.azure.com/dataset/bing/microsofttranslator
+    ///
+    /// Then you can register your client to retrieve the client id & secret here:
+    /// https://datamarket.azure.com/developer/applications
+    /// 
+    /// - Parameters:
+    ///   - usingValuesFromStringsFile:     The path to the strings file to use as source language for the translation.
+    ///   - clientId:                       The Microsoft Translator API Client ID.
+    ///   - clientSecret:                   The Microsoft Translator API Client Secret.
+    /// - Returns: The number of values translated successfully.
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String) -> Int {
+        
+        guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
+            print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            return 0
+        }
+        
+        guard let (targetLanguage, targetRegion) = self.extractLocale(fromPath: self.path) else {
+            print("Error! Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            return 0
+        }
+        
+        guard let sourceTranslatorLanguage = translatorLanguage(forLanguage: sourceLanguage, region: sourceRegion) else {
+            let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
+            print("Warning! Automatic translation from the locale '\(locale)' is not supported.")
+            return 0
+        }
+        
+        guard let targetTranslatorLanguage = translatorLanguage(forLanguage: targetLanguage, region: targetRegion) else {
+            let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
+            print("Warning! Automatic translation to the locale '\(locale)' is not supported.")
+            return 0
+        }
+        
+        do {
+            let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
+            let linesInSourceFile = sourceContentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            
+            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
+            
+            translator.fromLanguage = sourceTranslatorLanguage
+            translator.toLanguage = targetTranslatorLanguage
+            
+            var translatedValuesCount = 0
+            var awaitingTranslationRequestCount = 0
+            
+            let sourceTranslations = self.findTranslationsInLines(linesInSourceFile)
+            var targetTranslations = self.findTranslationsInLines(self.linesInFile)
+            
+            for (index, targetTranslation) in targetTranslations.enumerate() {
+                
+                let (key, value, comment) = targetTranslation
+                
+                guard value.isEmpty else {
+                    continue // skip already translated values
+                }
+                
+                let sourceTranslation = sourceTranslations.filter { $0.0 == key }.first
+                
+                guard let (_, sourceValue, _) = sourceTranslation else {
+                    print("Warning! Key '\(key)' does not exist in source translations.")
+                    continue
+                }
+                
+                guard !sourceValue.isEmpty else {
+                    print("Warning! Value for key '\(key)' is source translations is empty.")
+                    continue
+                }
+                
+                awaitingTranslationRequestCount += 1
+                
+                translator.translate(sourceValue, callback: { translatedValue in
+                    if !translatedValue.isEmpty {
+                        targetTranslations[index] = (key, translatedValue, comment)
+                        translatedValuesCount += 1
+                    }
+                    
+                    awaitingTranslationRequestCount -= 1
+                })
+            }
+            
+            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback fired
+            while awaitingTranslationRequestCount > 0 {
+                // noop
+            }
+
+            if translatedValuesCount > 0 {
+                self.rewriteFileWithTranslations(targetTranslations)
+            }
+            
+            return translatedValuesCount
+        } catch {
+            print((error as NSError).description)
+            return 0
+        }
+
+    }
+    
+    /// - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
     func findTranslationsInLines(lines: [String]) -> [(key: String, value: String, comment: String?)] {
         
         var foundTranslations: [(key: String, value: String, comment: String?)] = []
