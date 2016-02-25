@@ -73,6 +73,34 @@ public enum Language: String {
     case Urdu = "ur"
     case Vietnamese = "vi"
     case Welsh = "cy"
+    
+    /** Allows mapping between NSLocale identifiers and the Microsoft Translator identifiers.
+     
+     - parameter lang:       The language code, e.g. 'en' or 'zh'.
+     - parameter region:     The region, e.g. 'GB' or 'Hans'.
+     - returns:              The Microsoft Translator API language defined in Polyglot via an enumeration. */
+    public static func forLocale(language language: String, region: String?) -> Language? {
+        
+        if let region = region {
+            
+            switch (language, region) {
+            case ("zh", "Hans"):
+                return Language.ChineseSimplified
+            case ("zh", "Hant"):
+                return Language.ChineseTraditional
+            default:
+                break
+            }
+        }
+        
+        switch language {
+        case "nb":
+            return Language.Norwegian
+        default:
+            return Language(rawValue: language)
+        }
+        
+    }
 }
 
 /**

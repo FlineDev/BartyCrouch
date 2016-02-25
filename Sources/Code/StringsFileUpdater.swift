@@ -142,13 +142,13 @@ public class StringsFileUpdater {
             return 0
         }
         
-        guard let sourceTranslatorLanguage = translatorLanguage(forLanguage: sourceLanguage, region: sourceRegion) else {
+        guard let sourceTranslatorLanguage = Language.forLocale(language: sourceLanguage, region: sourceRegion) else {
             let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
             print("Warning! Automatic translation from the locale '\(locale)' is not supported.")
             return 0
         }
         
-        guard let targetTranslatorLanguage = translatorLanguage(forLanguage: targetLanguage, region: targetRegion) else {
+        guard let targetTranslatorLanguage = Language.forLocale(language: targetLanguage, region: targetRegion) else {
             let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
             print("Warning! Automatic translation to the locale '\(locale)' is not supported.")
             return 0
@@ -305,30 +305,6 @@ public class StringsFileUpdater {
             print("Error! Could not instantiate regular expressions. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
             return nil
         }
-        
-    }
-    
-    /// - Returns: The Microsoft Translator API language defined in Polyglot via an enumeration.
-    func translatorLanguage(forLanguage language: String, region: String?) -> Language? {
-        
-        if let region = region {
-            
-            switch (language, region) {
-            case ("zh", "Hans"):
-                return Language.ChineseSimplified
-            case ("zh", "Hant"):
-                return Language.ChineseTraditional
-            default:
-                break
-            }
-        }
-        
-        switch language {
-        case "nb":
-            return Language.Norwegian
-        default:
-            return Language(rawValue: language)
-        }        
         
     }
 
