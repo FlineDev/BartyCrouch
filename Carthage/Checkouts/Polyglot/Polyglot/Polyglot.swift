@@ -27,6 +27,7 @@ import Foundation
 */
 public enum Language: String {
     case Arabic = "ar"
+    case Bosnian = "bs"
     case Bulgarian = "bg"
     case Catalan = "ca"
     case ChineseSimplified = "zh-CHS"
@@ -61,6 +62,7 @@ public enum Language: String {
     case Portuguese = "pt"
     case Romanian = "ro"
     case Russian = "ru"
+    case Serbian = "sr"
     case Slovak = "sk"
     case Slovenian = "sl"
     case Spanish = "es"
