@@ -55,7 +55,14 @@ let force = BoolOption(
     helpMessage: "Overrides existing translations / comments. Use carefully."
 )
 
-cli.addOptions(input, output, auto, except, translate, force)
+let verbose = BoolOption(
+    shortFlag: "v",
+    longFlag: "verbose",
+    required: false,
+    helpMessage: "Prints out more status information to the console."
+)
+
+cli.addOptions(input, output, auto, except, translate, force, verbose)
 
 
 // Parse input data or exit with usage instructions
@@ -99,6 +106,10 @@ func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String]
         
         stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, force: force.value)
         
+        if verbose.value {
+            print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
+        }
+        
     }
     
     do {
@@ -137,7 +148,9 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
             
             let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, force: force.value)
             
-            print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.")
+            if verbose.value {
+                print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.")
+            }
             
             if translationsCount > 0 {
                 overallTranslatedValuesCount += translationsCount
