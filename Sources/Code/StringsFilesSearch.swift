@@ -18,12 +18,12 @@ public class StringsFilesSearch {
     
     // MARK: - Instance Methods
     
-    public func findAll(baseStoryboardPath: String) -> [String] {
-        var pathComponents = baseStoryboardPath.componentsSeparatedByString("/")
+    public func findAll(baseFilePath: String) -> [String] {
+        var pathComponents = baseFilePath.componentsSeparatedByString("/")
         let storyboardName: String = {
-            var storyboardNameComponents = pathComponents.last!.componentsSeparatedByString(".")
-            storyboardNameComponents.removeLast()
-            return storyboardNameComponents.joinWithSeparator(".")
+            var fileNameComponents = pathComponents.last!.componentsSeparatedByString(".")
+            fileNameComponents.removeLast()
+            return fileNameComponents.joinWithSeparator(".")
         }()
         
         pathComponents.removeLast() // Remove last path component from folder/base.lproj/some.storyboard

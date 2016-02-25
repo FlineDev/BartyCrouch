@@ -212,9 +212,9 @@ class StringsFileUpdaterTests: XCTestCase {
             let sourceStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
             
             let expectedTranslatedValues: [String: String] = [
-                "de": "Autos",
-                "ja": "車",
-                "zh-Hans": "汽车"
+                "de":       "Autos",
+                "ja":       "車",
+                "zh-Hans":  "汽车"
             ]
             
             for locale in ["de", "ja", "zh-Hans"] {
