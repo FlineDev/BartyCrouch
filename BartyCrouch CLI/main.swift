@@ -17,21 +17,28 @@ let input = StringOption(
     shortFlag: "i",
     longFlag: "input",
     required: true,
-    helpMessage: "Path to your Storyboard or XIB source file to be translated."
+    helpMessage: "Path to your source file to be used for translation."
 )
 
 let output = MultiStringOption(
     shortFlag: "o",
     longFlag: "output",
     required: false,
-    helpMessage: "A list of paths to your strings files to be incrementally updated."
+    helpMessage: "Paths to your strings files to be updated."
 )
 
 let auto = BoolOption(
     shortFlag: "a",
     longFlag: "auto",
     required: false,
-    helpMessage: "Automatically finds all strings files to update based on the Xcode defaults."
+    helpMessage: "Automatically finds all strings files for update."
+)
+
+let except = MultiStringOption(
+    shortFlag: "e",
+    longFlag: "except",
+    required: false,
+    helpMessage: "Automatically finds all strings files for update except the ones specified."
 )
 
 let translate = StringOption(
@@ -41,7 +48,7 @@ let translate = StringOption(
     helpMessage: "Translate empty values using Microsoft Translator (id & secret needed): \"{ id: YOUR_ID }|{ secret: YOUR_SECRET }\"."
 )
 
-cli.addOptions(input, output, auto, translate)
+cli.addOptions(input, output, auto, except, translate)
 
 
 // Parse input data or exit with usage instructions
@@ -59,6 +66,7 @@ do {
 enum OutputType {
     case StringsFiles
     case Automatic
+    case Except
     case None
 }
 
@@ -67,7 +75,7 @@ enum ActionType {
     case Translate
 }
 
-func incrementalUpdate(inputFilePath: String, _ outputStringsFilesPaths: [String]) {
+func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String]) {
     let extractedStringsFilePath = inputFilePath + ".tmpstrings"
     
     guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
@@ -75,7 +83,7 @@ func incrementalUpdate(inputFilePath: String, _ outputStringsFilesPaths: [String
         exit(EX_UNAVAILABLE)
     }
     
-    for outputStringsFilePath in outputStringsFilesPaths {
+    for outputStringsFilePath in outputStringsFilePaths {
         
         guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
             print("Error! Could not read strings file at path '\(outputStringsFilePath)'")
@@ -96,7 +104,7 @@ func incrementalUpdate(inputFilePath: String, _ outputStringsFilesPaths: [String
     print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.")
 }
 
-func translate(credentials credentials: String, _ inputFilePath: String, _ outputStringsFilesPaths: [String]) {
+func translate(credentials credentials: String, _ inputFilePath: String, _ outputStringsFilePaths: [String]) {
     
     do {
         let translatorCredentialsRegex = try NSRegularExpression(pattern: "^\\{ id: (.+) \\}\\|\\{ secret: (.+) \\}$", options: .CaseInsensitive)
@@ -113,7 +121,7 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
         var overallTranslatedValuesCount = 0
         var filesWithTranslatedValuesCount = 0
         
-        for outputStringsFilePath in outputStringsFilesPaths {
+        for outputStringsFilePath in outputStringsFilePaths {
             
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
                 print("Error! Could not read strings file at path '\(outputStringsFilePath)'")
@@ -144,6 +152,9 @@ func run() {
         if output.wasSet {
             return .StringsFiles
         }
+        if except.wasSet {
+            return .Except
+        }
         if auto.wasSet {
             return .Automatic
         }
@@ -159,12 +170,14 @@ func run() {
     
     let inputFilePath = input.value!
 
-    let outputStringsFilesPaths: [String] = {
+    let outputStringsFilePaths: [String] = {
         switch outputType {
         case .StringsFiles:
             return output.value!
         case .Automatic:
             return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { !$0.containsString(inputFilePath) }
+        case .Except:
+            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { !$0.containsString(inputFilePath) && !except.value!.contains($0) }
         case .None:
             print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
             exit(EX_USAGE)
@@ -176,7 +189,7 @@ func run() {
         exit(EX_NOINPUT)
     }
     
-    for outputStringsFilePath in outputStringsFilesPaths {
+    for outputStringsFilePath in outputStringsFilePaths {
         guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
             print("Error! No file exists at output path '\(outputStringsFilePath)'.")
             exit(EX_CONFIG)
@@ -185,9 +198,9 @@ func run() {
     
     switch actionType {
     case .IncrementalUpdate:
-        incrementalUpdate(inputFilePath, outputStringsFilesPaths)
+        incrementalUpdate(inputFilePath, outputStringsFilePaths)
     case .Translate:
-        translate(credentials: translate.value!, inputFilePath, outputStringsFilesPaths)
+        translate(credentials: translate.value!, inputFilePath, outputStringsFilePaths)
     }
     
 }
