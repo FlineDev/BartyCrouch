@@ -48,7 +48,14 @@ let translate = StringOption(
     helpMessage: "Translate empty values using Microsoft Translator (id & secret needed): \"{ id: YOUR_ID }|{ secret: YOUR_SECRET }\"."
 )
 
-cli.addOptions(input, output, auto, except, translate)
+let force = BoolOption(
+    shortFlag: "f",
+    longFlag: "force",
+    required: false,
+    helpMessage: "Overrides existing translations / comments. Use carefully."
+)
+
+cli.addOptions(input, output, auto, except, translate, force)
 
 
 // Parse input data or exit with usage instructions
@@ -90,7 +97,7 @@ func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String]
             exit(EX_CONFIG)
         }
         
-        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath)
+        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, force: force.value)
         
     }
     
@@ -128,7 +135,9 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
                 exit(EX_CONFIG)
             }
             
-            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret)
+            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, force: force.value)
+            
+            print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.")
             
             if translationsCount > 0 {
                 overallTranslatedValuesCount += translationsCount
@@ -175,9 +184,9 @@ func run() {
         case .StringsFiles:
             return output.value!
         case .Automatic:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { !$0.containsString(inputFilePath) }
+            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath }
         case .Except:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { !$0.containsString(inputFilePath) && !except.value!.contains($0) }
+            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
         case .None:
             print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
             exit(EX_USAGE)

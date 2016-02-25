@@ -30,7 +30,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool = true, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool = true, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -54,7 +54,9 @@ public class StringsFileUpdater {
                         
                         let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
                         if let existingValue = oldTranslation?.1 {
-                            return existingValue
+                            if !force {
+                                return existingValue
+                            }
                         }
                         
                         if !addNewValuesAsEmpty {
@@ -69,7 +71,9 @@ public class StringsFileUpdater {
                         
                         let oldComment = oldTranslations.filter{ $0.0 == key }.first
                         if let existingComment = oldComment?.2 {
-                            return existingComment
+                            if !force {
+                                return existingComment
+                            }
                         }
                         
                         return comment
@@ -126,7 +130,7 @@ public class StringsFileUpdater {
     ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, force: Bool = false) -> Int {
         
         guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
             print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
@@ -169,7 +173,7 @@ public class StringsFileUpdater {
                 
                 let (key, value, comment) = targetTranslation
                 
-                guard value.isEmpty else {
+                guard value.isEmpty || force else {
                     continue // skip already translated values
                 }
                 
