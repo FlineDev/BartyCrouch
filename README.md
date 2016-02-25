@@ -26,6 +26,11 @@ BartyCrouch can **search a Storyboard/XIB file for localizable strings** and **u
 Additionally BartyCrouch can now also **automatically translate existing `.strings` files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** and BartyCrouch will **keep all existing translations** by default.
 
 
+## Requirements
+
+- Xcode 7.2+ and Swift 2.1+
+- Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
+
 ## Installation
 
 Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
