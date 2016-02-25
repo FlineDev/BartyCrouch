@@ -45,6 +45,11 @@ brew install flinesoft/bartycrouch/bartycrouch
 ```
 to install BartyCrouch.
 
+To **update** to the newest version of BartyCrouch when you have an old version already installed run:
+``` shell
+brew update
+brew upgrade flinesoft/bartycrouch/bartycrouch
+```
 
 ## Usage
 
