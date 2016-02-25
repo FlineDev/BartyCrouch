@@ -185,7 +185,7 @@ public class StringsFileUpdater {
                 }
                 
                 guard !sourceValue.isEmpty else {
-                    print("Warning! Value for key '\(key)' is source translations is empty.")
+                    print("Warning! Value for key '\(key)' in source translations is empty.")
                     continue
                 }
                 
@@ -201,7 +201,7 @@ public class StringsFileUpdater {
                 })
             }
             
-            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback fired
+            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
             while awaitingTranslationRequestCount > 0 {
                 // noop
             }
