@@ -2,4 +2,4 @@
 github "jatoben/CommandLine"
 
 # A simple Swift API for Microsoft Translator
-github "ayanonagon/Polyglot"
+github "Dschee/Polyglot" "master"
