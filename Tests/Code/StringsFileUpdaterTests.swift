@@ -171,4 +171,114 @@ class StringsFileUpdaterTests: XCTestCase {
         
     }
     
+    func testExtractLocale() {
+
+        let updater = StringsFileUpdater(path: newStringsFilePath)!
+        
+        let expectedPairs: [String: (String, String?)?] = [
+            "bli/bla/blubb/de.lproj/Main.strings":              ("de", nil),
+            "bli/bla/blubb/en-GB.lproj/Main.strings":           ("en", "GB"),
+            "bli/bla/blubb/pt-BR.lproj/Main.strings":           ("pt", "BR"),
+            "bli/bla/blubb/zh-Hans.lproj/Main.strings":         ("zh", "Hans"),
+            "bli/bla/blubb/No-Locale/de-DE/Main.strings":       nil
+        ]
+        
+        expectedPairs.forEach { path, expectedResult in
+            
+            if expectedResult == nil {
+                
+                XCTAssertNil(updater.extractLocale(fromPath: path))
+                
+            } else {
+                
+                let result = updater.extractLocale(fromPath: path)
+                XCTAssertEqual(result?.0, expectedResult?.0)
+                XCTAssertEqual(result?.1, expectedResult?.1)
+                
+            }
+            
+        }
+        
+    }
+    
+    func testTranslateEmptyValues() {
+        
+        // Note: This test only runs with correct Microsoft Translator API credentials provided
+        let id: String?         = nil       // specify this to run this test
+        let secret: String?     = nil       // specify this to run this test
+        
+        if let id = id, secret = secret {
+            
+            let sourceStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
+            
+            let expectedTranslatedValues: [String: String] = [
+                "de":       "Autos",
+                "ja":       "車",
+                "zh-Hans":  "汽车"
+            ]
+            
+            for locale in ["de", "ja", "zh-Hans"] {
+                
+                let localizableStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
+                
+                // create temporary file for testing
+                do {
+                    if NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath + ".tmp") {
+                        try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    }
+                    try NSFileManager.defaultManager().copyItemAtPath(localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
+                } catch {
+                    XCTAssertTrue(false)
+                    return
+                }
+                
+                let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
+                
+                var translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                
+                
+                // test before state (update if failing)
+                
+                XCTAssertEqual(translations.first!.key, "Test key")
+                XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
+                XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
+                
+                XCTAssertEqual(translations.last!.key, "menu.cars")
+                XCTAssertEqual(translations.last!.value.characters.count, 0)
+                XCTAssertEqual(translations.last!.value, "")
+                XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
+                
+                
+                // run tested method
+                
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
+                
+                translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                
+                XCTAssertEqual(changedValuesCount, 1)
+                
+                
+                // test after state (update if failing)
+                
+                XCTAssertEqual(translations.first!.key, "Test key")
+                XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
+                XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
+                
+                XCTAssertEqual(translations.last!.key, "menu.cars")
+                XCTAssertGreaterThan(translations.last!.value.characters.count, 0)
+                XCTAssertEqual(translations.last!.value, expectedTranslatedValues[locale])
+                XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
+                
+                
+                // cleanup temporary file after testing
+                do {
+                    try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                } catch {
+                    XCTAssertTrue(false)
+                }
+            }
+            
+        }
+    }
+    
 }

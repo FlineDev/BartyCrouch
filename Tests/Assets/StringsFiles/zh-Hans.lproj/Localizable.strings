@@ -1,0 +1,6 @@
+
+/* A string already localized in all languages. */
+"Test key" = "Test value (zh-Hans)";
+
+/* A string only available in English. */
+"menu.cars" = "";

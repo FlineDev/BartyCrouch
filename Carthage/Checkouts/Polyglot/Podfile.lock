@@ -1,0 +1,17 @@
+PODS:
+  - Nocilla (0.10.0)
+  - Polyglot (0.4.0)
+
+DEPENDENCIES:
+  - Nocilla (~> 0.9)
+  - Polyglot (from `.`)
+
+EXTERNAL SOURCES:
+  Polyglot:
+    :path: .
+
+SPEC CHECKSUMS:
+  Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
+  Polyglot: 29a83191af1d56f1af28f195ff2cd748814dab47
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,7 @@
+language: objective-c
+osx_image: xcode7.1
+before_install:
+- gem i cocoapods --no-ri --no-rdoc
+- gem i xcpretty  --no-ri --no-rdoc
+script:
+- set -o pipefail && xcodebuild -workspace Polyglot.xcworkspace -scheme PolyglotSample -sdk iphonesimulator9.1 test | xcpretty -c
