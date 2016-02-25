@@ -23,7 +23,7 @@
 
 BartyCrouch can **search a Storyboard/xib file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
 
-Additionally BartyCrouch can now also **automatically translate existing string files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** and BartyCrouch will **keep all existing translations** by default.
+Additionally BartyCrouch can now also **automatically translate existing `.strings` files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** and BartyCrouch will **keep all existing translations** by default.
 
 
 ## Installation
@@ -50,14 +50,17 @@ Before using BartyCrouch please **make sure you have committed your code**.
 With BartyCrouch you can run commands like these:
 
 ``` shell
-# Incrementally update English strings of Main.storyboard
-bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings"
-
 # Incrementally update English and German strings of Main.storyboard
 bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings" "path/de.lproj/Main.strings"
 
 # Incrementally update all languages of Main.storyboard
 bartycrouch -i "path/Base.lproj/Main.storyboard" -a
+
+# Machine-translate all empty values of all supported languages with English as source
+bartycrouch -t "{ id: ID }|{ secret: SECRET }" -i "path/en.lproj/Localizable.strings" -a
+
+# Force-translates all values (overriding existing ones) of all languages except German with English as source
+bartycrouch -f -t "{ id: ID }|{ secret: SECRET }" -i "en.lproj/Localizable.strings" -e "de.lproj/Localizable.strings"
 ```
 
 Also you can make your life a lot easier by using the **build script method** described [below](#build-script).
