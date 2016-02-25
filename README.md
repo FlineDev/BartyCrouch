@@ -91,7 +91,7 @@ Sometimes you may be supporting a bunch of languages and want to translate to al
 
 Sometimes it makes sense to start with machine translated strings and let humans improve them later on. This can save time and even be a better solution for some languages you might not have localized your app to otherwise.
 
-You can now do this easily with BartyCrouch: Simply run the bartycrouch command with a `.string` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`). A simple example:
+You can now do this easily with BartyCrouch: Simply run the bartycrouch command with a `.strings` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`). A simple example:
 
 ``` shell
 bartycrouch -t "{ id: MyApp }|{ secret: abc123 }" -i "path/to/en.lproj/Localizable.strings" -a
@@ -100,6 +100,8 @@ bartycrouch -t "{ id: MyApp }|{ secret: abc123 }" -i "path/to/en.lproj/Localizab
 bartycrouch -t "{ id: MyApp }|{ secret: abc123 }" -i "path/to/en.lproj/Localizable.strings" -e "path/to/de.lproj/Localizable.strings" -f
 # => force-translates all values – also existing ones - for all languages except German (and English)
 ```
+
+In order to use the Microsoft Translator API you need to register [here](https://datamarket.azure.com/dataset/bing/microsofttranslator) (there's a very useful free option). Then you can add a client [here](https://datamarket.azure.com/developer/applications) which will give you the credentials needed for this feature.
 
 #### Force (aka `-f`)
 
