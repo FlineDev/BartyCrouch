@@ -45,6 +45,11 @@ brew install flinesoft/bartycrouch/bartycrouch
 ```
 to install BartyCrouch.
 
+To **update** to the newest version of BartyCrouch when you have an old version already installed run:
+``` shell
+brew update
+brew upgrade flinesoft/bartycrouch/bartycrouch
+```
 
 ## Usage
 
@@ -110,6 +115,10 @@ BartyCrouch keeps existing translations by default. In case you don't want to ke
 #### Verbose (aka `-v`)
 
 To see more about what BartyCrouch is doing you can also run all commands with the `-v` flag (`-v` is short for `--verbose`). This will print more details about the current work in progress.
+
+#### Default to Base (aka `-b`)
+
+To use the Base localization values when adding new keys (instead of empty values) simply add the option `-b` (`-b` is short for `--default-to-base`). Note that this option will have no effects if used on the translate command.
 
 ### Build Script
 
