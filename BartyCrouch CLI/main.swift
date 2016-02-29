@@ -62,6 +62,13 @@ let verbose = BoolOption(
     helpMessage: "Prints out more status information to the console."
 )
 
+let defaultToBase = BoolOption(
+    shortFlag: "b",
+    longFlag: "default-to-base",
+    required: false,
+    helpMessage: "Uses the values from Base localization when adding new keys."
+)
+
 cli.addOptions(input, output, auto, except, translate, force, verbose)
 
 
@@ -104,7 +111,7 @@ func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String]
             exit(EX_CONFIG)
         }
         
-        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, force: force.value)
+        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, addNewValuesAsEmpty: !defaultToBase.value, force: force.value)
         
         if verbose.value {
             print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
