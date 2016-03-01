@@ -69,7 +69,7 @@ let defaultToBase = BoolOption(
     helpMessage: "Uses the values from Base localization when adding new keys."
 )
 
-cli.addOptions(input, output, auto, except, translate, force, verbose)
+cli.addOptions(input, output, auto, except, translate, force, verbose, defaultToBase)
 
 
 // Parse input data or exit with usage instructions
