@@ -144,7 +144,7 @@ if which bartycrouch > /dev/null; then
     bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
     bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
 else
-    echo "BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
+    echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
 
