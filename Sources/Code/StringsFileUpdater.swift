@@ -30,7 +30,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false, updateCommentWithBase: Bool = true) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -39,45 +39,88 @@ public class StringsFileUpdater {
             let oldTranslations = self.findTranslationsInLines(self.linesInFile)
             let newTranslations = self.findTranslationsInLines(linesInNewFile)
             
-            let updatedTranslations: [(key: String, value: String, comment: String?)] = {
+            let updatedTranslations: [(key: String, value: String, comment: String?)] = try {
                 
                 var translations: [(key: String, value: String, comment: String?)] = []
                 
-                for (key, value, comment) in newTranslations {
+                for (key, newValue, newComment) in newTranslations {
                     
                     // skip keys marked for ignore
-                    guard !value.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
+                    guard !newValue.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
                         continue
                     }
+                    
+                    let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                    
+                    // get value from default comment structure if possible
+                    let oldBaseValue: String? = {
+                        if let oldComment = oldTranslation?.2 {
+                            if let foundMatch = self.defaultCommentStructureMatches(inString: oldComment) {
+                                return (oldComment as NSString).substringWithRange(foundMatch.rangeAtIndex(1))
+                            }
+                        }
+                        
+                        return nil
+                    }()
+
+                    
+                    let updatedComment: String? = {
+                        
+                        guard let oldComment = oldTranslation?.2 else {
+                            // add new comment if none existed before
+                            return newComment
+                        }
+                        
+                        guard let newComment = newComment else {
+                            // keep old comment if no new comment exists
+                            return oldComment
+                        }
+                        
+                        if force {
+                            // override with comment in force update mode
+                            return newComment
+                        }
+                        
+                        if updateCommentWithBase && self.defaultCommentStructureMatches(inString: oldComment) != nil {
+                            // update
+                            return newComment
+                        } else {
+                            return oldComment
+                        }
+                    }()
+
                     
                     let updatedValue: String = {
                         
                         let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
-                        if let existingValue = oldTranslation?.1 {
-                            if !force {
-                                return existingValue
+                        
+                        guard let oldValue = oldTranslation?.1 else {
+                            if addNewValuesAsEmpty {
+                                // add new key with empty value
+                                return ""
+                            } else {
+                                // add new key with Base value
+                                return newValue
                             }
                         }
                         
-                        if !addNewValuesAsEmpty {
-                            return value
+                        if force {
+                            // override with new value in force update mode
+                            return newValue
                         }
                         
-                        return ""
+                        if let oldBaseValue = oldBaseValue {
+                            if oldBaseValue == oldValue {
+                                // update base value
+                                return newValue
+                            }
+                        }
+                        
+                        // keep existing translation
+                        return oldValue
                         
                     }()
                     
-                    let updatedComment: String? = {
-                        
-                        let oldComment = oldTranslations.filter{ $0.0 == key }.first
-                        if let existingComment = oldComment?.2 {
-                            if !force {
-                                return existingComment
-                            }
-                        }
-                        
-                        return comment
-                    }()
                     
                     let updatedTranslation = (key, updatedValue, updatedComment)
                     translations.append(updatedTranslation)
@@ -94,6 +137,15 @@ public class StringsFileUpdater {
             print((error as NSError).description)
         }
         
+    }
+    
+    private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
+        do {
+            let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
+            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: NSMakeRange(0, string.characters.count)).first
+        } catch {
+            return nil
+        }
     }
     
     /// Rewrites file with specified translations and reloads lines from new file.
