@@ -21,7 +21,7 @@
 
 # BartyCrouch
 
-BartyCrouch can **search a Storyboard/XIB file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **keeps changes to your translation comments** given they are enclosed like `/* comment to keep */` and don't span multiple lines.
+BartyCrouch can **search a Storyboard/XIB file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **updates your translation comments** with updated Base values if their structure was not changed from the Xcode defaults and will **keep changes to your translation comments** if started by a `/*!` (recommended) or the default structure was changed in another way.
 
 Additionally BartyCrouch can now also **automatically translate existing `.strings` files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** and BartyCrouch will **keep all existing translations** by default.
 
