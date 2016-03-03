@@ -50,26 +50,21 @@ public class StringsFileUpdater {
                         continue
                     }
                     
-                    let updatedValue: String = {
-                        
-                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
-                        if let existingValue = oldTranslation?.1 {
-                            if !force {
-                                return existingValue
+                    let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                    
+                    // get value from default comment structure if possible
+                    let oldBaseValue: String? = {
+                        if let oldComment = oldTranslation?.2 {
+                            if let foundMatch = self.defaultCommentStructureMatches(inString: oldComment) {
+                                return (oldComment as NSString).substringWithRange(foundMatch.rangeAtIndex(1))
                             }
                         }
                         
-                        if !addNewValuesAsEmpty {
-                            return newValue
-                        }
-                        
-                        return ""
-                        
+                        return nil
                     }()
+
                     
-                    let updatedComment: String? = try {
-                        
-                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                    let updatedComment: String? = {
                         
                         guard let oldComment = oldTranslation?.2 else {
                             // add new comment if none existed before
@@ -86,15 +81,46 @@ public class StringsFileUpdater {
                             return newComment
                         }
                         
-                        let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \".*\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
-                        let structureMatches = defaultCommentStructureRegex.matchesInString(oldComment, options: .ReportCompletion, range: NSMakeRange(0, oldComment.characters.count))
-                        
-                        if updateCommentWithBase && structureMatches.count > 0 {
+                        if updateCommentWithBase && self.defaultCommentStructureMatches(inString: oldComment) != nil {
+                            // update
                             return newComment
                         } else {
                             return oldComment
                         }
                     }()
+
+                    
+                    let updatedValue: String = {
+                        
+                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                        
+                        guard let oldValue = oldTranslation?.1 else {
+                            if addNewValuesAsEmpty {
+                                // add new key with empty value
+                                return ""
+                            } else {
+                                // add new key with Base value
+                                return newValue
+                            }
+                        }
+                        
+                        if force {
+                            // override with new value in force update mode
+                            return newValue
+                        }
+                        
+                        if let oldBaseValue = oldBaseValue {
+                            if oldBaseValue == oldValue {
+                                // update base value
+                                return newValue
+                            }
+                        }
+                        
+                        // keep existing translation
+                        return oldValue
+                        
+                    }()
+                    
                     
                     let updatedTranslation = (key, updatedValue, updatedComment)
                     translations.append(updatedTranslation)
@@ -111,6 +137,15 @@ public class StringsFileUpdater {
             print((error as NSError).description)
         }
         
+    }
+    
+    private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
+        do {
+            let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
+            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: NSMakeRange(0, string.characters.count)).first
+        } catch {
+            return nil
+        }
     }
     
     /// Rewrites file with specified translations and reloads lines from new file.
