@@ -30,7 +30,7 @@ class StringsFileUpdaterTests: XCTestCase {
         
         let expectedTranslations = [
             ("35F-cl-mdI.normalTitle", "Example Button 1", " Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; "),
-            ("COa-YO-eGf.normalTitle", "Example Button 2", "! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
+            ("COa-YO-eGf.normalTitle", "Already Translated", "! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
             ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; ")
         ]
         
@@ -77,7 +77,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
                 "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
@@ -99,10 +99,10 @@ class StringsFileUpdaterTests: XCTestCase {
             let expectedLinesAfterIncrementalUpdate = [
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
+                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";",
                 "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"\";",
@@ -134,7 +134,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
                 "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
@@ -156,10 +156,10 @@ class StringsFileUpdaterTests: XCTestCase {
             let expectedLinesAfterIncrementalUpdate = [
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
+                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";",
                 "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
