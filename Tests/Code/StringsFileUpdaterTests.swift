@@ -30,7 +30,7 @@ class StringsFileUpdaterTests: XCTestCase {
         
         let expectedTranslations = [
             ("35F-cl-mdI.normalTitle", "Example Button 1", " Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; "),
-            ("COa-YO-eGf.normalTitle", "Example Button 2", " Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
+            ("COa-YO-eGf.normalTitle", "Example Button 2", "! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
             ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; ")
         ]
         
@@ -76,7 +76,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
@@ -90,16 +90,18 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesBeforeIncrementalUpdate)
+            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerate() {
+                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+            }
             
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true, updateCommentWithBase: false)
             
             let expectedLinesAfterIncrementalUpdate = [
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
@@ -110,7 +112,9 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesAfterIncrementalUpdate)
+            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerate() {
+                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+            }
             
         } catch {
             XCTAssertTrue(false, (error as NSError).description)
@@ -129,7 +133,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
@@ -143,16 +147,18 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesBeforeIncrementalUpdate)
+            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerate() {
+                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+            }
             
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false)
             
             let expectedLinesAfterIncrementalUpdate = [
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Example Button 2\";",
                 "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
@@ -163,7 +169,9 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            XCTAssertEqual(stringsFileUpdater.linesInFile, expectedLinesAfterIncrementalUpdate)
+            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerate() {
+                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+            }
             
         } catch {
             XCTAssertTrue(false, (error as NSError).description)
