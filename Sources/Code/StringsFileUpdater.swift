@@ -30,7 +30,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false, updateCommentWithBase: Bool = true) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -39,14 +39,14 @@ public class StringsFileUpdater {
             let oldTranslations = self.findTranslationsInLines(self.linesInFile)
             let newTranslations = self.findTranslationsInLines(linesInNewFile)
             
-            let updatedTranslations: [(key: String, value: String, comment: String?)] = {
+            let updatedTranslations: [(key: String, value: String, comment: String?)] = try {
                 
                 var translations: [(key: String, value: String, comment: String?)] = []
                 
-                for (key, value, comment) in newTranslations {
+                for (key, newValue, newComment) in newTranslations {
                     
                     // skip keys marked for ignore
-                    guard !value.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
+                    guard !newValue.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
                         continue
                     }
                     
@@ -60,23 +60,40 @@ public class StringsFileUpdater {
                         }
                         
                         if !addNewValuesAsEmpty {
-                            return value
+                            return newValue
                         }
                         
                         return ""
                         
                     }()
                     
-                    let updatedComment: String? = {
+                    let updatedComment: String? = try {
                         
-                        let oldComment = oldTranslations.filter{ $0.0 == key }.first
-                        if let existingComment = oldComment?.2 {
-                            if !force {
-                                return existingComment
-                            }
+                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                        
+                        guard let oldComment = oldTranslation?.2 else {
+                            // add new comment if none existed before
+                            return newComment
                         }
                         
-                        return comment
+                        guard let newComment = newComment else {
+                            // keep old comment if no new comment exists
+                            return oldComment
+                        }
+                        
+                        if force {
+                            // override with comment in force update mode
+                            return newComment
+                        }
+                        
+                        let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \".*\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
+                        let structureMatches = defaultCommentStructureRegex.matchesInString(oldComment, options: .ReportCompletion, range: NSMakeRange(0, oldComment.characters.count))
+                        
+                        if updateCommentWithBase && structureMatches.count > 0 {
+                            return newComment
+                        } else {
+                            return oldComment
+                        }
                     }()
                     
                     let updatedTranslation = (key, updatedValue, updatedComment)
