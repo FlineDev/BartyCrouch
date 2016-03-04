@@ -61,7 +61,7 @@ With BartyCrouch you can run commands like these:
 
 ``` shell
 # Incrementally update English and German strings of Main.storyboard
-bartycrouch -i "path/Base.lproj/Main.storyboard" -o "path/en.lproj/Main.strings" "path/de.lproj/Main.strings"
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o en de zh-Hans pt-BR"
 
 # Incrementally update all languages of Main.storyboard
 bartycrouch -i "path/Base.lproj/Main.storyboard" -a
@@ -90,7 +90,7 @@ You can specify the input Storyboard, XIB or Strings file using `-i "path/to/my.
 
 #### Output (aka `-o`)
 
-You can pass a whitespace separated list of `.strings` files to be incrementally updated / translated using  `-o "path/to/en.strings" "path/to/de.strings"` (`-o` is short for `--output`).
+You can pass a whitespace separated list of `.strings` files to be incrementally updated / translated using  `-o "path/to/en.strings" "path/to/de.strings"` (`-o` is short for `--output`). You can also specify a list of locales only and let BartyCrouch find the correct paths automatically e.g. via `-o en de zh-Hans pt-BR`.
 
 #### Auto (aka `-a`)
 
