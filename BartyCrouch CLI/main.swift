@@ -202,6 +202,19 @@ func run() {
     let outputStringsFilePaths: [String] = {
         switch outputType {
         case .StringsFiles:
+            if let stringsFiles = output.value {
+                // check if output style is locales-only, e.g. `-o en de zh-Hans pt-BR` - convert to full paths if so
+                do {
+                    let localeRegex = try NSRegularExpression(pattern: "\\A\\w{2}(-\\w{2,4})?\\z", options: .CaseInsensitive)
+                    let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.characters.count)).count > 0 }
+                    if locales.count == stringsFiles.count {
+                        let lprojLocales = locales.map { "\($0).lproj" }
+                        return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
+                    }
+                } catch {
+                    print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
+                }
+            }
             return output.value!
         case .Automatic:
             return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath }
