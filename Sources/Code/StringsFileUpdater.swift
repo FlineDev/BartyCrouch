@@ -39,7 +39,7 @@ public class StringsFileUpdater {
             let oldTranslations = self.findTranslationsInLines(self.linesInFile)
             let newTranslations = self.findTranslationsInLines(linesInNewFile)
             
-            let updatedTranslations: [(key: String, value: String, comment: String?)] = try {
+            let updatedTranslations: [(key: String, value: String, comment: String?)] = {
                 
                 var translations: [(key: String, value: String, comment: String?)] = []
                 
