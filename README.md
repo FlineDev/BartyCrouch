@@ -5,15 +5,15 @@
 
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/version-1.3.0-blue.svg"
-             alt="Version: 1.3.0">
+        <img src="https://img.shields.io/badge/Version-1.3.1-blue.svg"
+             alt="Version: 1.3.1">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
              alt="Swift: 2.1">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/develop/LICENSE.md">
-        <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg"
+        <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
     </a>
 </p>
