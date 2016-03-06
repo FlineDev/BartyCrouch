@@ -60,8 +60,8 @@ Before using BartyCrouch please **make sure you have committed your code**.
 With BartyCrouch you can run commands like these:
 
 ``` shell
-# Incrementally update English and German strings of Main.storyboard
-bartycrouch -i "path/Base.lproj/Main.storyboard" -o en de zh-Hans pt-BR
+# Incrementally update English, Simplified Chinese and Brazilian Portuguese strings of Main.storyboard
+bartycrouch -i "path/Base.lproj/Main.storyboard" -o en zh-Hans pt-BR
 
 # Incrementally update all languages of Main.storyboard
 bartycrouch -i "path/Base.lproj/Main.storyboard" -a
