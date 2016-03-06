@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/develop/Logo.png"
+    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/stable/Logo.png"
       width=600 height=167>
 </p>
 
@@ -12,7 +12,7 @@
         <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
              alt="Swift: 2.1">
     </a>
-    <a href="https://github.com/Flinesoft/BartyCrouch/blob/develop/LICENSE.md">
+    <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
     </a>
