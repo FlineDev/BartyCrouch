@@ -5,8 +5,8 @@
 
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-1.3.1-blue.svg"
-             alt="Version: 1.3.1">
+        <img src="https://img.shields.io/badge/Version-1.4.0-blue.svg"
+             alt="Version: 1.4.0">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
