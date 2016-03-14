@@ -11,13 +11,26 @@ import XCTest
 @testable import BartyCrouch
 
 class StringsFilesSearchTests: XCTestCase {
+    
+    func testFindAllIBFiles() {
+        
+        let basePath = "\(PROJECT_DIR)/Tests"
+        
+        let expectedIBFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "Base", type: "storyboard") }
+        
+        let results = StringsFilesSearch.sharedInstance.findAllIBFiles(basePath)
+        
+        XCTAssertEqual(results.count, expectedIBFilePaths.count)
+        XCTAssertEqual(results, expectedIBFilePaths)
+        
+    }
 
-    func testiOSFindAllWithBaseStoryboardPath() {
+    func testiOSFindAllStringsFiles() {
         
         let baseStoryboardPath = examplePath(platform: "iOS", locale: "base", type: ".storyboard")
         let expectedStringsPaths = ["de", "en", "ja", "zh-Hans"].map { examplePath(platform: "iOS", locale: $0, type: ".strings") }
         
-        let results = StringsFilesSearch.sharedInstance.findAll(baseStoryboardPath)
+        let results = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseStoryboardPath)
         
         XCTAssertEqual(results.count, expectedStringsPaths.count)
         XCTAssertEqual(results, expectedStringsPaths)

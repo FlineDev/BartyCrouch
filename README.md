@@ -63,8 +63,8 @@ With BartyCrouch you can run commands like these:
 # Incrementally update English, Simplified Chinese and Brazilian Portuguese strings of Main.storyboard
 bartycrouch -i "path/Base.lproj/Main.storyboard" -o en zh-Hans pt-BR
 
-# Incrementally update all languages of Main.storyboard
-bartycrouch -i "path/Base.lproj/Main.storyboard" -a
+# Incrementally update all languages of all Storyboard/XIB files
+bartycrouch "/absolute/path/to/project" -a
 
 # Machine-translate all empty values of all supported languages with English as source
 bartycrouch -t "{ id: ID }|{ secret: SECRET }" -i "path/en.lproj/Localizable.strings" -a
@@ -79,10 +79,16 @@ Also you can make your life a lot easier by using the **build script method** de
 
 The `bartycrouch` main command accepts one of the following combinations of arguments:
 
-1. Input and Output/Auto/Except
-2. Translate with Input and Output/Auto/Except
+1. Automatic input and output search (all localized Storyboards/XIBs)
+2. Input and Output/Auto/Except
+3. Translate with Input and Output/Auto/Except
 
 You can also additionally specify Force and/or Verbose on each command.
+
+### Full Automatic (aka `/absolute/path -a`)
+
+If you want BartyCrouch to **search for all localized Storyboards/XIBs** (those in Base.lproj folders) and also want BartyCrouch to find the respective output files,
+then simply declare the BartyCrouch command with an absolute path followed by `-a` like `/absolute/path/to/project -a`.
 
 #### Input (aka `-i`)
 
@@ -126,33 +132,33 @@ You may want to **update your `.strings` files on each build automatically** wha
 
 ``` shell
 if which bartycrouch > /dev/null; then
-    # Set path to base internationalized Storyboard/XIB files
-    BASE_PATH="$PROJECT_DIR/Sources/Base.lproj"
-
     # Incrementally update all Storyboards/XIBs strings files
-    bartycrouch -i "$BASE_PATH/Main.storyboard" -a
-    bartycrouch -i "$BASE_PATH/LaunchScreen.storyboard" -a
-    bartycrouch -i "$BASE_PATH/CustomView.xib" -a
-
-    # Set Microsoft Translator API credentials
-    EN_PATH="$PROJECT_DIR/Sources/en.lproj"
-    CREDS="{ id: YOUR_ID }|{ secret: YOUR_SECRET }"
-
-    # Machine-translate empty language values for all languages
-    bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a
-    bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
-    bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
-    bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
+    bartycrouch $PROJECT_DIR -a
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
-
 <img src="Build-Script-Example.png">
 
-Update the `BASE_PATH` to point to your Base.lproj directory, remove all unneeded lines, add a `bartycrouch -i ... -a` (or any other BartyCrouch command) for each of your base internationalized Storyboards/XIBs (if any) and you're good to go. You should also uncomment or remove the lines below `# Set Microsoft ...` until `bartycrouch -t ...` if you don't want to use the machine translation feature. Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
-
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
+
+If you want to use the **machine translation functionality** too then simply add the following to the if part:
+
+```
+# OPTIONAL
+
+# Set source language for machine translation
+EN_PATH="$PROJECT_DIR/Sources/en.lproj"
+
+# Set Microsoft Translator API credentials
+CREDS="{ id: YOUR_ID }|{ secret: YOUR_SECRET }"
+
+# Machine-translate empty language values for all languages
+bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
+```
 
 ### Exclude specific views from localization
 
