@@ -140,11 +140,9 @@ fi
 ```
 <img src="Build-Script-Example.png">
 
-Xcode will now run BartyCrouch each time you build your project and update your `.strings` files accordingly.
-
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
-If you want to use the **machine translation functionality when building** then simply add the following to the if part of the above:
+If you want to use the **machine translation functionality** too then simply add the following to the if part:
 
 ```
 # OPTIONAL
