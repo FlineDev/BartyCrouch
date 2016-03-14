@@ -16,7 +16,7 @@ let cli = CommandLine()
 let input = StringOption(
     shortFlag: "i",
     longFlag: "input",
-    required: true,
+    required: false,
     helpMessage: "Path to your source file to be used for translation."
 )
 
@@ -197,52 +197,76 @@ func run() {
         return .IncrementalUpdate
     }()
     
-    let inputFilePath = input.value!
-
-    let outputStringsFilePaths: [String] = {
-        switch outputType {
-        case .StringsFiles:
-            if let stringsFiles = output.value {
-                // check if output style is locales-only, e.g. `-o en de zh-Hans pt-BR` - convert to full paths if so
-                do {
-                    let localeRegex = try NSRegularExpression(pattern: "\\A\\w{2}(-\\w{2,4})?\\z", options: .CaseInsensitive)
-                    let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.characters.count)).count > 0 }
-                    if locales.count == stringsFiles.count {
-                        let lprojLocales = locales.map { "\($0).lproj" }
-                        return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
-                    }
-                } catch {
-                    print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
-                }
+    let inputFilePaths: [String] = {
+        if let inputFilePath = input.value {
+            return [inputFilePath]
+        } else if outputType == .Automatic {
+            if Process.arguments.count > 1 {
+                let baseDirectoryPath = Process.arguments[1]
+                return StringsFilesSearch.sharedInstance.findAllIBFiles(baseDirectoryPath)
+            } else {
+                print("Error! No directory path specified to search for input files.")
+                exit(EX_USAGE)
             }
-            return output.value!
-        case .Automatic:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath }
-        case .Except:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
-        case .None:
-            print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
+        } else {
+            print("Error! Missing input path(s).")
             exit(EX_USAGE)
         }
     }()
     
-    guard NSFileManager.defaultManager().fileExistsAtPath(inputFilePath) else {
-        print("Error! No file exists at input path '\(inputFilePath)'")
-        exit(EX_NOINPUT)
+    guard inputFilePaths.count > 0 else {
+        print("Error! No input files found.")
+        exit(EX_USAGE)
     }
     
-    for outputStringsFilePath in outputStringsFilePaths {
-        guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
-            print("Error! No file exists at output path '\(outputStringsFilePath)'.")
-            exit(EX_CONFIG)
+    for inputFilePath in inputFilePaths {
+        
+        let outputStringsFilePaths: [String] = {
+            switch outputType {
+            case .StringsFiles:
+                if let stringsFiles = output.value {
+                    // check if output style is locales-only, e.g. `-o en de zh-Hans pt-BR` - convert to full paths if so
+                    do {
+                        let localeRegex = try NSRegularExpression(pattern: "\\A\\w{2}(-\\w{2,4})?\\z", options: .CaseInsensitive)
+                        let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.characters.count)).count > 0 }
+                        if locales.count == stringsFiles.count {
+                            let lprojLocales = locales.map { "\($0).lproj" }
+                            return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
+                        }
+                    } catch {
+                        print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
+                    }
+                }
+                return output.value!
+            case .Automatic:
+                return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath }
+            case .Except:
+                return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
+            case .None:
+                print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
+                exit(EX_USAGE)
+            }
+        }()
+        
+        guard NSFileManager.defaultManager().fileExistsAtPath(inputFilePath) else {
+            print("Error! No file exists at input path '\(inputFilePath)'")
+            exit(EX_NOINPUT)
         }
-    }
-    
-    switch actionType {
-    case .IncrementalUpdate:
-        incrementalUpdate(inputFilePath, outputStringsFilePaths)
-    case .Translate:
-        translate(credentials: translate.value!, inputFilePath, outputStringsFilePaths)
+        
+        for outputStringsFilePath in outputStringsFilePaths {
+            guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
+                print("Error! No file exists at output path '\(outputStringsFilePath)'.")
+                exit(EX_CONFIG)
+            }
+        }
+        
+        switch actionType {
+        case .IncrementalUpdate:
+            incrementalUpdate(inputFilePath, outputStringsFilePaths)
+        case .Translate:
+            translate(credentials: translate.value!, inputFilePath, outputStringsFilePaths)
+        }
+
     }
     
 }
