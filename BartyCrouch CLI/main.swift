@@ -209,7 +209,7 @@ func run() {
                     let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.characters.count)).count > 0 }
                     if locales.count == stringsFiles.count {
                         let lprojLocales = locales.map { "\($0).lproj" }
-                        return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
+                        return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
                     }
                 } catch {
                     print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
@@ -217,9 +217,9 @@ func run() {
             }
             return output.value!
         case .Automatic:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath }
+            return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath }
         case .Except:
-            return StringsFilesSearch.sharedInstance.findAll(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
+            return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
         case .None:
             print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
             exit(EX_USAGE)
