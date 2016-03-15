@@ -5,8 +5,8 @@
 
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-1.4.0-blue.svg"
-             alt="Version: 1.4.0">
+        <img src="https://img.shields.io/badge/Version-1.4.1-blue.svg"
+             alt="Version: 1.4.1">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
@@ -85,7 +85,7 @@ The `bartycrouch` main command accepts one of the following combinations of argu
 
 You can also additionally specify Force and/or Verbose on each command.
 
-### Full Automatic (aka `/absolute/path -a`)
+#### Full Automatic (aka `/absolute/path -a`)
 
 If you want BartyCrouch to **search for all localized Storyboards/XIBs** (those in Base.lproj folders) and also want BartyCrouch to find the respective output files,
 then simply declare the BartyCrouch command with an absolute path followed by `-a` like `/absolute/path/to/project -a`.

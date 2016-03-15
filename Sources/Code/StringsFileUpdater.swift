@@ -142,7 +142,7 @@ public class StringsFileUpdater {
     private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
         do {
             let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
-            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: NSMakeRange(0, string.characters.count)).first
+            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: NSMakeRange(0, string.utf16.count)).first
         } catch {
             return nil
         }
@@ -281,11 +281,11 @@ public class StringsFileUpdater {
             let keyValueLineRegex = try NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .CaseInsensitive)
             
             lines.forEach { line in
-                if let commentLineMatch = commentLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.characters.count)) {
+                if let commentLineMatch = commentLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.utf16.count)) {
                     lastCommentLine = (line as NSString).substringWithRange(commentLineMatch.rangeAtIndex(1))
                 }
                 
-                if let keyValueLineMatch = keyValueLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.characters.count)) {
+                if let keyValueLineMatch = keyValueLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.utf16.count)) {
                     
                     let key = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(1))
                     let value = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(2))
@@ -334,7 +334,7 @@ public class StringsFileUpdater {
             let languageRegex = try NSRegularExpression(pattern: "(\\w{2})-{0,1}\\w*\\.lproj", options: .CaseInsensitive)
             let regionRegex = try NSRegularExpression(pattern: "\\w{2}-(\\w+)\\.lproj", options: .CaseInsensitive)
             
-            let fullRange = NSMakeRange(0, path.characters.count)
+            let fullRange = NSMakeRange(0, path.utf16.count)
             
             
             // Get language from path
