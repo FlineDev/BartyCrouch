@@ -34,7 +34,7 @@ class StringsFileUpdaterTests: XCTestCase {
             ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; "),
             ("test.key", "This is a test key", " Completely custom comment structure in one line "),
             ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
-            ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"xyz-12-345\"; ")
+            ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
         ]
         
         let results = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
@@ -257,7 +257,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
                 
                 XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertEqual(translations.last!.value.characters.count, 0)
+                XCTAssertEqual(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, "")
                 XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
                 
@@ -278,7 +278,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
                 
                 XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertGreaterThan(translations.last!.value.characters.count, 0)
+                XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, expectedTranslatedValues[locale])
                 XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
                 
