@@ -134,7 +134,7 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
     do {
         let translatorCredentialsRegex = try NSRegularExpression(pattern: "^\\{ id: (.+) \\}\\|\\{ secret: (.+) \\}$", options: .CaseInsensitive)
         
-        let fullRange = NSMakeRange(0, credentials.characters.count)
+        let fullRange = NSMakeRange(0, credentials.utf16.count)
         guard let match = translatorCredentialsRegex.matchesInString(credentials, options: .ReportProgress, range: fullRange).first else {
             print("Error! Couldn't read id and secret for Microsoft Translator. Please make sure you comply to the format '{ id: YOUR_ID }|{ secret: YOUR_SECRET }'.")
             return
@@ -228,7 +228,7 @@ func run() {
                     // check if output style is locales-only, e.g. `-o en de zh-Hans pt-BR` - convert to full paths if so
                     do {
                         let localeRegex = try NSRegularExpression(pattern: "\\A\\w{2}(-\\w{2,4})?\\z", options: .CaseInsensitive)
-                        let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.characters.count)).count > 0 }
+                        let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.utf16.count)).count > 0 }
                         if locales.count == stringsFiles.count {
                             let lprojLocales = locales.map { "\($0).lproj" }
                             return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }

@@ -31,7 +31,10 @@ class StringsFileUpdaterTests: XCTestCase {
         let expectedTranslations = [
             ("35F-cl-mdI.normalTitle", "Example Button 1", " Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; "),
             ("COa-YO-eGf.normalTitle", "Already Translated", "! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
-            ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; ")
+            ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; "),
+            ("test.key", "This is a test key", " Completely custom comment structure in one line "),
+            ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
+            ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
         ]
         
         let results = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
@@ -39,6 +42,8 @@ class StringsFileUpdaterTests: XCTestCase {
         var index = 0
         
         expectedTranslations.forEach { (key, value, comment) in
+            XCTAssertGreaterThan(results.count, index)
+            
             XCTAssertEqual(results[index].0, key)
             XCTAssertEqual(results[index].1, value)
             XCTAssertEqual(results[index].2, comment)
@@ -252,7 +257,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
                 
                 XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertEqual(translations.last!.value.characters.count, 0)
+                XCTAssertEqual(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, "")
                 XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
                 
@@ -273,7 +278,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
                 
                 XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertGreaterThan(translations.last!.value.characters.count, 0)
+                XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, expectedTranslatedValues[locale])
                 XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
                 
