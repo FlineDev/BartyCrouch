@@ -92,7 +92,7 @@ then simply declare the BartyCrouch command with an absolute path followed by `-
 
 #### Input (aka `-i`)
 
-You can specify the input Storyboard, XIB or Strings file using `-i "path/to/my.storyboard"` (`-i` is short `--input`).
+You can specify the input Storyboard, XIB or Strings file using `-i "path/to/my.storyboard"` (`-i` is short for `--input`).
 
 #### Output (aka `-o`)
 
