@@ -12,13 +12,13 @@ import XCTest
 
 class StringsFileUpdaterTests: XCTestCase {
     
-    let oldStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
-    let newStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
-    let testStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
+    let oldStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
+    let newStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
+    let testStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
     
     override func setUp() {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath("\(PROJECT_DIR)/Tests/Assets/StringsFiles/TestExample.strings")
+            try NSFileManager.defaultManager().removeItemAtPath("\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample.strings")
         } catch {
             print("Could not cleanup TestExample.strings")
         }
@@ -222,7 +222,7 @@ class StringsFileUpdaterTests: XCTestCase {
         
         if let id = id, secret = secret {
             
-            let sourceStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
+            let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
             
             let expectedTranslatedValues: [String: String] = [
                 "de":       "Autos",
@@ -232,7 +232,7 @@ class StringsFileUpdaterTests: XCTestCase {
             
             for locale in ["de", "ja", "zh-Hans"] {
                 
-                let localizableStringsFilePath = "\(PROJECT_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
+                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
                 
                 // create temporary file for testing
                 do {

@@ -13,7 +13,7 @@ import XCTest
 class IBToolCommanderTests: XCTestCase {
     
     func testiOSExampleStoryboard() {
-        let storyboardPath = "\(PROJECT_DIR)/Tests/Assets/Storyboards/iOS/base.lproj/Example.storyboard"
+        let storyboardPath = "\(BASE_DIR)/Tests/Assets/Storyboards/iOS/base.lproj/Example.storyboard"
         let stringsFilePath = storyboardPath + ".strings"
         
         let exportSuccess = IBToolCommander.sharedInstance.export(stringsFileToPath: stringsFilePath, fromIbFileAtPath: storyboardPath)
@@ -22,7 +22,7 @@ class IBToolCommanderTests: XCTestCase {
     }
     
     func testOSXExampleStoryboard() {
-        let storyboardPath = "\(PROJECT_DIR)/Tests/Assets/Storyboards/OSX/base.lproj/Example.storyboard"
+        let storyboardPath = "\(BASE_DIR)/Tests/Assets/Storyboards/OSX/base.lproj/Example.storyboard"
         let stringsFilePath = storyboardPath + ".strings"
         
         let exportSuccess = IBToolCommander.sharedInstance.export(stringsFileToPath: stringsFilePath, fromIbFileAtPath: storyboardPath)
@@ -31,7 +31,7 @@ class IBToolCommanderTests: XCTestCase {
     }
     
     func testtvOSExampleStoryboard() {
-        let storyboardPath = "\(PROJECT_DIR)/Tests/Assets/Storyboards/tvOS/base.lproj/Example.storyboard"
+        let storyboardPath = "\(BASE_DIR)/Tests/Assets/Storyboards/tvOS/base.lproj/Example.storyboard"
         let stringsFilePath = storyboardPath + ".strings"
         
         let exportSuccess = IBToolCommander.sharedInstance.export(stringsFileToPath: stringsFilePath, fromIbFileAtPath: storyboardPath)

@@ -14,7 +14,7 @@ class StringsFilesSearchTests: XCTestCase {
     
     func testFindAllIBFiles() {
         
-        let basePath = "\(PROJECT_DIR)/Tests"
+        let basePath = "\(BASE_DIR)/Tests"
         
         let expectedIBFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "Base", type: "storyboard") }
         
@@ -41,7 +41,7 @@ class StringsFilesSearchTests: XCTestCase {
     // MARK: - Helpers
     
     func examplePath(platform platform: String, locale: String, type: String) -> String {
-        return "\(PROJECT_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
+        return "\(BASE_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
     }
 
 }
