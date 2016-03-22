@@ -6,11 +6,11 @@
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
         <img src="https://img.shields.io/badge/Version-1.4.1-blue.svg"
-             alt="Version: 1.4.1">
+             alt="Version: 1.4.2">
     </a>
     <a href="#">
-        <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
-             alt="Swift: 2.1">
+        <img src="https://img.shields.io/badge/Swift-2.2-DD563C.svg"
+             alt="Swift: 2.2">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
