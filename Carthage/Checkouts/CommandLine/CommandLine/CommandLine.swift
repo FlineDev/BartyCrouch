@@ -16,7 +16,11 @@
  */
 
 /* Required for setlocale(3) */
-@exported import Darwin
+#if os(OSX)
+  import Darwin
+#elseif os(Linux)
+  import Glibc
+#endif
 
 let ShortOptionPrefix = "-"
 let LongOptionPrefix = "--"
@@ -53,7 +57,103 @@ private struct StderrOutputStream: OutputStreamType {
 public class CommandLine {
   private var _arguments: [String]
   private var _options: [Option] = [Option]()
-  
+  private var _maxFlagDescriptionWidth: Int = 0
+  private var _usedFlags: Set<String> {
+    var usedFlags = Set<String>(minimumCapacity: _options.count * 2)
+
+    for option in _options {
+      for case let flag? in [option.shortFlag, option.longFlag] {
+        usedFlags.insert(flag)
+      }
+    }
+
+    return usedFlags
+  }
+
+  /**
+   * After calling `parse()`, this property will contain any values that weren't captured
+   * by an Option. For example:
+   *
+   * ```
+   * let cli = CommandLine()
+   * let fileType = StringOption(shortFlag: "t", longFlag: "type", required: true, helpMessage: "Type of file")
+   *
+   * do {
+   *   try cli.parse()
+   *   print("File type is \(type), files are \(cli.strayValues)")
+   * catch {
+   *   cli.printUsage(error)
+   *   exit(EX_USAGE)
+   * }
+   *
+   * ---
+   *
+   * $ ./readfiles --type=pdf ~/file1.pdf ~/file2.pdf
+   * File type is pdf, files are ["~/file1.pdf", "~/file2.pdf"]
+   * ```
+   */
+  public private(set) var strayValues: [String] = [String]()
+
+  /**
+   * If supplied, this function will be called when printing usage messages.
+   *
+   * You can use the `defaultFormat` function to get the normally-formatted
+   * output, either before or after modifying the provided string. For example:
+   *
+   * ```
+   * let cli = CommandLine()
+   * cli.formatOutput = { str, type in
+   *   switch(type) {
+   *   case .Error:
+   *     // Make errors shouty
+   *     return defaultFormat(str.uppercaseString, type: type)
+   *   case .OptionHelp:
+   *     // Don't use the default indenting
+   *     return ">> \(s)\n"
+   *   default:
+   *     return defaultFormat(str, type: type)
+   *   }
+   * }
+   * ```
+   *
+   * - note: Newlines are not appended to the result of this function. If you don't use
+   * `defaultFormat()`, be sure to add them before returning.
+   */
+  public var formatOutput: ((String, OutputType) -> String)?
+
+  /**
+   * The maximum width of all options' `flagDescription` properties; provided for use by
+   * output formatters.
+   *
+   * - seealso: `defaultFormat`, `formatOutput`
+   */
+  public var maxFlagDescriptionWidth: Int {
+    if _maxFlagDescriptionWidth == 0 {
+      _maxFlagDescriptionWidth = _options.map { $0.flagDescription.characters.count }.sort().first ?? 0
+    }
+
+    return _maxFlagDescriptionWidth
+  }
+
+  /**
+   * The type of output being supplied to an output formatter.
+   *
+   * - seealso: `formatOutput`
+   */
+  public enum OutputType {
+    /** About text: `Usage: command-example [options]` and the like */
+    case About
+
+    /** An error message: `Missing required option --extract`  */
+    case Error
+
+    /** An Option's `flagDescription`: `-h, --help:` */
+    case OptionFlag
+
+    /** An Option's help message */
+    case OptionHelp
+  }
+
   /** A ParseError is thrown if the `parse()` method fails. */
   public enum ParseError: ErrorType, CustomStringConvertible {
     /** Thrown if an unrecognized argument is passed to `parse()` in strict mode */
@@ -94,17 +194,15 @@ public class CommandLine {
   }
   
   /* Returns all argument values from flagIndex to the next flag or the end of the argument array. */
-  private func _getFlagValues(flagIndex: Int) -> [String] {
+  private func _getFlagValues(flagIndex: Int, _ attachedArg: String? = nil) -> [String] {
     var args: [String] = [String]()
     var skipFlagChecks = false
-    
-    /* Grab attached arg, if any */
-    var attachedArg = _arguments[flagIndex].splitByCharacter(ArgumentAttacher, maxSplits: 1)
-    if attachedArg.count > 1 {
-      args.append(attachedArg[1])
+
+    if let a = attachedArg {
+      args.append(a)
     }
-    
-    for var i = flagIndex + 1; i < _arguments.count; i++ {
+
+    for i in (flagIndex + 1).stride(to: _arguments.count, by: 1) {
       if !skipFlagChecks {
         if _arguments[i] == ArgumentStopper {
           skipFlagChecks = true
@@ -129,7 +227,13 @@ public class CommandLine {
    * - parameter option: The option to add.
    */
   public func addOption(option: Option) {
+    let uf = _usedFlags
+    for case let flag? in [option.shortFlag, option.longFlag] {
+      assert(!uf.contains(flag), "Flag '\(flag)' already in use")
+    }
+
     _options.append(option)
+    _maxFlagDescriptionWidth = 0
   }
   
   /**
@@ -138,7 +242,9 @@ public class CommandLine {
    * - parameter options: An array containing the options to add.
    */
   public func addOptions(options: [Option]) {
-    _options += options
+    for o in options {
+      addOption(o)
+    }
   }
   
   /**
@@ -147,7 +253,9 @@ public class CommandLine {
    * - parameter options: The options to add.
    */
   public func addOptions(options: Option...) {
-    _options += options
+    for o in options {
+      addOption(o)
+    }
   }
   
   /**
@@ -156,7 +264,8 @@ public class CommandLine {
    * - parameter options: An array containing the options to set.
    */
   public func setOptions(options: [Option]) {
-    _options = options
+    _options = [Option]()
+    addOptions(options)
   }
   
   /**
@@ -165,16 +274,28 @@ public class CommandLine {
    * - parameter options: The options to set.
    */
   public func setOptions(options: Option...) {
-    _options = options
+    _options = [Option]()
+    addOptions(options)
   }
   
   /**
-   * Parses command-line arguments into their matching Option values. Throws `ParseError` if
-   * argument parsing fails.
+   * Parses command-line arguments into their matching Option values.
    *
-   * - parameter strict: Fail if any unrecognized arguments are present (default: false).
+   * - parameter strict: Fail if any unrecognized flags are present (default: false).
+   *
+   * - throws: A `ParseError` if argument parsing fails:
+   *   - `.InvalidArgument` if an unrecognized flag is present and `strict` is true
+   *   - `.InvalidValueForOption` if the value supplied to an option is not valid (for
+   *     example, a string is supplied for an IntOption)
+   *   - `.MissingRequiredOptions` if a required option isn't present
    */
   public func parse(strict: Bool = false) throws {
+    /* Kind of an ugly cast here */
+    var strays = _arguments.map { $0 as String? }
+
+    /* Nuke executable name */
+    strays[0] = nil
+
     for (idx, arg) in _arguments.enumerate() {
       if arg == ArgumentStopper {
         break
@@ -186,7 +307,7 @@ public class CommandLine {
       
       let skipChars = arg.hasPrefix(LongOptionPrefix) ?
         LongOptionPrefix.characters.count : ShortOptionPrefix.characters.count
-      let flagWithArg = arg[Range(start: arg.startIndex.advancedBy(skipChars), end: arg.endIndex)]
+      let flagWithArg = arg[arg.startIndex.advancedBy(skipChars)..<arg.endIndex]
       
       /* The argument contained nothing but ShortOptionPrefix or LongOptionPrefix */
       if flagWithArg.isEmpty {
@@ -194,38 +315,48 @@ public class CommandLine {
       }
       
       /* Remove attached argument from flag */
-      let flag = flagWithArg.splitByCharacter(ArgumentAttacher, maxSplits: 1)[0]
+      let splitFlag = flagWithArg.splitByCharacter(ArgumentAttacher, maxSplits: 1)
+      let flag = splitFlag[0]
+      let attachedArg: String? = splitFlag.count == 2 ? splitFlag[1] : nil
       
       var flagMatched = false
-      for option in _options {
-        if option.flagMatch(flag) {
-          let vals = self._getFlagValues(idx)
-          guard option.setValue(vals) else {
-            throw ParseError.InvalidValueForOption(option, vals)
-          }
-          
-          flagMatched = true
-          break
+      for option in _options where option.flagMatch(flag) {
+        let vals = self._getFlagValues(idx, attachedArg)
+        guard option.setValue(vals) else {
+          throw ParseError.InvalidValueForOption(option, vals)
         }
+
+        var claimedIdx = idx + option.claimedValues
+        if attachedArg != nil { claimedIdx -= 1 }
+        for i in idx.stride(through: claimedIdx, by: 1) {
+          strays[i] = nil
+        }
+
+        flagMatched = true
+        break
       }
       
       /* Flags that do not take any arguments can be concatenated */
       let flagLength = flag.characters.count
       if !flagMatched && !arg.hasPrefix(LongOptionPrefix) {
         for (i, c) in flag.characters.enumerate() {
-          for option in _options {
-            if option.flagMatch(String(c)) {
-              /* Values are allowed at the end of the concatenated flags, e.g.
-               * -xvf <file1> <file2>
-               */
-              let vals = (i == flagLength - 1) ? self._getFlagValues(idx) : [String]()
-              guard option.setValue(vals) else {
-                throw ParseError.InvalidValueForOption(option, vals)
-              }
-              
-              flagMatched = true
-              break
+          for option in _options where option.flagMatch(String(c)) {
+            /* Values are allowed at the end of the concatenated flags, e.g.
+            * -xvf <file1> <file2>
+            */
+            let vals = (i == flagLength - 1) ? self._getFlagValues(idx, attachedArg) : [String]()
+            guard option.setValue(vals) else {
+              throw ParseError.InvalidValueForOption(option, vals)
             }
+
+            var claimedIdx = idx + option.claimedValues
+            if attachedArg != nil { claimedIdx -= 1 }
+            for i in idx.stride(through: claimedIdx, by: 1) {
+              strays[i] = nil
+            }
+            
+            flagMatched = true
+            break
           }
         }
       }
@@ -241,29 +372,51 @@ public class CommandLine {
     guard missingOptions.count == 0 else {
       throw ParseError.MissingRequiredOptions(missingOptions)
     }
+
+    strayValues = strays.flatMap { $0 }
   }
-  
+
+  /**
+   * Provides the default formatting of `printUsage()` output.
+   *
+   * - parameter s:     The string to format.
+   * - parameter type:  Type of output.
+   *
+   * - returns: The formatted string.
+   * - seealso: `formatOutput`
+   */
+  public func defaultFormat(s: String, type: OutputType) -> String {
+    switch type {
+    case .About:
+      return "\(s)\n"
+    case .Error:
+      return "\(s)\n\n"
+    case .OptionFlag:
+      return "  \(s.paddedToWidth(maxFlagDescriptionWidth)):\n"
+    case .OptionHelp:
+      return "      \(s)\n"
+    }
+  }
+
   /* printUsage() is generic for OutputStreamType because the Swift compiler crashes
    * on inout protocol function parameters in Xcode 7 beta 1 (rdar://21372694).
    */
-  
+
   /**
    * Prints a usage message.
    * 
    * - parameter to: An OutputStreamType to write the error message to.
    */
   public func printUsage<TargetStream: OutputStreamType>(inout to: TargetStream) {
-    let name = _arguments[0]
-    
-    var flagWidth = 0
-    for opt in _options {
-      flagWidth = max(flagWidth, "  \(opt.flagDescription):".characters.count)
-    }
+    /* Nil coalescing operator (??) doesn't work on closures :( */
+    let format = formatOutput != nil ? formatOutput! : defaultFormat
 
-    print("Usage: \(name) [options]", toStream: &to)
+    let name = _arguments[0]
+    print(format("Usage: \(name) [options]", .About), terminator: "", toStream: &to)
+
     for opt in _options {
-      let flags = "  \(opt.flagDescription):".paddedToWidth(flagWidth)
-      print("\(flags)\n      \(opt.helpMessage)", toStream: &to)
+      print(format(opt.flagDescription, .OptionFlag), terminator: "", toStream: &to)
+      print(format(opt.helpMessage, .OptionHelp), terminator: "", toStream: &to)
     }
   }
   
@@ -275,7 +428,8 @@ public class CommandLine {
    * - parameter to: An OutputStreamType to write the error message to.
    */
   public func printUsage<TargetStream: OutputStreamType>(error: ErrorType, inout to: TargetStream) {
-    print("\(error)\n", toStream: &to)
+    let format = formatOutput != nil ? formatOutput! : defaultFormat
+    print(format("\(error)", .Error), terminator: "", toStream: &to)
     printUsage(&to)
   }
   
