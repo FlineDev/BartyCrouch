@@ -28,15 +28,19 @@ public class Option {
   public var wasSet: Bool {
     return false
   }
-  
+
+  public var claimedValues: Int { return 0 }
+
   public var flagDescription: String {
     switch (shortFlag, longFlag) {
-    case (let sf, let lf) where sf != nil && lf != nil:
-      return "\(ShortOptionPrefix)\(sf!), \(LongOptionPrefix)\(lf!)"
-    case (_, let lf) where lf != nil:
-      return "\(LongOptionPrefix)\(lf!)"
+    case let (.Some(sf), .Some(lf)):
+      return "\(ShortOptionPrefix)\(sf), \(LongOptionPrefix)\(lf)"
+    case (.None, let .Some(lf)):
+      return "\(LongOptionPrefix)\(lf)"
+    case (let .Some(sf), .None):
+      return "\(ShortOptionPrefix)\(sf)"
     default:
-      return "\(ShortOptionPrefix)\(shortFlag!)"
+      return ""
     }
   }
   
@@ -117,6 +121,10 @@ public class IntOption: Option {
     return _value != nil
   }
 
+  override public var claimedValues: Int {
+    return _value != nil ? 1 : 0
+  }
+
   override func setValue(values: [String]) -> Bool {
     if values.count == 0 {
       return false
@@ -145,6 +153,10 @@ public class CounterOption: Option {
   override public var wasSet: Bool {
     return _value > 0
   }
+
+  public func reset() {
+    _value = 0
+  }
   
   override func setValue(values: [String]) -> Bool {
     _value += 1
@@ -163,7 +175,11 @@ public class DoubleOption: Option {
   override public var wasSet: Bool {
     return _value != nil
   }
-  
+
+  override public var claimedValues: Int {
+    return _value != nil ? 1 : 0
+  }
+
   override func setValue(values: [String]) -> Bool {
     if values.count == 0 {
       return false
@@ -189,7 +205,11 @@ public class StringOption: Option {
   override public var wasSet: Bool {
     return _value != nil
   }
-  
+
+  override public var claimedValues: Int {
+    return _value != nil ? 1 : 0
+  }
+
   override func setValue(values: [String]) -> Bool {
     if values.count == 0 {
       return false
@@ -211,7 +231,15 @@ public class MultiStringOption: Option {
   override public var wasSet: Bool {
     return _value != nil
   }
-  
+
+  override public var claimedValues: Int {
+    if let v = _value {
+      return v.count
+    }
+
+    return 0
+  }
+
   override func setValue(values: [String]) -> Bool {
     if values.count == 0 {
       return false
@@ -232,7 +260,11 @@ public class EnumOption<T:RawRepresentable where T.RawValue == String>: Option {
   override public var wasSet: Bool {
     return _value != nil
   }
-  
+
+  override public var claimedValues: Int {
+    return _value != nil ? 1 : 0
+  }
+
   /* Re-defining the intializers is necessary to make the Swift 2 compiler happy, as
    * of Xcode 7 beta 2.
    */
