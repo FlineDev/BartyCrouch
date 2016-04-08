@@ -217,8 +217,8 @@ class StringsFileUpdaterTests: XCTestCase {
     func testTranslateEmptyValues() {
         
         // Note: This test only runs with correct Microsoft Translator API credentials provided
-        let id: String?         = nil       // specify this to run this test
-        let secret: String?     = nil       // specify this to run this test
+        let id: String?         = "Cruciverber"       // specify this to run this test
+        let secret: String?     = "RFykBwu#6=Tja0hzlQ1gA3zhNFl#lB2Z"       // specify this to run this test
         
         if let id = id, secret = secret {
             
@@ -259,7 +259,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.last!.key, "menu.cars")
                 XCTAssertEqual(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, "")
-                XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
+                XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
                 
                 
                 // run tested method
@@ -280,7 +280,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations.last!.key, "menu.cars")
                 XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
                 XCTAssertEqual(translations.last!.value, expectedTranslatedValues[locale])
-                XCTAssertEqual(translations.last!.comment, " A string only available in English. ")
+                XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
                 
                 
                 // cleanup temporary file after testing

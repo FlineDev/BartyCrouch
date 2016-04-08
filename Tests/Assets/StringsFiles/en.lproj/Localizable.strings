@@ -2,5 +2,8 @@
 /* A string already localized in all languages. */
 "Test key" = "Test value (en)";
 
-/* A string only available in English. */
+/* A string where value only available in English. */
 "menu.cars" = "Cars";
+
+/* A string where key only available in English. */
+"menu.bicycles" = "Bicycles";
