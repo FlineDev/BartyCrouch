@@ -69,7 +69,14 @@ let defaultToBase = BoolOption(
     helpMessage: "Uses the values from Base localization when adding new keys."
 )
 
-cli.addOptions(input, output, auto, except, translate, force, verbose, defaultToBase)
+let createMissingKeys = BoolOption(
+    shortFlag: "c",
+    longFlag: "create-missing-keys",
+    required: false,
+    helpMessage: "Creates keys from source if they are missing on the target Strings files."
+)
+
+cli.addOptions(input, output, auto, except, translate, force, verbose, defaultToBase, createMissingKeys)
 
 
 // Parse input data or exit with usage instructions
@@ -153,7 +160,7 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
                 exit(EX_CONFIG)
             }
             
-            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, force: force.value)
+            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, createMissingKeys: createMissingKeys.value, force: force.value)
             
             if verbose.value {
                 print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.")

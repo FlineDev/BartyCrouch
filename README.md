@@ -5,12 +5,12 @@
 
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-1.4.1-blue.svg"
-             alt="Version: 1.4.1">
+        <img src="https://img.shields.io/badge/Version-1.5.0-blue.svg"
+             alt="Version: 1.5.0">
     </a>
     <a href="#">
-        <img src="https://img.shields.io/badge/Swift-2.1-DD563C.svg"
-             alt="Swift: 2.1">
+        <img src="https://img.shields.io/badge/Swift-2.2-DD563C.svg"
+             alt="Swift: 2.2">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
@@ -126,6 +126,10 @@ To see more about what BartyCrouch is doing you can also run all commands with t
 
 To use the Base localization values when adding new keys (instead of empty values) simply add the option `-b` (`-b` is short for `--default-to-base`). Note that this option will have no effects if used on the translate command.
 
+#### Create missing Keys (aka `-c`)
+
+By default BartyCrouch will not add keys from source to target Strings files if they don't exist on them yet. Call translate with the `-c` (`-c` is short for `--create-missing-keys`) option set if you want keys to be added to target locales. Note that this option will only have effect if used on the translate command.
+
 ### Build Script
 
 You may want to **update your `.strings` files on each build automatically** what you can easily do by adding a run script to your target in Xcode. In order to do this select your target in Xcode, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
@@ -154,7 +158,7 @@ EN_PATH="$PROJECT_DIR/Sources/en.lproj"
 CREDS="{ id: YOUR_ID }|{ secret: YOUR_SECRET }"
 
 # Machine-translate empty language values for all languages
-bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a -c
 bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
 bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
 bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a

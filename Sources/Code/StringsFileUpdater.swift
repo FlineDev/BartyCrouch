@@ -10,6 +10,8 @@ import Foundation
 
 public class StringsFileUpdater {
     
+    typealias TranslationEntry = (key: String, value: String, comment: String?)
+    
     let path: String
     var linesInFile: [String]
 
@@ -39,9 +41,9 @@ public class StringsFileUpdater {
             let oldTranslations = self.findTranslationsInLines(self.linesInFile)
             let newTranslations = self.findTranslationsInLines(linesInNewFile)
             
-            let updatedTranslations: [(key: String, value: String, comment: String?)] = {
+            let updatedTranslations: [TranslationEntry] = {
                 
-                var translations: [(key: String, value: String, comment: String?)] = []
+                var translations: [TranslationEntry] = []
                 
                 for (key, newValue, newComment) in newTranslations {
                     
@@ -149,7 +151,7 @@ public class StringsFileUpdater {
     }
     
     /// Rewrites file with specified translations and reloads lines from new file.
-    func rewriteFileWithTranslations(translations: [(key: String, value: String, comment: String?)]) {
+    func rewriteFileWithTranslations(translations: [TranslationEntry]) {
         
         do {
             let newContentsOfFile = self.stringFromTranslations(translations)
@@ -182,7 +184,7 @@ public class StringsFileUpdater {
     ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, force: Bool = false) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, createMissingKeys: Bool = false, force: Bool = false) -> Int {
         
         guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
             print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
@@ -219,21 +221,33 @@ public class StringsFileUpdater {
             var awaitingTranslationRequestCount = 0
             
             let sourceTranslations = self.findTranslationsInLines(linesInSourceFile)
-            var targetTranslations = self.findTranslationsInLines(self.linesInFile)
+            let existingTargetTranslations = self.findTranslationsInLines(self.linesInFile)
+            var updatedTargetTranslations: [TranslationEntry] = []
             
-            for (index, targetTranslation) in targetTranslations.enumerate() {
+            for sourceTranslation in sourceTranslations {
+                
+                let (sourceKey, sourceValue, sourceComment) = sourceTranslation
+                var targetTranslationOptional = existingTargetTranslations.filter{ $0.0 == sourceKey }.first
+                
+                if targetTranslationOptional == nil {
+                    if createMissingKeys {
+                        targetTranslationOptional = (sourceKey, "", sourceComment)
+                    } else {
+                        // skip if key doesn't exist in target and creating keys isn't configured
+                        continue
+                    }
+                }
+                
+                guard let targetTranslation = targetTranslationOptional else {
+                    NSException(name: "targetTranslation was nil when not expected", reason: nil, userInfo: nil).raise()
+                    exit(EXIT_FAILURE)
+                }
                 
                 let (key, value, comment) = targetTranslation
                 
                 guard value.isEmpty || force else {
+                    updatedTargetTranslations.append(targetTranslation)
                     continue // skip already translated values
-                }
-                
-                let sourceTranslation = sourceTranslations.filter { $0.0 == key }.first
-                
-                guard let (_, sourceValue, _) = sourceTranslation else {
-                    print("Warning! Key '\(key)' does not exist in source translations.")
-                    continue
                 }
                 
                 guard !sourceValue.isEmpty else {
@@ -242,10 +256,12 @@ public class StringsFileUpdater {
                 }
                 
                 awaitingTranslationRequestCount += 1
+                let updatedTargetTranslationIndex = updatedTargetTranslations.count
+                updatedTargetTranslations.append(targetTranslation)
                 
                 translator.translate(sourceValue, callback: { translatedValue in
                     if !translatedValue.isEmpty {
-                        targetTranslations[index] = (key, translatedValue, comment)
+                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue, comment)
                         translatedValuesCount += 1
                     }
                     
@@ -259,7 +275,7 @@ public class StringsFileUpdater {
             }
 
             if translatedValuesCount > 0 {
-                self.rewriteFileWithTranslations(targetTranslations)
+                self.rewriteFileWithTranslations(updatedTargetTranslations)
             }
             
             return translatedValuesCount
@@ -271,9 +287,9 @@ public class StringsFileUpdater {
     }
     
     /// - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
-    func findTranslationsInLines(lines: [String]) -> [(key: String, value: String, comment: String?)] {
+    func findTranslationsInLines(lines: [String]) -> [TranslationEntry] {
         
-        var foundTranslations: [(key: String, value: String, comment: String?)] = []
+        var foundTranslations: [TranslationEntry] = []
         var lastCommentLine: String?
         
         do {
@@ -307,7 +323,7 @@ public class StringsFileUpdater {
         
     }
     
-    func stringFromTranslations(translations: [(key: String, value: String, comment: String?)]) -> String {
+    func stringFromTranslations(translations: [TranslationEntry]) -> String {
         
         var resultingString = "\n"
         
