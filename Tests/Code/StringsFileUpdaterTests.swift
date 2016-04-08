@@ -55,7 +55,7 @@ class StringsFileUpdaterTests: XCTestCase {
     
     func testStringFromTranslations() {
         
-        let translations: [(key: String, value: String, comment: String?)] = [
+        let translations: [StringsFileUpdater.TranslationEntry] = [
             ("key1", "value1", "comment1"),
             ("key2", "value2", nil),
             ("key3", "value3", "comment3")
@@ -224,7 +224,7 @@ class StringsFileUpdaterTests: XCTestCase {
             
             let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
             
-            let expectedTranslatedValues: [String: String] = [
+            let expectedTranslatedCarsValues: [String: String] = [
                 "de":       "Autos",
                 "ja":       "車",
                 "zh-Hans":  "汽车"
@@ -251,7 +251,6 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // test before state (update if failing)
-                
                 XCTAssertEqual(translations.first!.key, "Test key")
                 XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
                 XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
@@ -263,7 +262,6 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // run tested method
-                
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
@@ -272,6 +270,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // test after state (update if failing)
+                XCTAssertEqual(translations.count, 2)
                 
                 XCTAssertEqual(translations.first!.key, "Test key")
                 XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
@@ -279,8 +278,82 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 XCTAssertEqual(translations.last!.key, "menu.cars")
                 XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
-                XCTAssertEqual(translations.last!.value, expectedTranslatedValues[locale])
+                XCTAssertEqual(translations.last!.value, expectedTranslatedCarsValues[locale])
                 XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
+                
+                
+                // cleanup temporary file after testing
+                do {
+                    try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                } catch {
+                    XCTAssertTrue(false)
+                }
+            }
+            
+            let expectedTranslatedBicyclesValues: [String: String] = [
+                "de":       "Fahrräder",
+                "ja":       "自転車",
+                "zh-Hans":  "自行车"
+            ]
+            
+            // test with create keys options
+            for locale in ["de", "ja", "zh-Hans"] {
+                
+                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
+                
+                // create temporary file for testing
+                do {
+                    if NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath + ".tmp") {
+                        try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    }
+                    try NSFileManager.defaultManager().copyItemAtPath(localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
+                } catch {
+                    XCTAssertTrue(false)
+                    return
+                }
+                
+                let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
+                
+                var translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                
+                
+                // test before state (update if failing)
+                XCTAssertEqual(translations.count, 2)
+                
+                XCTAssertEqual(translations[0].key, "Test key")
+                XCTAssertEqual(translations[0].value, "Test value (\(locale))")
+                XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
+                
+                XCTAssertEqual(translations[1].key, "menu.cars")
+                XCTAssertEqual(translations[1].value.utf16.count, 0)
+                XCTAssertEqual(translations[1].value, "")
+                XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
+                
+                
+                // run tested method
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret, createMissingKeys: true)
+                
+                translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                
+                XCTAssertEqual(changedValuesCount, 2)
+                
+                
+                // test after state (update if failing)
+                XCTAssertEqual(translations.count, 3)
+                
+                XCTAssertEqual(translations[0].key, "Test key")
+                XCTAssertEqual(translations[0].value, "Test value (\(locale))")
+                XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
+                
+                XCTAssertEqual(translations[1].key, "menu.cars")
+                XCTAssertGreaterThan(translations[1].value.utf16.count, 0)
+                XCTAssertEqual(translations[1].value, expectedTranslatedCarsValues[locale])
+                XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
+                
+                XCTAssertEqual(translations[2].key, "menu.bicycles")
+                XCTAssertGreaterThan(translations[2].value.utf16.count, 0)
+                XCTAssertEqual(translations[2].value, expectedTranslatedBicyclesValues[locale])
+                XCTAssertEqual(translations[2].comment, " A string where key only available in English. ")
                 
                 
                 // cleanup temporary file after testing
