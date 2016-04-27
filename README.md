@@ -137,7 +137,7 @@ You may want to **update your `.strings` files on each build automatically** wha
 ``` shell
 if which bartycrouch > /dev/null; then
     # Incrementally update all Storyboards/XIBs strings files
-    bartycrouch $PROJECT_DIR -a
+    bartycrouch "$PROJECT_DIR" -a
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
