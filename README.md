@@ -142,6 +142,11 @@ else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
+
+If your code lies in a different folder than `Sources` than you should udpate the path to point to the folder containing all your localized Storyboards and Xibs.
+
+*Note: You should prevent using the root folder `$PROJECT_DIR` as the path here directly as it usually includes the `.git` folder when you are using it as version control. BartyCrouch would then search through the entire history of your respository what can take multiple seconds even in smaller projects.*
+
 <img src="Build-Script-Example.png">
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
