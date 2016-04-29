@@ -24,8 +24,8 @@ import XCTest
 #endif
 
 internal class CommandLineTests: XCTestCase {
-  /* TODO: The commented-out tests segfault on Linux as of the Swift 2.2 2015-12-31 snapshot. */
-  var allTests : [(String, () -> ())] {
+  /* TODO: The commented-out tests segfault on Linux as of the Swift 2.2 2016-01-11 snapshot. */
+  var allTests : [(String, () throws -> Void)] {
     return [
       ("testBoolOptions", testBoolOptions),
       ("testIntOptions", testIntOptions),
@@ -48,13 +48,13 @@ internal class CommandLineTests: XCTestCase {
       ("testShortFlagOnlyOption", testShortFlagOnlyOption),
       ("testLongFlagOnlyOption", testLongFlagOnlyOption),
       ("testStrictMode", testStrictMode),
-      ("testStrayValues", testStrayValues),
-      //("testInvalidArgumentErrorDescription", testInvalidArgumentErrorDescription),
-      //("testMissingRequiredOptionsErrorDescription", testMissingRequiredOptionsErrorDescription),
+      ("testUnparsedArguments", testUnparsedArguments),
+      ("testInvalidArgumentErrorDescription", testInvalidArgumentErrorDescription),
+      ("testMissingRequiredOptionsErrorDescription", testMissingRequiredOptionsErrorDescription),
       ("testPrintUsage", testPrintUsage),
-      //("testPrintUsageError", testPrintUsageError),
+      ("testPrintUsageError", testPrintUsageError),
       ("testPrintUsageToStderr", testPrintUsageToStderr),
-      //("testCustomOutputFormatter", testCustomOutputFormatter),
+      ("testCustomOutputFormatter", testCustomOutputFormatter),
     ]
   }
 
@@ -707,7 +707,7 @@ internal class CommandLineTests: XCTestCase {
     }
   }
 
-  func testStrayValues() {
+  func testUnparsedArguments() {
     let cli = CommandLine(arguments: [ "CommandLineTests", "onefish", "twofish", "-b", "redfish", "-c", "green", "blue", "-xvvi", "9", "-w", "--who", "--formats=json", "xml", "binary", "--verbose", "fish", "--type=pdf", "woo!"])
     let o1 = BoolOption(shortFlag: "b", longFlag: "bool", helpMessage: "Boolean option")
     let o2 = StringOption(shortFlag: "c", longFlag: "color", helpMessage: "String option")
@@ -728,7 +728,7 @@ internal class CommandLineTests: XCTestCase {
       XCTAssertEqual(o5.value!, 9, "Incorrect value for combined int option with stray values")
       XCTAssertEqual(o6.value!, ["json", "xml", "binary"], "Incorrect value for attached multistring option with stray values")
       XCTAssertEqual(o7.value!, "pdf", "Incorrect value for attached string option with stray values")
-      XCTAssertEqual(cli.strayValues, ["onefish", "twofish", "redfish", "blue", "-w", "--who", "fish", "woo!"], "Incorrect stray values")
+      XCTAssertEqual(cli.unparsedArguments, ["onefish", "twofish", "redfish", "blue", "-w", "--who", "fish", "woo!"], "Incorrect unparsed values")
     } catch {
       XCTFail("Unexpected parse error: \(error)")
     }
@@ -746,7 +746,7 @@ internal class CommandLineTests: XCTestCase {
       XCTAssertEqual(o5.value!, 9, "Incorrect value for combined int option with stray values")
       XCTAssertEqual(o6.value!, ["json", "xml", "binary"], "Incorrect value for attached multistring option with stray values")
       XCTAssertEqual(o7.value!, "pdf", "Incorrect value for attached string option with stray values")
-      XCTAssertEqual(cli.strayValues, ["onefish", "twofish", "redfish", "blue", "fish", "woo!"], "Incorrect stray values")
+      XCTAssertEqual(cli.unparsedArguments, ["onefish", "twofish", "redfish", "blue", "fish", "woo!"], "Incorrect unparsed values")
     } catch {
       XCTFail("Stray values should not cause a throw in strict mode")
     }

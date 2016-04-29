@@ -1,5 +1,5 @@
 /*
- * main.swift
+ * LinuxMain.swift
  * Copyright (c) 2015 Ben Gollmer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,6 @@
  */
 
 import XCTest
+@testable import CommandLinetest
 
 XCTMain([CommandLineTests(), StringExtensionTests()])
-
