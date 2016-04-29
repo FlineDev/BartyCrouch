@@ -138,8 +138,7 @@ public class Polyglot {
     }
 
     /**
-        Translates a given piece of text asynchronously. Switch to the main thread within the callback
-        if you want to update your UI by using `dispatch_async(dispatch_get_main_queue()) { /* code */ }`.
+        Translates a given piece of text.
 
         - parameter text: The text to translate.
         - parameter callback: The code to be executed once the translation has completed.
@@ -170,7 +169,9 @@ public class Polyglot {
                 translation = self.translationFromXML(xmlString)
 
                 defer {
-                    callback(translation: translation)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        callback(translation: translation)
+                    }
                 }
             }
             task.resume()
