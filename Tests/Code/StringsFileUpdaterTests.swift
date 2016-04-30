@@ -238,8 +238,8 @@ class StringsFileUpdaterTests: XCTestCase {
     func testTranslateEmptyValues() {
         
         // Note: This test only runs with correct Microsoft Translator API credentials provided
-        let id: String?         = nil       // specify this to run this test
-        let secret: String?     = nil       // specify this to run this test
+        let id: String?         = "Cruciverber"       // specify this to run this test
+        let secret: String?     = "RFykBwu#6=Tja0hzlQ1gA3zhNFl#lB2Z"       // specify this to run this test
         
         if let id = id, secret = secret {
             
@@ -394,7 +394,7 @@ class StringsFileUpdaterTests: XCTestCase {
     func testInitPerformance() {
         
         measureBlock {
-            self.testExamplesRange.endIndex.times {
+            for _ in self.testExamplesRange {
                 StringsFileUpdater(path: self.longOldStringsFilePath)!
             }
         }

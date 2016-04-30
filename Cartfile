@@ -2,7 +2,4 @@
 github "jatoben/CommandLine" "be13f512744a187feed05a900abda8cc7e3283cc"
 
 # A simple Swift API for Microsoft Translator
-github "Dschee/Polyglot" "c4d71d03879b907886f2b857f46a3e024bd847a9"
-
-# Handy Swift features that didn't make it into the Swift standard library.
-github "Flinesoft/HandySwift" ~> 1.0
+github "Dschee/Polyglot" "b20adca8464d44a96d0f4e0a98374b8cd4953cf5"

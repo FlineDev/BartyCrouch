@@ -91,8 +91,10 @@ class PolyglotTests: XCTestCase {
 
         let polyglot: Polyglot = Polyglot(clientId: "myClientId", clientSecret: "myClientSecret")
         polyglot.translate("Ik weet het niet") { translation in
-            XCTAssertEqual(translation, "I don't know")
-            expectation.fulfill()
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                XCTAssertEqual(translation, "I don't know")
+                expectation.fulfill()
+            })
         }
 
         waitForExpectationsWithTimeout(1, handler: nil)
