@@ -287,20 +287,20 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 
-                XCTAssertEqual(changedValuesCount, 1)
+                XCTAssertEqual(changedValuesCount, 2)
                 
                 
                 // test after state (update if failing)
-                XCTAssertEqual(translations.count, 2)
+                XCTAssertEqual(translations.count, 3)
                 
-                XCTAssertEqual(translations.first!.key, "Test key")
-                XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
-                XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
+                XCTAssertEqual(translations[0].key, "Test key")
+                XCTAssertEqual(translations[0].value, "Test value (\(locale))")
+                XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
                 
-                XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
-                XCTAssertEqual(translations.last!.value, expectedTranslatedCarsValues[locale])
-                XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
+                XCTAssertEqual(translations[1].key, "menu.cars")
+                XCTAssertGreaterThan(translations[1].value.utf16.count, 0)
+                XCTAssertEqual(translations[1].value, expectedTranslatedCarsValues[locale])
+                XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
                 
                 
                 // cleanup temporary file after testing
@@ -352,7 +352,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // run tested method
-                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret, createMissingKeys: true)
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 

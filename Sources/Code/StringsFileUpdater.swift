@@ -184,7 +184,7 @@ public class StringsFileUpdater {
     ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, createMissingKeys: Bool = false, force: Bool = false) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, force: Bool = false) -> Int {
         
         guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
             print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
@@ -230,12 +230,7 @@ public class StringsFileUpdater {
                 var targetTranslationOptional = existingTargetTranslations.filter{ $0.0 == sourceKey }.first
                 
                 if targetTranslationOptional == nil {
-                    if createMissingKeys {
-                        targetTranslationOptional = (sourceKey, "", sourceComment)
-                    } else {
-                        // skip if key doesn't exist in target and creating keys isn't configured
-                        continue
-                    }
+                    targetTranslationOptional = (sourceKey, "", sourceComment)
                 }
                 
                 guard let targetTranslation = targetTranslationOptional else {
