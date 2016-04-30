@@ -23,12 +23,12 @@
 
 BartyCrouch can **search a Storyboard/XIB file for localizable strings** and **update your existing localization `.strings` incrementally** by adding new keys, keeping your existing translations and deleting only the ones that are no longer used. BartyCrouch even **updates your translation comments** with updated Base values if their structure was not changed from the Xcode defaults and will **keep changes to your translation comments** if started by a `/*!` (recommended) or the default structure was changed in another way.
 
-Additionally BartyCrouch can now also **automatically translate existing `.strings` files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** and BartyCrouch will **keep all existing translations** by default.
+Additionally BartyCrouch can also **automatically translate existing `.strings` files to languages you don't speak** using the Microsoft Translator API. You can exactly **choose the languages to auto-translate** or simply all and BartyCrouch will **keep all existing translations** by default.
 
 
 ## Requirements
 
-- Xcode 7.2+ and Swift 2.1+
+- Xcode 7.3+ and Swift 2.2+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Installation
@@ -64,10 +64,10 @@ With BartyCrouch you can run commands like these:
 bartycrouch -i "path/Base.lproj/Main.storyboard" -o en zh-Hans pt-BR
 
 # Incrementally update all languages of all Storyboard/XIB files
-bartycrouch "/absolute/path/to/project" -a
+bartycrouch -s "/absolute/path/to/project"
 
 # Machine-translate all empty values of all supported languages with English as source
-bartycrouch -t "{ id: ID }|{ secret: SECRET }" -i "path/en.lproj/Localizable.strings" -a
+bartycrouch -t "{ id: ID }|{ secret: SECRET }" -s "/absolute/path/to/project" -l en
 
 # Force-translates all values (overriding existing ones) of all languages except German with English as source
 bartycrouch -f -t "{ id: ID }|{ secret: SECRET }" -i "en.lproj/Localizable.strings" -e "de.lproj/Localizable.strings"
@@ -79,28 +79,26 @@ Also you can make your life a lot easier by using the **build script method** de
 
 The `bartycrouch` main command accepts one of the following combinations of arguments:
 
-1. Automatic input and output search (all localized Storyboards/XIBs)
-2. Input and Output/Auto/Except
-3. Translate with Input and Output/Auto/Except
+1. Automatic update input and output search (all localized Storyboards/XIBs)
+2. Update Input and Output/Auto/Except
+3. Automatic translation input and output search (all sets of `.strings` files)
+4. Translate with Input and Output/Auto/Except
 
 You can also additionally specify Force and/or Verbose on each command.
 
-#### Full Automatic (aka `/absolute/path -a`)
+#### Search (aka `-s`)
 
-If you want BartyCrouch to **search for all localized Storyboards/XIBs** (those in Base.lproj folders) and also want BartyCrouch to find the respective output files,
-then simply declare the BartyCrouch command with an absolute path followed by `-a` like `/absolute/path/to/project -a`.
+If you want BartyCrouch to **search for all localized Storyboards/XIBs** (those in Base.lproj folders) or **search for all Strings files** given a source language and also want BartyCrouch to find the respective output files, then simply declare the BartyCrouch command with `-s` followed by an absolute path like `-s "/absolute/path/to/project"` (`-s` is short for `--search`).
+
+*Note that when using this with the translate option (`-t`) then you will also need to specify the locale option (`-l`).*
 
 #### Input (aka `-i`)
 
-You can specify the input Storyboard, XIB or Strings file using `-i "path/to/my.storyboard"` (`-i` is short for `--input`).
+You can specify a single input Storyboard, XIB or Strings file explicitly using `-i "path/to/my.storyboard"` (`-i` is short for `--input`).
 
 #### Output (aka `-o`)
 
 You can pass a whitespace separated list of `.strings` files to be incrementally updated / translated using  `-o "path/to/en.strings" "path/to/de.strings"` (`-o` is short for `--output`). You can also specify a list of locales only and let BartyCrouch find the correct paths automatically e.g. via `-o en de zh-Hans pt-BR`.
-
-#### Auto (aka `-a`)
-
-If you use base internationalization (recommended) you can also let BartyCrouch find and update all `.strings` files automatically by passing `--auto` or `-a` using the shorthand syntax.
 
 #### Except (aka `-e`)
 
@@ -110,7 +108,7 @@ You may be supporting a bunch of languages and handle a few of them differently 
 
 Sometimes it makes sense to **start with machine translated strings** and let humans **improve them later on**. This can save time for translators and may even be a viable solution for some languages you wouldn't have localized to otherwise.
 
-You can do this easily with BartyCrouch: Simply run the `bartycrouch` command with a `.strings` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`).
+You can do this easily with BartyCrouch: Simply run the `bartycrouch` command with an input `.strings` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`). You can also use the `-s` option with a base directory to search for with a source locale provided via `-l` (short for `--locale`) like this: `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }" -s "/absolute/path/to/project" -l en`. This example would search for all Strings files and translate all missing keys using English as the source language.
 
 In order to use the Microsoft Translator API you need to **register [here](https://datamarket.azure.com/dataset/bing/microsofttranslator)** (the free tier allows for 2 million translations/month). Then you can **add a client [here](https://datamarket.azure.com/developer/applications)** which will provide you the `id` and `secret` credentials needed for this feature.
 
@@ -126,47 +124,38 @@ To see more about what BartyCrouch is doing you can also run all commands with t
 
 To use the Base localization values when adding new keys (instead of empty values) simply add the option `-b` (`-b` is short for `--default-to-base`). Note that this option will have no effects if used on the translate command.
 
-#### Create missing Keys (aka `-c`)
-
-By default BartyCrouch will not add keys from source to target Strings files if they don't exist on them yet. Call translate with the `-c` (`-c` is short for `--create-missing-keys`) option set if you want keys to be added to target locales. Note that this option will only have effect if used on the translate command.
-
 ### Build Script
 
 You may want to **update your `.strings` files on each build automatically** what you can easily do by adding a run script to your target in Xcode. In order to do this select your target in Xcode, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
 
-``` shell
+```shell
 if which bartycrouch > /dev/null; then
     # Incrementally update all Storyboards/XIBs strings files
-    bartycrouch "$PROJECT_DIR/Sources" -a
+    bartycrouch -s "$PROJECT_DIR"
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
 ```
 
-If your code lies in a different folder than `Sources` than you should udpate the path to point to the folder containing all your localized Storyboards and Xibs.
-
-*Note: You should prevent using the root folder `$PROJECT_DIR` as the path here directly as it usually includes the `.git` folder when you are using it as version control. BartyCrouch would then search through the entire history of your respository what can take multiple seconds even in smaller projects.*
-
 <img src="Build-Script-Example.png">
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
-If you want to use the **machine translation functionality** too then simply add the following to the if part:
+If you want to use the **machine translation functionality** in addition then simply use the following build script instead:
 
-```
-# OPTIONAL
+```shell
+if which bartycrouch > /dev/null; then
+    # Incrementally update all Storyboards/XIBs strings files
+    bartycrouch -s "$PROJECT_DIR"
 
-# Set source language for machine translation
-EN_PATH="$PROJECT_DIR/Sources/en.lproj"
+    # Set Microsoft Translator API credentials
+    CREDS="{ id: YOUR_ID }|{ secret: YOUR_SECRET }"
 
-# Set Microsoft Translator API credentials
-CREDS="{ id: YOUR_ID }|{ secret: YOUR_SECRET }"
-
-# Machine-translate empty language values for all languages
-bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a -c
-bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
-bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
-bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
+    # Machine-translate empty language values for all languages
+    bartycrouch -t "$CREDS" -s "$PROJECT_DIR" -l en
+else
+    echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
+fi
 ```
 
 ### Exclude specific views from localization
@@ -181,7 +170,29 @@ Here's an example of how a base localized view in a XIB file with partly ignored
 
 ## Migration Guides
 
-This project follows [Semantic Versioning](http://semver.org). Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 0.3 -> 1.0).
+This project follows [Semantic Versioning](http://semver.org). Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
+
+### Upgrade from 1.x to 2.x
+
+- Change command structure `bartycrouch "$BASE_PATH" -a` to `bartycrouch -s "$BASE_PATH"`
+- Remove `-c` option if you were using it, BartyCrouch 2.x creates missing keys by default
+- Use the new `-t` `-s` `-l` options instead of adding all Strings files manually, e.g.:
+
+Simplify this build script code
+
+```shell
+bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a -c
+bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
+bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
+```
+
+by replacing it with this:
+
+```shell
+bartycrouch -t "$CREDS" -s "$PROJECT_DIR" -l en
+```
+
 
 ### Upgrade from 0.x to 1.x
 
