@@ -12,17 +12,38 @@ import XCTest
 
 class StringsFileUpdaterTests: XCTestCase {
     
+    // MARK: - Stored Instance Properties
+    
     let oldStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
+    let longOldStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/LongOldExample.strings"
+    
     let newStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
+    let longNewStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/LongNewExample.strings"
+    
     let testStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
+    func testStringsFilePath(iteration: Int) -> String {
+        return "\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample\(iteration).strings"
+    }
+    
+    let testExamplesRange = 0...1
+    
+    
+    // MARK: - Test Callbacks
     
     override func setUp() {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath("\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample.strings")
+            try NSFileManager.defaultManager().removeItemAtPath(self.testStringsFilePath)
+            // cleanup temporary file after testing
+            for i in self.testExamplesRange {
+                try NSFileManager.defaultManager().removeItemAtPath(self.testStringsFilePath(i))
+            }
         } catch {
-            print("Could not cleanup TestExample.strings")
+            print("No TestExample.strings to clean up")
         }
     }
+    
+    
+    // MARK: - Unit Tests
     
     func testFindTranslationsInLines() {
         
@@ -122,7 +143,7 @@ class StringsFileUpdaterTests: XCTestCase {
             }
             
         } catch {
-            XCTAssertTrue(false, (error as NSError).description)
+            XCTFail((error as NSError).description)
         }
         
     }
@@ -179,7 +200,7 @@ class StringsFileUpdaterTests: XCTestCase {
             }
             
         } catch {
-            XCTAssertTrue(false, (error as NSError).description)
+            XCTFail((error as NSError).description)
         }
         
     }
@@ -266,27 +287,27 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 
-                XCTAssertEqual(changedValuesCount, 1)
+                XCTAssertEqual(changedValuesCount, 2)
                 
                 
                 // test after state (update if failing)
-                XCTAssertEqual(translations.count, 2)
+                XCTAssertEqual(translations.count, 3)
                 
-                XCTAssertEqual(translations.first!.key, "Test key")
-                XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
-                XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
+                XCTAssertEqual(translations[0].key, "Test key")
+                XCTAssertEqual(translations[0].value, "Test value (\(locale))")
+                XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
                 
-                XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertGreaterThan(translations.last!.value.utf16.count, 0)
-                XCTAssertEqual(translations.last!.value, expectedTranslatedCarsValues[locale])
-                XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
+                XCTAssertEqual(translations[1].key, "menu.cars")
+                XCTAssertGreaterThan(translations[1].value.utf16.count, 0)
+                XCTAssertEqual(translations[1].value, expectedTranslatedCarsValues[locale])
+                XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
                 
                 
                 // cleanup temporary file after testing
                 do {
                     try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
                 } catch {
-                    XCTAssertTrue(false)
+                    XCTFail()
                 }
             }
             
@@ -331,7 +352,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // run tested method
-                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret, createMissingKeys: true)
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 
@@ -360,11 +381,48 @@ class StringsFileUpdaterTests: XCTestCase {
                 do {
                     try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
                 } catch {
-                    XCTAssertTrue(false)
+                    XCTFail((error as NSError).description)
                 }
             }
             
         }
     }
+    
+    
+    // MARK: - Performance Tests
+    
+    func testInitPerformance() {
+        
+        measureBlock {
+            for _ in self.testExamplesRange {
+                StringsFileUpdater(path: self.longOldStringsFilePath)!
+            }
+        }
+        
+    }
+    
+    func testIncrementallyUpdateKeysPerformance() {
+        
+        do {
+            
+            for i in self.testExamplesRange {
+                try NSFileManager.defaultManager().copyItemAtPath(longOldStringsFilePath, toPath: self.testStringsFilePath(i))
+            }
+            
+            measureBlock {
+                for i in self.testExamplesRange {
+                    let stringsFileUpdater = StringsFileUpdater(path: self.testStringsFilePath(i))!
+                    stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: self.longNewStringsFilePath, addNewValuesAsEmpty: false)
+                }
+            }
+            
+        } catch {
+            XCTFail((error as NSError).description)
+        }
+
+    }
+    
+    // Note that the method translateEmptyValues is not tested as this would consume unnecessary API requests.
+    // Also it is not the scope of this library to make sure the third party Translation API is fast.
     
 }

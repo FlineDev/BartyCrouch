@@ -47,10 +47,13 @@ This list will grow as Microsoft Translator’s list grows.
 | Supported languages |
 | ------------------- |
 | Arabic |
+| Bosnian |
+| Bosnian (Latin) |
 | Bulgarian |
 | Catalan |
-| Chinese (Simplified) |
-| Chinese (Traditional) |
+| ChineseSimplified |
+| ChineseTraditional |
+| Croation |
 | Czech |
 | Danish |
 | Dutch |
@@ -63,11 +66,12 @@ This list will grow as Microsoft Translator’s list grows.
 | Haitian Creole |
 | Hebrew |
 | Hindi |
-| Hmong Daw |
+| HmongDaw |
 | Hungarian |
 | Indonesian |
 | Italian |
 | Japanese |
+| Kiswahili |
 | Klingon |
 | Klingon pIqaD |
 | Korean |
@@ -79,8 +83,12 @@ This list will grow as Microsoft Translator’s list grows.
 | Persian |
 | Polish |
 | Portuguese |
+| Queretaro Otomi |
 | Romanian |
 | Russian |
+| Serbian |
+| Serbian (Cyrillic) |
+| Serbian (Latin) |
 | Slovak |
 | Slovenian |
 | Spanish |
@@ -91,6 +99,7 @@ This list will grow as Microsoft Translator’s list grows.
 | Urdu |
 | Vietnamese |
 | Welsh |
+| Yucatec Maya |
 
 ## Setting up an account for Microsoft Translator
 

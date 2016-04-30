@@ -27,11 +27,18 @@ let output = MultiStringOption(
     helpMessage: "Paths to your strings files to be updated."
 )
 
-let auto = BoolOption(
-    shortFlag: "a",
-    longFlag: "auto",
+let search = StringOption(
+    shortFlag: "s",
+    longFlag: "search",
     required: false,
-    helpMessage: "Automatically finds all strings files for update."
+    helpMessage: "Automatically searches for all strings files for update/translation in given path."
+)
+
+let locale = StringOption(
+    shortFlag: "l",
+    longFlag: "locale",
+    required: false,
+    helpMessage: "Define source locale for automatic translation."
 )
 
 let except = MultiStringOption(
@@ -45,7 +52,7 @@ let translate = StringOption(
     shortFlag: "t",
     longFlag: "translate",
     required: false,
-    helpMessage: "Translate empty values using Microsoft Translator (id & secret needed): \"{ id: YOUR_ID }|{ secret: YOUR_SECRET }\"."
+    helpMessage: "Translates empty values using Microsoft Translator (id & secret needed): \"{ id: YOUR_ID }|{ secret: YOUR_SECRET }\"."
 )
 
 let force = BoolOption(
@@ -69,14 +76,7 @@ let defaultToBase = BoolOption(
     helpMessage: "Uses the values from Base localization when adding new keys."
 )
 
-let createMissingKeys = BoolOption(
-    shortFlag: "c",
-    longFlag: "create-missing-keys",
-    required: false,
-    helpMessage: "Creates keys from source if they are missing on the target Strings files."
-)
-
-cli.addOptions(input, output, auto, except, translate, force, verbose, defaultToBase, createMissingKeys)
+cli.addOptions(input, output, search, locale, except, translate, force, verbose, defaultToBase)
 
 
 // Parse input data or exit with usage instructions
@@ -160,7 +160,7 @@ func translate(credentials credentials: String, _ inputFilePath: String, _ outpu
                 exit(EX_CONFIG)
             }
             
-            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, createMissingKeys: createMissingKeys.value, force: force.value)
+            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, force: force.value)
             
             if verbose.value {
                 print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.")
@@ -191,9 +191,9 @@ func run() {
         if except.wasSet {
             return .Except
         }
-        if auto.wasSet {
+        if search.wasSet {
             return .Automatic
-        }
+        } 
         return .None
     }()
     
@@ -208,13 +208,41 @@ func run() {
         if let inputFilePath = input.value {
             return [inputFilePath]
         } else if outputType == .Automatic {
-            if Process.arguments.count > 1 {
-                let baseDirectoryPath = Process.arguments[1]
-                return StringsFilesSearch.sharedInstance.findAllIBFiles(baseDirectoryPath)
-            } else {
-                print("Error! No directory path specified to search for input files.")
+            
+            guard let searchPath = search.value else {
+                print("Error! Search path is missing.")
                 exit(EX_USAGE)
             }
+            
+            let localeString: String = {
+                switch actionType {
+                case .Translate:
+                    
+                    guard let localeString = locale.value else {
+                        print("Error! Automatic translations can only be done with a locale set.")
+                        exit(EX_USAGE)
+                    }
+                    
+                    return localeString
+                    
+                case .IncrementalUpdate:
+                    
+                    if locale.value != nil {
+                        return locale.value!
+                    } else {
+                        return "Base"
+                    }
+                    
+                }
+            }()
+            
+            switch actionType {
+            case .Translate:
+                return StringsFilesSearch.sharedInstance.findAllStringsFiles(searchPath, withLocale: localeString)
+            case .IncrementalUpdate:
+                return StringsFilesSearch.sharedInstance.findAllIBFiles(searchPath, withLocale: localeString)
+            }
+            
         } else {
             print("Error! Missing input path(s).")
             exit(EX_USAGE)
@@ -238,7 +266,7 @@ func run() {
                         let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.utf16.count)).count > 0 }
                         if locales.count == stringsFiles.count {
                             let lprojLocales = locales.map { "\($0).lproj" }
-                            return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
+                            return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
                         }
                     } catch {
                         print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
@@ -246,11 +274,11 @@ func run() {
                 }
                 return output.value!
             case .Automatic:
-                return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath }
+                return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath }
             case .Except:
-                return StringsFilesSearch.sharedInstance.findAllStringsFiles(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
+                return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
             case .None:
-                print("Error! Missing output key '\(output.shortFlag!)' or '\(auto.shortFlag!)'.")
+                print("Error! Missing output key '\(output.shortFlag!)' or '\(search.shortFlag!)'.")
                 exit(EX_USAGE)
             }
         }()

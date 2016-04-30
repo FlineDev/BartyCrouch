@@ -18,19 +18,32 @@ class StringsFilesSearchTests: XCTestCase {
         
         let expectedIBFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "Base", type: "storyboard") }
         
-        let results = StringsFilesSearch.sharedInstance.findAllIBFiles(basePath)
+        let results = StringsFilesSearch.sharedInstance.findAllIBFiles(basePath, withLocale: "Base")
         
         XCTAssertEqual(results.count, expectedIBFilePaths.count)
         XCTAssertEqual(results, expectedIBFilePaths)
         
     }
+    
+    func testFindAllStringsFiles() {
+        
+        let basePath = "\(BASE_DIR)/Tests"
+        
+        let expectedStringsFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "de", type: "strings") } + ["\(BASE_DIR)/Tests/Assets/StringsFiles/de.lproj/Localizable.strings"]
+        
+        let results = StringsFilesSearch.sharedInstance.findAllStringsFiles(basePath, withLocale: "de")
+        
+        XCTAssertEqual(results.count, expectedStringsFilePaths.count)
+        XCTAssertEqual(results, expectedStringsFilePaths)
+        
+    }
 
-    func testiOSFindAllStringsFiles() {
+    func testiOSFindAllLocalesForStringsFile() {
         
-        let baseStoryboardPath = examplePath(platform: "iOS", locale: "base", type: ".storyboard")
-        let expectedStringsPaths = ["de", "en", "ja", "zh-Hans"].map { examplePath(platform: "iOS", locale: $0, type: ".strings") }
+        let baseStoryboardPath = examplePath(platform: "iOS", locale: "base", type: "storyboard")
+        let expectedStringsPaths = ["de", "en", "ja", "zh-Hans"].map { examplePath(platform: "iOS", locale: $0, type: "strings") }
         
-        let results = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseStoryboardPath)
+        let results = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(baseStoryboardPath)
         
         XCTAssertEqual(results.count, expectedStringsPaths.count)
         XCTAssertEqual(results, expectedStringsPaths)
