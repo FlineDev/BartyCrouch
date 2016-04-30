@@ -22,7 +22,7 @@ public class StringsFilesSearch {
         do {
             let pathsToIgnore = [".git/", "Carthage/", "build/", "docs/"]
             
-            let ibFileRegex = try NSRegularExpression(pattern: ".*\\Base.lproj.*\\.(storyboard|xib)\\z", options: .CaseInsensitive)
+            let ibFileRegex = try NSRegularExpression(pattern: ".*\\/Base.lproj.*\\.(storyboard|xib)\\z", options: .CaseInsensitive)
             let allFilePaths = try NSFileManager.defaultManager().subpathsOfDirectoryAtPath(baseDirectoryPath).filter { !$0.containsAny(ofStrings: pathsToIgnore) }
             let ibFilePaths = allFilePaths.filter { ibFileRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.utf16.count)).count > 0 }
             return ibFilePaths.map { baseDirectoryPath + "/" + $0 }
