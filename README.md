@@ -80,9 +80,9 @@ Also you can make your life a lot easier by using the **build script method** de
 The `bartycrouch` main command accepts one of the following combinations of arguments:
 
 1. Automatic update input and output search (all localized Storyboards/XIBs)
-2. Update Input and Output/Auto/Except
+2. Update Input and Output/Except
 3. Automatic translation input and output search (all sets of `.strings` files)
-4. Translate with Input and Output/Auto/Except
+4. Translation with Input and Output/Except
 
 You can also additionally specify Force and/or Verbose on each command.
 
