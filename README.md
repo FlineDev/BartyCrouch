@@ -108,7 +108,13 @@ You may be supporting a bunch of languages and handle a few of them differently 
 
 Sometimes it makes sense to **start with machine translated strings** and let humans **improve them later on**. This can save time for translators and may even be a viable solution for some languages you wouldn't have localized to otherwise.
 
-You can do this easily with BartyCrouch: Simply run the `bartycrouch` command with an input `.strings` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`). You can also use the `-s` option with a base directory to search for with a source locale provided via `-l` (short for `--locale`) like this: `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }" -s "/absolute/path/to/project" -l en`. This example would search for all Strings files and translate all missing keys using English as the source language.
+You can do this easily with BartyCrouch: Simply run the `bartycrouch` command with an input `.strings` file as input instead of a Storyboard/XIB file and add `-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }"` (`-t` is short for `--translate`). You can also use the `-s` option with a base directory to search for with a source locale provided via `-l` (short for `--locale`) like this:
+
+```shell
+-t "{ id: YOUR_ID }|{ secret: YOUR_SECRET }" -s "/absolute/path/to/project" -l en
+```
+
+This example would search for all Strings files and translate all missing keys using English as the source language.
 
 In order to use the Microsoft Translator API you need to **register [here](https://datamarket.azure.com/dataset/bing/microsofttranslator)** (the free tier allows for 2 million translations/month). Then you can **add a client [here](https://datamarket.azure.com/developer/applications)** which will provide you the `id` and `secret` credentials needed for this feature.
 
