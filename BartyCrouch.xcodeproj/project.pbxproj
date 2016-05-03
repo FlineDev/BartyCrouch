@@ -16,6 +16,9 @@
 		820649D51C7CA71E009E501E /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D21C7CA71E009E501E /* StringExtensions.swift */; };
 		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
+		82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */; };
+		82463DFE1CD9114000D28A2C /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463DFD1CD9114000D28A2C /* Commander.swift */; };
+		82463E0B1CD9197600D28A2C /* GenStringsCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */; };
 		825550FC1C7E637700DB5DCF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825550FE1C7E637700DB5DCF /* Localizable.strings */; };
 		8278A9001CA129C30041B196 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8278A8FF1CA129960041B196 /* Constants.m */; };
 		828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
@@ -76,6 +79,11 @@
 		821DED471C70D16F00B8353B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
 		821DED491C70D17000B8353B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
 		821DED4A1C70D17500B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
+		82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommander.swift; sourceTree = "<group>"; };
+		82463DFD1CD9114000D28A2C /* Commander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commander.swift; sourceTree = "<group>"; };
+		82463E031CD9164000D28A2C /* SwiftExample1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample1.swift; sourceTree = "<group>"; };
+		82463E051CD9180D00D28A2C /* SwiftExample2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample2.swift; sourceTree = "<group>"; };
+		82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommanderTests.swift; sourceTree = "<group>"; };
 		8249B7C71C70D1CF002F1BB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Example.strings; sourceTree = "<group>"; };
 		8249B7C91C70D1D6002F1BB7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
 		8249B7CB1C70D1D8002F1BB7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
@@ -151,6 +159,60 @@
 			path = Checkouts/CommandLine/CommandLine;
 			sourceTree = "<group>";
 		};
+		82463DFF1CD9116800D28A2C /* Command Line */ = {
+			isa = PBXGroup;
+			children = (
+				82463DFD1CD9114000D28A2C /* Commander.swift */,
+				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
+				82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */,
+			);
+			name = "Command Line";
+			sourceTree = "<group>";
+		};
+		82463E001CD9117500D28A2C /* File Handling */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */,
+				821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */,
+			);
+			name = "File Handling";
+			sourceTree = "<group>";
+		};
+		82463E011CD915DB00D28A2C /* CodeFiles */ = {
+			isa = PBXGroup;
+			children = (
+				82463E031CD9164000D28A2C /* SwiftExample1.swift */,
+				82463E041CD9180D00D28A2C /* Subfolder */,
+			);
+			path = CodeFiles;
+			sourceTree = "<group>";
+		};
+		82463E041CD9180D00D28A2C /* Subfolder */ = {
+			isa = PBXGroup;
+			children = (
+				82463E051CD9180D00D28A2C /* SwiftExample2.swift */,
+			);
+			path = Subfolder;
+			sourceTree = "<group>";
+		};
+		82463E081CD9195600D28A2C /* Command Line */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
+				82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */,
+			);
+			name = "Command Line";
+			sourceTree = "<group>";
+		};
+		82463E091CD9195E00D28A2C /* File Handling */ = {
+			isa = PBXGroup;
+			children = (
+				82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */,
+				821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */,
+			);
+			name = "File Handling";
+			sourceTree = "<group>";
+		};
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
@@ -185,9 +247,8 @@
 		82CDE2621C6ABBF500055FE6 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */,
-				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
-				821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */,
+				82463E001CD9117500D28A2C /* File Handling */,
+				82463DFF1CD9116800D28A2C /* Command Line */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -214,9 +275,8 @@
 		82CDE2691C6ABC0200055FE6 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */,
-				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
-				821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */,
+				82463E091CD9195E00D28A2C /* File Handling */,
+				82463E081CD9195600D28A2C /* Command Line */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -235,6 +295,7 @@
 		82CDE26C1C6ABC0200055FE6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				82463E011CD915DB00D28A2C /* CodeFiles */,
 				82CDE2F81C6C0BAA00055FE6 /* StringsFiles */,
 				82CDE2FF1C6C0BAA00055FE6 /* Storyboards */,
 			);
@@ -462,7 +523,9 @@
 				82DD98361C7DE1560065F046 /* Session.swift in Sources */,
 				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
+				82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */,
 				82053A231CD3221900434DAD /* StringExtensionPolyglot.swift in Sources */,
+				82463DFE1CD9114000D28A2C /* Commander.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
 				82DD98351C7DE1560065F046 /* Polyglot.swift in Sources */,
 			);
@@ -474,6 +537,7 @@
 			files = (
 				82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */,
 				821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */,
+				82463E0B1CD9197600D28A2C /* GenStringsCommanderTests.swift in Sources */,
 				82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */,
 				8278A9001CA129C30041B196 /* Constants.m in Sources */,
 			);
