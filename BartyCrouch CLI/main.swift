@@ -8,6 +8,8 @@
 
 import Foundation
 
-CommandLineParser().parse()
-
-CommandLineActor().act()
+CommandLineParser().parse { commonOptions, subCommandOptions in
+    
+    CommandLineActor().act(commonOptions, subCommandOptions: subCommandOptions)
+    
+}

@@ -34,8 +34,8 @@ public class CommandLineParser {
     
     // MARK: - Stored Instance Properties
     
-    var commonOptions: CommonOptions?
-    var subCommandOptions: SubCommandOptions?
+    private var commonOptions: CommonOptions?
+    private var subCommandOptions: SubCommandOptions?
     
     let arguments: [String]
     
@@ -49,7 +49,7 @@ public class CommandLineParser {
     
     // MARK: - Instance Methods
     
-    public func parse() {
+    public func parse(completion: (commonOptions: CommonOptions, subCommandOptions: SubCommandOptions) -> Void) {
         
         let subCommander = self.setupSubCommander()
         var commandLine: CommandLine!
@@ -67,6 +67,13 @@ public class CommandLineParser {
             commandLine.printUsage(error)
             exit(EX_USAGE)
         }
+        
+        guard let commonOptions = self.commonOptions, subCommandOptions = self.subCommandOptions else {
+            print("Error! Could not read options properly. Please report here: https://github.com/Flinesoft/BartyCrouch/issues")
+            exit(EX_SOFTWARE)
+        }
+        
+        completion(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
         
     }
     
