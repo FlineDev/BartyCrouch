@@ -28,7 +28,7 @@ public class CommandLineParser {
     public enum SubCommandOptions {
         case CodeOptions(localizable: StringOption, defaultToBase: BoolOption, additive: BoolOption)
         case InterfacesOptions(defaultToBase: BoolOption)
-        case TranslateOptions(id: StringOption, secret: StringOption)
+        case TranslateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
 
     
@@ -208,6 +208,13 @@ public class CommandLineParser {
             helpMessage: "Your Microsoft Translator API credentials 'secret' value."
         )
         
+        let locale = StringOption(
+            shortFlag: "l",
+            longFlag: "locale",
+            required: true,
+            helpMessage: "Specify the source locale from which to translate the values to other languages."
+        )
+        
         // Optional
         
         let override = self.overrideOption(
@@ -218,9 +225,9 @@ public class CommandLineParser {
         
         
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.TranslateOptions(id: id, secret: secret)
+        let subCommandOptions = SubCommandOptions.TranslateOptions(id: id, secret: secret, locale: locale)
         
-        commandLine.addOptions(path, id, secret, override, verbose)
+        commandLine.addOptions(path, id, secret, locale, override, verbose)
         
         return (commandLine, commonOptions, subCommandOptions)
     }
