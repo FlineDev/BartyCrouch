@@ -26,7 +26,7 @@ public class CommandLineParser {
     private typealias CommandLineContext = (commandLine: CommandLine, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
     
     public enum SubCommandOptions {
-        case CodeOptions(defaultToBase: BoolOption)
+        case CodeOptions(localizable: StringOption, defaultToBase: BoolOption, additive: BoolOption)
         case InterfacesOptions(defaultToBase: BoolOption)
         case TranslateOptions(id: StringOption, secret: StringOption)
     }
@@ -115,6 +115,13 @@ public class CommandLineParser {
             helpMessage: "Set the base path to recursively search within for code files (.h, .m, .swift)."
         )
         
+        let localizable = StringOption(
+            shortFlag: "l",
+            longFlag: "localizable",
+            required: true,
+            helpMessage: "The path to the folder of your output `Localizable.strings` file to be updated."
+        )
+        
         // Optional
         
         let override = self.overrideOption(
@@ -127,11 +134,18 @@ public class CommandLineParser {
             helpMessage: "Uses the values from the Base localized Code files when adding new keys."
         )
         
+        let additive = BoolOption(
+            shortFlag: "a",
+            longFlag: "additive",
+            required: false,
+            helpMessage: "Only adds new keys keeping all existing keys even when seemingly unused."
+        )
+        
         
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.CodeOptions(defaultToBase: defaultToBase)
+        let subCommandOptions = SubCommandOptions.CodeOptions(localizable: localizable, defaultToBase: defaultToBase, additive: additive)
         
-        commandLine.addOptions(path, override, verbose, defaultToBase)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToBase, additive)
         
         return (commandLine, commonOptions, subCommandOptions)
         
