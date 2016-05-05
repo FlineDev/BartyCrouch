@@ -8,18 +8,24 @@
 
 import Foundation
 
-class CommandLineActor: NSObject {
+public enum CommandLineAction {
+    case Interfaces()
+    case Code()
+    case Translate()
+}
+
+public class CommandLineActor {
 
     // MARK: - Sub Types
     
-    enum OutputType {
+    private enum OutputType {
         case StringsFiles
         case Automatic
         case Except
         case None
     }
     
-    enum ActionType {
+    private enum ActionType {
         case IncrementalUpdate
         case Translate
     }
@@ -27,13 +33,13 @@ class CommandLineActor: NSObject {
     
     // MARK: - Stored Instance Properties
     
-    let verbose: Bool
-    let force: Bool
+    private let verbose: Bool
+    private let force: Bool
 
     
     // MARK: - Initializers
     
-    init(verbose: Bool, force: Bool) {
+    public init(verbose: Bool, force: Bool) {
         self.verbose = verbose
         self.force = force
         
@@ -43,7 +49,134 @@ class CommandLineActor: NSObject {
     
     // MARK: - Instance Methods
     
-    func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String], defaultToBase: Bool) {
+    public func act() {
+        
+        let outputType: CommandLineActor.OutputType = {
+            if output.wasSet {
+                return .StringsFiles
+            }
+            if except.wasSet {
+                return .Except
+            }
+            if search.wasSet {
+                return .Automatic
+            }
+            return .None
+        }()
+        
+        let actionType: CommandLineActor.ActionType = {
+            if translate.wasSet {
+                return .Translate
+            }
+            return .IncrementalUpdate
+        }()
+        
+        let inputFilePaths: [String] = {
+            if let inputFilePath = input.value {
+                return [inputFilePath]
+            } else if outputType == .Automatic {
+                
+                guard let searchPath = search.value else {
+                    print("Error! Search path is missing.")
+                    exit(EX_USAGE)
+                }
+                
+                let localeString: String = {
+                    switch actionType {
+                    case .Translate:
+                        
+                        guard let localeString = locale.value else {
+                            print("Error! Automatic translations can only be done with a locale set.")
+                            exit(EX_USAGE)
+                        }
+                        
+                        return localeString
+                        
+                    case .IncrementalUpdate:
+                        
+                        if locale.value != nil {
+                            return locale.value!
+                        } else {
+                            return "Base"
+                        }
+                        
+                    }
+                }()
+                
+                switch actionType {
+                case .Translate:
+                    return StringsFilesSearch.sharedInstance.findAllStringsFiles(searchPath, withLocale: localeString)
+                case .IncrementalUpdate:
+                    return StringsFilesSearch.sharedInstance.findAllIBFiles(searchPath, withLocale: localeString)
+                }
+                
+            } else {
+                print("Error! Missing input path(s).")
+                exit(EX_USAGE)
+            }
+        }()
+        
+        guard inputFilePaths.count > 0 else {
+            print("Error! No input files found.")
+            exit(EX_USAGE)
+        }
+        
+        for inputFilePath in inputFilePaths {
+            
+            let outputStringsFilePaths: [String] = {
+                switch outputType {
+                case .StringsFiles:
+                    if let stringsFiles = output.value {
+                        // check if output style is locales-only, e.g. `-o en de zh-Hans pt-BR` - convert to full paths if so
+                        do {
+                            let localeRegex = try NSRegularExpression(pattern: "\\A\\w{2}(-\\w{2,4})?\\z", options: .CaseInsensitive)
+                            let locales = stringsFiles.filter { localeRegex.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.utf16.count)).count > 0 }
+                            if locales.count == stringsFiles.count {
+                                let lprojLocales = locales.map { "\($0).lproj" }
+                                return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0.containsAny(ofStrings: lprojLocales) }
+                            }
+                        } catch {
+                            print("Error! Couldn't init locale regex. Please report this issue on https://github.com/Flinesoft/BartyCrouch/issues.")
+                        }
+                    }
+                    return output.value!
+                case .Automatic:
+                    return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath }
+                case .Except:
+                    return StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath && !except.value!.contains($0) }
+                case .None:
+                    print("Error! Missing output key '\(output.shortFlag!)' or '\(search.shortFlag!)'.")
+                    exit(EX_USAGE)
+                }
+            }()
+            
+            guard NSFileManager.defaultManager().fileExistsAtPath(inputFilePath) else {
+                print("Error! No file exists at input path '\(inputFilePath)'")
+                exit(EX_NOINPUT)
+            }
+            
+            for outputStringsFilePath in outputStringsFilePaths {
+                guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
+                    print("Error! No file exists at output path '\(outputStringsFilePath)'.")
+                    exit(EX_CONFIG)
+                }
+            }
+            
+            let commandLineActor = CommandLineActor(verbose: verbose.value, force: force.value)
+            
+            switch actionType {
+            case .IncrementalUpdate:
+                commandLineActor.incrementalUpdate(inputFilePath, outputStringsFilePaths, defaultToBase: defaultToBase.value)
+            case .Translate:
+                commandLineActor.translate(credentials: translate.value!, inputFilePath, outputStringsFilePaths)
+            }
+            
+        }
+
+        
+    }
+    
+    private func incrementalUpdate(inputFilePath: String, _ outputStringsFilePaths: [String], defaultToBase: Bool) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
         
         guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
@@ -76,7 +209,7 @@ class CommandLineActor: NSObject {
         print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.")
     }
     
-    func translate(credentials credentials: String, _ inputFilePath: String, _ outputStringsFilePaths: [String]) {
+    private func translate(credentials credentials: String, _ inputFilePath: String, _ outputStringsFilePaths: [String]) {
         
         do {
             let translatorCredentialsRegex = try NSRegularExpression(pattern: "^\\{ id: (.+) \\}\\|\\{ secret: (.+) \\}$", options: .CaseInsensitive)

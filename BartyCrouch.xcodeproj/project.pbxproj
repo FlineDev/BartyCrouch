@@ -27,6 +27,8 @@
 		824DAA651CDB713F0077F93A /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D01C7CA71E009E501E /* CommandLine.swift */; };
 		824DAA661CDB71420077F93A /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D11C7CA71E009E501E /* Option.swift */; };
 		824DAA671CDB71450077F93A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D21C7CA71E009E501E /* StringExtensions.swift */; };
+		824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA691CDB80E10077F93A /* CommandLineParser.swift */; };
+		824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA691CDB80E10077F93A /* CommandLineParser.swift */; };
 		825550FC1C7E637700DB5DCF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825550FE1C7E637700DB5DCF /* Localizable.strings */; };
 		8278A9001CA129C30041B196 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8278A8FF1CA129960041B196 /* Constants.m */; };
 		828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
@@ -98,6 +100,7 @@
 		824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineActor.swift; sourceTree = "<group>"; };
 		824DAA601CDB61140077F93A /* CommandLineActorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineActorTests.swift; sourceTree = "<group>"; };
 		824DAA621CDB6F520077F93A /* SubCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCommander.swift; sourceTree = "<group>"; };
+		824DAA691CDB80E10077F93A /* CommandLineParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineParser.swift; sourceTree = "<group>"; };
 		825550FD1C7E637700DB5DCF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		825550FF1C7E637D00DB5DCF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		825551001C7E638000DB5DCF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 		82463DFF1CD9116800D28A2C /* Command Line */ = {
 			isa = PBXGroup;
 			children = (
+				824DAA691CDB80E10077F93A /* CommandLineParser.swift */,
 				824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */,
 				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
 				82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */,
@@ -525,6 +529,7 @@
 			files = (
 				820649D31C7CA71E009E501E /* CommandLine.swift in Sources */,
 				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
+				824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
 				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
 				82DD98381C7DE18B0065F046 /* Polyglot.swift in Sources */,
 				820649D51C7CA71E009E501E /* StringExtensions.swift in Sources */,
@@ -554,6 +559,7 @@
 				82053A231CD3221900434DAD /* StringExtensionPolyglot.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
 				82DD98351C7DE1560065F046 /* Polyglot.swift in Sources */,
+				824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
 				824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
