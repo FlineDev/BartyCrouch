@@ -80,7 +80,7 @@ public class CommandLineActor {
             
         }
         
-        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase)
+        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, additive: additive)
         
     }
     
@@ -147,7 +147,7 @@ public class CommandLineActor {
         
     }
     
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, additive: Bool) {
         
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
         
@@ -172,7 +172,7 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
             
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override, keepExistingKeys: additive)
             
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")

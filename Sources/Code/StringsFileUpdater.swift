@@ -32,7 +32,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreBaseKeys: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], override: Bool = false, updateCommentWithBase: Bool = true) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreBaseKeys: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -44,6 +44,19 @@ public class StringsFileUpdater {
             let updatedTranslations: [TranslationEntry] = {
                 
                 var translations: [TranslationEntry] = []
+                
+                
+                if keepExistingKeys {
+                    for (key, oldValue, oldComment) in oldTranslations {
+                        
+                        if newTranslations.filter({ $0.0 == key }).isEmpty {
+                            let oldTranslationEntry = (key, oldValue, oldComment)
+                            translations.append(oldTranslationEntry)
+                        }
+                        
+                    }
+                }
+                
                 
                 for (key, newValue, newComment) in newTranslations {
                     
