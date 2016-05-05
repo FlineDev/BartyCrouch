@@ -26,7 +26,7 @@ public class CommandLineParser {
     private typealias CommandLineContext = (commandLine: CommandLine, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
     
     public enum SubCommandOptions {
-        case CodeOptions(localizable: StringOption, defaultToBase: BoolOption, additive: BoolOption)
+        case CodeOptions(localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption)
         case InterfacesOptions(defaultToBase: BoolOption)
         case TranslateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
@@ -135,8 +135,11 @@ public class CommandLineParser {
         
         let verbose = self.verboseOption()
         
-        let defaultToBase = self.defaultToBaseOption(
-            helpMessage: "Uses the values from the Base localized Code files when adding new keys."
+        let defaultToKeys = BoolOption(
+            shortFlag: "k",
+            longFlag: "default-to-keys",
+            required: false,
+            helpMessage: "Uses the keys as values when adding new keys from code."
         )
         
         let additive = BoolOption(
@@ -148,9 +151,9 @@ public class CommandLineParser {
         
         
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.CodeOptions(localizable: localizable, defaultToBase: defaultToBase, additive: additive)
+        let subCommandOptions = SubCommandOptions.CodeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive)
         
-        commandLine.addOptions(path, localizable, override, verbose, defaultToBase, additive)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive)
         
         return (commandLine, commonOptions, subCommandOptions)
         
@@ -175,10 +178,13 @@ public class CommandLineParser {
         
         let verbose = self.verboseOption()
         
-        let defaultToBase = self.defaultToBaseOption(
+        let defaultToBase = BoolOption(
+            shortFlag: "b",
+            longFlag: "default-to-base",
+            required: false,
             helpMessage: "Uses the values from the Base localized Interface Builder files when adding new keys."
         )
-        
+
         
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.InterfacesOptions(defaultToBase: defaultToBase)
@@ -264,15 +270,6 @@ public class CommandLineParser {
             longFlag: "verbose",
             required: false,
             helpMessage: "Prints out more status information to the console."
-        )
-    }
-    
-    private func defaultToBaseOption(helpMessage helpMessage: String) -> BoolOption {
-        return BoolOption(
-            shortFlag: "b",
-            longFlag: "default-to-base",
-            required: false,
-            helpMessage: helpMessage
         )
     }
     
