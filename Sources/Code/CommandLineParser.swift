@@ -43,15 +43,7 @@ public class CommandLineParser {
     // MARK: - Initializers
     
     public init(arguments: [String] = Process.arguments) {
-        if arguments == Process.arguments {
-            let runpathArgument = arguments.first!
-            
-            self.arguments = arguments.filter { $0 != runpathArgument }
-            
-        } else {
-            
-            self.arguments = arguments
-        }
+        self.arguments = arguments
     }
     
     
