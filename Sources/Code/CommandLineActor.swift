@@ -63,8 +63,24 @@ public class CommandLineActor {
     }
     
     private func actOnCode(path path: String, override: Bool, verbose: Bool, localizable: String, defaultToBase: Bool, additive: Bool) {
-    
-        self.incrementalCodeUpdate(path, localizable, override: override, verbose: verbose, defaultToBase: defaultToBase)
+        
+        let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(path, withFileName: "Localizable")
+        
+        guard !allLocalizableStringsFilePaths.isEmpty else {
+            self.printError("No `Localizable.strings` file found for output.")
+            exit(EX_USAGE)
+        }
+
+        for localizableStringsFilePath in allLocalizableStringsFilePaths {
+            
+            guard NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath) else {
+                self.printError("No file exists at output path '\(localizableStringsFilePath)'")
+                exit(EX_NOINPUT)
+            }
+            
+        }
+        
+        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase)
         
     }
     
@@ -131,27 +147,37 @@ public class CommandLineActor {
         
     }
     
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsDirectoryPath: String, override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool) {
         
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
-        let outputStringsFilePath = outputStringsDirectoryPath + "/Localizable.strings"
+        
+        do {
+            try NSFileManager.defaultManager().createDirectoryAtPath(extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print(error)
+            exit(EX_IOERR)
+        }
         
         guard GenStringsCommander.sharedInstance.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath) else {
             self.printError("Could not extract strings from Code in directory '\(inputDirectoryPath)'.")
             exit(EX_UNAVAILABLE)
         }
         
-        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "/Localizable.string"
+        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
         
-        guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-            self.printError("Could not read strings file at path '\(outputStringsFilePath)'")
-            exit(EX_CONFIG)
-        }
-        
-        stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override)
-        
-        if verbose {
-            print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
+        for outputStringsFilePath in outputStringsFilePaths {
+            
+            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
+                self.printError("Could not read strings file at path '\(outputStringsFilePath)'")
+                exit(EX_CONFIG)
+            }
+            
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override)
+            
+            if verbose {
+                print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
+            }
+
         }
         
         do {

@@ -36,6 +36,15 @@ public class StringsFilesSearch {
         }
     }
     
+    public func findAllStringsFiles(baseDirectoryPath: String, withFileName fileName: String) -> [String] {
+        do {
+            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .CaseInsensitive)
+            return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
+        } catch {
+            return []
+        }
+    }
+    
     public func findAllLocalesForStringsFile(sourceFilePath: String) -> [String] {
         var pathComponents = sourceFilePath.componentsSeparatedByString("/")
         let storyboardName: String = {
