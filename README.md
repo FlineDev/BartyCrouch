@@ -294,8 +294,8 @@ Please follow the appropriate guide below when **upgrading to a new major versio
 
 - Change structure `bartycrouch -s "$BASE_PATH"` to `bartycrouch interfaces -p "$BASE_PATH"`
 - Change structure `bartycrouch -t "{ id: <API_ID> }|{ secret: <API_SECRET> }" -s "$BASE_PATH" -l en` to `bartycrouch translate -p "$BASE_PATH" -l en -i "<API_ID>" -s "<API_SECRET>"`
-- Use automatic file search with `-p` (was `-s` before) instead of options `-i`, `-o`, `-e`
-- Rename usages of option "force" (`-f`) to "override" (`-o`)
+- Use automatic file search with `-p` (was `-s` before) instead of options `-i`, `-o`, `-e` (those were deleted)
+- Rename usages of option "force" (`-f`) to be "override" (`-o`)
 
 It is recommended to update your build script to the [currently suggested](#build-script) one if you were using it.
 
