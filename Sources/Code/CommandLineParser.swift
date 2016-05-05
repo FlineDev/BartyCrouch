@@ -43,7 +43,15 @@ public class CommandLineParser {
     // MARK: - Initializers
     
     public init(arguments: [String] = Process.arguments) {
-        self.arguments = arguments
+        if arguments == Process.arguments {
+            let runpathArgument = arguments.first!
+            
+            self.arguments = arguments.filter { $0 != runpathArgument }
+            
+        } else {
+            
+            self.arguments = arguments
+        }
     }
     
     
@@ -82,10 +90,15 @@ public class CommandLineParser {
         let subCommander = SubCommander()
         
         for subCommand in SubCommand.all() {
-            let (commandLine, commonOptions, subCommandOptions) = self.setupCLI(forSubCommand: subCommand)
-            self.commonOptions = commonOptions
-            self.subCommandOptions = subCommandOptions
-            subCommander.addCommandLine(commandLine, forSubCommand: subCommand)
+            
+            let commandLineBlock: () -> CommandLine = {
+                let (commandLine, commonOptions, subCommandOptions) = self.setupCLI(forSubCommand: subCommand)
+                self.commonOptions = commonOptions
+                self.subCommandOptions = subCommandOptions
+                return commandLine
+            }
+            subCommander.addCommandLineBlock(commandLineBlock, forSubCommand: subCommand)
+            
         }
         
         return subCommander

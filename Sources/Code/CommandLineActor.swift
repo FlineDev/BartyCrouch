@@ -168,7 +168,7 @@ public class CommandLineActor {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
         
         guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
-            self.printError("Error! Could not extract strings from Storyboard or XIB at path '\(inputFilePath)'.")
+            self.printError("Could not extract strings from Storyboard or XIB at path '\(inputFilePath)'.")
             exit(EX_UNAVAILABLE)
         }
         

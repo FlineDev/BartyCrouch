@@ -36,25 +36,25 @@ public class SubCommander {
     
     // MARK: - Stored Instance Properties
     
-    private var subCommandLines: [CommandLineParser.SubCommand: CommandLine] = [:]
+    private var subCommandLines: [CommandLineParser.SubCommand: () -> CommandLine] = [:]
     
   
     // MARK: - Instance Methods
     
-    public func addCommandLine(commandLine: CommandLine, forSubCommand subCommand: CommandLineParser.SubCommand) {
-        self.subCommandLines[subCommand] = commandLine
+    public func addCommandLineBlock(commandLineBlock: () -> CommandLine, forSubCommand subCommand: CommandLineParser.SubCommand) {
+        self.subCommandLines[subCommand] = commandLineBlock
     }
     
     public func commandLine(arguments: [String]) throws -> CommandLine {
         guard let subCommandString = arguments.first else {
-            throw ParseError.MissingSubCommand(supportedSubCommands: self.subCommandLines.map { $0.0.rawValue })
+            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
         }
         
-        guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), commandLine = self.subCommandLines[subCommand] else {
-            throw ParseError.UnsupportedSubCommand(supportedSubCommands: self.subCommandLines.map { $0.0.rawValue })
+        guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), commandLineBlock = self.subCommandLines[subCommand] else {
+            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
         }
         
-        return commandLine
+        return commandLineBlock()
     }
     
     public func printUsage(error: ErrorType) {
