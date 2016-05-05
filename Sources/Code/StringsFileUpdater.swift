@@ -32,7 +32,7 @@ public class StringsFileUpdater {
     
     /// Updates the keys of this instances strings file with those of the given strings file.
     /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreKeysWithBaseValueContainingAnyOfStrings: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], force: Bool = false, updateCommentWithBase: Bool = true) {
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreBaseKeys: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
         
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -45,10 +45,23 @@ public class StringsFileUpdater {
                 
                 var translations: [TranslationEntry] = []
                 
+                
+                if keepExistingKeys {
+                    for (key, oldValue, oldComment) in oldTranslations {
+                        
+                        if newTranslations.filter({ $0.0 == key }).isEmpty {
+                            let oldTranslationEntry = (key, oldValue, oldComment)
+                            translations.append(oldTranslationEntry)
+                        }
+                        
+                    }
+                }
+                
+                
                 for (key, newValue, newComment) in newTranslations {
                     
                     // skip keys marked for ignore
-                    guard !newValue.containsAny(ofStrings: ignoreKeysWithBaseValueContainingAnyOfStrings) else {
+                    guard !newValue.containsAny(ofStrings: ignoreBaseKeys) else {
                         continue
                     }
                     
@@ -78,7 +91,7 @@ public class StringsFileUpdater {
                             return oldComment
                         }
                         
-                        if force {
+                        if override {
                             // override with comment in force update mode
                             return newComment
                         }
@@ -106,7 +119,7 @@ public class StringsFileUpdater {
                             }
                         }
                         
-                        if force {
+                        if override {
                             // override with new value in force update mode
                             return newValue
                         }
@@ -184,7 +197,7 @@ public class StringsFileUpdater {
     ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, force: Bool = false) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, override: Bool = false) -> Int {
         
         guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
             print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
@@ -240,7 +253,7 @@ public class StringsFileUpdater {
                 
                 let (key, value, comment) = targetTranslation
                 
-                guard value.isEmpty || force else {
+                guard value.isEmpty || override else {
                     updatedTargetTranslations.append(targetTranslation)
                     continue // skip already translated values
                 }
