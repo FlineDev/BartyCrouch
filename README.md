@@ -21,7 +21,7 @@
 
 # BartyCrouch
 
-BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 40+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line which can be even **automated using a [build script](#build-script)** within your project.
+BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 40+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
 
 ## Requirements
@@ -68,7 +68,9 @@ $ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Lo
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
 ```
 
-Also you can make your life a lot easier by using the **build script method** described [below](#build-script). Read on for further configuration options.
+Also you can make your life a lot easier by using the **build script method** described [below](#build-script).
+
+---
 
 ### Sub Commands Overview
 
@@ -78,7 +80,7 @@ The `bartycrouch` main command accepts one of the following sub commands:
 - **`code`:** Incrementally updates `Localizable.strings` file from `.h`, `.m` and `.swift` files.
 - **`translate`:** Machine-translates values from a source Strings file to all other languages.
 
-Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** wich each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running without options like so:
+Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running without options like so:
 
 ```shell
 $ bartycrouch code
@@ -93,13 +95,15 @@ Usage: /usr/local/bin/bartycrouch [options]
   ...
 ```
 
+---
+
 ### Options for all Sub Commands
 
 Some options are common to all sub commands and must (if required) or can always be specified.
 
 #### Path (aka `-p`, `--path`) <small>*required*</small>
 
-Each commands needs to know where it should search for files to do its work. This is done by providing an absolute path to a directory using `-p`.
+For each command BartyCrouch needs to know where it should search for files to do its work. This is done by providing an absolute path to a directory using `-p`.
 
 Example:
 
@@ -121,7 +125,7 @@ $ bartycrouch interfaces -p "/path/to/project" -o
 
 #### Verbose (aka `-v`, `--verbose`) <small>*optional*</small>
 
-If you want to know exactly which files BartyCrouch found and updated you can specify the `-v` command to see more verbose output.
+If you want to know exactly which files BartyCrouch found and updated you can specify the `-v` command to see a more verbose output.
 
 Example:
 
@@ -133,6 +137,8 @@ Incrementally updated keys of file '/path/to/project/en.lproj/Main.strings'.
 Incrementally updated keys of file '/path/to/project/fr.lproj/Main.strings'.
 BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.
 ```
+
+---
 
 ### Options for `interfaces`
 
@@ -150,6 +156,8 @@ Example:
 ```shell
 $ bartycrouch interfaces -p "/path/to/project" -b
 ```
+
+---
 
 ### Options for `code`
 
@@ -190,6 +198,8 @@ Example:
 $ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -a
 ```
 
+---
+
 ### Options for `translate`
 
 Here's an overview of all options available for the sub command `translate`:
@@ -219,6 +229,8 @@ Example:
 # Uses Simpliied Chinese as the source language for translating to all other languages
 $ bartycrouch translate -p "/path/to/project" -l "zh-Hans" -i "<API_ID>" -s "<API_SECRET>"
 ```
+
+---
 
 ### Build Script
 
@@ -259,6 +271,7 @@ fi
 
 It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this script to point to the **directory of your own code only**, for example by using `-p "$PROJECT_DIR/Sources"` instead. Also you should alter `-l "$PROJECT_DIR"` to a path more specific (e.g. `-l "$PROJECT_DIR/Sources/Supporting Files"`). This is to make sure BartyCrouch doesn't change any `Localizable.strings` files within frameworks included using the likes of Carthage or CocoaPods.
 
+---
 
 ### Exclude specific Views from Localization
 
@@ -270,9 +283,21 @@ Here's an example of how a base localized view in a XIB file with partly ignored
 
 <img src="Exclusion-Example.png">
 
+
 ## Migration Guides
 
-This project follows [Semantic Versioning](http://semver.org). Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
+This project follows [Semantic Versioning](http://semver.org).
+
+Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
+
+### Upgrade from 2.x to 3.x
+
+- Change structure `bartycrouch -s "$BASE_PATH"` to `bartycrouch interfaces -p "$BASE_PATH"`
+- Change structure `bartycrouch -t "{ id: <API_ID> }|{ secret: <API_SECRET> }" -s "$BASE_PATH" -l en` to `bartycrouch translate -p "$BASE_PATH" -l en -i "<API_ID>" -s "<API_SECRET>"`
+- Use automatic file search with `-p` (was `-s` before) instead of options `-i`, `-o`, `-e`
+- Rename usages of option "force" (`-f`) to "override" (`-o`)
+
+It is recommended to update your build script to the [currently suggested](#build-script) one if you were using it.
 
 ### Upgrade from 1.x to 2.x
 
