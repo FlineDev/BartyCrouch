@@ -9,7 +9,7 @@
 import Foundation
 
 /// Sends `ibtool` commands with specified input/output paths to bash.
-public class IBToolCommander: Commander {
+public class IBToolCommander {
 
     // MARK: - Stored Class Properties
     

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Sends `genstrings` commands with specified input/output paths to bash.
-public class GenStringsCommander: Commander {
+public class GenStringsCommander {
     
     // MARK: - Stored Class Properties
     
