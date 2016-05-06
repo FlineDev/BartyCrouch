@@ -77,10 +77,10 @@ Also you can make your life a lot easier by using the **build script method** de
 The `bartycrouch` main command accepts one of the following sub commands:
 
 - **`interfaces`:** Incrementally updates Strings files of localized Storyboards and XIBs.
-- **`code`:** Incrementally updates `Localizable.strings` file from `.h`, `.m` and `.swift` files.
+- **`code`:** Incrementally updates `Localizable.strings` files from `.h`, `.m` and `.swift` files.
 - **`translate`:** Machine-translates values from a source Strings file to all other languages.
 
-Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running without options like so:
+Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running a sub command without options like so:
 
 ```shell
 $ bartycrouch code
