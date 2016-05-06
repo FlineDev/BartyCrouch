@@ -61,8 +61,8 @@ With BartyCrouch you can run commands like these:
 # Incrementally updates all Strings files of Storyboards/XIBs in project
 $ bartycrouch interfaces -p "/absolute/path/to/project"
 
-# Updates all `Localizable.strings` files searching your code for `NSLocalizedString`
-$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables"
+# Updates `Localizable.strings` files with new keys searching your code for `NSLocalizedString`
+$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a
 
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
