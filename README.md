@@ -18,6 +18,15 @@
     </a>
 </p>
 
+<p align="center">
+    <a href="#installation">Installation</a>
+  • <a href="#dialog-usage">Usage</a>
+  • <a href="#build-script">Build Script</a>
+  • <a href="#migration-guides">Migration Guides</a>
+  • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
+  • <a href="#license">License</a>
+</p>
+
 
 # BartyCrouch
 
