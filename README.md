@@ -177,7 +177,7 @@ Here's an overview of all options available for the sub command `code`:
 - `default-to-keys`
 - `additive`
 
-#### Localizable (aka `-l`, `--localizable`)
+#### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
 Specifies the path to the directory which contains all `Localizable.strings` files within `<locale>.lproj` folders. BartyCrouch will search for all files named `Localizable.strings` recursively within the specified path and incrementally update them. Make sure to specify a path with only your projects `Localizable.strings` files.
 
