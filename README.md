@@ -180,6 +180,7 @@ Here's an overview of all options available for the sub command `code`:
 - `localizable` (required)
 - `default-to-keys`
 - `additive`
+- `customFunction`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
