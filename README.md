@@ -79,9 +79,6 @@ $ bartycrouch interfaces -p "/absolute/path/to/project"
 # Updates `Localizable.strings` files with new keys searching your code for `NSLocalizedString`
 $ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a
 
-# Updates `Localizable.strings` files with new keys searching your code for `YourCustomFunction`. Useful when you are using something else than `NSLocalizedString`
-$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a -c "YourCustomFunction"
-
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
 ```
@@ -200,6 +197,7 @@ Here's an overview of all options available for the sub command `code`:
 - `extract-loc-strings`
 - `sort-by-keys`
 - `unstripped`
+- `custom-function`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -273,12 +271,12 @@ Example:
 $ bartycrouch interfaces -p "/path/to/project" -u
 ```
 
-#### Custom Function (aka `-c`, `--customFunction`) <small>*optional*</small>
+#### Custom Function (aka `-f`, `--custom-function`) <small>*optional*</small>
 
-If you use a custom function(macro) in your code to localize the strings instead of NSLocalizedString, you may specify it using this option. BartyCrouch will parse the code for the name you give instead of the default NSLocalizedString. Your functions must use the naming and formatting conventions used by the Foundation macros. The parameters for your functions must match the parameters for the corresponding macros exactly. The parsing is done using "genstrings" tool. You may see more in <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html">Apple's documentation</a> about it. Look into "Searching for Custom Functions With genstrings" section.
+If you use a **custom function** in your code to localize your Strings (instead of `NSLocalizedString`) you can specify it using this option. Please refer to [the official docs](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html#//apple_ref/doc/uid/10000051i-CH6-SW11) to learn more about custom functions. BartyCrouch uses `genstrings` under the hoods to make this work, so you need to make sure your custom function follows the requirements of `genstrings`.
 
 ```shell
-$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -c "YourCustomFunction"
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
 ```
 
 ---
