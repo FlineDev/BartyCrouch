@@ -30,13 +30,13 @@ public class CommandLineActor {
         
         
         switch subCommandOptions {
-        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption):
+        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption, customFunction):
             guard let localizable = localizableOption.value else {
                 self.printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
             }
             
-            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value)
+            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value, customFunction: customFunction.value)
             
         case let .InterfacesOptions(defaultToBaseOption):
             self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value)
@@ -62,7 +62,7 @@ public class CommandLineActor {
         
     }
     
-    private func actOnCode(path path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool) {
+    private func actOnCode(path path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool, customFunction: String?) {
         
         let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(localizable, withFileName: "Localizable")
         
@@ -80,7 +80,7 @@ public class CommandLineActor {
             
         }
         
-        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys, additive: additive)
+        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys, additive: additive, customFunction: customFunction)
         
     }
     
@@ -147,7 +147,7 @@ public class CommandLineActor {
         
     }
     
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool, additive: Bool) {
+    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool, additive: Bool, customFunction: String?) {
         
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
         
@@ -158,7 +158,7 @@ public class CommandLineActor {
             exit(EX_IOERR)
         }
         
-        guard GenStringsCommander.sharedInstance.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath) else {
+        guard GenStringsCommander.sharedInstance.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath, customFunction: customFunction) else {
             self.printError("Could not extract strings from Code in directory '\(inputDirectoryPath)'.")
             exit(EX_UNAVAILABLE)
         }

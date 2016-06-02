@@ -74,6 +74,9 @@ $ bartycrouch interfaces -p "/absolute/path/to/project"
 # Updates `Localizable.strings` files with new keys searching your code for `NSLocalizedString`
 $ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a
 
+# Updates `Localizable.strings` files with new keys searching your code for `YourCustomFunction`. Useful when you are using something else than `NSLocalizedString`
+$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a -c "YourCustomFunction"
+
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
 ```
@@ -206,6 +209,14 @@ Example:
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -a
+```
+
+#### Custom Function (aka `-c`, `--customFunction`) <small>*optional*</small>
+
+If you use a custom function(macro) in your code to localize the strings instead of NSLocalizedString, you may specify it using this option. BartyCrouch will parse the code for the name you give instead of the default NSLocalizedString. Your functions must use the naming and formatting conventions used by the Foundation macros. The parameters for your functions must match the parameters for the corresponding macros exactly. The parsing is done using "genstrings" tool. You may see more in <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/LoadingResources/Strings/Strings.html">Apple's documentation</a> about it. Look into "Searching for Custom Functions With genstrings" section.
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -c "YourCustomFunction"
 ```
 
 ---

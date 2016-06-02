@@ -26,7 +26,7 @@ public class CommandLineParser {
     private typealias CommandLineContext = (commandLine: CommandLine, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
     
     public enum SubCommandOptions {
-        case CodeOptions(localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption)
+        case CodeOptions(localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, customFunction: StringOption)
         case InterfacesOptions(defaultToBase: BoolOption)
         case TranslateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
@@ -149,11 +149,18 @@ public class CommandLineParser {
             helpMessage: "Only adds new keys keeping all existing keys even when seemingly unused."
         )
         
+        let customFunction = StringOption(
+            shortFlag: "c",
+            longFlag: "customFunction",
+            required: false,
+            helpMessage: "Specifies custom function to be parsed by genstrings, instead of the default NSLocalizedString. Will invoke 'genstrings -s \"yourCustomFunctionName\"'"
+        )
+        
         
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.CodeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive)
+        let subCommandOptions = SubCommandOptions.CodeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, customFunction: customFunction)
         
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, customFunction)
         
         return (commandLine, commonOptions, subCommandOptions)
         
