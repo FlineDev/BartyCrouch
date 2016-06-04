@@ -4,6 +4,10 @@
 </p>
 
 <p align="center">
+    <a href="https://www.bitrise.io/app/d2a5a304b2abcc40">
+        <img src="https://www.bitrise.io/app/d2a5a304b2abcc40.svg?token=iNSSO_Fb9mZitl5WMdVIfQ&branch=stable"
+             alt="Build Status">
+    </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
         <img src="https://img.shields.io/badge/Version-3.1.0-blue.svg"
              alt="Version: 3.1.0">
