@@ -64,7 +64,7 @@ public class CommandLineActor {
     
     private func actOnCode(path path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool) {
         
-        let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(path, withFileName: "Localizable")
+        let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(localizable, withFileName: "Localizable")
         
         guard !allLocalizableStringsFilePaths.isEmpty else {
             self.printError("No `Localizable.strings` file found for output.")

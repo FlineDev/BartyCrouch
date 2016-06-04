@@ -5,8 +5,8 @@
 
 <p align="center">
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.0.0-blue.svg"
-             alt="Version: 3.0.0">
+        <img src="https://img.shields.io/badge/Version-3.1.0-blue.svg"
+             alt="Version: 3.1.0">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-2.2-DD563C.svg"
@@ -16,6 +16,16 @@
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
     </a>
+</p>
+
+<p align="center">
+    <a href="#installation">Installation</a>
+  • <a href="#usage">Usage</a>
+  • <a href="#build-script">Build Script</a>
+  • <a href="#migration-guides">Migration Guides</a>
+  • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
+  • <a href="#contributing">Contributing</a>
+  • <a href="#license">License</a>
 </p>
 
 
@@ -61,8 +71,8 @@ With BartyCrouch you can run commands like these:
 # Incrementally updates all Strings files of Storyboards/XIBs in project
 $ bartycrouch interfaces -p "/absolute/path/to/project"
 
-# Updates all `Localizable.strings` files searching your code for `NSLocalizedString`
-$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables"
+# Updates `Localizable.strings` files with new keys searching your code for `NSLocalizedString`
+$ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Localizables" -a
 
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
@@ -77,10 +87,10 @@ Also you can make your life a lot easier by using the **build script method** de
 The `bartycrouch` main command accepts one of the following sub commands:
 
 - **`interfaces`:** Incrementally updates Strings files of localized Storyboards and XIBs.
-- **`code`:** Incrementally updates `Localizable.strings` file from `.h`, `.m` and `.swift` files.
+- **`code`:** Incrementally updates `Localizable.strings` files from `.h`, `.m` and `.swift` files.
 - **`translate`:** Machine-translates values from a source Strings file to all other languages.
 
-Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running without options like so:
+Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running a sub command without options like so:
 
 ```shell
 $ bartycrouch code
@@ -168,7 +178,7 @@ Here's an overview of all options available for the sub command `code`:
 - `default-to-keys`
 - `additive`
 
-#### Localizable (aka `-l`, `--localizable`)
+#### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
 Specifies the path to the directory which contains all `Localizable.strings` files within `<locale>.lproj` folders. BartyCrouch will search for all files named `Localizable.strings` recursively within the specified path and incrementally update them. Make sure to specify a path with only your projects `Localizable.strings` files.
 
@@ -273,7 +283,7 @@ It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this sc
 
 ---
 
-### Exclude specific Views from Localization
+### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are gonna be set programmatically**.
 For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file.
@@ -283,6 +293,15 @@ Here's an example of how a base localized view in a XIB file with partly ignored
 
 <img src="Exclusion-Example.png">
 
+You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This is helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).
+
+For example you can do something like this:
+```swift
+func updateTimeLabel(minutes: Int) {
+  String.localizedStringWithFormat(NSLocalizedString("%d minute(s) ago", comment: "pluralized and localized minutes #bc-ignore!"), minutes)
+}
+```
+The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings.
 
 ## Migration Guides
 
