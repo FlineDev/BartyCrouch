@@ -19,10 +19,9 @@ public class IBToolCommander {
     // MARK: - Instance Methods
 
     public func export(stringsFileToPath stringsFilePath: String, fromIbFileAtPath ibFilePath: String) -> Bool {
-
-        let exitCode = system("ibtool --export-strings-file \"\(stringsFilePath)\" \"\(ibFilePath)\"")
-
-        if exitCode == 0 {
+        let exportResult = Commander.sharedInstance.run("/usr/bin/ibtool", arguments: ["--export-strings-file", stringsFilePath, ibFilePath])
+        
+        if exportResult.exitCode == 0 {
             return true
         } else {
             return false
