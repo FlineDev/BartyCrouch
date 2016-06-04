@@ -12,7 +12,7 @@
         <img src="https://img.shields.io/badge/Version-3.1.0-blue.svg"
              alt="Version: 3.1.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-2.2-DD563C.svg"
+    <img src="https://img.shields.io/badge/Swift-2.2-FFAC45.svg"
          alt="Swift: 2.2">
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
