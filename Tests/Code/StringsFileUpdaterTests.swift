@@ -14,15 +14,17 @@ class StringsFileUpdaterTests: XCTestCase {
     
     // MARK: - Stored Instance Properties
     
-    let oldStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/OldExample.strings"
-    let longOldStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/LongOldExample.strings"
+    static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
     
-    let newStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/NewExample.strings"
-    let longNewStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/LongNewExample.strings"
+    let oldStringsFilePath = "\(stringsFilesDirPath)/OldExample.strings"
+    let longOldStringsFilePath = "\(stringsFilesDirPath)/LongOldExample.strings"
     
-    let testStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample.strings"
+    let newStringsFilePath = "\(stringsFilesDirPath)/NewExample.strings"
+    let longNewStringsFilePath = "\(stringsFilesDirPath)/LongNewExample.strings"
+    
+    let testStringsFilePath = "\(stringsFilesDirPath)/TestExample.strings"
     func testStringsFilePath(iteration: Int) -> String {
-        return "\(BASE_DIR)/Tests/Assets/StringsFiles/TestExample\(iteration).strings"
+        return "\(StringsFileUpdaterTests.stringsFilesDirPath)/TestExample\(iteration).strings"
     }
     
     let testExamplesRange = 0...1
@@ -243,7 +245,7 @@ class StringsFileUpdaterTests: XCTestCase {
         
         if let id = id, secret = secret {
             
-            let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/en.lproj/Localizable.strings"
+            let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/en.lproj/Localizable.strings"
             
             let expectedTranslatedCarsValues: [String: String] = [
                 "de":       "Autos",
@@ -253,7 +255,7 @@ class StringsFileUpdaterTests: XCTestCase {
             
             for locale in ["de", "ja", "zh-Hans"] {
                 
-                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
+                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/\(locale).lproj/Localizable.strings"
                 
                 // create temporary file for testing
                 do {
@@ -331,7 +333,7 @@ class StringsFileUpdaterTests: XCTestCase {
             // test with create keys options
             for locale in ["de", "ja", "zh-Hans"] {
                 
-                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/StringsFiles/\(locale).lproj/Localizable.strings"
+                let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/\(locale).lproj/Localizable.strings"
                 
                 // create temporary file for testing
                 do {

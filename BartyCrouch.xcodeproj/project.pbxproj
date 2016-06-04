@@ -198,13 +198,13 @@
 			name = "File Handling";
 			sourceTree = "<group>";
 		};
-		82463E011CD915DB00D28A2C /* CodeFiles */ = {
+		82463E011CD915DB00D28A2C /* Code Files */ = {
 			isa = PBXGroup;
 			children = (
 				82463E031CD9164000D28A2C /* SwiftExample1.swift */,
 				82463E041CD9180D00D28A2C /* Subfolder */,
 			);
-			path = CodeFiles;
+			path = "Code Files";
 			sourceTree = "<group>";
 		};
 		82463E041CD9180D00D28A2C /* Subfolder */ = {
@@ -328,8 +328,8 @@
 		82CDE26C1C6ABC0200055FE6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				82463E011CD915DB00D28A2C /* CodeFiles */,
-				82CDE2F81C6C0BAA00055FE6 /* StringsFiles */,
+				82463E011CD915DB00D28A2C /* Code Files */,
+				82CDE2F81C6C0BAA00055FE6 /* Strings Files */,
 				82CDE2FF1C6C0BAA00055FE6 /* Storyboards */,
 			);
 			path = Assets;
@@ -343,7 +343,7 @@
 			path = "BartyCrouch CLI";
 			sourceTree = "<group>";
 		};
-		82CDE2F81C6C0BAA00055FE6 /* StringsFiles */ = {
+		82CDE2F81C6C0BAA00055FE6 /* Strings Files */ = {
 			isa = PBXGroup;
 			children = (
 				8203A2971C6D159D00BCE479 /* NewExample.strings */,
@@ -352,7 +352,7 @@
 				82053A251CD32A0200434DAD /* LongOldExample.strings */,
 				82053A271CD32B4900434DAD /* LongNewExample.strings */,
 			);
-			path = StringsFiles;
+			path = "Strings Files";
 			sourceTree = "<group>";
 		};
 		82CDE2FF1C6C0BAA00055FE6 /* Storyboards */ = {
