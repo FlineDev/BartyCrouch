@@ -351,7 +351,13 @@ bartycrouch -t "$CREDS" -s "$PROJECT_DIR" -l en
 
 ## Contributing
 
-Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature there or send a Pull Request with your suggestion. Please also make sure to write tests for your changes in order to make sure they don't break in the future. Please note that there is a framework target within the project alongside the command line utility target to make testing easier.
+Contributions are welcome. Please just **open an Issue** on GitHub to discuss a point or request a feature there or **send a Pull Request** with your suggestion.
+
+When sending a pull request please also make sure to:
+- **write tests for your changes** in order to make sure they don't break in the future
+- follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/))
+
+Note that there is a framework target within the project to make testing easier.
 
 
 ## License
