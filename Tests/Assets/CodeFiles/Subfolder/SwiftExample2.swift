@@ -14,6 +14,7 @@ class SwiftExample2 {
         
         NSLocalizedString("TestKey2", comment: "Comment for TestKey1")
         String(format: NSLocalizedString("%010d and %03.f", comment: ""), 25, 89.5)
+        String.localizableStringWithFormat(NSLocalizedString("%d ignores(s)", comment: "#bc-ignore! Ignoring stringsdict key"), 25)
         
     }
     
