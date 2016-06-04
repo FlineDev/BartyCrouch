@@ -18,9 +18,10 @@ public class GenStringsCommander {
     
     // MARK: - Instance Methods
     
-    public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
+    public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) -> Bool {
         
-        let exitCode = system("find \"\(codeDirectoryPath)\" -name '*.[hm]' -o -name '*.swift' | xargs genstrings -o \"\(stringsFilePath)\"")
+        let customFunctionAddon: String = customFunction != nil ? "-s '\(customFunction!)'" : ""
+        let exitCode = system("find \"\(codeDirectoryPath)\" -name '*.[hm]' -o -name '*.swift' | xargs genstrings -o \"\(stringsFilePath)\" \(customFunctionAddon)")
         
         if exitCode == 0 {
             return true
