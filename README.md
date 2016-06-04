@@ -283,7 +283,7 @@ It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this sc
 
 ---
 
-### Exclude specific Views from Localization
+### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are gonna be set programmatically**.
 For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file.
@@ -293,6 +293,15 @@ Here's an example of how a base localized view in a XIB file with partly ignored
 
 <img src="Exclusion-Example.png">
 
+You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This is helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).
+
+For example you can do something like this:
+```swift
+func updateTimeLabel(minutes: Int) {
+  String.localizedStringWithFormat(NSLocalizedString("%d minute(s) ago", comment: "pluralized and localized minutes #bc-ignore!"), minutes)
+}
+```
+The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings.
 
 ## Migration Guides
 
