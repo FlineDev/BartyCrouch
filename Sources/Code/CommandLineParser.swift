@@ -117,7 +117,7 @@ public class CommandLineParser {
         // Required
         
         let path = self.pathOption(
-            helpMessage: "Set the base path to recursively search within for code files (.h, .m, .swift)."
+            helpMessage: "Set the base path to recursively search within for code files (.h, .m, .mm, .swift)."
         )
         
         let localizable = StringOption(
