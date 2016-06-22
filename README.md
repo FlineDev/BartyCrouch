@@ -4,14 +4,16 @@
 </p>
 
 <p align="center">
+    <a href="https://www.bitrise.io/app/d2a5a304b2abcc40">
+        <img src="https://www.bitrise.io/app/d2a5a304b2abcc40.svg?token=iNSSO_Fb9mZitl5WMdVIfQ&branch=stable"
+             alt="Build Status">
+    </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.1.0-blue.svg"
-             alt="Version: 3.1.0">
+        <img src="https://img.shields.io/badge/Version-3.2.0-blue.svg"
+             alt="Version: 3.2.0">
     </a>
-    <a href="#">
-        <img src="https://img.shields.io/badge/Swift-2.2-DD563C.svg"
-             alt="Swift: 2.2">
-    </a>
+    <img src="https://img.shields.io/badge/Swift-2.2-FFAC45.svg"
+         alt="Swift: 2.2">
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
@@ -99,7 +101,7 @@ Missing required options: ["-p, --path", "-l, --localizables"]
 
 Usage: /usr/local/bin/bartycrouch [options]
   -p, --path:
-      Set the base path to recursively search within for code files (.h, .m, .swift).
+      Set the base path to recursively search within for code files (.h, .m, .mm, .swift).
   -l, --localizables:
       The path to the folder of your output `Localizable.strings` file to be updated.
   ...
@@ -351,7 +353,13 @@ bartycrouch -t "$CREDS" -s "$PROJECT_DIR" -l en
 
 ## Contributing
 
-Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature there or send a Pull Request with your suggestion. Please also make sure to write tests for your changes in order to make sure they don't break in the future. Please note that there is a framework target within the project alongside the command line utility target to make testing easier.
+Contributions are welcome. Please just **open an Issue** on GitHub to discuss a point or request a feature there or **send a Pull Request** with your suggestion.
+
+When sending a pull request please also make sure to:
+- **write tests for your changes** in order to make sure they don't break in the future
+- follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/))
+
+Note that there is a framework target within the project to make testing easier.
 
 
 ## License
