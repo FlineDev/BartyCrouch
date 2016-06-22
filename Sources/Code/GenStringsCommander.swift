@@ -20,7 +20,7 @@ public class GenStringsCommander {
     
     public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
         
-        let exitCode = system("find \"\(codeDirectoryPath)\" -name '*.[hm]' -o -name '*.swift' | xargs genstrings -o \"\(stringsFilePath)\"")
+        let exitCode = system("find \"\(codeDirectoryPath)\" -name '*.[hm]' -o -name '*.mm' -o -name '*.swift' | xargs genstrings -o \"\(stringsFilePath)\"")
         
         if exitCode == 0 {
             return true

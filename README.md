@@ -101,7 +101,7 @@ Missing required options: ["-p, --path", "-l, --localizables"]
 
 Usage: /usr/local/bin/bartycrouch [options]
   -p, --path:
-      Set the base path to recursively search within for code files (.h, .m, .swift).
+      Set the base path to recursively search within for code files (.h, .m, .mm, .swift).
   -l, --localizables:
       The path to the folder of your output `Localizable.strings` file to be updated.
   ...
