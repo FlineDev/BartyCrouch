@@ -274,7 +274,7 @@ public class StringsFileUpdater {
                 
                 translator.translate(sourceValue, callback: { translatedValue in
                     if !translatedValue.isEmpty {
-                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue, comment)
+                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment)
                         translatedValuesCount += 1
                     }
                     
@@ -404,6 +404,21 @@ extension String {
             }
         }
         return false
+    }
+
+    /// Unescapes any special characters to make String valid String Literal.
+    ///
+    /// Source: https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html (to be cont.)
+    /// Continued: #//apple_ref/doc/uid/TP40014097-CH7-ID295
+    var asStringLiteral: String {
+        let charactersToEscape = ["\\", "\""] // important: backslash must be first entry
+        var escapedString = self
+
+        charactersToEscape.forEach { character in
+            escapedString = escapedString.stringByReplacingOccurrencesOfString(character, withString: "\\\(character)")
+        }
+
+        return escapedString
     }
     
 }
