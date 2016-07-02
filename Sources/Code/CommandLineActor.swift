@@ -67,7 +67,7 @@ public class CommandLineActor {
         let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(localizable, withFileName: "Localizable")
         
         guard !allLocalizableStringsFilePaths.isEmpty else {
-            self.printError("No `Localizable.strings` file found for output.")
+            self.printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in you build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.")
             exit(EX_USAGE)
         }
 
