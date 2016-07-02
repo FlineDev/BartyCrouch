@@ -1,0 +1,16 @@
+# some rules are only opt-in
+opt_in_rules:
+- empty_count
+- missing_docs
+
+# paths to include during linting. `--path` is ignored if present.
+included:
+- Sources
+
+# paths to ignore during linting. Takes precedence over `included`.
+excluded:
+- Carthage
+- Sources/Constants
+
+# configurable rules can be customized from this configuration file
+line_length: 180
