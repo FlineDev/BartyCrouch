@@ -6,6 +6,9 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
+// swiftlint:disable function_parameter_count
+// swiftlint:disable variable_name
+
 import Foundation
 
 public enum CommandLineAction {
@@ -67,7 +70,7 @@ public class CommandLineActor {
         let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(localizable, withFileName: "Localizable")
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
-            self.printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in you build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.")
+            self.printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in you build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
             exit(EX_USAGE)
         }
 
@@ -172,7 +175,8 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys, override: override, keepExistingKeys: additive)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
+                                                       override: override, keepExistingKeys: additive)
 
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
@@ -260,3 +264,6 @@ public class CommandLineActor {
     }
 
 }
+
+// swiftlint:enable function_parameter_count
+// swiftlint:enable variable_name

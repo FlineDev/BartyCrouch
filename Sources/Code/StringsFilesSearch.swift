@@ -71,7 +71,9 @@ public class StringsFilesSearch {
         do {
             let pathsToIgnore = [".git/", "Carthage/", "build/", "docs/"]
             let allFilePaths = try NSFileManager.defaultManager().subpathsOfDirectoryAtPath(baseDirectoryPath).filter { !$0.containsAny(ofStrings: pathsToIgnore) }
-            let ibFilePaths = allFilePaths.filter { regularExpression.matchesInString($0, options: .ReportCompletion, range: NSMakeRange(0, $0.utf16.count)).count > 0 }
+            let ibFilePaths = allFilePaths.filter { filePath in
+                return !regularExpression.matchesInString(filePath, options: .ReportCompletion, range: filePath.fullRange).isEmpty
+            }
             return ibFilePaths.map { baseDirectoryPath + "/" + $0 }
         } catch {
             return []

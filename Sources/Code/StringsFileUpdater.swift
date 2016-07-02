@@ -6,6 +6,9 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
+// swiftlint:disable function_body_length
+// swiftlint:disable file_length
+
 import Foundation
 
 public class StringsFileUpdater {
@@ -14,6 +17,8 @@ public class StringsFileUpdater {
 
     let path: String
     var linesInFile: [String]
+
+    static let defaultIgnoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
 
     // MARK: - Initializers
@@ -30,10 +35,11 @@ public class StringsFileUpdater {
         }
     }
 
-    /// Updates the keys of this instances strings file with those of the given strings file.
-    /// Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"], override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
-
+    // Updates the keys of this instances strings file with those of the given strings file.
+    // Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
+    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, // swiftlint:disable:this cyclomatic_complexity
+                                        addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
+                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
             let linesInNewFile = newContentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
@@ -42,21 +48,16 @@ public class StringsFileUpdater {
             let newTranslations = self.findTranslationsInLines(linesInNewFile)
 
             let updatedTranslations: [TranslationEntry] = {
-
                 var translations: [TranslationEntry] = []
-
 
                 if keepExistingKeys {
                     for (key, oldValue, oldComment) in oldTranslations {
-
                         if newTranslations.filter({ $0.0 == key }).isEmpty {
                             let oldTranslationEntry = (key, oldValue, oldComment)
                             translations.append(oldTranslationEntry)
                         }
-
                     }
                 }
-
 
                 for (key, newValue, newComment) in newTranslations {
 
@@ -70,7 +71,7 @@ public class StringsFileUpdater {
                         continue
                     }
 
-                    let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                    let oldTranslation = oldTranslations.filter { $0.0 == key }.first
 
                     // get value from default comment structure if possible
                     let oldBaseValue: String? = {
@@ -79,13 +80,10 @@ public class StringsFileUpdater {
                                 return (oldComment as NSString).substringWithRange(foundMatch.rangeAtIndex(1))
                             }
                         }
-
                         return nil
                     }()
 
-
                     let updatedComment: String? = {
-
                         guard let oldComment = oldTranslation?.2 else {
                             // add new comment if none existed before
                             return newComment
@@ -109,10 +107,8 @@ public class StringsFileUpdater {
                         }
                     }()
 
-
                     let updatedValue: String = {
-
-                        let oldTranslation = oldTranslations.filter{ $0.0 == key }.first
+                        let oldTranslation = oldTranslations.filter { $0.0 == key }.first
 
                         guard let oldValue = oldTranslation?.1 else {
                             if addNewValuesAsEmpty {
@@ -138,37 +134,31 @@ public class StringsFileUpdater {
 
                         // keep existing translation
                         return oldValue
-
                     }()
-
 
                     let updatedTranslation = (key, updatedValue, updatedComment)
                     translations.append(updatedTranslation)
-
                 }
 
                 return translations
-
             }()
 
             self.rewriteFileWithTranslations(updatedTranslations)
-
         } catch {
             print((error as NSError).description)
         }
-
     }
 
     private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
         do {
             let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
-            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: NSMakeRange(0, string.utf16.count)).first
+            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: string.fullRange).first
         } catch {
             return nil
         }
     }
 
-    /// Rewrites file with specified translations and reloads lines from new file.
+    // Rewrites file with specified translations and reloads lines from new file.
     func rewriteFileWithTranslations(translations: [TranslationEntry]) {
 
         do {
@@ -201,8 +191,10 @@ public class StringsFileUpdater {
     ///   - usingValuesFromStringsFile:     The path to the strings file to use as source language for the translation.
     ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
+    ///   - override:                       Specified if values should be overridden.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientId: String, clientSecret: String, override: Bool = false) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, // swiftlint:disable:this cyclomatic_complexity
+                                     clientId: String, clientSecret: String, override: Bool = false) -> Int {
 
         guard let (sourceLanguage, sourceRegion) = self.extractLocale(fromPath: sourceStringsFilePath) else {
             print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
@@ -245,7 +237,7 @@ public class StringsFileUpdater {
             for sourceTranslation in sourceTranslations {
 
                 let (sourceKey, sourceValue, sourceComment) = sourceTranslation
-                var targetTranslationOptional = existingTargetTranslations.filter{ $0.0 == sourceKey }.first
+                var targetTranslationOptional = existingTargetTranslations.filter { $0.0 == sourceKey }.first
 
                 if targetTranslationOptional == nil {
                     targetTranslationOptional = (sourceKey, "", sourceComment)
@@ -299,7 +291,7 @@ public class StringsFileUpdater {
 
     }
 
-    /// - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
+    // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
     func findTranslationsInLines(lines: [String]) -> [TranslationEntry] {
 
         var foundTranslations: [TranslationEntry] = []
@@ -310,11 +302,11 @@ public class StringsFileUpdater {
             let keyValueLineRegex = try NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .CaseInsensitive)
 
             lines.forEach { line in
-                if let commentLineMatch = commentLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.utf16.count)) {
+                if let commentLineMatch = commentLineRegex.firstMatchInString(line, options: .ReportCompletion, range: line.fullRange) {
                     lastCommentLine = (line as NSString).substringWithRange(commentLineMatch.rangeAtIndex(1))
                 }
 
-                if let keyValueLineMatch = keyValueLineRegex.firstMatchInString(line, options: .ReportCompletion, range: NSMakeRange(0, line.utf16.count)) {
+                if let keyValueLineMatch = keyValueLineRegex.firstMatchInString(line, options: .ReportCompletion, range: line.fullRange) {
 
                     let key = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(1))
                     let value = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(2))
@@ -363,11 +355,8 @@ public class StringsFileUpdater {
             let languageRegex = try NSRegularExpression(pattern: "(\\w{2})-{0,1}\\w*\\.lproj", options: .CaseInsensitive)
             let regionRegex = try NSRegularExpression(pattern: "\\w{2}-(\\w+)\\.lproj", options: .CaseInsensitive)
 
-            let fullRange = NSMakeRange(0, path.utf16.count)
-
-
             // Get language from path
-            guard let languageMatch = languageRegex.matchesInString(path, options: .ReportCompletion, range: fullRange).last else {
+            guard let languageMatch = languageRegex.matchesInString(path, options: .ReportCompletion, range: path.fullRange).last else {
                 return nil
             }
             let language = (path as NSString).substringWithRange(languageMatch.rangeAtIndex(1))
@@ -376,7 +365,7 @@ public class StringsFileUpdater {
             // Get region from path if existent
             var region: String? = nil
 
-            if let regionMatch = regionRegex.matchesInString(path, options: .ReportCompletion, range: fullRange).last {
+            if let regionMatch = regionRegex.matchesInString(path, options: .ReportCompletion, range: path.fullRange).last {
                 region = (path as NSString).substringWithRange(regionMatch.rangeAtIndex(1))
             }
 
@@ -422,3 +411,14 @@ extension String {
     }
 
 }
+
+extension String {
+
+    var fullRange: NSRange {
+        return NSRange(location: 0, length: self.utf16.count)
+    }
+
+}
+
+// swiftlint:enable function_body_length
+// swiftlint:enable file_length

@@ -28,8 +28,8 @@ public class SubCommander {
 
     private struct StderrOutputStream: OutputStreamType {
         static let stream = StderrOutputStream()
-        func write(s: String) {
-            fputs(s, stderr)
+        func write(string: String) {
+            fputs(string, stderr)
         }
     }
 
@@ -47,13 +47,13 @@ public class SubCommander {
 
     public func commandLine(arguments: [String]) throws -> CommandLine {
         guard arguments.count > 1 else {
-            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
+            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         let subCommandString = arguments[1]
 
         guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), commandLineBlock = self.subCommandLines[subCommand] else {
-            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
+            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         return commandLineBlock()
