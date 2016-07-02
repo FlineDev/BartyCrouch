@@ -126,6 +126,9 @@
 		82CDE2F71C6C08F800055FE6 /* BartyCrouchTests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BartyCrouchTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		82DD98321C7DE1560065F046 /* Polyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyglot.swift; sourceTree = "<group>"; };
 		82DD98331C7DE1560065F046 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		82F2E1041D27CF7900C6386A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +246,10 @@
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
+				82F2E1061D27DB8A00C6386A /* README.md */,
+				82F2E1051D27DB8A00C6386A /* LICENSE.md */,
 				820649CD1C7CA636009E501E /* Cartfile */,
+				82F2E1041D27CF7900C6386A /* .swiftlint.yml */,
 				82CDE2611C6ABBF500055FE6 /* Sources */,
 				82CDE2681C6ABC0200055FE6 /* Tests */,
 				82CDE2741C6ABE5D00055FE6 /* BartyCrouch CLI */,
@@ -433,6 +439,7 @@
 				82CDE27B1C6ABF3A00055FE6 /* Frameworks */,
 				82CDE27C1C6ABF3A00055FE6 /* Headers */,
 				82CDE27D1C6ABF3A00055FE6 /* Resources */,
+				82F2E1031D27CF4E00C6386A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -524,6 +531,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82F2E1031D27CF4E00C6386A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		82CDE26F1C6ABE5C00055FE6 /* Sources */ = {
