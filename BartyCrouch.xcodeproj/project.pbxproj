@@ -127,6 +127,8 @@
 		82DD98321C7DE1560065F046 /* Polyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyglot.swift; sourceTree = "<group>"; };
 		82DD98331C7DE1560065F046 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		82F2E1041D27CF7900C6386A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +246,8 @@
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
+				82F2E1061D27DB8A00C6386A /* README.md */,
+				82F2E1051D27DB8A00C6386A /* LICENSE.md */,
 				820649CD1C7CA636009E501E /* Cartfile */,
 				82F2E1041D27CF7900C6386A /* .swiftlint.yml */,
 				82CDE2611C6ABBF500055FE6 /* Sources */,
