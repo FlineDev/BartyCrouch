@@ -8,6 +8,10 @@
         <img src="https://www.bitrise.io/app/d2a5a304b2abcc40.svg?token=iNSSO_Fb9mZitl5WMdVIfQ&branch=stable"
              alt="Build Status">
     </a>
+    <a href="https://codebeat.co/projects/github-com-flinesoft-bartycrouch">
+        <img src="https://codebeat.co/badges/df0cd886-cc59-4312-b476-8932c8179a79"
+             alt="codebeat badge">
+    </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
         <img src="https://img.shields.io/badge/Version-3.2.1-blue.svg"
              alt="Version: 3.2.1">
