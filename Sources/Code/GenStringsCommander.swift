@@ -20,7 +20,7 @@ public class GenStringsCommander {
     
     public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
         
-        let findFilesResult = Commander.sharedInstance.run("/usr/bin/find", arguments: [codeDirectoryPath, "-name", "'*.[hm]'", "-o", "-name", "'*.swift'", "-print"])
+        let findFilesResult = Commander.sharedInstance.run("/usr/bin/find", arguments: [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"])
         let exportFileResult = Commander.sharedInstance.run("/usr/bin/genstrings", arguments: findFilesResult.outputs + ["-o", stringsFilePath])
         
         if findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0 {
