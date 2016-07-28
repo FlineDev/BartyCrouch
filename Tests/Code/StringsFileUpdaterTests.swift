@@ -274,14 +274,19 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // test before state (update if failing)
-                XCTAssertEqual(translations.first!.key, "Test key")
-                XCTAssertEqual(translations.first!.value, "Test value (\(locale))")
-                XCTAssertEqual(translations.first!.comment, " A string already localized in all languages. ")
+                XCTAssertEqual(translations[0].key, "Test key")
+                XCTAssertEqual(translations[0].value, "Test value (\(locale))")
+                XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
                 
-                XCTAssertEqual(translations.last!.key, "menu.cars")
-                XCTAssertEqual(translations.last!.value.utf16.count, 0)
-                XCTAssertEqual(translations.last!.value, "")
-                XCTAssertEqual(translations.last!.comment, " A string where value only available in English. ")
+                XCTAssertEqual(translations[1].key, "menu.cars")
+                XCTAssertEqual(translations[1].value.utf16.count, 0)
+                XCTAssertEqual(translations[1].value, "")
+                XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
+
+                XCTAssertEqual(translations[2].key, "TEST.KEY.UNESCAPED_DOUBLE_QUOTES")
+                XCTAssertEqual(translations[2].value.utf16.count, 0)
+                XCTAssertEqual(translations[2].value, "")
+                XCTAssertEqual(translations[2].comment, nil)
                 
                 
                 // run tested method
@@ -289,11 +294,11 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 
-                XCTAssertEqual(changedValuesCount, 2)
+                XCTAssertEqual(changedValuesCount, 3)
                 
                 
                 // test after state (update if failing)
-                XCTAssertEqual(translations.count, 3)
+                XCTAssertEqual(translations.count, 4)
                 
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
@@ -318,6 +323,12 @@ class StringsFileUpdaterTests: XCTestCase {
                 "ja":       "自転車",
                 "zh-Hans":  "自行车"
             ]
+
+            let expectedTranslatedSheSaidStopValues: [String: String] = [
+                "de":       "Sie sagte: \\\"Stop!\\\"", // BartyCrouch is expected to escape double quotes
+                "ja":       "彼女は言った: '停止'!",
+                "zh-Hans":  "她说: '停止' ！"
+            ]
             
             // test with create keys options
             for locale in ["de", "ja", "zh-Hans"] {
@@ -341,7 +352,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 
                 // test before state (update if failing)
-                XCTAssertEqual(translations.count, 2)
+                XCTAssertEqual(translations.count, 3)
                 
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
@@ -358,11 +369,11 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
                 
-                XCTAssertEqual(changedValuesCount, 2)
+                XCTAssertEqual(changedValuesCount, 3)
                 
                 
                 // test after state (update if failing)
-                XCTAssertEqual(translations.count, 3)
+                XCTAssertEqual(translations.count, 4)
                 
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
@@ -377,7 +388,12 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertGreaterThan(translations[2].value.utf16.count, 0)
                 XCTAssertEqual(translations[2].value, expectedTranslatedBicyclesValues[locale])
                 XCTAssertEqual(translations[2].comment, " A string where key only available in English. ")
-                
+
+                XCTAssertEqual(translations[3].key, "TEST.KEY.UNESCAPED_DOUBLE_QUOTES")
+                XCTAssertGreaterThan(translations[2].value.utf16.count, 0)
+                XCTAssertEqual(translations[3].value, expectedTranslatedSheSaidStopValues[locale])
+                XCTAssertEqual(translations[3].comment, nil)
+
                 
                 // cleanup temporary file after testing
                 do {

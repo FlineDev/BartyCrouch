@@ -9,13 +9,13 @@
 import Foundation
 
 public class SubCommander {
-    
+
     // MARK: - Define Sub Structures
-    
+
     public enum ParseError: ErrorType, CustomStringConvertible {
         case MissingSubCommand(supportedSubCommands: [String])
         case UnsupportedSubCommand(supportedSubCommands: [String])
-        
+
         public var description: String {
             switch self {
             case let .MissingSubCommand(supportedSubCommands):
@@ -25,43 +25,43 @@ public class SubCommander {
             }
         }
     }
-    
+
     private struct StderrOutputStream: OutputStreamType {
         static let stream = StderrOutputStream()
-        func write(s: String) {
-            fputs(s, stderr)
+        func write(string: String) {
+            fputs(string, stderr)
         }
     }
-    
-    
+
+
     // MARK: - Stored Instance Properties
-    
+
     private var subCommandLines: [CommandLineParser.SubCommand: () -> CommandLine] = [:]
-    
-  
+
+
     // MARK: - Instance Methods
-    
+
     public func addCommandLineBlock(commandLineBlock: () -> CommandLine, forSubCommand subCommand: CommandLineParser.SubCommand) {
         self.subCommandLines[subCommand] = commandLineBlock
     }
-    
+
     public func commandLine(arguments: [String]) throws -> CommandLine {
         guard arguments.count > 1 else {
-            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
+            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
-        
+
         let subCommandString = arguments[1]
-        
+
         guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), commandLineBlock = self.subCommandLines[subCommand] else {
-            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map{ $0.rawValue })
+            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
-        
+
         return commandLineBlock()
     }
-    
+
     public func printUsage(error: ErrorType) {
         var out = StderrOutputStream.stream
         print("\(error)", terminator: "", toStream: &out)
     }
-    
+
 }
