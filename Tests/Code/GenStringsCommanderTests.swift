@@ -29,7 +29,6 @@ class GenStringsCommanderTests: XCTestCase {
         
         do {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")
-            XCTAssertNotNil(contentsOfStringsFile)
             
             let linesInStringsFile = contentsOfStringsFile.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
             XCTAssertEqual(linesInStringsFile, [
