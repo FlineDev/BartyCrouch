@@ -20,7 +20,7 @@ public class IBToolCommander {
 
     public func export(stringsFileToPath stringsFilePath: String, fromIbFileAtPath ibFilePath: String) -> Bool {
         let exportResult = Commander.sharedInstance.run("/usr/bin/ibtool", arguments: ["--export-strings-file", stringsFilePath, ibFilePath])
-        
+
         if exportResult.exitCode == 0 {
             return true
         } else {
