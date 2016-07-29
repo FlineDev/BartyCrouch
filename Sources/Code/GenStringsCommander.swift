@@ -19,10 +19,12 @@ public class GenStringsCommander {
     // MARK: - Instance Methods
 
     public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
+        let findFilesResult = Commander.sharedInstance.run("/usr/bin/find", arguments:
+            [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"])
 
-        let exitCode = system("find \"\(codeDirectoryPath)\" -name '*.[hm]' -o -name '*.mm' -o -name '*.swift' | xargs genstrings -o \"\(stringsFilePath)\"")
+        let exportFileResult = Commander.sharedInstance.run("/usr/bin/genstrings", arguments: findFilesResult.outputs + ["-o", stringsFilePath])
 
-        if exitCode == 0 {
+        if findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0 {
             return true
         } else {
             return false
