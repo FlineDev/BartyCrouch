@@ -12,7 +12,7 @@ import XCTest
 
 class GenStringsCommanderTests: XCTestCase {
     
-    let exampleCodeFilesDirectoryPath = "\(BASE_DIR)/Tests/Assets/CodeFiles"
+    let exampleCodeFilesDirectoryPath = "\(BASE_DIR)/Tests/Assets/Code Files"
     
     override func tearDown() {
         do {

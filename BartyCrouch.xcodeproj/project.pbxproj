@@ -14,6 +14,7 @@
 		820649D31C7CA71E009E501E /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D01C7CA71E009E501E /* CommandLine.swift */; };
 		820649D41C7CA71E009E501E /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D11C7CA71E009E501E /* Option.swift */; };
 		820649D51C7CA71E009E501E /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820649D21C7CA71E009E501E /* StringExtensions.swift */; };
+		82125E931D0312CF00B9C66B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
 		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
 		82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */; };
@@ -80,6 +81,7 @@
 		820649D01C7CA71E009E501E /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; };
 		820649D11C7CA71E009E501E /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		820649D21C7CA71E009E501E /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		82125E921D0312CF00B9C66B /* Commander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commander.swift; sourceTree = "<group>"; };
 		821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearch.swift; sourceTree = "<group>"; };
 		821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearchTests.swift; sourceTree = "<group>"; };
 		821DED3F1C70D11F00B8353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Example.storyboard; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				824DAA691CDB80E10077F93A /* CommandLineParser.swift */,
 				824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */,
+				82125E921D0312CF00B9C66B /* Commander.swift */,
 				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
 				82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */,
 				824DAA681CDB80310077F93A /* Helpers */,
@@ -198,13 +201,13 @@
 			name = "File Handling";
 			sourceTree = "<group>";
 		};
-		82463E011CD915DB00D28A2C /* CodeFiles */ = {
+		82463E011CD915DB00D28A2C /* Code Files */ = {
 			isa = PBXGroup;
 			children = (
 				82463E031CD9164000D28A2C /* SwiftExample1.swift */,
 				82463E041CD9180D00D28A2C /* Subfolder */,
 			);
-			path = CodeFiles;
+			path = "Code Files";
 			sourceTree = "<group>";
 		};
 		82463E041CD9180D00D28A2C /* Subfolder */ = {
@@ -328,8 +331,8 @@
 		82CDE26C1C6ABC0200055FE6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				82463E011CD915DB00D28A2C /* CodeFiles */,
-				82CDE2F81C6C0BAA00055FE6 /* StringsFiles */,
+				82463E011CD915DB00D28A2C /* Code Files */,
+				82CDE2F81C6C0BAA00055FE6 /* Strings Files */,
 				82CDE2FF1C6C0BAA00055FE6 /* Storyboards */,
 			);
 			path = Assets;
@@ -343,7 +346,7 @@
 			path = "BartyCrouch CLI";
 			sourceTree = "<group>";
 		};
-		82CDE2F81C6C0BAA00055FE6 /* StringsFiles */ = {
+		82CDE2F81C6C0BAA00055FE6 /* Strings Files */ = {
 			isa = PBXGroup;
 			children = (
 				8203A2971C6D159D00BCE479 /* NewExample.strings */,
@@ -352,7 +355,7 @@
 				82053A251CD32A0200434DAD /* LongOldExample.strings */,
 				82053A271CD32B4900434DAD /* LongNewExample.strings */,
 			);
-			path = StringsFiles;
+			path = "Strings Files";
 			sourceTree = "<group>";
 		};
 		82CDE2FF1C6C0BAA00055FE6 /* Storyboards */ = {
@@ -575,6 +578,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82125E931D0312CF00B9C66B /* Commander.swift in Sources */,
 				824DAA671CDB71450077F93A /* StringExtensions.swift in Sources */,
 				82DD98361C7DE1560065F046 /* Session.swift in Sources */,
 				824DAA5D1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
