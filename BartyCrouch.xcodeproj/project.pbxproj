@@ -47,6 +47,7 @@
 		82DD98361C7DE1560065F046 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD98331C7DE1560065F046 /* Session.swift */; };
 		82DD98381C7DE18B0065F046 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD98321C7DE1560065F046 /* Polyglot.swift */; };
 		82DD98391C7DE18B0065F046 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD98331C7DE1560065F046 /* Session.swift */; };
+		A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -567,6 +568,7 @@
 				820649D41C7CA71E009E501E /* Option.swift in Sources */,
 				824DAA641CDB6F520077F93A /* SubCommander.swift in Sources */,
 				82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */,
+				A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */,
 				82DD98391C7DE18B0065F046 /* Session.swift in Sources */,
 				824DAA5E1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
 				824DAA5F1CDB60E90077F93A /* GenStringsCommander.swift in Sources */,
