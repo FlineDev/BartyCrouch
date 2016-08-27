@@ -22,7 +22,7 @@ class GenStringsCommanderTests: XCTestCase {
         }
     }
     
-    func testiOSExampleStoryboard() {
+    func testCodeExamples() {
         
         let exportSuccess = GenStringsCommander.sharedInstance.export(stringsFilesToPath: exampleCodeFilesDirectoryPath
             , fromCodeInDirectoryPath: exampleCodeFilesDirectoryPath)
@@ -40,6 +40,9 @@ class GenStringsCommanderTests: XCTestCase {
                 "",
                 "/* Ignoring stringsdict key #bc-ignore! */",
                 "\"%d ignore(s)\" = \"%d ignore(s)\";",
+                "",
+                "/* No comment provided by engineer. */",
+                "\"ccc\" = \"ccc\";",
                 "",
                 "/* Comment for TestKey1 */",
                 "\"TestKey1\" = \"TestKey1\";",
