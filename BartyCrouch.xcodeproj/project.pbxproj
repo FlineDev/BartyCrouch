@@ -146,6 +146,7 @@
 		E7974AFA1DFAECA700E31754 /* SwiftExample2Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample2Arguments.swift; sourceTree = "<group>"; };
 		E7974AFC1DFAECA700E31754 /* SwiftExample3Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample3Arguments.swift; sourceTree = "<group>"; };
 		E7974B001DFAFD2D00E31754 /* SwiftExample4Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample4Arguments.swift; sourceTree = "<group>"; };
+		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +224,7 @@
 			children = (
 				82463E031CD9164000D28A2C /* SwiftExample1.swift */,
 				82463E041CD9180D00D28A2C /* Subfolder */,
+				A14DE1741D71B2930010F856 /* UnsortedKeys */,
 			);
 			path = "Code Files";
 			sourceTree = "<group>";
@@ -373,6 +375,7 @@
 				825550FE1C7E637700DB5DCF /* Localizable.strings */,
 				82053A251CD32A0200434DAD /* LongOldExample.strings */,
 				82053A271CD32B4900434DAD /* LongNewExample.strings */,
+				A14DE16D1D71B0400010F856 /* UnsortedKeys */,
 			);
 			path = "Strings Files";
 			sourceTree = "<group>";
@@ -454,6 +457,22 @@
 				E7974B001DFAFD2D00E31754 /* SwiftExample4Arguments.swift */,
 			);
 			path = "4 Arguments";
+			sourceTree = "<group>";
+		};
+		A14DE16D1D71B0400010F856 /* UnsortedKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A14DE1771D71B6C00010F856 /* Localizable.strings */,
+			);
+			path = UnsortedKeys;
+			sourceTree = "<group>";
+		};
+		A14DE1741D71B2930010F856 /* UnsortedKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A14DE1751D71B2930010F856 /* SwiftExample3.swift */,
+			);
+			path = UnsortedKeys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -727,6 +746,14 @@
 				825550FF1C7E637D00DB5DCF /* de */,
 				825551001C7E638000DB5DCF /* ja */,
 				825551041C7E63B000DB5DCF /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A14DE1771D71B6C00010F856 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A14DE1761D71B6C00010F856 /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
