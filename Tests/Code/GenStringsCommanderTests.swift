@@ -31,6 +31,7 @@ class GenStringsCommanderTests: XCTestCase {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")
             
             let linesInStringsFile = contentsOfStringsFile.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+            print(linesInStringsFile)
             XCTAssertEqual(linesInStringsFile, [
                 "/* No comment provided by engineer. */",
                 "\"%010d and %03.f\" = \"%1$d and %2$.f\";",
@@ -46,6 +47,27 @@ class GenStringsCommanderTests: XCTestCase {
                 "",
                 "/* Comment for TestKey1 */",
                 "\"TestKey2\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"test.key-one\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"test.key-two\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"task.key\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"abc.key\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"ugh\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"aaa\" = \"TestKey2\";",
+                "",
+                "/* Comment for TestKey1 */",
+                "\"taa\" = \"TestKey2\";",
                 "",
                 ""
             ])
