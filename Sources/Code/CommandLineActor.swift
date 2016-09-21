@@ -65,9 +65,9 @@ public class CommandLineActor {
 
     }
 
-    private func actOnCode(path path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool) {
+    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool) {
 
-        let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(localizable, withFileName: "Localizable")
+        let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseDirectoryPath: localizable, withFileName: "Localizable")
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
             self.printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in you build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
@@ -76,20 +76,20 @@ public class CommandLineActor {
 
         for localizableStringsFilePath in allLocalizableStringsFilePaths {
 
-            guard NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath) else {
+            guard FileManager.default.fileExists(atPath: localizableStringsFilePath) else {
                 self.printError("No file exists at output path '\(localizableStringsFilePath)'")
                 exit(EX_NOINPUT)
             }
 
         }
 
-        self.incrementalCodeUpdate(path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys, additive: additive)
+        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys, additive: additive)
 
     }
 
-    private func actOnInterfaces(path path: String, override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool) {
 
-        let inputFilePaths = StringsFilesSearch.sharedInstance.findAllIBFiles(path, withLocale: "Base")
+        let inputFilePaths = StringsFilesSearch.sharedInstance.findAllIBFiles(baseDirectoryPath: path, withLocale: "Base")
 
         guard !inputFilePaths.isEmpty else {
             self.printError("No input files found.")
@@ -98,15 +98,15 @@ public class CommandLineActor {
 
         for inputFilePath in inputFilePaths {
 
-            guard NSFileManager.defaultManager().fileExistsAtPath(inputFilePath) else {
+            guard FileManager.default.fileExists(atPath: inputFilePath) else {
                 self.printError("No file exists at input path '\(inputFilePath)'")
                 exit(EX_NOINPUT)
             }
 
-            let outputStringsFilePaths = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath }
+            let outputStringsFilePaths = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
 
             for outputStringsFilePath in outputStringsFilePaths {
-                guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
+                guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
                     self.printError("No file exists at output path '\(outputStringsFilePath)'.")
                     exit(EX_CONFIG)
                 }
@@ -118,9 +118,9 @@ public class CommandLineActor {
 
     }
 
-    private func actOnTranslate(path path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
+    private func actOnTranslate(path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
 
-        let inputFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(path, withLocale: locale)
+        let inputFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseDirectoryPath: path, withLocale: locale)
 
         guard !inputFilePaths.isEmpty else {
             self.printError("No input files found.")
@@ -129,15 +129,15 @@ public class CommandLineActor {
 
         for inputFilePath in inputFilePaths {
 
-            guard NSFileManager.defaultManager().fileExistsAtPath(inputFilePath) else {
+            guard FileManager.default.fileExists(atPath: inputFilePath) else {
                 self.printError("No file exists at input path '\(inputFilePath)'")
                 exit(EX_NOINPUT)
             }
 
-            let outputStringsFilePaths = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(inputFilePath).filter { $0 != inputFilePath }
+            let outputStringsFilePaths = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
 
             for outputStringsFilePath in outputStringsFilePaths {
-                guard NSFileManager.defaultManager().fileExistsAtPath(outputStringsFilePath) else {
+                guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
                     self.printError("No file exists at output path '\(outputStringsFilePath)'.")
                     exit(EX_CONFIG)
                 }
@@ -155,7 +155,7 @@ public class CommandLineActor {
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
         do {
-            try NSFileManager.defaultManager().createDirectoryAtPath(extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch {
             print(error)
             exit(EX_IOERR)
@@ -185,7 +185,7 @@ public class CommandLineActor {
         }
 
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(extractedStringsFileDirectory)
+            try FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
         } catch {
             self.printError("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'")
             exit(EX_IOERR)
@@ -194,7 +194,7 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully updated strings file(s) of Code files.")
     }
 
-    private func incrementalInterfacesUpdate(inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func incrementalInterfacesUpdate(_ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
         guard IBToolCommander.sharedInstance.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
@@ -218,7 +218,7 @@ public class CommandLineActor {
         }
 
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(extractedStringsFilePath)
+            try FileManager.default.removeItem(atPath: extractedStringsFilePath)
         } catch {
             self.printError("Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'")
             exit(EX_IOERR)
@@ -227,7 +227,7 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.")
     }
 
-    private func translate(id id: String, secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
+    private func translate(id: String, secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
 
         var overallTranslatedValuesCount = 0
         var filesWithTranslatedValuesCount = 0
@@ -259,7 +259,7 @@ public class CommandLineActor {
 
     // MARK: - Helper Methods
 
-    private func printError(message: String) {
+    private func printError(_ message: String) {
         print("Error! \(message)")
     }
 

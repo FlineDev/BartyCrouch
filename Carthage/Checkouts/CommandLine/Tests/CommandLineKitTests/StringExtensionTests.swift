@@ -16,7 +16,7 @@
  */
 
 import XCTest
-@testable import CommandLine
+@testable import CommandLineKit
 #if os(OSX)
   import Darwin
 #elseif os(Linux)
@@ -24,50 +24,54 @@ import XCTest
 #endif
 
 class StringExtensionTests: XCTestCase {
-  /* TODO: The commented-out tests segfault on Linux as of the Swift 2.2 2016-01-11 snapshot. */
-  var allTests : [(String, () throws -> Void)] {
+  static var allTests : [(String, (StringExtensionTests) -> () throws -> Void)] {
     return [
-      //("testToDouble", testToDouble),
-      ("testSplitByCharacter", testSplitByCharacter),
-      ("testPaddedByCharacter", testPaddedByCharacter),
-      ("testWrappedAtWidth", testWrappedAtWidth),
+      ("testToDouble", testToDouble),
+      ("testSplit", testSplit),
+      ("testPadded", testPadded),
+      ("testWrapped", testWrapped),
     ]
+  }
+
+  override func setUp() {
+    /* set locale to "C" to start with '.' as the decimal separator */
+    setlocale(LC_ALL, "C")
   }
 
   func testToDouble() {
     /* Regular ol' double */
     let a = "3.14159".toDouble()
-    XCTAssertEqual(a!, 3.14159, "Failed to parse pi as double")
+    XCTAssertEqual(a, 3.14159, "Failed to parse pi as double")
 
     let b = "-98.23".toDouble()
-    XCTAssertEqual(b!, -98.23, "Failed to parse negative double")
+    XCTAssertEqual(b, -98.23, "Failed to parse negative double")
 
     /* Ints should be parsable as doubles */
     let c = "5".toDouble()
-    XCTAssertEqual(c!, 5, "Failed to parse int as double")
+    XCTAssertEqual(c, 5, "Failed to parse int as double")
 
     let d = "-2099".toDouble()
-    XCTAssertEqual(d!, -2099, "Failed to parse negative int as double")
+    XCTAssertEqual(d, -2099, "Failed to parse negative int as double")
 
 
     /* Zero handling */
     let e = "0.0".toDouble()
-    XCTAssertEqual(e!, 0, "Failed to parse zero double")
+    XCTAssertEqual(e, 0, "Failed to parse zero double")
 
     let f = "0".toDouble()
-    XCTAssertEqual(f!, 0, "Failed to parse zero int as double")
+    XCTAssertEqual(f, 0, "Failed to parse zero int as double")
 
     let g = "0.0000000000000000".toDouble()
-    XCTAssertEqual(g!, 0, "Failed to parse very long zero double")
+    XCTAssertEqual(g, 0, "Failed to parse very long zero double")
 
     let h = "-0.0".toDouble()
-    XCTAssertEqual(h!, 0, "Failed to parse negative zero double")
+    XCTAssertEqual(h, 0, "Failed to parse negative zero double")
 
     let i = "-0".toDouble()
-    XCTAssertEqual(i!, 0, "Failed to parse negative zero int as double")
+    XCTAssertEqual(i, 0, "Failed to parse negative zero int as double")
 
     let j = "-0.000000000000000".toDouble()
-    XCTAssertEqual(j!, 0, "Failed to parse very long negative zero double")
+    XCTAssertEqual(j, 0, "Failed to parse very long negative zero double")
 
 
     /* Various extraneous chars */
@@ -96,51 +100,59 @@ class StringExtensionTests: XCTestCase {
     setlocale(LC_NUMERIC, "")
   }
 
-  func testSplitByCharacter() {
-    let a = "1,2,3".splitByCharacter(",")
+  func testSplit() {
+    let a = "1,2,3".split(by: ",")
     XCTAssertEqual(a.count, 3, "Failed to split into correct number of components")
 
-    let b = "123".splitByCharacter(",")
+    let b = "123".split(by: ",")
     XCTAssertEqual(b.count, 1, "Failed to split when separator not found")
 
-    let c = "".splitByCharacter(",")
+    let c = "".split(by: ",")
     XCTAssertEqual(c.count, 0, "Splitting empty string should return empty array")
 
-    let e = "a-b-c-d".splitByCharacter("-", maxSplits: 2)
+    let e = "a-b-c-d".split(by: "-", maxSplits: 2)
     XCTAssertEqual(e.count, 3, "Failed to limit splits")
     XCTAssertEqual(e[0], "a", "Invalid value for split 1")
     XCTAssertEqual(e[1], "b", "Invalid value for split 2")
     XCTAssertEqual(e[2], "c-d", "Invalid value for last split")
   }
 
-  func testPaddedByCharacter() {
+  func testPadded() {
     let a = "this is a test"
 
-    XCTAssertEqual(a.paddedToWidth(80).characters.count,
+    XCTAssertEqual(a.padded(toWidth: 80).characters.count,
                    80, "Failed to pad to correct width")
-    XCTAssertEqual(a.paddedToWidth(5).characters.count,
+    XCTAssertEqual(a.padded(toWidth: 5).characters.count,
                    a.characters.count, "Bad padding when pad width is less than string width")
-    XCTAssertEqual(a.paddedToWidth(-2).characters.count,
+    XCTAssertEqual(a.padded(toWidth: -2).characters.count,
                    a.characters.count, "Bad padding with negative pad width")
 
-    let b = a.paddedToWidth(80)
-    let lastBCharIndex = b.endIndex.advancedBy(-1)
+    let b = a.padded(toWidth: 80)
+    #if swift(>=3.0)
+      let lastBCharIndex = b.index(before: b.endIndex)
+		#else
+      let lastBCharIndex = b.endIndex.advancedBy(-1)
+		#endif
     XCTAssertEqual(b[lastBCharIndex], " " as Character, "Failed to pad with default character")
 
-    let c = a.paddedToWidth(80, padBy: "+")
-    let lastCCharIndex = c.endIndex.advancedBy(-1)
+    let c = a.padded(toWidth: 80, with: "+")
+    #if swift(>=3.0)
+      let lastCCharIndex = c.index(before: b.endIndex)
+    #else
+      let lastCCharIndex = c.endIndex.advancedBy(-1)
+    #endif
     XCTAssertEqual(c[lastCCharIndex], "+" as Character, "Failed to pad with specified character")
   }
 
-  func testWrappedAtWidth() {
+  func testWrapped() {
     let lipsum = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    for line in lipsum.wrappedAtWidth(80).splitByCharacter("\n") {
+    for line in lipsum.wrapped(atWidth: 80).split(by: "\n") {
       XCTAssertLessThanOrEqual(line.characters.count, 80, "Failed to wrap long line: \(line)")
     }
 
     /* Words longer than the wrap width should not be split */
     let longWords = "Lorem ipsum consectetur adipisicing eiusmod tempor incididunt"
-    let lines = longWords.wrappedAtWidth(3).splitByCharacter("\n")
+    let lines = longWords.wrapped(atWidth: 3).split(by: "\n")
     XCTAssertEqual(lines.count, 8, "Failed to wrap long words")
     for line in lines {
       XCTAssertGreaterThan(line.characters.count, 3, "Bad long word wrapping on line: \(line)")

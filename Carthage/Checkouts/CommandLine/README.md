@@ -1,17 +1,17 @@
-# CommandLine [![Build Status](https://travis-ci.org/jatoben/CommandLine.svg?branch=master)](https://travis-ci.org/jatoben/CommandLine)
+# CommandLineKit [![Build Status](https://travis-ci.org/jatoben/CommandLine.svg?branch=master)](https://travis-ci.org/jatoben/CommandLine)
 
 A pure Swift library for creating command-line interfaces.
 
-*Note: CommandLine `master` requires Xcode 7  / Swift 2.0, and aims to support the latest 2.2-dev snapshot on Linux (although not all tests pass yet). If you're using older versions of Swift, please check out the [earlier releases](https://github.com/jatoben/CommandLine/releases).*
+*Note: CommandLineKit `master` requires Xcode 7.3 / Swift 2.2, and aims to support the latest 2.2-dev snapshot on Linux (although not all tests pass yet). If you're using older versions of Swift, please check out the [earlier releases](https://github.com/jatoben/CommandLine/releases).*
 
 ## Usage
 
 CommandLine aims to have a simple and self-explanatory API.
 
 ```swift
-import CommandLine
+import CommandLineKit
 
-let cli = CommandLine()
+let cli = CommandLineKit.CommandLineKit()
 
 let filePath = StringOption(shortFlag: "f", longFlag: "file", required: true,
   helpMessage: "Path to the output file.")
@@ -38,11 +38,11 @@ print("Verbosity is \(verbosity.value)")
 
 See `Option.swift` for additional Option types.
 
-To use CommandLine in your project, add it to your workspace, then add CommandLine.framework to the __Build Phases / Link Binary With Libraries__ setting of your target.
+To use CommandLineKit in your project, add it to your workspace, then add CommandLineKit.framework to the __Build Phases / Link Binary With Libraries__ setting of your target.
 
 If you are building a command-line tool and need to embed this and other frameworks to it, follow the steps in http://colemancda.github.io/programming/2015/02/12/embedded-swift-frameworks-osx-command-line-tools/ to link Swift frameworks to your command-line tool.
 
-If you are building a standalone command-line tool, you'll need to add the CommandLine source files directly to your target, because Xcode [can't yet build static libraries that contain Swift code](https://github.com/ksm/SwiftInFlux#static-libraries).
+If you are building a standalone command-line tool, you'll need to add the CommandLineKit source files directly to your target, because Xcode [can't yet build static libraries that contain Swift code](https://github.com/ksm/SwiftInFlux#static-libraries).
 
 
 ## Features
@@ -125,7 +125,7 @@ enum Operation: String {
   case Verify  = "v"
 }
 
-let cli = CommandLine()
+let cli = CommandLineKit.CommandLineKit()
 let op = EnumOption<Operation>(shortFlag: "o", longFlag: "operation", required: true,
   helpMessage: "File operation - c for create, x for extract, l for list, or v for verify.")
 cli.setOptions(op)

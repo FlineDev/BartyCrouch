@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CommandLine.xcodeproj">
+      location = "self:/Users/ingmar/Devel/CommandLine/CommandLineKit.xcodeproj">
    </FileRef>
 </Workspace>
