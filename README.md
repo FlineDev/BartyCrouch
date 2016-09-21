@@ -35,6 +35,8 @@
 </p>
 
 
+***Please note that Xcode 8 and Swift 3 support is implemented but broken at the moment. Although you will see them listed as the current supported versions in this README we reverted back to BartyCrouch v3.2.3 that only supports Swift 2.2 – so you will need Xcode 7 to install BartyCrouch via Homebrew for the time being. See [this comment](https://github.com/Flinesoft/BartyCrouch/issues/33#issuecomment-248771875) for additional details.***
+
 # BartyCrouch
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 40+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
