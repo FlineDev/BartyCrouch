@@ -10,6 +10,6 @@ import Foundation
 
 CommandLineParser().parse { commonOptions, subCommandOptions in
     
-    CommandLineActor().act(commonOptions, subCommandOptions: subCommandOptions)
+    CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
     
 }
