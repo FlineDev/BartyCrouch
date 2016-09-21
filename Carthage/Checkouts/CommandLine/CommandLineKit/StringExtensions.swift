@@ -26,7 +26,7 @@ internal extension String {
   /* Retrieves locale-specified decimal separator from the environment
    * using localeconv(3).
    */
-  private func _localDecimalPoint() -> Character {
+  fileprivate func _localDecimalPoint() -> Character {
     let locale = localeconv()
     if locale != nil {
       #if swift(>=3.0)
@@ -34,9 +34,9 @@ internal extension String {
           return Character(UnicodeScalar(UInt32(decimalPoint.pointee))!)
         }
       #else
-        let decimalPoint = locale.memory.decimal_point
+        let decimalPoint = locale.pointee.decimal_point
         if decimalPoint != nil {
-          return Character(UnicodeScalar(UInt32(decimalPoint.memory)))
+          return Character(UnicodeScalar(UInt32(decimalPoint.pointee)))
         }
       #endif
     }
@@ -59,7 +59,7 @@ internal extension String {
     #if swift(>=3.0)
       let charactersEnumerator = self.characters.enumerated()
     #else
-      let charactersEnumerator = self.characters.enumerate()
+      let charactersEnumerator = self.characters.enumerated()
     #endif
     for (i, c) in charactersEnumerator {
       if i == 0 && c == "-" {
@@ -130,7 +130,7 @@ internal extension String {
    *
    * - returns: An array of string components.
    */
-  func split(by by: Character, maxSplits: Int = 0) -> [String] {
+  func split(by: Character, maxSplits: Int = 0) -> [String] {
     var s = [String]()
     var numSplits = 0
 
@@ -139,7 +139,7 @@ internal extension String {
       let c = self[i]
       if c == by && (maxSplits == 0 || numSplits < maxSplits) {
         s.append(self[curIdx..<i])
-        curIdx = i.successor()
+        curIdx = <#T##String.CharacterView corresponding to `i`##String.CharacterView#>.index(after: i)
         numSplits += 1
       }
     }

@@ -868,13 +868,13 @@ internal class CommandLineTests: XCTestCase {
     let cli = CommandLine(arguments: [ "CommandLineTests" ])
     cli.formatOutput = { s, type in
       switch type {
-      case .About:
+      case .about:
         return "[ABOUT]\(s)\n"
-      case .Error:
+      case .error:
         return "[ERROR]\(s)\n"
-      case .OptionFlag:
+      case .optionFlag:
         return "[FLAG]\(s)\n"
-      case .OptionHelp:
+      case .optionHelp:
         return "[HELP]\(s)\n"
       }
     }
