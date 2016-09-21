@@ -12,7 +12,7 @@ public class SubCommander {
 
     // MARK: - Define Sub Structures
 
-    public enum ParseError: ErrorType, CustomStringConvertible {
+    public enum ParseError: Error, CustomStringConvertible {
         case MissingSubCommand(supportedSubCommands: [String])
         case UnsupportedSubCommand(supportedSubCommands: [String])
 
@@ -26,9 +26,9 @@ public class SubCommander {
         }
     }
 
-    private struct StderrOutputStream: OutputStreamType {
+    private struct StderrOutputStream: TextOutputStream {
         static let stream = StderrOutputStream()
-        func write(string: String) {
+        func write(_ string: String) {
             fputs(string, stderr)
         }
     }
@@ -36,32 +36,32 @@ public class SubCommander {
 
     // MARK: - Stored Instance Properties
 
-    private var subCommandLines: [CommandLineParser.SubCommand: () -> CommandLine] = [:]
+    private var subCommandLines: [CommandLineParser.SubCommand: () -> CommandLineKit] = [:]
 
 
     // MARK: - Instance Methods
 
-    public func addCommandLineBlock(commandLineBlock: () -> CommandLine, forSubCommand subCommand: CommandLineParser.SubCommand) {
+    public func addCommandLineBlock(commandLineBlock: @escaping () -> CommandLineKit, forSubCommand subCommand: CommandLineParser.SubCommand) {
         self.subCommandLines[subCommand] = commandLineBlock
     }
 
-    public func commandLine(arguments: [String]) throws -> CommandLine {
+    public func commandLine(arguments: [String]) throws -> CommandLineKit {
         guard arguments.count > 1 else {
             throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         let subCommandString = arguments[1]
 
-        guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), commandLineBlock = self.subCommandLines[subCommand] else {
+        guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), let commandLineBlock = self.subCommandLines[subCommand] else {
             throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         return commandLineBlock()
     }
 
-    public func printUsage(error: ErrorType) {
+    public func printUsage(error: Error) {
         var out = StderrOutputStream.stream
-        print("\(error)", terminator: "", toStream: &out)
+        print("\(error)", terminator: "", to: &out)
     }
 
 }

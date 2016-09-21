@@ -18,7 +18,7 @@ class StringsFilesSearchTests: XCTestCase {
         
         let expectedIBFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "Base", type: "storyboard") }
         
-        let results = StringsFilesSearch.sharedInstance.findAllIBFiles(basePath, withLocale: "Base")
+        let results = StringsFilesSearch.sharedInstance.findAllIBFiles(baseDirectoryPath: basePath, withLocale: "Base")
         
         XCTAssertEqual(results.count, expectedIBFilePaths.count)
         XCTAssertEqual(results, expectedIBFilePaths)
@@ -31,7 +31,7 @@ class StringsFilesSearchTests: XCTestCase {
         
         let expectedStringsFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "de", type: "strings") } + ["\(BASE_DIR)/Tests/Assets/Strings Files/de.lproj/Localizable.strings"]
         
-        let results = StringsFilesSearch.sharedInstance.findAllStringsFiles(basePath, withLocale: "de")
+        let results = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseDirectoryPath: basePath, withLocale: "de")
         
         XCTAssertEqual(results.count, expectedStringsFilePaths.count)
         XCTAssertEqual(results, expectedStringsFilePaths)
@@ -43,7 +43,7 @@ class StringsFilesSearchTests: XCTestCase {
         let baseStoryboardPath = examplePath(platform: "iOS", locale: "base", type: "storyboard")
         let expectedStringsPaths = ["de", "en", "ja", "zh-Hans"].map { examplePath(platform: "iOS", locale: $0, type: "strings") }
         
-        let results = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(baseStoryboardPath)
+        let results = StringsFilesSearch.sharedInstance.findAllLocalesForStringsFile(sourceFilePath: baseStoryboardPath)
         
         XCTAssertEqual(results.count, expectedStringsPaths.count)
         XCTAssertEqual(results, expectedStringsPaths)
@@ -53,7 +53,7 @@ class StringsFilesSearchTests: XCTestCase {
     
     // MARK: - Helpers
     
-    func examplePath(platform platform: String, locale: String, type: String) -> String {
+    func examplePath(platform: String, locale: String, type: String) -> String {
         return "\(BASE_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
     }
 

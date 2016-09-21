@@ -11,7 +11,7 @@ CommandLine aims to have a simple and self-explanatory API.
 ```swift
 import CommandLineKit
 
-let cli = CommandLineKit.CommandLine()
+let cli = CommandLineKit.CommandLineKit()
 
 let filePath = StringOption(shortFlag: "f", longFlag: "file", required: true,
   helpMessage: "Path to the output file.")
@@ -125,7 +125,7 @@ enum Operation: String {
   case Verify  = "v"
 }
 
-let cli = CommandLineKit.CommandLine()
+let cli = CommandLineKit.CommandLineKit()
 let op = EnumOption<Operation>(shortFlag: "o", longFlag: "operation", required: true,
   helpMessage: "File operation - c for create, x for extract, l for list, or v for verify.")
 cli.setOptions(op)

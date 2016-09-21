@@ -27,7 +27,7 @@ public class StringsFileUpdater {
         self.path = path
         do {
             let contentString = try String(contentsOfFile: path)
-            self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            self.linesInFile = contentString.components(separatedBy: .newlines)
         } catch {
             print((error as NSError).description)
             self.linesInFile = []
@@ -42,10 +42,10 @@ public class StringsFileUpdater {
                                         override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
-            let linesInNewFile = newContentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            let linesInNewFile = newContentString.components(separatedBy: .newlines)
 
-            let oldTranslations = self.findTranslationsInLines(self.linesInFile)
-            let newTranslations = self.findTranslationsInLines(linesInNewFile)
+            let oldTranslations = self.findTranslations(inLines: self.linesInFile)
+            let newTranslations = self.findTranslations(inLines: linesInNewFile)
 
             let updatedTranslations: [TranslationEntry] = {
                 var translations: [TranslationEntry] = []
@@ -67,7 +67,7 @@ public class StringsFileUpdater {
                     }
 
                     // Skip keys that have been marked for ignore in comment
-                    if let newComment = newComment where newComment.containsAny(ofStrings: ignores) {
+                    if let newComment = newComment, newComment.containsAny(ofStrings: ignores) {
                         continue
                     }
 
@@ -77,7 +77,7 @@ public class StringsFileUpdater {
                     let oldBaseValue: String? = {
                         if let oldComment = oldTranslation?.2 {
                             if let foundMatch = self.defaultCommentStructureMatches(inString: oldComment) {
-                                return (oldComment as NSString).substringWithRange(foundMatch.rangeAtIndex(1))
+                                return (oldComment as NSString).substring(with: foundMatch.rangeAt(1))
                             }
                         }
                         return nil
@@ -143,7 +143,7 @@ public class StringsFileUpdater {
                 return translations
             }()
 
-            self.rewriteFileWithTranslations(updatedTranslations)
+            self.rewriteFileWithTranslations(translations: updatedTranslations)
         } catch {
             print((error as NSError).description)
         }
@@ -151,8 +151,8 @@ public class StringsFileUpdater {
 
     private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
         do {
-            let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .CaseInsensitive)
-            return defaultCommentStructureRegex.matchesInString(string, options: .ReportCompletion, range: string.fullRange).first
+            let defaultCommentStructureRegex = try NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .caseInsensitive)
+            return defaultCommentStructureRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).first
         } catch {
             return nil
         }
@@ -162,13 +162,13 @@ public class StringsFileUpdater {
     func rewriteFileWithTranslations(translations: [TranslationEntry]) {
 
         do {
-            let newContentsOfFile = self.stringFromTranslations(translations)
+            let newContentsOfFile = self.stringFromTranslations(translations: translations)
 
-            try NSFileManager.defaultManager().removeItemAtPath(self.path)
-            try newContentsOfFile.writeToFile(self.path, atomically: true, encoding: NSUTF8StringEncoding)
+            try FileManager.default.removeItem(atPath: self.path)
+            try newContentsOfFile.write(toFile: self.path, atomically: true, encoding: String.Encoding.utf8)
 
             let contentString = try String(contentsOfFile: self.path)
-            self.linesInFile = contentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            self.linesInFile = contentString.components(separatedBy: .newlines)
 
         } catch {
             print((error as NSError).description)
@@ -220,7 +220,7 @@ public class StringsFileUpdater {
 
         do {
             let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
-            let linesInSourceFile = sourceContentString.componentsSeparatedByCharactersInSet(.newlineCharacterSet())
+            let linesInSourceFile = sourceContentString.components(separatedBy: .newlines)
 
             let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
 
@@ -230,8 +230,8 @@ public class StringsFileUpdater {
             var translatedValuesCount = 0
             var awaitingTranslationRequestCount = 0
 
-            let sourceTranslations = self.findTranslationsInLines(linesInSourceFile)
-            let existingTargetTranslations = self.findTranslationsInLines(self.linesInFile)
+            let sourceTranslations = self.findTranslations(inLines: linesInSourceFile)
+            let existingTargetTranslations = self.findTranslations(inLines: self.linesInFile)
             var updatedTargetTranslations: [TranslationEntry] = []
 
             for sourceTranslation in sourceTranslations {
@@ -244,7 +244,7 @@ public class StringsFileUpdater {
                 }
 
                 guard let targetTranslation = targetTranslationOptional else {
-                    NSException(name: "targetTranslation was nil when not expected", reason: nil, userInfo: nil).raise()
+                    NSException(name: NSExceptionName(rawValue: "targetTranslation was nil when not expected"), reason: nil, userInfo: nil).raise()
                     exit(EXIT_FAILURE)
                 }
 
@@ -280,7 +280,7 @@ public class StringsFileUpdater {
             }
 
             if translatedValuesCount > 0 {
-                self.rewriteFileWithTranslations(updatedTargetTranslations)
+                self.rewriteFileWithTranslations(translations: updatedTargetTranslations)
             }
 
             return translatedValuesCount
@@ -292,24 +292,24 @@ public class StringsFileUpdater {
     }
 
     // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
-    func findTranslationsInLines(lines: [String]) -> [TranslationEntry] {
+    func findTranslations(inLines lines: [String]) -> [TranslationEntry] {
 
         var foundTranslations: [TranslationEntry] = []
         var lastCommentLine: String?
 
         do {
-            let commentLineRegex = try NSRegularExpression(pattern: "^\\s*/\\*(.*)\\*/\\s*$", options: .CaseInsensitive)
-            let keyValueLineRegex = try NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .CaseInsensitive)
+            let commentLineRegex = try NSRegularExpression(pattern: "^\\s*/\\*(.*)\\*/\\s*$", options: .caseInsensitive)
+            let keyValueLineRegex = try NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .caseInsensitive)
 
             lines.forEach { line in
-                if let commentLineMatch = commentLineRegex.firstMatchInString(line, options: .ReportCompletion, range: line.fullRange) {
-                    lastCommentLine = (line as NSString).substringWithRange(commentLineMatch.rangeAtIndex(1))
+                if let commentLineMatch = commentLineRegex.firstMatch(in: line, options: .reportCompletion, range: line.fullRange) {
+                    lastCommentLine = (line as NSString).substring(with: commentLineMatch.rangeAt(1))
                 }
 
-                if let keyValueLineMatch = keyValueLineRegex.firstMatchInString(line, options: .ReportCompletion, range: line.fullRange) {
+                if let keyValueLineMatch = keyValueLineRegex.firstMatch(in: line, options: .reportCompletion, range: line.fullRange) {
 
-                    let key = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(1))
-                    let value = (line as NSString).substringWithRange(keyValueLineMatch.rangeAtIndex(2))
+                    let key = (line as NSString).substring(with: keyValueLineMatch.rangeAt(1))
+                    let value = (line as NSString).substring(with: keyValueLineMatch.rangeAt(2))
 
                     let foundTranslation = (key, value, lastCommentLine)
                     foundTranslations.append(foundTranslation)
@@ -337,7 +337,7 @@ public class StringsFileUpdater {
             return translationString + "\"\(key)\" = \"\(value)\";"
         }
 
-        resultingString += translationStrings.joinWithSeparator("\n\n")
+        resultingString += translationStrings.joined(separator: "\n\n")
 
         return resultingString + "\n"
     }
@@ -352,21 +352,21 @@ public class StringsFileUpdater {
 
         do {
             // Initialize regular expressions
-            let languageRegex = try NSRegularExpression(pattern: "(\\w{2})-{0,1}\\w*\\.lproj", options: .CaseInsensitive)
-            let regionRegex = try NSRegularExpression(pattern: "\\w{2}-(\\w+)\\.lproj", options: .CaseInsensitive)
+            let languageRegex = try NSRegularExpression(pattern: "(\\w{2})-{0,1}\\w*\\.lproj", options: .caseInsensitive)
+            let regionRegex = try NSRegularExpression(pattern: "\\w{2}-(\\w+)\\.lproj", options: .caseInsensitive)
 
             // Get language from path
-            guard let languageMatch = languageRegex.matchesInString(path, options: .ReportCompletion, range: path.fullRange).last else {
+            guard let languageMatch = languageRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else {
                 return nil
             }
-            let language = (path as NSString).substringWithRange(languageMatch.rangeAtIndex(1))
+            let language = (path as NSString).substring(with: languageMatch.rangeAt(1))
 
 
             // Get region from path if existent
             var region: String? = nil
 
-            if let regionMatch = regionRegex.matchesInString(path, options: .ReportCompletion, range: path.fullRange).last {
-                region = (path as NSString).substringWithRange(regionMatch.rangeAtIndex(1))
+            if let regionMatch = regionRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last {
+                region = (path as NSString).substring(with: regionMatch.rangeAt(1))
             }
 
             return (language, region)
@@ -388,7 +388,7 @@ extension String {
 
     func containsAny(ofStrings substrings: [String]) -> Bool {
         for substring in substrings {
-            if self.containsString(substring) {
+            if self.contains(substring) {
                 return true
             }
         }
@@ -404,7 +404,7 @@ extension String {
         var escapedString = self
 
         charactersToEscape.forEach { character in
-            escapedString = escapedString.stringByReplacingOccurrencesOfString(character, withString: "\\\(character)")
+            escapedString = escapedString.replacingOccurrences(of: character, with: "\\\(character)")
         }
 
         return escapedString

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5D06884F19674D7D00BBFAAC /* CommandLineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D06884319674D7D00BBFAAC /* CommandLineKit.framework */; };
-		5D06885619674D7D00BBFAAC /* CommandLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D06885519674D7D00BBFAAC /* CommandLineTests.swift */; };
-		5D06886019674DA600BBFAAC /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D06885F19674DA600BBFAAC /* CommandLine.swift */; };
+		5D06885619674D7D00BBFAAC /* CommandLineKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D06885519674D7D00BBFAAC /* CommandLineKitTests.swift */; };
+		5D06886019674DA600BBFAAC /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D06885F19674DA600BBFAAC /* CommandLineKit.swift */; };
 		5D068867196A212A00BBFAAC /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D068866196A212A00BBFAAC /* Option.swift */; };
 		5D449A18198B015E00F9A8A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D449A17198B015E00F9A8A6 /* StringExtensions.swift */; };
 		5D8DC809198D8BA0007CD61B /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8DC808198D8BA0007CD61B /* StringExtensionTests.swift */; };
@@ -80,8 +80,8 @@
 		5D06884719674D7D00BBFAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D06884E19674D7D00BBFAAC /* CommandLineKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommandLineKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D06885419674D7D00BBFAAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/CommandLineKitTests/Info.plist; sourceTree = SOURCE_ROOT; };
-		5D06885519674D7D00BBFAAC /* CommandLineTests.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = CommandLineTests.swift; path = Tests/CommandLineKitTests/CommandLineTests.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; usesTabs = 0; };
-		5D06885F19674DA600BBFAAC /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		5D06885519674D7D00BBFAAC /* CommandLineKitTests.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = CommandLineKitTests.swift; path = Tests/CommandLineKitTests/CommandLineKitTests.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; usesTabs = 0; };
+		5D06885F19674DA600BBFAAC /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		5D068866196A212A00BBFAAC /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		5D449A17198B015E00F9A8A6 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		5D449B63198B412E00F9A8A6 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 		5D06884519674D7D00BBFAAC /* CommandLineKit */ = {
 			isa = PBXGroup;
 			children = (
-				5D06885F19674DA600BBFAAC /* CommandLine.swift */,
+				5D06885F19674DA600BBFAAC /* CommandLineKit.swift */,
 				5D068866196A212A00BBFAAC /* Option.swift */,
 				5D449A17198B015E00F9A8A6 /* StringExtensions.swift */,
 				5D06884619674D7D00BBFAAC /* Supporting Files */,
@@ -157,7 +157,7 @@
 		5D06885219674D7D00BBFAAC /* CommandLineKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				5D06885519674D7D00BBFAAC /* CommandLineTests.swift */,
+				5D06885519674D7D00BBFAAC /* CommandLineKitTests.swift */,
 				5D8DC808198D8BA0007CD61B /* StringExtensionTests.swift */,
 				5D06885319674D7D00BBFAAC /* Supporting Files */,
 			);
@@ -292,7 +292,7 @@
 			files = (
 				5D449A18198B015E00F9A8A6 /* StringExtensions.swift in Sources */,
 				5D068867196A212A00BBFAAC /* Option.swift in Sources */,
-				5D06886019674DA600BBFAAC /* CommandLine.swift in Sources */,
+				5D06886019674DA600BBFAAC /* CommandLineKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D06885619674D7D00BBFAAC /* CommandLineTests.swift in Sources */,
+				5D06885619674D7D00BBFAAC /* CommandLineKitTests.swift in Sources */,
 				5D8DC809198D8BA0007CD61B /* StringExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

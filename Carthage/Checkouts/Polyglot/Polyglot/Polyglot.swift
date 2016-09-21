@@ -153,7 +153,7 @@ open class Polyglot {
             let fromLanguageComponent = (self.fromLanguage != nil) ? "&from=\(self.fromLanguage!.rawValue.urlEncoded!)" : ""
             let urlString = "http://api.microsofttranslator.com/v2/Http.svc/Translate?text=\(text.urlEncoded!)\(toLanguageComponent)\(fromLanguageComponent)"
 
-            let request = NSMutableURLRequest(url: URL(string: urlString)!)
+            var request = URLRequest(url: URL(string: urlString)!)
             request.httpMethod = "GET"
             request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
 
@@ -161,7 +161,7 @@ open class Polyglot {
                 let translation: String
                 guard
                     let data = data,
-                    let xmlString = NSString(data: data, encoding: String.Encoding.utf8) as? String
+                    let xmlString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
                 else {
                     translation = ""
                     return
@@ -170,7 +170,7 @@ open class Polyglot {
                 translation = self.translationFromXML(xmlString)
 
                 defer {
-                    callback(translation: translation)
+                    callback(translation)
                 }
             }) 
             task.resume()

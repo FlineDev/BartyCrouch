@@ -39,7 +39,7 @@ class Session {
         if (accessToken == nil || isExpired) {
             let url = URL(string: "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13")
 
-            let request = NSMutableURLRequest(url: url!)
+            var request = URLRequest(url: url!)
             request.httpMethod = "POST"
 
             let bodyString = "client_id=\(clientId.urlEncoded!)&client_secret=\(clientSecret.urlEncoded!)&scope=http://api.microsofttranslator.com&grant_type=client_credentials"
@@ -48,18 +48,18 @@ class Session {
             let task = URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
                 guard
                     let data = data,
-                    let resultsDict = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers),
-                    let expiresIn = resultsDict["expires_in"] as? NSString
+                let resultsDict = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any],
+                    let expiresIn = resultsDict?["expires_in"] as? NSString
                 else {
-                    callback(token: "")
+                    callback("")
                     return
                 }
                 self.expirationTime = Date(timeIntervalSinceNow: expiresIn.doubleValue)
 
-                let token = resultsDict["access_token"] as! String
+                let token = resultsDict?["access_token"] as! String
                 self.accessToken = token
 
-                callback(token: token)
+                callback(token)
             }) 
 
             task.resume()

@@ -23,7 +23,7 @@ class StringsFileUpdaterTests: XCTestCase {
     let longNewStringsFilePath = "\(stringsFilesDirPath)/LongNewExample.strings"
     
     let testStringsFilePath = "\(stringsFilesDirPath)/TestExample.strings"
-    func testStringsFilePath(iteration: Int) -> String {
+    func testStringsFilePath(_ iteration: Int) -> String {
         return "\(StringsFileUpdaterTests.stringsFilesDirPath)/TestExample\(iteration).strings"
     }
     
@@ -34,10 +34,10 @@ class StringsFileUpdaterTests: XCTestCase {
     
     override func setUp() {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(self.testStringsFilePath)
+            try FileManager.default.removeItem(atPath: self.testStringsFilePath)
             // cleanup temporary file after testing
             for i in self.testExamplesRange {
-                try NSFileManager.defaultManager().removeItemAtPath(self.testStringsFilePath(i))
+                try FileManager.default.removeItem(atPath: self.testStringsFilePath(i))
             }
         } catch {
             print("No TestExample.strings to clean up")
@@ -60,7 +60,7 @@ class StringsFileUpdaterTests: XCTestCase {
             ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
         ]
         
-        let results = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+        let results = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
         
         var index = 0
         
@@ -87,7 +87,7 @@ class StringsFileUpdaterTests: XCTestCase {
         let expectedString = "\n/*comment1*/\n\"key1\" = \"value1\";\n\n\"key2\" = \"value2\";\n\n/*comment3*/\n\"key3\" = \"value3\";\n"
         
         let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
-        let resultingString = stringsFileUpdater.stringFromTranslations(translations)
+        let resultingString = stringsFileUpdater.stringFromTranslations(translations: translations)
         
         XCTAssertEqual(resultingString, expectedString)
         
@@ -96,7 +96,7 @@ class StringsFileUpdaterTests: XCTestCase {
     func testExampleStringsFileWithEmptyNewValues() {
         
         do {
-            try NSFileManager.defaultManager().copyItemAtPath(oldStringsFilePath, toPath: testStringsFilePath)
+            try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
             
             let expectedLinesBeforeIncrementalUpdate = [
@@ -118,7 +118,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerate() {
+            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
             
@@ -140,7 +140,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerate() {
+            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
             
@@ -153,7 +153,7 @@ class StringsFileUpdaterTests: XCTestCase {
     func testExampleStringsFileWithPrefilledNewValues() {
         
         do {
-            try NSFileManager.defaultManager().copyItemAtPath(oldStringsFilePath, toPath: testStringsFilePath)
+            try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
             
             let expectedLinesBeforeIncrementalUpdate = [
@@ -175,7 +175,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerate() {
+            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
             
@@ -197,7 +197,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 ""
             ]
             
-            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerate() {
+            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
             
@@ -243,7 +243,7 @@ class StringsFileUpdaterTests: XCTestCase {
         let id: String?         = "Cruciverber"       // specify this to run this test
         let secret: String?     = "RFykBwu#6=Tja0hzlQ1gA3zhNFl#lB2Z"       // specify this to run this test
         
-        if let id = id, secret = secret {
+        if let id = id, let secret = secret {
             
             let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/en.lproj/Localizable.strings"
             
@@ -259,10 +259,10 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 // create temporary file for testing
                 do {
-                    if NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath + ".tmp") {
-                        try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
+                        try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                     }
-                    try NSFileManager.defaultManager().copyItemAtPath(localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
+                    try FileManager.default.copyItem(atPath: localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTAssertTrue(false)
                     return
@@ -270,7 +270,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
                 
-                var translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
                 
                 
                 // test before state (update if failing)
@@ -292,7 +292,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
                 
-                translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
                 
                 XCTAssertEqual(changedValuesCount, 3)
                 
@@ -312,7 +312,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 // cleanup temporary file after testing
                 do {
-                    try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTFail()
                 }
@@ -337,10 +337,10 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 // create temporary file for testing
                 do {
-                    if NSFileManager.defaultManager().fileExistsAtPath(localizableStringsFilePath + ".tmp") {
-                        try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
+                        try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                     }
-                    try NSFileManager.defaultManager().copyItemAtPath(localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
+                    try FileManager.default.copyItem(atPath: localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTAssertTrue(false)
                     return
@@ -348,7 +348,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
                 
-                var translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
                 
                 
                 // test before state (update if failing)
@@ -367,7 +367,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
                 
-                translations = stringsFileUpdater.findTranslationsInLines(stringsFileUpdater.linesInFile)
+                translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
                 
                 XCTAssertEqual(changedValuesCount, 3)
                 
@@ -397,7 +397,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 
                 // cleanup temporary file after testing
                 do {
-                    try NSFileManager.defaultManager().removeItemAtPath(localizableStringsFilePath + ".tmp")
+                    try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTFail((error as NSError).description)
                 }
@@ -411,9 +411,9 @@ class StringsFileUpdaterTests: XCTestCase {
     
     func testInitPerformance() {
         
-        measureBlock {
+        measure {
             for _ in self.testExamplesRange {
-                StringsFileUpdater(path: self.longOldStringsFilePath)!
+                _ = StringsFileUpdater(path: self.longOldStringsFilePath)!
             }
         }
         
@@ -424,10 +424,10 @@ class StringsFileUpdaterTests: XCTestCase {
         do {
             
             for i in self.testExamplesRange {
-                try NSFileManager.defaultManager().copyItemAtPath(longOldStringsFilePath, toPath: self.testStringsFilePath(i))
+                try FileManager.default.copyItem(atPath: longOldStringsFilePath, toPath: self.testStringsFilePath(i))
             }
             
-            measureBlock {
+            measure {
                 for i in self.testExamplesRange {
                     let stringsFileUpdater = StringsFileUpdater(path: self.testStringsFilePath(i))!
                     stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: self.longNewStringsFilePath, addNewValuesAsEmpty: false)

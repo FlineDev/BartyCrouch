@@ -64,7 +64,7 @@ let ArgumentAttacher: Character = "="
  * a `ParseError`. You can then call `printUsage()` to output an automatically-generated usage
  * message.
  */
-open class CommandLine {
+open class CommandLineKit {
   fileprivate var _arguments: [String]
   fileprivate var _options: [Option] = [Option]()
   fileprivate var _maxFlagDescriptionWidth: Int = 0
@@ -85,7 +85,7 @@ open class CommandLine {
    * by an Option. For example:
    *
    * ```
-   * let cli = CommandLine()
+   * let cli = CommandLineKit()
    * let fileType = StringOption(shortFlag: "t", longFlag: "type", required: true, helpMessage: "Type of file")
    *
    * do {
@@ -111,7 +111,7 @@ open class CommandLine {
    * output, either before or after modifying the provided string. For example:
    *
    * ```
-   * let cli = CommandLine()
+   * let cli = CommandLineKit()
    * cli.formatOutput = { str, type in
    *   switch(type) {
    *   case .Error:
