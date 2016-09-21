@@ -24,13 +24,13 @@ class Commander {
 
     func run(command: String, arguments: [String]?) -> CommandLineResult {
 
-        let task = NSTask()
+        let task = Process()
         task.launchPath = command
         task.arguments = arguments
 
-        let outpipe = NSPipe()
+        let outpipe = Pipe()
         task.standardOutput = outpipe
-        let errpipe = NSPipe()
+        let errpipe = Pipe()
         task.standardError = errpipe
 
         task.launch()
@@ -38,17 +38,17 @@ class Commander {
         var outputs: [String] = []
         let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
 
-        if var string = String.fromCString(UnsafePointer(outdata.bytes)) {
-            string = string.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-            outputs = string.componentsSeparatedByString("\n")
+        if var string = String(data: outdata, encoding: .utf8) {
+            string = string.trimmingCharacters(in: .newlines)
+            outputs = string.components(separatedBy: "\n")
         }
 
         var errors: [String] = []
         let errdata = errpipe.fileHandleForReading.readDataToEndOfFile()
 
-        if var string = String.fromCString(UnsafePointer(errdata.bytes)) {
-            string = string.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-            errors = string.componentsSeparatedByString("\n")
+        if var string = String(data: errdata, encoding: .utf8) {
+            string = string.trimmingCharacters(in: .newlines)
+            errors = string.components(separatedBy: "\n")
         }
 
         task.waitUntilExit()

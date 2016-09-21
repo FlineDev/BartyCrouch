@@ -20,7 +20,7 @@ public class StringsFilesSearch {
 
     public func findAllIBFiles(baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
         do {
-            let ibFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .CaseInsensitive)
+            let ibFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
             return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
         } catch {
             return []
@@ -29,7 +29,7 @@ public class StringsFilesSearch {
 
     public func findAllStringsFiles(baseDirectoryPath: String, withLocale locale: String) -> [String] {
         do {
-            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.strings\\z", options: .CaseInsensitive)
+            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
             return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
         } catch {
             return []
@@ -38,7 +38,7 @@ public class StringsFilesSearch {
 
     public func findAllStringsFiles(baseDirectoryPath: String, withFileName fileName: String) -> [String] {
         do {
-            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .CaseInsensitive)
+            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .caseInsensitive)
             return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
         } catch {
             return []
@@ -46,21 +46,21 @@ public class StringsFilesSearch {
     }
 
     public func findAllLocalesForStringsFile(sourceFilePath: String) -> [String] {
-        var pathComponents = sourceFilePath.componentsSeparatedByString("/")
+        var pathComponents = sourceFilePath.components(separatedBy: "/")
         let storyboardName: String = {
-            var fileNameComponents = pathComponents.last!.componentsSeparatedByString(".")
+            var fileNameComponents = pathComponents.last!.components(separatedBy: ".")
             fileNameComponents.removeLast()
-            return fileNameComponents.joinWithSeparator(".")
+            return fileNameComponents.joined(separator: ".")
         }()
 
         pathComponents.removeLast() // Remove last path component from folder/base.lproj/some.storyboard
         pathComponents.removeLast() // Remove last path component from folder/base.lproj
 
-        let folderWithLanguageSubfoldersPath = pathComponents.joinWithSeparator("/")
+        let folderWithLanguageSubfoldersPath = pathComponents.joined(separator: "/")
 
         do {
-            let filesInDirectory = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(folderWithLanguageSubfoldersPath)
-            let languageDirPaths = filesInDirectory.filter { $0.rangeOfString(".lproj") != nil && $0 != "Base.lproj" }
+            let filesInDirectory = try FileManager.default.contentsOfDirectory(atPath: folderWithLanguageSubfoldersPath)
+            let languageDirPaths = filesInDirectory.filter { $0.range(of: ".lproj") != nil && $0 != "Base.lproj" }
             return languageDirPaths.map { folderWithLanguageSubfoldersPath + "/" + $0 + "/" + storyboardName + ".strings" }
         } catch {
             return []
@@ -70,9 +70,9 @@ public class StringsFilesSearch {
     func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String] {
         do {
             let pathsToIgnore = [".git/", "Carthage/", "build/", "docs/"]
-            let allFilePaths = try NSFileManager.defaultManager().subpathsOfDirectoryAtPath(baseDirectoryPath).filter { !$0.containsAny(ofStrings: pathsToIgnore) }
+            let allFilePaths = try FileManager.default.subpathsOfDirectory(atPath: baseDirectoryPath).filter { !$0.containsAny(ofStrings: pathsToIgnore) }
             let ibFilePaths = allFilePaths.filter { filePath in
-                return !regularExpression.matchesInString(filePath, options: .ReportCompletion, range: filePath.fullRange).isEmpty
+                return !regularExpression.matches(in: filePath, options: .reportCompletion, range: filePath.fullRange).isEmpty
             }
             return ibFilePaths.map { baseDirectoryPath + "/" + $0 }
         } catch {

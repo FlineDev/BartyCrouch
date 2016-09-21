@@ -23,7 +23,7 @@ public class CommandLineParser {
     }
 
     public typealias CommonOptions = (path: StringOption, override: BoolOption, verbose: BoolOption)
-    private typealias CommandLineContext = (commandLine: CommandLine, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
+    private typealias CommandLineContext = (commandLine: CommandLineKit, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
 
     public enum SubCommandOptions {
         case CodeOptions(localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption)
@@ -42,22 +42,22 @@ public class CommandLineParser {
 
     // MARK: - Initializers
 
-    public init(arguments: [String] = Process.arguments) {
+    public init(arguments: [String] = CommandLine.arguments) {
         self.arguments = arguments
     }
 
 
     // MARK: - Instance Methods
 
-    public func parse(completion: (commonOptions: CommonOptions, subCommandOptions: SubCommandOptions) -> Void) {
+    public func parse(completion: (_ commonOptions: CommonOptions, _ subCommandOptions: SubCommandOptions) -> Void) {
 
         let subCommander = self.setupSubCommander()
-        var commandLine: CommandLine!
+        var commandLine: CommandLineKit!
 
         do {
-            commandLine = try subCommander.commandLine(arguments)
+            commandLine = try subCommander.commandLine(arguments: arguments)
         } catch {
-            subCommander.printUsage(error)
+            subCommander.printUsage(error: error)
             exit(EX_USAGE)
         }
 
@@ -68,12 +68,12 @@ public class CommandLineParser {
             exit(EX_USAGE)
         }
 
-        guard let commonOptions = self.commonOptions, subCommandOptions = self.subCommandOptions else {
+        guard let commonOptions = self.commonOptions, let subCommandOptions = self.subCommandOptions else {
             print("Error! Could not read options properly. Please report here: https://github.com/Flinesoft/BartyCrouch/issues")
             exit(EX_SOFTWARE)
         }
 
-        completion(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
+        completion(commonOptions, subCommandOptions)
 
     }
 
@@ -83,13 +83,13 @@ public class CommandLineParser {
 
         for subCommand in SubCommand.all() {
 
-            let commandLineBlock: () -> CommandLine = {
+            let commandLineBlock: () -> CommandLineKit = {
                 let (commandLine, commonOptions, subCommandOptions) = self.setupCLI(forSubCommand: subCommand)
                 self.commonOptions = commonOptions
                 self.subCommandOptions = subCommandOptions
                 return commandLine
             }
-            subCommander.addCommandLineBlock(commandLineBlock, forSubCommand: subCommand)
+            subCommander.addCommandLineBlock(commandLineBlock: commandLineBlock, forSubCommand: subCommand)
 
         }
 
@@ -111,7 +111,7 @@ public class CommandLineParser {
 
     private func setupCodeCLI() -> CommandLineContext {
 
-        let commandLine = CommandLine(arguments: self.arguments(forSubCommand: .Code))
+        let commandLine = CommandLineKit(arguments: self.arguments(forSubCommand: .Code))
 
 
         // Required
@@ -161,7 +161,7 @@ public class CommandLineParser {
 
     private func setupInterfacesCLI() -> CommandLineContext {
 
-        let commandLine = CommandLine(arguments: self.arguments(forSubCommand: .Interfaces))
+        let commandLine = CommandLineKit(arguments: self.arguments(forSubCommand: .Interfaces))
 
 
         // Required
@@ -196,7 +196,7 @@ public class CommandLineParser {
 
     private func setupTranslateCLI() -> CommandLineContext {
 
-        let commandLine = CommandLine(arguments: self.arguments(forSubCommand: .Translate))
+        let commandLine = CommandLineKit(arguments: self.arguments(forSubCommand: .Translate))
 
 
         // Required Options
@@ -246,7 +246,7 @@ public class CommandLineParser {
 
     // MARK: - Option Creator Methods
 
-    private func pathOption(helpMessage helpMessage: String) -> StringOption {
+    private func pathOption(helpMessage: String) -> StringOption {
         return StringOption(
             shortFlag: "p",
             longFlag: "path",
@@ -255,7 +255,7 @@ public class CommandLineParser {
         )
     }
 
-    private func overrideOption(helpMessage helpMessage: String) -> BoolOption {
+    private func overrideOption(helpMessage: String) -> BoolOption {
         return BoolOption(
             shortFlag: "o",
             longFlag: "override",

@@ -16,7 +16,7 @@ class GenStringsCommanderTests: XCTestCase {
     
     override func tearDown() {
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(exampleCodeFilesDirectoryPath + "/Localizable.strings")
+            try FileManager.default.removeItem(atPath: exampleCodeFilesDirectoryPath + "/Localizable.strings")
         } catch {
             // do nothing
         }
@@ -30,7 +30,7 @@ class GenStringsCommanderTests: XCTestCase {
         do {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")
             
-            let linesInStringsFile = contentsOfStringsFile.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+            let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
             XCTAssertEqual(linesInStringsFile, [
                 "/* No comment provided by engineer. */",
                 "\"%010d and %03.f\" = \"%1$d and %2$.f\";",

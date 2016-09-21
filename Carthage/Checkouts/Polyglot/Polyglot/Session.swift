@@ -28,47 +28,47 @@ class Session {
     let clientSecret: String
 
     var accessToken: String?
-    var expirationTime: NSDate?
+    var expirationTime: Date?
 
     init(clientId: String, clientSecret: String) {
         self.clientId = clientId
         self.clientSecret = clientSecret
     }
 
-    func getAccessToken(callback: ((token: String) -> (Void))) {
+    func getAccessToken(_ callback: @escaping ((_ token: String) -> (Void))) {
         if (accessToken == nil || isExpired) {
-            let url = NSURL(string: "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13")
+            let url = URL(string: "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13")
 
-            let request = NSMutableURLRequest(URL: url!)
-            request.HTTPMethod = "POST"
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
 
             let bodyString = "client_id=\(clientId.urlEncoded!)&client_secret=\(clientSecret.urlEncoded!)&scope=http://api.microsofttranslator.com&grant_type=client_credentials"
-            request.HTTPBody = bodyString.dataUsingEncoding(NSUTF8StringEncoding)
+            request.httpBody = bodyString.data(using: String.Encoding.utf8)
 
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {(data, response, error) in
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
                 guard
                     let data = data,
-                    let resultsDict = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers),
-                    let expiresIn = resultsDict["expires_in"] as? NSString
+                let resultsDict = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any],
+                    let expiresIn = resultsDict?["expires_in"] as? NSString
                 else {
-                    callback(token: "")
+                    callback("")
                     return
                 }
-                self.expirationTime = NSDate(timeIntervalSinceNow: expiresIn.doubleValue)
+                self.expirationTime = Date(timeIntervalSinceNow: expiresIn.doubleValue)
 
-                let token = resultsDict["access_token"] as! String
+                let token = resultsDict?["access_token"] as! String
                 self.accessToken = token
 
-                callback(token: token)
-            }
+                callback(token)
+            }) 
 
             task.resume()
         } else {
-            callback(token: accessToken!)
+            callback(accessToken!)
         }
     }
 
-    private var isExpired: Bool {
-        return expirationTime?.earlierDate(NSDate()) == self.expirationTime
+    fileprivate var isExpired: Bool {
+        return (expirationTime as NSDate?)?.earlierDate(Date()) == self.expirationTime
     }
 }
