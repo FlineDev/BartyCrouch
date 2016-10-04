@@ -79,9 +79,9 @@ class StringsFileUpdaterTests: XCTestCase {
     func testStringFromTranslations() {
         
         let translations: [StringsFileUpdater.TranslationEntry] = [
-            ("key1", "value1", "comment1"),
-            ("key2", "value2", nil),
-            ("key3", "value3", "comment3")
+            ("key1", "value1", "comment1", 1),
+            ("key2", "value2", nil, 2),
+            ("key3", "value3", "comment3", 3)
         ]
         
         let expectedString = "\n/*comment1*/\n\"key1\" = \"value1\";\n\n\"key2\" = \"value2\";\n\n/*comment3*/\n\"key3\" = \"value3\";\n"
@@ -132,14 +132,14 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"\";",
-                "",
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";",
+                "",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
+                "\"xyz-12-345.normalTitle\" = \"\";",
                 ""
             ]
-            
+
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
@@ -189,11 +189,11 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
                 "",
-                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
-                "",
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";",
+                "",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
+                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
                 ""
             ]
             

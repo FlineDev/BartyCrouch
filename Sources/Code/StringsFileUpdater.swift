@@ -13,7 +13,7 @@ import Foundation
 
 public class StringsFileUpdater {
 
-    typealias TranslationEntry = (key: String, value: String, comment: String?)
+    typealias TranslationEntry = (key: String, value: String, comment: String?, line: Int)
 
     let path: String
     var linesInFile: [String]
@@ -45,19 +45,23 @@ public class StringsFileUpdater {
             let linesInNewFile = newContentString.components(separatedBy: .newlines)
 
             let oldTranslations = self.findTranslations(inLines: self.linesInFile)
-            let newTranslations = self.findTranslations(inLines: linesInNewFile)
+            var newTranslations = self.findTranslations(inLines: linesInNewFile)
+
+            if let lastOldTranslation = oldTranslations.last {
+                newTranslations = newTranslations.map { ($0.0, $0.1, $0.2, $0.3+lastOldTranslation.line+1) }
+            }
 
             let updatedTranslations: [TranslationEntry] = {
                 var translations: [TranslationEntry] = []
 
                 if keepExistingKeys {
-                    for (key, oldValue, oldComment) in oldTranslations {
-                        let oldTranslationEntry = (key, oldValue, oldComment)
+                    for (key, oldValue, oldComment, oldLine) in oldTranslations {
+                        let oldTranslationEntry = (key, oldValue, oldComment, oldLine)
                         translations.append(oldTranslationEntry)
                     }
                 }
 
-                for (key, newValue, newComment) in newTranslations {
+                for (key, newValue, newComment, newLine) in newTranslations {
 
                     // skip keys marked for ignore
                     guard !newValue.containsAny(ofStrings: ignores) else {
@@ -106,8 +110,6 @@ public class StringsFileUpdater {
                     }()
 
                     let updatedValue: String = {
-                        let oldTranslation = oldTranslations.filter { $0.0 == key }.first
-
                         guard let oldValue = oldTranslation?.1 else {
                             if addNewValuesAsEmpty {
                                 // add new key with empty value
@@ -134,11 +136,24 @@ public class StringsFileUpdater {
                         return oldValue
                     }()
 
-                    let updatedTranslation = (key, updatedValue, updatedComment)
+                    let updatedLine: Int = {
+                        guard let oldLine = oldTranslation?.line else {
+                            return newLine
+                        }
+
+                        // don't change order of existing translations
+                        return oldLine
+                    }()
+
+                    let updatedTranslation = (key, updatedValue, updatedComment, updatedLine)
                     translations.append(updatedTranslation)
                 }
 
-                return translations
+                let sortedTranslations = translations.sorted(by: { (translation1: TranslationEntry, translation2: TranslationEntry) -> Bool in
+                    return translation1.line < translation2.line
+                })
+
+                return sortedTranslations
             }()
 
             self.rewriteFileWithTranslations(translations: updatedTranslations)
@@ -234,11 +249,11 @@ public class StringsFileUpdater {
 
             for sourceTranslation in sourceTranslations {
 
-                let (sourceKey, sourceValue, sourceComment) = sourceTranslation
+                let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
                 var targetTranslationOptional = existingTargetTranslations.filter { $0.0 == sourceKey }.first
 
                 if targetTranslationOptional == nil {
-                    targetTranslationOptional = (sourceKey, "", sourceComment)
+                    targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
                 }
 
                 guard let targetTranslation = targetTranslationOptional else {
@@ -246,7 +261,7 @@ public class StringsFileUpdater {
                     exit(EXIT_FAILURE)
                 }
 
-                let (key, value, comment) = targetTranslation
+                let (key, value, comment, line) = targetTranslation
 
                 guard value.isEmpty || override else {
                     updatedTargetTranslations.append(targetTranslation)
@@ -264,7 +279,7 @@ public class StringsFileUpdater {
 
                 translator.translate(sourceValue, callback: { translatedValue in
                     if !translatedValue.isEmpty {
-                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment)
+                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
                         translatedValuesCount += 1
                     }
 
@@ -299,7 +314,7 @@ public class StringsFileUpdater {
             let commentLineRegex = try NSRegularExpression(pattern: "^\\s*/\\*(.*)\\*/\\s*$", options: .caseInsensitive)
             let keyValueLineRegex = try NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .caseInsensitive)
 
-            lines.forEach { line in
+            lines.enumerated().forEach { lineNum, line in
                 if let commentLineMatch = commentLineRegex.firstMatch(in: line, options: .reportCompletion, range: line.fullRange) {
                     lastCommentLine = (line as NSString).substring(with: commentLineMatch.rangeAt(1))
                 }
@@ -309,7 +324,7 @@ public class StringsFileUpdater {
                     let key = (line as NSString).substring(with: keyValueLineMatch.rangeAt(1))
                     let value = (line as NSString).substring(with: keyValueLineMatch.rangeAt(2))
 
-                    let foundTranslation = (key, value, lastCommentLine)
+                    let foundTranslation = (key, value, lastCommentLine, lineNum)
                     foundTranslations.append(foundTranslation)
 
                     lastCommentLine = nil
@@ -330,7 +345,7 @@ public class StringsFileUpdater {
 
         var resultingString = "\n"
 
-        let translationStrings = translations.map { (key, value, comment) -> String in
+        let translationStrings = translations.map { (key, value, comment, line) -> String in
             let translationString: String = comment != nil ? "/*\(comment!)*/\n" : ""
             return translationString + "\"\(key)\" = \"\(value)\";"
         }
