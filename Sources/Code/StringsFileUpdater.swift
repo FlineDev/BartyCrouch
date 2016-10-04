@@ -52,10 +52,8 @@ public class StringsFileUpdater {
 
                 if keepExistingKeys {
                     for (key, oldValue, oldComment) in oldTranslations {
-                        if newTranslations.filter({ $0.0 == key }).isEmpty {
-                            let oldTranslationEntry = (key, oldValue, oldComment)
-                            translations.append(oldTranslationEntry)
-                        }
+                        let oldTranslationEntry = (key, oldValue, oldComment)
+                        translations.append(oldTranslationEntry)
                     }
                 }
 
