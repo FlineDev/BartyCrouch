@@ -2,6 +2,9 @@
 opt_in_rules:
 - empty_count
 
+disabled_rules:
+- vertical_whitespace # Turn off until configurable to 2 newlines
+
 # paths to include during linting. `--path` is ignored if present.
 included:
 - Sources
