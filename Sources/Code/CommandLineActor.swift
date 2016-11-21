@@ -33,13 +33,14 @@ public class CommandLineActor {
 
 
         switch subCommandOptions {
-        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption):
+        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments):
             guard let localizable = localizableOption.value else {
                 self.printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
             }
 
-            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value)
+            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
+                           additive: additiveOption.value, overrideComments: overrideComments.value)
 
         case let .InterfacesOptions(defaultToBaseOption):
             self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value)
@@ -65,7 +66,7 @@ public class CommandLineActor {
 
     }
 
-    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool) {
+    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool, overrideComments: Bool) {
 
         let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseDirectoryPath: localizable, withFileName: "Localizable")
 
@@ -83,7 +84,8 @@ public class CommandLineActor {
 
         }
 
-        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys, additive: additive)
+        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose,
+                                   defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments)
 
     }
 
@@ -150,7 +152,8 @@ public class CommandLineActor {
 
     }
 
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool, additive: Bool) {
+    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool,
+                                       verbose: Bool, defaultToKeys: Bool, additive: Bool, overrideComments: Bool) {
 
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
@@ -176,7 +179,7 @@ public class CommandLineActor {
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
-                                                       override: override, keepExistingKeys: additive)
+                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments)
 
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
