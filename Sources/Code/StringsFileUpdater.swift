@@ -36,10 +36,9 @@ public class StringsFileUpdater {
     }
 
     // Updates the keys of this instances strings file with those of the given strings file.
-    // Note that this will add new keys, remove not-existing keys but won't touch any existing ones.
     public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, // swiftlint:disable:this cyclomatic_complexity
                                         addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
-                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false) {
+                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false, overrideComments: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
             let linesInNewFile = newContentString.components(separatedBy: .newlines)
@@ -98,7 +97,7 @@ public class StringsFileUpdater {
                             return oldComment
                         }
 
-                        if override {
+                        if override || overrideComments {
                             // override with comment in force update mode
                             return newComment
                         }
