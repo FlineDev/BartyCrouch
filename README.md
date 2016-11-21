@@ -211,17 +211,17 @@ To prevent BartyCrouch from deleting (seemingly) unused keys you can configure i
 Example:
 
 ```shell
-$ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -a
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -a
 ```
 
 #### Override Comments (aka `-c`, `--override-comments`) <small>*optional*</small>
 
-If you want to override all your existing translations comments you can force BartyCrouch to do this by specifying the `-c` command.
+If you want to override all your existing translations comments you can enforce this by specifying the `-c` command.
 
 Example:
 
 ```shell
-$ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -c
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -c
 ```
 
 ---
