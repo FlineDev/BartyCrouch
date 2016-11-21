@@ -182,6 +182,7 @@ Here's an overview of all options available for the sub command `code`:
 - `localizable` (required)
 - `default-to-keys`
 - `additive`
+- `override-comments`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -211,6 +212,16 @@ Example:
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -a
+```
+
+#### Override Comments (aka `-c`, `--override-comments`) <small>*optional*</small>
+
+If you want to override all your existing translations comments you can force BartyCrouch to do this by specifying the `-c` command.
+
+Example:
+
+```shell
+$ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -c
 ```
 
 ---
