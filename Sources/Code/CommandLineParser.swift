@@ -164,7 +164,7 @@ public class CommandLineParser {
             overrideComments: overrideComments
         )
 
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments)
 
         return (commandLine, commonOptions, subCommandOptions)
 
