@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.3.5-blue.svg"
-             alt="Version: 3.3.5">
+        <img src="https://img.shields.io/badge/Version-3.4.1-blue.svg"
+             alt="Version: 3.4.1">
     </a>
     <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
          alt="Swift: 3">
@@ -211,17 +211,17 @@ To prevent BartyCrouch from deleting (seemingly) unused keys you can configure i
 Example:
 
 ```shell
-$ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -a
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -a
 ```
 
 #### Override Comments (aka `-c`, `--override-comments`) <small>*optional*</small>
 
-If you want to override all your existing translations comments you can force BartyCrouch to do this by specifying the `-c` command.
+If you want to override all your existing translations comments you can enforce this by specifying the `-c` command.
 
 Example:
 
 ```shell
-$ bartycrouch code -p "/path/to/code/files", -l "/path/to/localizables" -c
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -c
 ```
 
 ---
