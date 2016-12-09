@@ -9,7 +9,7 @@
 import Foundation
 
 /// Sends `genstrings` commands with specified input/output paths to bash.
-public class GenStringsCommander {
+public class GenStringsCommander: CodeCommander {
 
     // MARK: - Stored Class Properties
 
@@ -19,16 +19,11 @@ public class GenStringsCommander {
     // MARK: - Instance Methods
 
     public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
-        let findFilesResult = Commander.sharedInstance.run(command: "/usr/bin/find", arguments:
-            [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"])
+        let findFilesResult = findFiles(in: codeDirectoryPath)
 
         let exportFileResult = Commander.sharedInstance.run(command: "/usr/bin/genstrings", arguments: findFilesResult.outputs + ["-o", stringsFilePath])
 
-        if findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0 {
-            return true
-        } else {
-            return false
-        }
+        return findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0
     }
 
 }
