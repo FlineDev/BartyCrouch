@@ -26,7 +26,10 @@ public class CommandLineParser {
     private typealias CommandLineContext = (commandLine: CommandLineKit, commonOptions: CommonOptions, subCommandOptions: SubCommandOptions)
 
     public enum SubCommandOptions {
-        case CodeOptions(localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption, useExtractLocStrings: BoolOption)
+        case CodeOptions(
+            localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
+            useExtractLocStrings: BoolOption, sortByKeys: BoolOption
+        )
         case InterfacesOptions(defaultToBase: BoolOption)
         case TranslateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
@@ -163,16 +166,24 @@ public class CommandLineParser {
             helpMessage: "Uses extractLocStrings instead of genstrings"
         )
 
+        let sortByKeys = BoolOption(
+            shortFlag: "s",
+            longFlag: "sort-by-keys",
+            required: false,
+            helpMessage: "Sorts the entries in the resulting Strings file by keys."
+        )
+
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.CodeOptions(
             localizable: localizable,
             defaultToKeys: defaultToKeys,
             additive: additive,
             overrideComments: overrideComments,
-            useExtractLocStrings: useExtractLocStrings
+            useExtractLocStrings: useExtractLocStrings,
+            sortByKeys: sortByKeys
         )
 
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys)
 
         return (commandLine, commonOptions, subCommandOptions)
 

@@ -33,14 +33,14 @@ public class CommandLineActor {
 
 
         switch subCommandOptions {
-        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings):
+        case let .CodeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys):
             guard let localizable = localizableOption.value else {
                 self.printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
             }
 
-            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
-                           additive: additiveOption.value, overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value)
+            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value,
+                           overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value, sortByKeys: sortByKeys.value)
 
         case let .InterfacesOptions(defaultToBaseOption):
             self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value)
@@ -67,7 +67,8 @@ public class CommandLineActor {
     }
 
 // swiftlint:disable line_length
-    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool) {
+    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
+                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool) {
 // swiftlint:enable line_length
 
         let allLocalizableStringsFilePaths = StringsFilesSearch.sharedInstance.findAllStringsFiles(baseDirectoryPath: localizable, withFileName: "Localizable")
@@ -86,8 +87,8 @@ public class CommandLineActor {
 
         }
 
-        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose,
-                                   defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings)
+        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
+                                   additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys)
 
     }
 
@@ -154,8 +155,8 @@ public class CommandLineActor {
 
     }
 
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool,
-                                       verbose: Bool, defaultToKeys: Bool, additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool) {
+    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
+                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool) {
 
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
@@ -185,7 +186,7 @@ public class CommandLineActor {
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
-                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments)
+                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys)
 
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
