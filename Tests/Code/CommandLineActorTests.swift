@@ -24,16 +24,16 @@ class CommandLineActorTests: XCTestCase {
     // MARK: - Test Callbacks
 
     override func setUp() {
-        if NSFileManager.defaultManager().fileExistsAtPath(unsortedKeysStringsFilePath + ".backup") {
-            try! NSFileManager.defaultManager().removeItemAtPath(unsortedKeysStringsFilePath + ".backup")
+        if FileManager.default.fileExists(atPath: unsortedKeysStringsFilePath + ".backup") {
+            try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath + ".backup")
         }
-        try! NSFileManager.defaultManager().copyItemAtPath(unsortedKeysStringsFilePath, toPath: unsortedKeysStringsFilePath + ".backup")
+        try! FileManager.default.copyItem(atPath: unsortedKeysStringsFilePath, toPath: unsortedKeysStringsFilePath + ".backup")
     }
 
     override func tearDown() {
-        try! NSFileManager.defaultManager().removeItemAtPath(unsortedKeysStringsFilePath)
-        try! NSFileManager.defaultManager().copyItemAtPath(unsortedKeysStringsFilePath + ".backup", toPath: unsortedKeysStringsFilePath)
-        try! NSFileManager.defaultManager().removeItemAtPath(unsortedKeysStringsFilePath + ".backup")
+        try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath)
+        try! FileManager.default.copyItem(atPath: unsortedKeysStringsFilePath + ".backup", toPath: unsortedKeysStringsFilePath)
+        try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath + ".backup")
     }
 
 
@@ -43,14 +43,14 @@ class CommandLineActorTests: XCTestCase {
 
         let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a"]
         CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
-            CommandLineActor().act(commonOptions, subCommandOptions: subCommandOptions)
+            CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
                 XCTFail()
                 return
             }
 
-            let resultingKeys = updater.findTranslationsInLines(updater.linesInFile).map { $0.key }
+            let resultingKeys = updater.findTranslations(inLines: updater.linesInFile).map { $0.key }
             let expectedKeys = ["DDD", "ggg", "BBB", "aaa", "FFF", "eee", "ccc"]
 
             XCTAssertEqual(resultingKeys, expectedKeys)
