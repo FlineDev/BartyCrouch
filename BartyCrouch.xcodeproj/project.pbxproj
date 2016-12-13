@@ -42,6 +42,7 @@
 		82DD98381C7DE18B0065F046 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD98321C7DE1560065F046 /* Polyglot.swift */; };
 		82DD98391C7DE18B0065F046 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DD98331C7DE1560065F046 /* Session.swift */; };
 		A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
+		A1B73EB01E00744D0070D20F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1B73EAE1E00744D0070D20F /* Localizable.strings */; };
 		A1FF9D9F1D9324F900D5E85E /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9C1D9324F900D5E85E /* CommandLineKit.swift */; };
 		A1FF9DA01D9324F900D5E85E /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9C1D9324F900D5E85E /* CommandLineKit.swift */; };
 		A1FF9DA11D9324F900D5E85E /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9D1D9324F900D5E85E /* Option.swift */; };
@@ -137,6 +138,8 @@
 		82F2E1041D27CF7900C6386A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
+		A1B73EAF1E00744D0070D20F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1FF9D9C1D9324F900D5E85E /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLineKit.swift; path = Carthage/Checkouts/CommandLine/CommandLineKit/CommandLineKit.swift; sourceTree = SOURCE_ROOT; };
 		A1FF9D9D1D9324F900D5E85E /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Carthage/Checkouts/CommandLine/CommandLineKit/Option.swift; sourceTree = SOURCE_ROOT; };
 		A1FF9D9E1D9324F900D5E85E /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Carthage/Checkouts/CommandLine/CommandLineKit/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -146,7 +149,6 @@
 		E7974AFA1DFAECA700E31754 /* SwiftExample2Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample2Arguments.swift; sourceTree = "<group>"; };
 		E7974AFC1DFAECA700E31754 /* SwiftExample3Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample3Arguments.swift; sourceTree = "<group>"; };
 		E7974B001DFAFD2D00E31754 /* SwiftExample4Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample4Arguments.swift; sourceTree = "<group>"; };
-		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +427,22 @@
 			path = Checkouts/Polyglot/Polyglot;
 			sourceTree = "<group>";
 		};
+		A14DE16D1D71B0400010F856 /* UnsortedKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A1B73EAE1E00744D0070D20F /* Localizable.strings */,
+			);
+			path = UnsortedKeys;
+			sourceTree = "<group>";
+		};
+		A14DE1741D71B2930010F856 /* UnsortedKeys */ = {
+			isa = PBXGroup;
+			children = (
+				A14DE1751D71B2930010F856 /* SwiftExample3.swift */,
+			);
+			path = UnsortedKeys;
+			sourceTree = "<group>";
+		};
 		E7974AF81DFAECA700E31754 /* Multiple Arguments Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,22 +475,6 @@
 				E7974B001DFAFD2D00E31754 /* SwiftExample4Arguments.swift */,
 			);
 			path = "4 Arguments";
-			sourceTree = "<group>";
-		};
-		A14DE16D1D71B0400010F856 /* UnsortedKeys */ = {
-			isa = PBXGroup;
-			children = (
-				A14DE1771D71B6C00010F856 /* Localizable.strings */,
-			);
-			path = UnsortedKeys;
-			sourceTree = "<group>";
-		};
-		A14DE1741D71B2930010F856 /* UnsortedKeys */ = {
-			isa = PBXGroup;
-			children = (
-				A14DE1751D71B2930010F856 /* SwiftExample3.swift */,
-			);
-			path = UnsortedKeys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				825550FC1C7E637700DB5DCF /* Localizable.strings in Resources */,
+				A1B73EB01E00744D0070D20F /* Localizable.strings in Resources */,
 				82053A281CD32B4900434DAD /* LongNewExample.strings in Resources */,
 				82053A261CD32A0200434DAD /* LongOldExample.strings in Resources */,
 			);
@@ -750,10 +753,10 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		A14DE1771D71B6C00010F856 /* Localizable.strings */ = {
+		A1B73EAE1E00744D0070D20F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A14DE1761D71B6C00010F856 /* Base */,
+				A1B73EAF1E00744D0070D20F /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

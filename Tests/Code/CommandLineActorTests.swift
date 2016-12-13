@@ -57,6 +57,25 @@ class CommandLineActorTests: XCTestCase {
         }
 
     }
+
+    func testActOnCodeWithSortedOption() {
+
+        let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a", "-s"]
+        CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
+            CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
+
+            guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
+                XCTFail()
+                return
+            }
+
+            let resultingKeys = updater.findTranslations(inLines: updater.linesInFile).map { $0.key }
+            let expectedKeys = ["aaa", "BBB", "ccc", "DDD", "eee", "FFF", "ggg"]
+
+            XCTAssertEqual(resultingKeys, expectedKeys)
+        }
+
+    }
     
     // TODO: tests for actOnInterfaces not yet implemented
 
