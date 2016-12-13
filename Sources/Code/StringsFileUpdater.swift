@@ -38,7 +38,8 @@ public class StringsFileUpdater {
     // Updates the keys of this instances strings file with those of the given strings file.
     public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String, // swiftlint:disable:this cyclomatic_complexity
                                         addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
-                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false, overrideComments: Bool = false) {
+                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
+                                        overrideComments: Bool = false, sortByKeys: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
             let linesInNewFile = newContentString.components(separatedBy: .newlines)
@@ -142,7 +143,7 @@ public class StringsFileUpdater {
                             return newLine
                         }
 
-                        // don't change order of existing translations
+                        // don't change order of existing translations if no specific order specified
                         return oldLine
                     }()
 
@@ -150,9 +151,13 @@ public class StringsFileUpdater {
                     translations.append(updatedTranslation)
                 }
 
-                let sortedTranslations = translations.sorted(by: { (translation1: TranslationEntry, translation2: TranslationEntry) -> Bool in
-                    return translation1.line < translation2.line
-                })
+                let sortedTranslations: [TranslationEntry] = {
+                    if sortByKeys {
+                        return translations.sorted { $0.0.key.lowercased() < $0.1.key.lowercased() }
+                    } else { // sort by existing lines order by default
+                        return translations.sorted { $0.0.line < $0.1.line }
+                    }
+                }()
 
                 return sortedTranslations
             }()
