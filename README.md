@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.5.0-blue.svg"
-             alt="Version: 3.5.0">
+        <img src="https://img.shields.io/badge/Version-3.5.1-blue.svg"
+             alt="Version: 3.5.1">
     </a>
     <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
          alt="Swift: 3">
@@ -240,7 +240,7 @@ $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -e
 
 #### Sort by Keys (aka `-s`, `--sort-by-keys`) <small>*optional*</small>
 
-If you want the order of translations in your resulting `Localizable.strings` file to be **alphabetically sorted** by their keys (instead of simply adding new keys to the end) just use the option `-s`.
+If you want the order of translations in your resulting `Localizable.strings` file to be **alphabetically sorted** by their keys (instead of simply adding new keys to the end and keeping them in that order forever) just use the option `-s`. To ensure that you can still easily find your untranslated keys this option will check the value of your translations and **place those without a translation at the end of the file**. Once you translated those entries they will be correctly sorted amongst the translated keys on the next run of BartyCrouch.
 
 Example:
 
