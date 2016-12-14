@@ -240,7 +240,7 @@ $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -e
 
 #### Sort by Keys (aka `-s`, `--sort-by-keys`) <small>*optional*</small>
 
-If you want the order of translations in your resulting `Localizable.strings` file to be **alphabetically sorted** by their keys (instead of simply adding new keys to the end) just use the option `-s`.
+If you want the order of translations in your resulting `Localizable.strings` file to be **alphabetically sorted** by their keys (instead of simply adding new keys to the end and keeping them in that order forever) just use the option `-s`. To ensure that you can still easily find your untranslated keys this option will check the value of your translations and **place those without a translation at the end of the file**. Once you translated those entries they will be correctly sorted amongst the translated keys on the next run of BartyCrouch.
 
 Example:
 
