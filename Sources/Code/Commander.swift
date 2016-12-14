@@ -9,21 +9,19 @@
 import Foundation
 
 class Commander {
-
     // MARK: - Define Sub Structures
 
     typealias CommandLineResult = (outputs: [String], errors: [String], exitCode: Int32)
 
 
-    // MARK: - Stored Class Properties
+    // MARK: - Stored Type Properties
 
-    static let sharedInstance = Commander()
+    static let shared = Commander()
 
 
     // MARK: - Instance Methods
 
     func run(command: String, arguments: [String]?) -> CommandLineResult {
-
         let task = Process()
         task.launchPath = command
         task.arguments = arguments
@@ -56,5 +54,4 @@ class Commander {
 
         return (outputs, errors, status)
     }
-
 }

@@ -9,12 +9,8 @@
 import Foundation
 
 class SwiftExample1 {
-    
     func exampleFunction1() {
-        
         NSLocalizedString("TestKey1", comment: "Comment for TestKey1")
         String(format: NSLocalizedString("%@ and %.2f", comment: ""), "SomeString", 25.7528938)
-        
     }
-    
 }

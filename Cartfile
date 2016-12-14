@@ -3,3 +3,6 @@ github "Dschee/CommandLine" "5a87809cae05941cb996ce925f885e7a60602dcc"
 
 # A simple Swift API for Microsoft Translator
 github "Dschee/Polyglot" "df05686560c1943eb7175921a697cb65852aaeaf"
+
+# Handy Swift features that didn't make it into the Swift standard library.
+github "Flinesoft/Handyswift" ~> 1.3

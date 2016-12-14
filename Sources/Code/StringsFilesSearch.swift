@@ -10,39 +10,29 @@ import Foundation
 
 /// Searchs for `.strings` files given a base internationalized Storyboard.
 public class StringsFilesSearch {
+    // MARK: - Stored Type Properties
 
-    // MARK: - Stored Class Properties
-
-    public static let sharedInstance = StringsFilesSearch()
+    public static let shared = StringsFilesSearch()
 
 
     // MARK: - Instance Methods
 
-    public func findAllIBFiles(baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
-        do {
-            let ibFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
-            return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
-        } catch {
-            return []
-        }
+    public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
+        // swiftlint:disable:next force_try
+        let ibFileRegex = try! NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
+        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
     }
 
-    public func findAllStringsFiles(baseDirectoryPath: String, withLocale locale: String) -> [String] {
-        do {
-            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
-            return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
-        } catch {
-            return []
-        }
+    public func findAllStringsFiles(within baseDirectoryPath: String, withLocale locale: String) -> [String] {
+        // swiftlint:disable:next force_try
+        let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
+        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
     }
 
-    public func findAllStringsFiles(baseDirectoryPath: String, withFileName fileName: String) -> [String] {
-        do {
-            let stringsFileRegex = try NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .caseInsensitive)
-            return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
-        } catch {
-            return []
-        }
+    public func findAllStringsFiles(within baseDirectoryPath: String, withFileName fileName: String) -> [String] {
+        // swiftlint:disable:next force_try
+        let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .caseInsensitive)
+        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
     }
 
     public func findAllLocalesForStringsFile(sourceFilePath: String) -> [String] {
@@ -70,7 +60,7 @@ public class StringsFilesSearch {
     func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String] {
         do {
             let pathsToIgnore = [".git/", "Carthage/", "build/", "docs/"]
-            let allFilePaths = try FileManager.default.subpathsOfDirectory(atPath: baseDirectoryPath).filter { !$0.containsAny(ofStrings: pathsToIgnore) }
+            let allFilePaths = try FileManager.default.subpathsOfDirectory(atPath: baseDirectoryPath).filter { !$0.containsAny(of: pathsToIgnore) }
             let ibFilePaths = allFilePaths.filter { filePath in
                 return !regularExpression.matches(in: filePath, options: .reportCompletion, range: filePath.fullRange).isEmpty
             }
@@ -79,5 +69,4 @@ public class StringsFilesSearch {
             return []
         }
     }
-
 }

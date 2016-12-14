@@ -1,0 +1,14 @@
+opt_in_rules:
+- empty_count
+# - missing_docs
+
+disabled_rules:
+- vertical_whitespace
+
+included:
+- Sources
+
+excluded:
+- Carthage
+
+line_length: 150
