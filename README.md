@@ -292,7 +292,7 @@ if which bartycrouch > /dev/null; then
     bartycrouch interfaces -p "$PROJECT_DIR"
 
     # Add new keys to Localizable.strings files from NSLocalizedString in code
-    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a
+    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a -s
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
@@ -310,7 +310,7 @@ if which bartycrouch > /dev/null; then
     bartycrouch interfaces -p "$PROJECT_DIR"
 
     # Add new keys to Localizable.strings files from NSLocalizedString in code
-    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a
+    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a -s
 
     # Translate all empty values using the Microsoft Translator API
     bartycrouch translate -p "$PROJECT_DIR" -l en -i "<API_ID>" -s "<API_SECRET>"
