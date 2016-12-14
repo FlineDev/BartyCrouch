@@ -125,7 +125,14 @@ public class StringsFileUpdater {
 
                 let sortingClosure: (TranslationEntry, TranslationEntry) -> Bool = {
                     if sortByKeys {
-                        return { (translation1, translation2) in translation1.key.lowercased() < translation2.key.lowercased() }
+                        return { (translation1, translation2) in
+                            // ensure keys with empty values are appended to the end
+                            if translation1.value.isEmpty == translation2.value.isEmpty {
+                                return translation1.key.lowercased() < translation2.key.lowercased()
+                            } else {
+                                return translation2.value.isEmpty
+                            }
+                        }
                     } else {
                         return { (translation1, translation2) in translation1.line < translation2.line }
                     }

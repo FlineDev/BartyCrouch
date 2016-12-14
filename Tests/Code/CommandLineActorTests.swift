@@ -68,7 +68,7 @@ class CommandLineActorTests: XCTestCase {
             }
 
             let resultingKeys = updater.findTranslations(inLines: updater.linesInFile).map { $0.key }
-            let expectedKeys = ["aaa", "BBB", "ccc", "DDD", "eee", "FFF", "ggg"]
+            let expectedKeys = ["aaa", "BBB", "eee", "FFF", "ggg", "ccc", "DDD"]
 
             XCTAssertEqual(resultingKeys, expectedKeys)
         }
