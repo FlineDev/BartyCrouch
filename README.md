@@ -183,6 +183,8 @@ Here's an overview of all options available for the sub command `code`:
 - `default-to-keys`
 - `additive`
 - `override-comments`
+- `extract-loc-strings`
+- `sort-by-keys`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -222,6 +224,27 @@ Example:
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -c
+```
+
+#### ExtractLocStrings (aka `-e`, `--extract-loc-strings`) <small>*optional*</small>
+
+If you are using the `NSLocalizedString` macro with **more than two arguments** (e.g. `NSLocalizedString("key", tableName: nil,
+bundle: Bundle.main, value: "value", comment: "comment")`) then you should specify the `-e` command to use the successor of the `genstrings` command line tool which BartyCrouch uses to extract localizable strings from code files. The newer `extractLocStrings` command will be used then instead. Note that we are planning to make this the default behavior after testing it in practice with a major BartyCrouch upgrade (version 4.0+) in the near future – if you encounter any problems please open an issue.
+
+Example:
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -e
+```
+
+#### Sort by Keys (aka `-s`, `--sort-by-keys`) <small>*optional*</small>
+
+If you want the order of translations in your resulting `Localizable.strings` file to be **alphabetically sorted** instead of historically just use the option `-s`. 
+
+Example:
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -s
 ```
 
 ---
