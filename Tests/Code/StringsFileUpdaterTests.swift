@@ -10,28 +10,27 @@ import XCTest
 
 @testable import BartyCrouch
 
-class StringsFileUpdaterTests: XCTestCase {
-    
+class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_length
     // MARK: - Stored Instance Properties
-    
+
     static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
-    
+
     let oldStringsFilePath = "\(stringsFilesDirPath)/OldExample.strings"
     let longOldStringsFilePath = "\(stringsFilesDirPath)/LongOldExample.strings"
-    
+
     let newStringsFilePath = "\(stringsFilesDirPath)/NewExample.strings"
     let longNewStringsFilePath = "\(stringsFilesDirPath)/LongNewExample.strings"
-    
+
     let testStringsFilePath = "\(stringsFilesDirPath)/TestExample.strings"
     func testStringsFilePath(_ iteration: Int) -> String {
         return "\(StringsFileUpdaterTests.stringsFilesDirPath)/TestExample\(iteration).strings"
     }
-    
+
     let testExamplesRange = 0...1
-    
-    
+
+
     // MARK: - Test Callbacks
-    
+
     override func setUp() {
         do {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
@@ -43,14 +42,13 @@ class StringsFileUpdaterTests: XCTestCase {
             print("No TestExample.strings to clean up")
         }
     }
-    
-    
+
+
     // MARK: - Unit Tests
-    
+
     func testFindTranslationsInLines() {
-        
         let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
-        
+
         let expectedTranslations = [
             ("35F-cl-mdI.normalTitle", "Example Button 1", " Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; "),
             ("COa-YO-eGf.normalTitle", "Already Translated", "! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; "),
@@ -59,158 +57,126 @@ class StringsFileUpdaterTests: XCTestCase {
             ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
             ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
         ]
-        
+
         let results = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
-        
+
         var index = 0
-        
+
         expectedTranslations.forEach { (key, value, comment) in
             XCTAssertGreaterThan(results.count, index)
-            
+
             XCTAssertEqual(results[index].0, key)
             XCTAssertEqual(results[index].1, value)
             XCTAssertEqual(results[index].2, comment)
-            
+
             index += 1
         }
-        
     }
-    
+
     func testStringFromTranslations() {
-        
         let translations: [StringsFileUpdater.TranslationEntry] = [
             ("key1", "value1", "comment1", 1),
             ("key2", "value2", nil, 2),
             ("key3", "value3", "comment3", 3)
         ]
-        
+
         let expectedString = "\n/*comment1*/\n\"key1\" = \"value1\";\n\n\"key2\" = \"value2\";\n\n/*comment3*/\n\"key3\" = \"value3\";\n"
-        
+
         let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
         let resultingString = stringsFileUpdater.stringFromTranslations(translations: translations)
-        
+
         XCTAssertEqual(resultingString, expectedString)
-        
     }
-    
+
     func testExampleStringsFileWithEmptyNewValues() {
-        
         do {
             try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
-            
+
             let expectedLinesBeforeIncrementalUpdate = [
-                "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
-                "",
+                "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
-                "",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
-                "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
-                "",
+                "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";", "",
                 "/* Completely custom comment structure in one line */",
-                "\"test.key\" = \"This is a test key\";",
-                "",
+                "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
-                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";",
-                ""
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
             ]
-            
+
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
-            
+
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true, updateCommentWithBase: false)
-            
+
             let expectedLinesAfterIncrementalUpdate = [
-                "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";",
-                "",
+                "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
-                "",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
                 "/* Completely custom comment structure in one line */",
-                "\"test.key\" = \"This is a test key\";",
-                "",
+                "\"test.key\" = \"This is a test key\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"\";",
-                ""
+                "\"xyz-12-345.normalTitle\" = \"\";", ""
             ]
 
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
-            
         } catch {
             XCTFail((error as NSError).description)
         }
-        
     }
-    
+
     func testExampleStringsFileWithPrefilledNewValues() {
-        
         do {
             try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
-            
+
             let expectedLinesBeforeIncrementalUpdate = [
-                "",
-                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";",
-                "",
+                "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
-                "",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
-                "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";",
-                "",
+                "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";", "",
                 "/* Completely custom comment structure in one line */",
-                "\"test.key\" = \"This is a test key\";",
-                "",
+                "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
-                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";",
-                ""
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
             ]
-            
+
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
-            
+
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false)
-            
+
             let expectedLinesAfterIncrementalUpdate = [
-                "",
-                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
-                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";",
-                "",
+                "", "/* Class = \"UIButton\"; normalTitle = \"New Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
-                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";",
-                "",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
                 "/* Completely custom comment structure in one line */",
-                "\"test.key\" = \"This is a test key\";",
-                "",
+                "\"test.key\" = \"This is a test key\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";",
-                ""
+                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";", ""
             ]
-            
+
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
             }
-            
         } catch {
             XCTFail((error as NSError).description)
         }
-        
     }
-    
-    func testExtractLocale() {
 
+    func testExtractLocale() {
         let updater = StringsFileUpdater(path: newStringsFilePath)!
-        
+
         let expectedPairs: [String: (String, String?)?] = [
             "bli/bla/blubb/de.lproj/Main.strings":              ("de", nil),
             "bli/bla/blubb/en-GB.lproj/Main.strings":           ("en", "GB"),
@@ -218,45 +184,35 @@ class StringsFileUpdaterTests: XCTestCase {
             "bli/bla/blubb/zh-Hans.lproj/Main.strings":         ("zh", "Hans"),
             "bli/bla/blubb/No-Locale/de-DE/Main.strings":       nil
         ]
-        
+
         expectedPairs.forEach { path, expectedResult in
-            
             if expectedResult == nil {
-                
                 XCTAssertNil(updater.extractLocale(fromPath: path))
-                
             } else {
-                
                 let result = updater.extractLocale(fromPath: path)
                 XCTAssertEqual(result?.0, expectedResult?.0)
                 XCTAssertEqual(result?.1, expectedResult?.1)
-                
             }
-            
         }
-        
     }
-    
-    func testTranslateEmptyValues() {
-        
+
+    func testTranslateEmptyValues() { // swiftlint:disable:this function_body_length
         // Note: This test only runs with correct Microsoft Translator API credentials provided
         let id: String?         = "Cruciverber"       // specify this to run this test
         let secret: String?     = "RFykBwu#6=Tja0hzlQ1gA3zhNFl#lB2Z"       // specify this to run this test
-        
+
         if let id = id, let secret = secret {
-            
             let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/en.lproj/Localizable.strings"
-            
+
             let expectedTranslatedCarsValues: [String: String] = [
                 "de":       "Autos",
                 "ja":       "車",
                 "zh-Hans":  "汽车"
             ]
-            
+
             for locale in ["de", "ja", "zh-Hans"] {
-                
                 let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/\(locale).lproj/Localizable.strings"
-                
+
                 // create temporary file for testing
                 do {
                     if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
@@ -267,17 +223,16 @@ class StringsFileUpdaterTests: XCTestCase {
                     XCTAssertTrue(false)
                     return
                 }
-                
+
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
-                
                 var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
-                
-                
+
+
                 // test before state (update if failing)
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
                 XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
-                
+
                 XCTAssertEqual(translations[1].key, "menu.cars")
                 XCTAssertEqual(translations[1].value.utf16.count, 0)
                 XCTAssertEqual(translations[1].value, "")
@@ -287,29 +242,28 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations[2].value.utf16.count, 0)
                 XCTAssertEqual(translations[2].value, "")
                 XCTAssertEqual(translations[2].comment, nil)
-                
-                
+
+
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
-                
+
                 translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
-                
+
                 XCTAssertEqual(changedValuesCount, 3)
-                
-                
+
+
                 // test after state (update if failing)
                 XCTAssertEqual(translations.count, 4)
-                
+
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
                 XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
-                
+
                 XCTAssertEqual(translations[1].key, "menu.cars")
                 XCTAssertGreaterThan(translations[1].value.utf16.count, 0)
                 XCTAssertEqual(translations[1].value, expectedTranslatedCarsValues[locale])
                 XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
-                
-                
+
                 // cleanup temporary file after testing
                 do {
                     try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
@@ -317,7 +271,7 @@ class StringsFileUpdaterTests: XCTestCase {
                     XCTFail()
                 }
             }
-            
+
             let expectedTranslatedBicyclesValues: [String: String] = [
                 "de":       "Fahrräder",
                 "ja":       "自転車",
@@ -329,12 +283,11 @@ class StringsFileUpdaterTests: XCTestCase {
                 "ja":       "彼女は言った: '停止'!",
                 "zh-Hans":  "她说: '停止' ！"
             ]
-            
+
             // test with create keys options
             for locale in ["de", "ja", "zh-Hans"] {
-                
                 let localizableStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/\(locale).lproj/Localizable.strings"
-                
+
                 // create temporary file for testing
                 do {
                     if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
@@ -345,45 +298,42 @@ class StringsFileUpdaterTests: XCTestCase {
                     XCTAssertTrue(false)
                     return
                 }
-                
+
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
-                
+
                 var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
-                
-                
+
                 // test before state (update if failing)
                 XCTAssertEqual(translations.count, 3)
-                
+
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
                 XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
-                
+
                 XCTAssertEqual(translations[1].key, "menu.cars")
                 XCTAssertEqual(translations[1].value.utf16.count, 0)
                 XCTAssertEqual(translations[1].value, "")
                 XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
-                
-                
+
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
-                
+
                 translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
-                
+
                 XCTAssertEqual(changedValuesCount, 3)
-                
-                
+
                 // test after state (update if failing)
                 XCTAssertEqual(translations.count, 4)
-                
+
                 XCTAssertEqual(translations[0].key, "Test key")
                 XCTAssertEqual(translations[0].value, "Test value (\(locale))")
                 XCTAssertEqual(translations[0].comment, " A string already localized in all languages. ")
-                
+
                 XCTAssertEqual(translations[1].key, "menu.cars")
                 XCTAssertGreaterThan(translations[1].value.utf16.count, 0)
                 XCTAssertEqual(translations[1].value, expectedTranslatedCarsValues[locale])
                 XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
-                
+
                 XCTAssertEqual(translations[2].key, "menu.bicycles")
                 XCTAssertGreaterThan(translations[2].value.utf16.count, 0)
                 XCTAssertEqual(translations[2].value, expectedTranslatedBicyclesValues[locale])
@@ -394,7 +344,6 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(translations[3].value, expectedTranslatedSheSaidStopValues[locale])
                 XCTAssertEqual(translations[3].comment, nil)
 
-                
                 // cleanup temporary file after testing
                 do {
                     try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
@@ -402,45 +351,37 @@ class StringsFileUpdaterTests: XCTestCase {
                     XCTFail((error as NSError).description)
                 }
             }
-            
         }
     }
-    
-    
+
+
     // MARK: - Performance Tests
-    
+
     func testInitPerformance() {
-        
         measure {
-            for _ in self.testExamplesRange {
+            100.times {
                 _ = StringsFileUpdater(path: self.longOldStringsFilePath)!
             }
         }
-        
     }
-    
+
     func testIncrementallyUpdateKeysPerformance() {
-        
         do {
-            
             for i in self.testExamplesRange {
                 try FileManager.default.copyItem(atPath: longOldStringsFilePath, toPath: self.testStringsFilePath(i))
             }
-            
+
             measure {
                 for i in self.testExamplesRange {
                     let stringsFileUpdater = StringsFileUpdater(path: self.testStringsFilePath(i))!
                     stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: self.longNewStringsFilePath, addNewValuesAsEmpty: false)
                 }
             }
-            
         } catch {
             XCTFail((error as NSError).description)
         }
-
     }
-    
+
     // Note that the method translateEmptyValues is not tested as this would consume unnecessary API requests.
     // Also it is not the scope of this library to make sure the third party Translation API is fast.
-    
 }

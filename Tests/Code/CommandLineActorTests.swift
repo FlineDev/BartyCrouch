@@ -10,8 +10,9 @@ import XCTest
 
 @testable import BartyCrouch
 
-class CommandLineActorTests: XCTestCase {
+// swiftlint:disable force_try
 
+class CommandLineActorTests: XCTestCase {
     // MARK: - Stored Properties
 
     static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
@@ -40,7 +41,6 @@ class CommandLineActorTests: XCTestCase {
     // MARK: - Test Methods
 
     func testActOnCode() {
-
         let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a"]
         CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
@@ -55,11 +55,9 @@ class CommandLineActorTests: XCTestCase {
 
             XCTAssertEqual(resultingKeys, expectedKeys)
         }
-
     }
 
     func testActOnCodeWithSortedOption() {
-
         let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a", "-s"]
         CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
@@ -74,11 +72,7 @@ class CommandLineActorTests: XCTestCase {
 
             XCTAssertEqual(resultingKeys, expectedKeys)
         }
-
     }
-    
-    // TODO: tests for actOnInterfaces not yet implemented
-
-    // TODO: tests for actOnTranslate not yet implemented
-    
 }
+
+// swiftlint:enable force_try

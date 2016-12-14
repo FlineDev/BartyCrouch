@@ -11,9 +11,13 @@ import XCTest
 @testable import BartyCrouch
 
 class GenStringsCommanderTests: XCTestCase {
-    
+    // MARK: - Stored Properties
+
     let exampleCodeFilesDirectoryPath = "\(BASE_DIR)/Tests/Assets/Code Files"
-    
+
+
+    // MARK: - Test Configuration Methods
+
     override func tearDown() {
         do {
             try FileManager.default.removeItem(atPath: exampleCodeFilesDirectoryPath + "/Localizable.strings")
@@ -21,15 +25,15 @@ class GenStringsCommanderTests: XCTestCase {
             // do nothing
         }
     }
-    
+
+    // MARK: - Test Methods
+
     func testCodeExamples() {
-        
-        let exportSuccess = GenStringsCommander.sharedInstance.export(stringsFilesToPath: exampleCodeFilesDirectoryPath
-            , fromCodeInDirectoryPath: exampleCodeFilesDirectoryPath)
-        
+        let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: exampleCodeFilesDirectoryPath, fromCodeInDirectoryPath: exampleCodeFilesDirectoryPath)
+
         do {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")
-            
+
             let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
             XCTAssertEqual(linesInStringsFile, [
                 "/* No comment provided by engineer. */",
@@ -52,13 +56,10 @@ class GenStringsCommanderTests: XCTestCase {
                 "",
                 ""
             ])
-            
         } catch {
             XCTFail()
         }
-        
-        
+
         XCTAssertTrue(exportSuccess)
     }
-    
 }

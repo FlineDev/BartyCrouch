@@ -9,18 +9,17 @@
 import Foundation
 
 public class SubCommander {
-
-    // MARK: - Define Sub Structures
+    // MARK: - Sub Types
 
     public enum ParseError: Error, CustomStringConvertible {
-        case MissingSubCommand(supportedSubCommands: [String])
-        case UnsupportedSubCommand(supportedSubCommands: [String])
+        case missingSubCommand(supportedSubCommands: [String])
+        case unsupportedSubCommand(supportedSubCommands: [String])
 
         public var description: String {
             switch self {
-            case let .MissingSubCommand(supportedSubCommands):
+            case let .missingSubCommand(supportedSubCommands):
                 return "Missing sub command. Try one of the following: \(supportedSubCommands)"
-            case let .UnsupportedSubCommand(supportedSubCommands):
+            case let .unsupportedSubCommand(supportedSubCommands):
                 return "Sub command not supported. Try one of the following: \(supportedSubCommands)"
             }
         }
@@ -47,13 +46,13 @@ public class SubCommander {
 
     public func commandLine(arguments: [String]) throws -> CommandLineKit {
         guard arguments.count > 1 else {
-            throw ParseError.MissingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
+            throw ParseError.missingSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         let subCommandString = arguments[1]
 
         guard let subCommand = CommandLineParser.SubCommand(rawValue: subCommandString), let commandLineBlock = self.subCommandLines[subCommand] else {
-            throw ParseError.UnsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
+            throw ParseError.unsupportedSubCommand(supportedSubCommands: CommandLineParser.SubCommand.all().map { $0.rawValue })
         }
 
         return commandLineBlock()
@@ -63,5 +62,4 @@ public class SubCommander {
         var out = StderrOutputStream.stream
         print("\(error)", terminator: "", to: &out)
     }
-
 }

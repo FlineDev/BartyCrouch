@@ -9,16 +9,12 @@
 import Foundation
 
 protocol CodeCommander {
-
     func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool
-
 }
 
 extension CodeCommander {
-
     func findFiles(in codeDirectoryPath: String) -> Commander.CommandLineResult {
-        return Commander.sharedInstance.run(command: "/usr/bin/find", arguments:
+        return Commander.shared.run(command: "/usr/bin/find", arguments:
             [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"])
     }
-
 }
