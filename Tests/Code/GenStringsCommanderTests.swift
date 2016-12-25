@@ -34,7 +34,7 @@ class GenStringsCommanderTests: XCTestCase {
         do {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")
 
-            let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
+            let linesInStringsFile = contentsOfStringsFile.components(separatedBy: .newlines)
             XCTAssertEqual(linesInStringsFile, [
                 "/* No comment provided by engineer. */",
                 "\"%010d and %03.f\" = \"%1$d and %2$.f\";",
@@ -47,6 +47,10 @@ class GenStringsCommanderTests: XCTestCase {
                 "",
                 "/* No comment provided by engineer. */",
                 "\"ccc\" = \"ccc\";",
+                "",
+                "/* test comment 1",
+                "   test comment 2 */",
+                "\"test.multiline_comment\" = \"test.multiline_comment\";",
                 "",
                 "/* Comment for TestKey1 */",
                 "\"TestKey1\" = \"TestKey1\";",

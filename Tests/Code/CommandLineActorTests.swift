@@ -50,7 +50,7 @@ class CommandLineActorTests: XCTestCase {
                 return
             }
 
-            let resultingKeys = updater.findTranslations(inLines: updater.linesInFile).map { $0.key }
+            let resultingKeys = updater.findTranslations(inString: updater.oldContentString).map { $0.key }
             let expectedKeys = ["DDD", "ggg", "BBB", "aaa", "FFF", "eee", "ccc"]
 
             XCTAssertEqual(resultingKeys, expectedKeys)
@@ -67,7 +67,7 @@ class CommandLineActorTests: XCTestCase {
                 return
             }
 
-            let resultingKeys = updater.findTranslations(inLines: updater.linesInFile).map { $0.key }
+            let resultingKeys = updater.findTranslations(inString: updater.oldContentString).map { $0.key }
             let expectedKeys = ["aaa", "BBB", "eee", "FFF", "ggg", "ccc", "DDD"]
 
             XCTAssertEqual(resultingKeys, expectedKeys)

@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.5.1-blue.svg"
-             alt="Version: 3.5.1">
+        <img src="https://img.shields.io/badge/Version-3.6.0-blue.svg"
+             alt="Version: 3.6.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
          alt="Swift: 3">
@@ -292,7 +292,7 @@ if which bartycrouch > /dev/null; then
     bartycrouch interfaces -p "$PROJECT_DIR"
 
     # Add new keys to Localizable.strings files from NSLocalizedString in code
-    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a
+    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a -s
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
@@ -310,7 +310,7 @@ if which bartycrouch > /dev/null; then
     bartycrouch interfaces -p "$PROJECT_DIR"
 
     # Add new keys to Localizable.strings files from NSLocalizedString in code
-    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a
+    bartycrouch code -p "$PROJECT_DIR" -l "$PROJECT_DIR" -a -s
 
     # Translate all empty values using the Microsoft Translator API
     bartycrouch translate -p "$PROJECT_DIR" -l en -i "<API_ID>" -s "<API_SECRET>"
