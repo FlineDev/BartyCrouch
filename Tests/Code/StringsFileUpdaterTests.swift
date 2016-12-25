@@ -115,10 +115,14 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
-                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
+                "\"abc-12-345.normalTitle\" = \"😀\";", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesBeforeIncrementalUpdate.count)
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
@@ -133,10 +137,14 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"\";", ""
+                "\"xyz-12-345.normalTitle\" = \"\";", "",
+                "/* test comment 1", "   test comment 2 */",
+                "\"test.multiline_comment\" = \"\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesAfterIncrementalUpdate.count)
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
@@ -160,10 +168,14 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
-                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
+                "\"abc-12-345.normalTitle\" = \"😀\";", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesBeforeIncrementalUpdate.count)
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
@@ -178,10 +190,14 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line */",
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
-                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";", ""
+                "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";", "",
+                "/* test comment 1", "   test comment 2 */",
+                "\"test.multiline_comment\" = \"test.multiline_comment.value\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesAfterIncrementalUpdate.count)
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
