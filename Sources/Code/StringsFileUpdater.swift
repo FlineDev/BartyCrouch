@@ -25,7 +25,7 @@ public class StringsFileUpdater {
     // MARK: - Stored Instance Properties
 
     let path: String
-    var linesInFile: [String]
+    var oldContentString: String = ""
 
 
     // MARK: - Initializers
@@ -33,11 +33,9 @@ public class StringsFileUpdater {
     public init?(path: String) {
         self.path = path
         do {
-            let contentString = try String(contentsOfFile: path)
-            self.linesInFile = contentString.components(separatedBy: .newlines)
+            self.oldContentString = try String(contentsOfFile: path)
         } catch {
             print(error.localizedDescription)
-            self.linesInFile = []
             return nil
         }
     }
@@ -49,10 +47,9 @@ public class StringsFileUpdater {
                                         overrideComments: Bool = false, sortByKeys: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
-            let linesInNewFile = newContentString.components(separatedBy: .newlines)
 
-            let oldTranslations = findTranslations(inLines: self.linesInFile)
-            var newTranslations = findTranslations(inLines: linesInNewFile)
+            let oldTranslations = findTranslations(inString: oldContentString)
+            var newTranslations = findTranslations(inString: newContentString)
 
             if let lastOldTranslation = oldTranslations.last {
                 newTranslations = newTranslations.map { ($0.0, $0.1, $0.2, $0.3+lastOldTranslation.line+1) }
@@ -161,8 +158,7 @@ public class StringsFileUpdater {
             try FileManager.default.removeItem(atPath: path)
             try newContentsOfFile.write(toFile: path, atomically: true, encoding: .utf8)
 
-            let contentString = try String(contentsOfFile: path)
-            linesInFile = contentString.components(separatedBy: .newlines)
+            self.oldContentString = try String(contentsOfFile: path)
         } catch {
             print(error.localizedDescription)
         }
@@ -210,7 +206,6 @@ public class StringsFileUpdater {
 
         do {
             let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
-            let linesInSourceFile = sourceContentString.components(separatedBy: .newlines)
 
             let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
 
@@ -220,8 +215,8 @@ public class StringsFileUpdater {
             var translatedValuesCount = 0
             var awaitingTranslationRequestsCount = 0
 
-            let sourceTranslations = findTranslations(inLines: linesInSourceFile)
-            let existingTargetTranslations = findTranslations(inLines: linesInFile)
+            let sourceTranslations = findTranslations(inString: sourceContentString)
+            let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
 
             for sourceTranslation in sourceTranslations {
@@ -275,32 +270,33 @@ public class StringsFileUpdater {
     }
 
     // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
-    func findTranslations(inLines lines: [String]) -> [TranslationEntry] {
-        var foundTranslations: [TranslationEntry] = []
-        var lastCommentLine: String?
+    func findTranslations(inString string: String) -> [TranslationEntry] {
+        let translationRegexString = "(?:\\s*/\\*([^(/\\*|\\*/)]*)\\*/\\s*)?\\s*(?:^\\s*\"([\\S ]*)\"\\s*=\\s*\"([\\S ]*)\"\\s*;\\s*$)"
 
         // swiftlint:disable force_try
-        let commentLineRegex = try! NSRegularExpression(pattern: "^\\s*/\\*(.*)\\*/\\s*$", options: .caseInsensitive)
-        let keyValueLineRegex = try! NSRegularExpression(pattern: "^\\s*\"(.*)\"\\s*=\\s*\"(.*)\"\\s*;$", options: .caseInsensitive)
+        let translationRegex = try! NSRegularExpression(pattern: translationRegexString, options: [.dotMatchesLineSeparators, .anchorsMatchLines])
+        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
         // swiftlint:enable force_try
 
-        lines.enumerated().forEach { i, line in
-            if let commentLineMatch = commentLineRegex.firstMatch(in: line, options: .reportCompletion, range: line.fullRange) {
-                lastCommentLine = (line as NSString).substring(with: commentLineMatch.rangeAt(1))
-            }
+        let positionsOfNewlines = SortedArray(array: newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.rangeAt(1).location })
 
-            if let keyValueLineMatch = keyValueLineRegex.firstMatch(in: line, options: .reportCompletion, range: line.fullRange) {
-                let key = (line as NSString).substring(with: keyValueLineMatch.rangeAt(1))
-                let value = (line as NSString).substring(with: keyValueLineMatch.rangeAt(2))
-
-                let foundTranslation = (key, value, lastCommentLine, i)
-                foundTranslations.append(foundTranslation)
-
-                lastCommentLine = nil
+        let matches = translationRegex.matches(in: string, options: .reportCompletion, range: string.fullRange)
+        var translations: [TranslationEntry] = []
+        autoreleasepool {
+            translations = matches.map { match in
+                let valueRange = match.rangeAt(match.numberOfRanges - 1)
+                let value: String = (string as NSString).substring(with: valueRange)
+                let key = (string as NSString).substring(with: match.rangeAt(match.numberOfRanges - 2))
+                var comment: String?
+                if match.numberOfRanges >= 4 {
+                    let range = match.rangeAt(match.numberOfRanges - 3)
+                    if range.location != NSNotFound && range.length > 0 { comment = (string as NSString).substring(with: range) }
+                }
+                let numberOfNewlines = positionsOfNewlines.firstMatchingIndex { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
+                return TranslationEntry(key: key, value: value, comment: comment, line: numberOfNewlines - 1)
             }
         }
-
-        return foundTranslations
+        return translations
     }
 
     func stringFromTranslations(translations: [TranslationEntry]) -> String {
