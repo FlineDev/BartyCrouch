@@ -32,15 +32,27 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
     // MARK: - Test Callbacks
 
     override func setUp() {
+        // ensure temporary files are cleaned up before testing
         do {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
-            // cleanup temporary file after testing
+        } catch { print("No TestExample.strings to clean up") }
+        do {
             for i in self.testExamplesRange {
                 try FileManager.default.removeItem(atPath: self.testStringsFilePath(i))
             }
-        } catch {
-            print("No TestExample.strings to clean up")
-        }
+        } catch { print("No TestExample{i}.strings to clean up") }
+    }
+
+    override func tearDown() {
+        // cleanup temporary files after testing
+        do {
+            try FileManager.default.removeItem(atPath: self.testStringsFilePath)
+        } catch { print("No TestExample.strings to clean up") }
+        do {
+            for i in self.testExamplesRange {
+                try FileManager.default.removeItem(atPath: self.testStringsFilePath(i))
+            }
+        } catch { print("No TestExample{i}.strings to clean up") }
     }
 
 
@@ -58,7 +70,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
         ]
 
-        let results = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
+        let results = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
         var index = 0
 
@@ -106,8 +118,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
             ]
 
+            var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
-                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true, updateCommentWithBase: false)
@@ -123,8 +136,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "\"xyz-12-345.normalTitle\" = \"\";", ""
             ]
 
+            oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
-                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
         } catch {
             XCTFail((error as NSError).description)
@@ -149,8 +163,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", ""
             ]
 
+            var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
             for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
-                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false)
@@ -166,8 +181,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";", ""
             ]
 
+            oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
             for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
-                XCTAssertEqual(stringsFileUpdater.linesInFile[index], expectedLine)
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
         } catch {
             XCTFail((error as NSError).description)
@@ -225,7 +241,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 }
 
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
-                var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
+                var translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
 
                 // test before state (update if failing)
@@ -247,7 +263,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
 
-                translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
+                translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
                 XCTAssertEqual(changedValuesCount, 3)
 
@@ -301,7 +317,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
 
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
 
-                var translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
+                var translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
                 // test before state (update if failing)
                 XCTAssertEqual(translations.count, 3)
@@ -318,7 +334,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 // run tested method
                 let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
 
-                translations = stringsFileUpdater.findTranslations(inLines: stringsFileUpdater.linesInFile)
+                translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
                 XCTAssertEqual(changedValuesCount, 3)
 
