@@ -6,6 +6,8 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
+// swiftlint:disable file_length
+
 import XCTest
 
 @testable import BartyCrouch
@@ -139,7 +141,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"\";", "",
                 "/* test comment 1", "   test comment 2 */",
-                "\"test.multiline_comment\" = \"\";", ""
+                "\"test.multiline_comment\" = \"\";", "",
+                "/* (test comment with brackets) */",
+                "\"test.brackets_comment\" = \"\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
@@ -192,7 +196,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
                 "\"xyz-12-345.normalTitle\" = \"New Example Button 4\";", "",
                 "/* test comment 1", "   test comment 2 */",
-                "\"test.multiline_comment\" = \"test.multiline_comment.value\";", ""
+                "\"test.multiline_comment\" = \"test.multiline_comment.value\";", "",
+                "/* (test comment with brackets) */",
+                "\"test.brackets_comment\" = \"test.brackets_comment\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
