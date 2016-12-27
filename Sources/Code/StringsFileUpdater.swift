@@ -271,7 +271,8 @@ public class StringsFileUpdater {
 
     // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.
     func findTranslations(inString string: String) -> [TranslationEntry] {
-        let translationRegexString = "(?:\\s*/\\*([^(/\\*|\\*/)]*)\\*/\\s*)?\\s*(?:^\\s*\"([\\S ]*)\"\\s*=\\s*\"([\\S ]*)\"\\s*;\\s*$)"
+        // comment pattern adapted from http://blog.ostermiller.org/find-comment
+        let translationRegexString = "(?:\\s*/\\*(((?:[^*]|(?:\\*+(?:[^*/])))*))\\*+/\\s*)?\\s*(?:^\\s*\"([\\S ]*)\"\\s*=\\s*\"([\\S ]*)\"\\s*;\\s*$)"
 
         // swiftlint:disable force_try
         let translationRegex = try! NSRegularExpression(pattern: translationRegexString, options: [.dotMatchesLineSeparators, .anchorsMatchLines])
