@@ -6,6 +6,8 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
+// swiftlint:disable file_length
+
 import XCTest
 
 @testable import BartyCrouch
