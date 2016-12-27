@@ -15,5 +15,7 @@ class SwiftExample1 {
 
         let s1 = NSLocalizedString("test.multiline_comment", comment: "test comment 1")
         let s2 = NSLocalizedString("test.multiline_comment", comment: "test comment 2")
+
+        NSLocalizedString("test.brackets_comment", comment: "(test comment with brackets)")
     }
 }
