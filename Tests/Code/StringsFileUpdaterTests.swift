@@ -7,6 +7,7 @@
 //
 
 // swiftlint:disable file_length
+// swiftlint:disable function_body_length
 
 import XCTest
 
@@ -69,10 +70,13 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; "),
             ("test.key", "This is a test key", " Completely custom comment structure in one line "),
             ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
-            ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; ")
+            ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; "),
+            ("em1-3S-vgp.text", "Refrakční vzdálenost v metrech", " Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; ")
         ]
 
         let results = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
+
+        XCTAssertEqual(results.count, expectedTranslations.count)
 
         var index = 0
 
@@ -119,7 +123,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line to be ignored */",
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
-                "\"abc-12-345.normalTitle\" = \"😀\";", ""
+                "\"abc-12-345.normalTitle\" = \"😀\";", "",
+                "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
+                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
@@ -174,7 +180,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Completely custom comment structure in one line to be ignored */",
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
-                "\"abc-12-345.normalTitle\" = \"😀\";", ""
+                "\"abc-12-345.normalTitle\" = \"😀\";", "",
+                "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
+                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
