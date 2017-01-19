@@ -27,7 +27,7 @@ public class CommandLineParser {
     public enum SubCommandOptions {
         case codeOptions(
             localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
-            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption
+            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption, customFunction: StringOption
         )
         case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
@@ -123,12 +123,13 @@ public class CommandLineParser {
         let useExtractLocStrings = BoolOption(shortFlag: "e", longFlag: "extract-loc-strings", required: false, helpMessage: "Uses extractLocStrings instead of genstrings")
         let sortByKeys = BoolOption(shortFlag: "s", longFlag: "sort-by-keys", required: false, helpMessage: "Sorts the entries in the resulting Strings file by keys.")
         let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
+        let customFunction = StringOption(shortFlag: "f", longFlag: "custom-function", required: false, helpMessage: "Specifies a custom function to be parsed via '-s' option.")
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.codeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
-                                                              useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped)
+                                                              useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction)
 
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys, unstripped)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction)
         return (commandLine, commonOptions, subCommandOptions)
     }
 

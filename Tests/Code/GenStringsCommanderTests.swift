@@ -29,7 +29,9 @@ class GenStringsCommanderTests: XCTestCase {
     // MARK: - Test Methods
 
     func testCodeExamples() {
-        let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: exampleCodeFilesDirectoryPath, fromCodeInDirectoryPath: exampleCodeFilesDirectoryPath)
+        let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: exampleCodeFilesDirectoryPath,
+                                                              fromCodeInDirectoryPath: exampleCodeFilesDirectoryPath,
+                                                              customFunction: nil)
 
         do {
             let contentsOfStringsFile = try String(contentsOfFile: exampleCodeFilesDirectoryPath + "/Localizable.strings")

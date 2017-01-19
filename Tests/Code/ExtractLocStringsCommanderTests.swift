@@ -62,7 +62,7 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     }
 
     func assert(_ codeCommander: CodeCommander, takesCodeIn directory: String, producesResult expectedLocalizableContentLines: [String]) {
-        let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory)
+        let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: nil)
         XCTAssertTrue(exportSuccess)
 
         do {
