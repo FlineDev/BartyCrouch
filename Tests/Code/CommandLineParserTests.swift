@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import BartyCrouch
+@testable import BartyCrouchFramework
 
 class CommandLineParserTests: XCTestCase {
     func testIfCommentCommandIsAdded() {

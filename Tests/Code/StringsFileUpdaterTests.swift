@@ -11,7 +11,7 @@
 
 import XCTest
 
-@testable import BartyCrouch
+@testable import BartyCrouchFramework
 
 class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_length
     // MARK: - Stored Instance Properties
