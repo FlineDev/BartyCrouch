@@ -27,9 +27,9 @@ public class CommandLineParser {
     public enum SubCommandOptions {
         case codeOptions(
             localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
-            useExtractLocStrings: BoolOption, sortByKeys: BoolOption
+            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption
         )
-        case interfacesOptions(defaultToBase: BoolOption)
+        case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
 
@@ -122,12 +122,13 @@ public class CommandLineParser {
         let overrideComments = BoolOption(shortFlag: "c", longFlag: "override-comments", required: false, helpMessage: "Overrides existing translation comments.")
         let useExtractLocStrings = BoolOption(shortFlag: "e", longFlag: "extract-loc-strings", required: false, helpMessage: "Uses extractLocStrings instead of genstrings")
         let sortByKeys = BoolOption(shortFlag: "s", longFlag: "sort-by-keys", required: false, helpMessage: "Sorts the entries in the resulting Strings file by keys.")
+        let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.codeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
-                                                              useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys)
+                                                              useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped)
 
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys)
+        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys, unstripped)
         return (commandLine, commonOptions, subCommandOptions)
     }
 
@@ -143,12 +144,13 @@ public class CommandLineParser {
 
         let defaultToBase = BoolOption(shortFlag: "b", longFlag: "default-to-base", required: false,
                                        helpMessage: "Uses the values from the Base localized Interface Builder files when adding new keys.")
+        let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
 
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase)
+        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped)
 
-        commandLine.addOptions(path, override, verbose, defaultToBase)
+        commandLine.addOptions(path, override, verbose, defaultToBase, unstripped)
         return (commandLine, commonOptions, subCommandOptions)
     }
 

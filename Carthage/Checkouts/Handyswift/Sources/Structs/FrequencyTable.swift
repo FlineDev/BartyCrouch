@@ -10,11 +10,10 @@ import Foundation
 
 /// Data structure to retrieve random values with their frequency taken into account.
 public struct FrequencyTable<T> {
-
     // MARK: - Stored Instance Properties
 
-    fileprivate let valuesWithFrequencies: [(T, Int)]
-    fileprivate let frequentValues: [T]
+    private let valuesWithFrequencies: [(T, Int)]
+    private let frequentValues: [T]
 
 
     // MARK: - Initializers
@@ -25,14 +24,11 @@ public struct FrequencyTable<T> {
     ///     - values:             An array full of values to be saved into the frequency table.
     ///     - frequencyClosure:   The closure to specify the frequency for a specific value.
     public init(values: [T], frequencyClosure: (T) -> Int) {
-
         self.valuesWithFrequencies = values.map { ($0, frequencyClosure($0)) }
         self.frequentValues = Array(self.valuesWithFrequencies.map { (value, frequency) -> [T] in
             return (0..<frequency).map { _ in value }
         }.joined())
-
     }
-
 
     // MARK: - Instance Methods
 
@@ -48,19 +44,11 @@ public struct FrequencyTable<T> {
     ///
     /// - Returns: An array of random values or nil if values empty.
     public func sample(size: Int) -> [T]? {
-
         if !self.frequentValues.isEmpty {
             var sampleElements: [T] = []
-
-            size.times {
-                sampleElements.append(self.sample()!)
-            }
-
+            size.times { sampleElements.append(self.sample()!) }
             return sampleElements
         }
-
         return nil
     }
-
-
 }

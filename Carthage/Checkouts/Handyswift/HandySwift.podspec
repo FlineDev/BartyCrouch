@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "HandySwift"
-  s.version      = "1.3.1"
+  s.version      = "1.4.1"
   s.summary      = "Handy Swift features that didn't make it into the Swift standard library"
 
   s.description  = <<-DESC
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.10"
   s.tvos.deployment_target = "9.0"
 
-  s.source       = { :git => "https://github.com/Flinesoft/HandySwift.git", :tag => "1.3.1" }
+  s.source       = { :git => "https://github.com/Flinesoft/HandySwift.git", :tag => "1.4.1" }
   s.source_files  = "Sources", "Sources/**/*.swift"
   s.framework  = "Foundation"
   s.osx.framework = "AppKit"

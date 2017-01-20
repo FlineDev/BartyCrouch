@@ -28,17 +28,17 @@ public class CommandLineActor {
         let verbose = commonOptions.verbose.value
 
         switch subCommandOptions {
-        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys):
+        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped):
             guard let localizable = localizableOption.value else {
                 printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
             }
 
             self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value,
-                           overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value, sortByKeys: sortByKeys.value)
+                           overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value, sortByKeys: sortByKeys.value, unstripped: unstripped.value)
 
-        case let .interfacesOptions(defaultToBaseOption):
-            self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value)
+        case let .interfacesOptions(defaultToBaseOption, unstripped):
+            self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value, unstripped: unstripped.value)
 
         case let .translateOptions(idOption, secretOption, localeOption):
             guard let id = idOption.value else {
@@ -61,7 +61,7 @@ public class CommandLineActor {
     }
 
     private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
-                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool) {
+                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool) {
         let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: "Localizable")
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
@@ -77,10 +77,11 @@ public class CommandLineActor {
         }
 
         self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
-                                   additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys)
+                                   additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys,
+                                   unstripped: unstripped)
     }
 
-    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
         guard !inputFilePaths.isEmpty else {
@@ -103,7 +104,7 @@ public class CommandLineActor {
                 }
             }
 
-            self.incrementalInterfacesUpdate(inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase)
+            self.incrementalInterfacesUpdate(inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, unstripped: unstripped)
         }
     }
 
@@ -135,7 +136,7 @@ public class CommandLineActor {
     }
 
     private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
-                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool) {
+                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool) {
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
         do {
@@ -161,7 +162,8 @@ public class CommandLineActor {
             }
 
             stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
-                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys)
+                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys,
+                                                       keepWhitespaceSurroundings: unstripped)
 
             if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.") }
         }
@@ -176,7 +178,7 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully updated strings file(s) of Code files.")
     }
 
-    private func incrementalInterfacesUpdate(_ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool) {
+    private func incrementalInterfacesUpdate(_ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
         guard IBToolCommander.shared.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
@@ -190,7 +192,8 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override,
+                                                       keepWhitespaceSurroundings: unstripped)
 
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")

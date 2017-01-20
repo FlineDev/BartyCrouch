@@ -161,6 +161,7 @@ Here's an overview of all options available for the sub command `interfaces`:
 
 - `path` (required), `override` and `verbose` (see [Options for all Sub Commands](#options-for-all-sub-commands) above)
 - `default-to-base`
+- `unstripped`
 
 #### Default to Base (aka `-b`, `--default-to-base`) <small>*optional*</small>
 
@@ -170,6 +171,16 @@ Example:
 
 ```shell
 $ bartycrouch interfaces -p "/path/to/project" -b
+```
+
+#### Unstripped (aka `-u`, `--unstripped`) <small>*optional*</small>
+
+If you use any **service or other tool that alters your Strings files** and if BartyCrouch seems to change the beginning and ends of those files due to different whitespacing/newline conventions, then you can simply use the `-u` command to keep the beginning and end as they are. By default BartyCrouch adds exactly one line to both the beginning and end of a file. Note that this option keeps up to 10 newline/whitespace characters from the original file at both beginning and end.
+
+Example:
+
+```shell
+$ bartycrouch interfaces -p "/path/to/project" -u
 ```
 
 ---
@@ -185,6 +196,7 @@ Here's an overview of all options available for the sub command `code`:
 - `override-comments`
 - `extract-loc-strings`
 - `sort-by-keys`
+- `unstripped`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -246,6 +258,17 @@ Example:
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -s
+```
+
+
+#### Unstripped (aka `-u`, `--unstripped`) <small>*optional*</small>
+
+If you use any **service or other tool that alters your Strings files** and if BartyCrouch seems to change the beginning and ends of those files due to different whitespacing/newline conventions, then you can simply use the `-u` command to keep the beginning and end as they are. By default BartyCrouch adds exactly one line to both the beginning and end of a file. Note that this option keeps up to 10 newline/whitespace characters from the original file at both beginning and end.
+
+Example:
+
+```shell
+$ bartycrouch interfaces -p "/path/to/project" -u
 ```
 
 ---
