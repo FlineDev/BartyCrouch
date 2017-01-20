@@ -9,7 +9,6 @@
 import Foundation
 
 public extension Int {
-
     /// Initializes a new `Int ` instance with a random value below a given `Int`.
     ///
     /// - Parameters:
@@ -23,5 +22,4 @@ public extension Int {
         let randomUInt32 = arc4random_uniform(UInt32(upperLimit))
         self.init(randomUInt32)
     }
-
 }

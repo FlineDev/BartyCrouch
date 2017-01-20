@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/HandySwift/releases">
-        <img src="https://img.shields.io/badge/Version-1.3.1%20|%201.2.0-blue.svg"
-             alt="Version: 1.3.1 | 1.2.0">
+        <img src="https://img.shields.io/badge/Version-1.4.1%20|%201.2.0-blue.svg"
+             alt="Version: 1.4.1 | 1.2.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-3.0%20|%202.3%20|%202.2-FFAC45.svg"
          alt="Swift: 3.0 | 2.3 | 2.2">
@@ -128,7 +128,7 @@ Int(randomBelow: 1_000_000) // => 208041
 Repeat some code block a given number of times.
 
 ``` Swift
-3.times{ array.append("Hello World!") }
+3.times { array.append("Hello World!") }
 // => ["Hello World!", "Hello World!", "Hello World!"]
 
 5.times {
@@ -145,7 +145,7 @@ Repeat some code block a given number of times.
 Returns string with whitespace characters stripped from start and end.
 
 ``` Swift
-" \t BB-8 likes Rey \t ".strip
+" \n\t BB-8 likes Rey \t\n ".strip
 // => "BB-8 likes Rey"
 ```
 
@@ -189,6 +189,16 @@ Returns an array with `size` random elements or nil if array empty.
 [1, 2, 3, 4, 5].sample(size: 3) // => [2, 1, 4]
 [1, 2, 3, 4, 5].sample(size: 8) // => [1, 4, 2, 4, 3, 4, 1, 5]
 ([] as [Int]).sample(size: 3) // => nil
+```
+
+
+#### .combinations(with:)
+
+Combines each element with each element of a given other array.
+
+``` Swift
+[1, 2, 3].combinations(with: ["A", "B"])
+// => [(1, "A"), (1, "B"), (2, "A"), (2, "B"), (3, "A"), (3, "B")]
 ```
 
 ### DictionaryExtension
@@ -352,7 +362,7 @@ SortedArray(array: [5, 2, 1, 3, 0, 4]).subArray(fromIndex: Array<Int>.Index(2))
 
 ### FrequencyTable
 
-#### FrequencyTable(values: valuesArray){ valueToFrequencyClosure }
+#### FrequencyTable(values: valuesArray) { valueToFrequencyClosure }
 
 Initialize with values and closure.
 
@@ -367,7 +377,7 @@ let wordFrequencies = [
     WordFrequency(word: "Ronald", frequency: 1)
 ]
 
-let frequencyTable = FrequencyTable(values: wordFrequencies){ $0.frequency }
+let frequencyTable = FrequencyTable(values: wordFrequencies) { $0.frequency }
 // => HandySwift.FrequencyTable<WordFrequency>
 ```
 

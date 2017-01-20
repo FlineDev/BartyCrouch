@@ -11,19 +11,13 @@ import XCTest
 @testable import HandySwift
 
 class IntegerTypeExtensionTests: XCTestCase {
-    
     func testTimesMethod() {
         var testString = ""
-        
-        0.times{ testString += "." }
-        
+
+        0.times { testString += "." }
         XCTAssertEqual(testString, "")
-        
-        3.times {
-            testString += "."
-        }
-        
+
+        3.times { testString += "." }
         XCTAssertEqual(testString, "...")
     }
-    
 }
