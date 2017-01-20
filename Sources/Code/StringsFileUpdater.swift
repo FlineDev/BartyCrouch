@@ -44,7 +44,7 @@ public class StringsFileUpdater {
     public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String,
                                         addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
                                         override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
-                                        overrideComments: Bool = false, sortByKeys: Bool = false) {
+                                        overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
 

@@ -112,7 +112,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
 
             let expectedLinesBeforeIncrementalUpdate = [
-                "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
@@ -125,7 +125,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
                 "\"abc-12-345.normalTitle\" = \"😀\";", "",
                 "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
-                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", ""
+                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", "", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
@@ -163,13 +163,13 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
         }
     }
 
-    func testExampleStringsFileWithPrefilledNewValues() {
+    func testExampleStringsFileWithSpecialNewlineSurroundings() {
         do {
             try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
             let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
 
             let expectedLinesBeforeIncrementalUpdate = [
-                "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
                 "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";", "",
                 "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
                 "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
@@ -182,7 +182,69 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
                 "\"abc-12-345.normalTitle\" = \"😀\";", "",
                 "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
-                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", ""
+                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", "", ""
+            ]
+
+            var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesBeforeIncrementalUpdate.count)
+            for (index, expectedLine) in expectedLinesBeforeIncrementalUpdate.enumerated() {
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
+            }
+
+            stringsFileUpdater.incrementallyUpdateKeys(
+                withStringsFileAtPath: newStringsFilePath,
+                addNewValuesAsEmpty: true,
+                updateCommentWithBase: false,
+                keepWhitespaceSurroundings: true
+            )
+
+            let expectedLinesAfterIncrementalUpdate = [
+                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"New Example Button 1\";", "",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";", "",
+                "/* Class = \"UIButton\"; normalTitle = \"New Example Button 4\"; ObjectID = \"xyz-12-345\"; */",
+                "\"xyz-12-345.normalTitle\" = \"\";", "",
+                "/* test comment 1", "   test comment 2 */",
+                "\"test.multiline_comment\" = \"\";", "",
+                "/* (test comment with brackets) */",
+                "\"test.brackets_comment\" = \"\";", "", ""
+            ]
+
+            oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
+
+            XCTAssertEqual(oldLinesInFile.count, expectedLinesAfterIncrementalUpdate.count)
+            for (index, expectedLine) in expectedLinesAfterIncrementalUpdate.enumerated() {
+                XCTAssertEqual(oldLinesInFile[index], expectedLine)
+            }
+        } catch {
+            XCTFail((error as NSError).description)
+        }
+    }
+
+    func testExampleStringsFileWithPrefilledNewValues() {
+        do {
+            try FileManager.default.copyItem(atPath: oldStringsFilePath, toPath: testStringsFilePath)
+            let stringsFileUpdater = StringsFileUpdater(path: testStringsFilePath)!
+
+            let expectedLinesBeforeIncrementalUpdate = [
+                "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
+                "\"35F-cl-mdI.normalTitle\" = \"Example Button 1\";", "",
+                "/*! Class = \"UIButton\"; normalTitle = \"Example Button 2\"; ObjectID = \"COa-YO-eGf\"; */",
+                "\"COa-YO-eGf.normalTitle\" = \"Already Translated\";", "",
+                "/* Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; */",
+                "\"cHL-Zc-L39.normalTitle\" = \"Example Button 3\";", "",
+                "/* Completely custom comment structure in one line */",
+                "\"test.key\" = \"This is a test key\";", "",
+                "/* Completely custom comment structure in one line to be ignored */",
+                "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
+                "\"abc-12-345.normalTitle\" = \"😀\";", "",
+                "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
+                "\"em1-3S-vgp.text\" = \"Refrakční vzdálenost v metrech\";", "", ""
             ]
 
             var oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
