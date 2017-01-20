@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import BartyCrouch
+@testable import BartyCrouchKit
 
 // swiftlint:disable force_try
 

@@ -185,6 +185,7 @@ Here's an overview of all options available for the sub command `code`:
 - `override-comments`
 - `extract-loc-strings`
 - `sort-by-keys`
+- `custom-function`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -246,6 +247,14 @@ Example:
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -s
+```
+
+#### Custom Function (aka `-f`, `--custom-function`) <small>*optional*</small>
+
+If you use a **custom function** in your code to localize your Strings (instead of `NSLocalizedString`) you can specify it using this option. BartyCrouch passes this along to the `genstrings`/`extractLocStrings` tools. So you need to make sure your custom function follows the requirements of `genstrings`/`extractLocStrings`.
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
 ```
 
 ---
