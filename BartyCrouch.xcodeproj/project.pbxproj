@@ -126,7 +126,7 @@
 		82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommander.swift; sourceTree = "<group>"; };
 		82463E031CD9164000D28A2C /* SwiftExample1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample1.swift; sourceTree = "<group>"; };
 		82463E051CD9180D00D28A2C /* SwiftExample2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample2.swift; sourceTree = "<group>"; };
-		82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommanderTests.swift; sourceTree = "<group>"; };
+		82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommanderTests.swift; sourceTree = "<group>"; };
 		8249B7C71C70D1CF002F1BB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Example.strings; sourceTree = "<group>"; };
 		8249B7C91C70D1D6002F1BB7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Example.strings; sourceTree = "<group>"; };
 		8249B7CB1C70D1D8002F1BB7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Example.strings; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 		E4EDD6091E3156E00010D878 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
 		E78B1E131DFAB33200C7C290 /* ExtractLocStringsCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractLocStringsCommander.swift; sourceTree = "<group>"; };
 		E78B1E161DFABA5500C7C290 /* CodeCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCommander.swift; sourceTree = "<group>"; };
-		E7974AF11DFAE9AA00E31754 /* ExtractLocStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ExtractLocStringsCommanderTests.swift; sourceTree = "<group>"; };
+		E7974AF11DFAE9AA00E31754 /* ExtractLocStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractLocStringsCommanderTests.swift; sourceTree = "<group>"; };
 		E7974AFA1DFAECA700E31754 /* SwiftExample2Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample2Arguments.swift; sourceTree = "<group>"; };
 		E7974AFC1DFAECA700E31754 /* SwiftExample3Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample3Arguments.swift; sourceTree = "<group>"; };
 		E7974B001DFAFD2D00E31754 /* SwiftExample4Arguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExample4Arguments.swift; sourceTree = "<group>"; };
