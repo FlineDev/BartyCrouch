@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "82CDE27E1C6ABF3A00055FE6"
-               BuildableName = "BartyCrouchFramework.framework"
-               BlueprintName = "BartyCrouch"
+               BuildableName = "BartyCrouchKit.framework"
+               BlueprintName = "BartyCrouchKit"
                ReferencedContainer = "container:BartyCrouch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "82CDE27E1C6ABF3A00055FE6"
-            BuildableName = "BartyCrouchFramework.framework"
-            BlueprintName = "BartyCrouch"
+            BuildableName = "BartyCrouchKit.framework"
+            BlueprintName = "BartyCrouchKit"
             ReferencedContainer = "container:BartyCrouch.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,8 +65,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "82CDE27E1C6ABF3A00055FE6"
-            BuildableName = "BartyCrouchFramework.framework"
-            BlueprintName = "BartyCrouch"
+            BuildableName = "BartyCrouchKit.framework"
+            BlueprintName = "BartyCrouchKit"
             ReferencedContainer = "container:BartyCrouch.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,8 +83,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "82CDE27E1C6ABF3A00055FE6"
-            BuildableName = "BartyCrouchFramework.framework"
-            BlueprintName = "BartyCrouch"
+            BuildableName = "BartyCrouchKit.framework"
+            BlueprintName = "BartyCrouchKit"
             ReferencedContainer = "container:BartyCrouch.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

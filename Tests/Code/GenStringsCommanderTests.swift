@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import BartyCrouchFramework
+@testable import BartyCrouchKit
 
 class GenStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties

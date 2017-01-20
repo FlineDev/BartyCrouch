@@ -72,7 +72,7 @@
 		A1FF9DA21D9324F900D5E85E /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9D1D9324F900D5E85E /* Option.swift */; };
 		A1FF9DA31D9324F900D5E85E /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9E1D9324F900D5E85E /* StringExtensions.swift */; };
 		A1FF9DA41D9324F900D5E85E /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FF9D9E1D9324F900D5E85E /* StringExtensions.swift */; };
-		E4EDD5ED1E314F080010D878 /* BartyCrouchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchFramework.framework */; };
+		E4EDD5ED1E314F080010D878 /* BartyCrouchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */; };
 		E78B1E141DFAB33200C7C290 /* ExtractLocStringsCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B1E131DFAB33200C7C290 /* ExtractLocStringsCommander.swift */; };
 		E78B1E151DFAB33900C7C290 /* ExtractLocStringsCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B1E131DFAB33200C7C290 /* ExtractLocStringsCommander.swift */; };
 		E78B1E171DFABA5500C7C290 /* CodeCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B1E161DFABA5500C7C290 /* CodeCommander.swift */; };
@@ -150,7 +150,7 @@
 		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE2731C6ABE5C00055FE6 /* bartycrouch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bartycrouch; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		82CDE27F1C6ABF3A00055FE6 /* BartyCrouchFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouchFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouchKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileUpdater.swift; sourceTree = "<group>"; };
 		82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommander.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4EDD5ED1E314F080010D878 /* BartyCrouchFramework.framework in Frameworks */,
+				E4EDD5ED1E314F080010D878 /* BartyCrouchKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				82CDE2731C6ABE5C00055FE6 /* bartycrouch */,
-				82CDE27F1C6ABF3A00055FE6 /* BartyCrouchFramework.framework */,
+				82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */,
 				82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */,
 			);
 			name = Products;
@@ -671,9 +671,9 @@
 			productReference = 82CDE2731C6ABE5C00055FE6 /* bartycrouch */;
 			productType = "com.apple.product-type.tool";
 		};
-		82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */ = {
+		82CDE27E1C6ABF3A00055FE6 /* BartyCrouchKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82CDE2901C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouch" */;
+			buildConfigurationList = 82CDE2901C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchKit" */;
 			buildPhases = (
 				82CDE27A1C6ABF3A00055FE6 /* Sources */,
 				82CDE27B1C6ABF3A00055FE6 /* Frameworks */,
@@ -685,9 +685,9 @@
 			);
 			dependencies = (
 			);
-			name = BartyCrouch;
+			name = BartyCrouchKit;
 			productName = BartyCrouch;
-			productReference = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchFramework.framework */;
+			productReference = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		82CDE2871C6ABF3A00055FE6 /* BartyCrouchTests */ = {
@@ -747,7 +747,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */,
+				82CDE27E1C6ABF3A00055FE6 /* BartyCrouchKit */,
 				82CDE2871C6ABF3A00055FE6 /* BartyCrouchTests */,
 				82CDE2721C6ABE5C00055FE6 /* BartyCrouch CLI */,
 			);
@@ -886,7 +886,7 @@
 /* Begin PBXTargetDependency section */
 		82CDE28B1C6ABF3A00055FE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 82CDE27E1C6ABF3A00055FE6 /* BartyCrouch */;
+			target = 82CDE27E1C6ABF3A00055FE6 /* BartyCrouchKit */;
 			targetProxy = 82CDE28A1C6ABF3A00055FE6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1086,7 +1086,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouch;
-				PRODUCT_NAME = BartyCrouchFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1111,7 +1111,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouch;
-				PRODUCT_NAME = BartyCrouchFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1176,7 +1176,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82CDE2901C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouch" */ = {
+		82CDE2901C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				82CDE2911C6ABF3A00055FE6 /* Debug */,
