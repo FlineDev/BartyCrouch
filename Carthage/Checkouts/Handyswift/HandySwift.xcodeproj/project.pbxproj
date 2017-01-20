@@ -141,6 +141,7 @@
 		82F967F31C67A65E0003F12A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A16B85EB1D8EA9A200B39055 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A19DD6921DE2B70F00C66584 /* HandySwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HandySwift.podspec; sourceTree = "<group>"; };
+		A1F5AEEB1E05702E003D6949 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,10 +196,7 @@
 		823B2B271C24AAB6007B3CDD = {
 			isa = PBXGroup;
 			children = (
-				A16B85EB1D8EA9A200B39055 /* README.md */,
-				82F967F31C67A65E0003F12A /* .swiftlint.yml */,
-				82F22E551C26434900E784A2 /* Package.swift */,
-				A19DD6921DE2B70F00C66584 /* HandySwift.podspec */,
+				A1F5AEEA1E05700F003D6949 /* Root Files */,
 				825EFDE11C3333CE00558497 /* Sources */,
 				825EFDE21C3333D200558497 /* Tests */,
 				823B2B321C24AAB6007B3CDD /* Products */,
@@ -303,6 +301,18 @@
 				823B2B421C24AAB7007B3CDD /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1F5AEEA1E05700F003D6949 /* Root Files */ = {
+			isa = PBXGroup;
+			children = (
+				A16B85EB1D8EA9A200B39055 /* README.md */,
+				82F967F31C67A65E0003F12A /* .swiftlint.yml */,
+				82F22E551C26434900E784A2 /* Package.swift */,
+				A19DD6921DE2B70F00C66584 /* HandySwift.podspec */,
+				A1F5AEEB1E05702E003D6949 /* .swift-version */,
+			);
+			name = "Root Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,27 +468,27 @@
 				TargetAttributes = {
 					823B2B301C24AAB6007B3CDD = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 					823B2B3A1C24AAB7007B3CDD = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 					825EFDC91C3333B000558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 					825EFDD21C3333B000558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 					825EFDE81C33351200558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 					825EFDF11C33351300558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};

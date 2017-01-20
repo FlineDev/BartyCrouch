@@ -7,11 +7,9 @@
 //
 
 #if !os(OSX)
-
     import UIKit
 
     extension UIColor {
-
         /// A list of changeable attributes of the UIColor.
         ///
         /// - Red:          The red color part of RGB & alpha.
@@ -30,7 +28,6 @@
 
         /// The HSB & alpha attributes of the `UIColor` instance.
         public var hsba: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) {
-
             var hsba: (hue: CGFloat, saturation: CGFloat, brightness: CGFloat, alpha: CGFloat) = (0, 0, 0, 0)
             getHue(&(hsba.hue), saturation: &(hsba.saturation), brightness: &(hsba.brightness), alpha: &(hsba.alpha))
             return hsba
@@ -38,7 +35,6 @@
 
         /// The RGB & alpha attributes of the `UIColor` instance.
         public var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-
             var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) = (0, 0, 0, 0)
             getRed(&rgba.red, green: &rgba.green, blue: &rgba.blue, alpha: &rgba.alpha)
             return rgba
@@ -77,7 +73,6 @@
             case .brightness:
                 return change(attribute, to: hsba.brightness + addition)
             }
-
         }
 
         /// Creates a new `UIColor` object with the value of a single attribute set to a given value.
@@ -86,8 +81,7 @@
         ///   - attribute: The attribute to change.
         ///   - to: The new value to be set for the attribute.
         /// - Returns: The resulting new `UIColor` with the specified change applied.
-        public func change(_ attribute: ChangeableAttribute, to newValue: CGFloat) -> UIColor {
-
+        public func change(_ attribute: ChangeableAttribute, to newValue: CGFloat) -> UIColor { // swiftlint:disable:this cyclomatic_complexity
             switch attribute {
             case .red, .green, .blue, .alpha:
                 var newRgba = self.rgba
@@ -129,8 +123,5 @@
                 return UIColor(hue: newHsba.hue, saturation: newHsba.saturation, brightness: newHsba.brightness, alpha: newHsba.alpha)
             }
         }
-
     }
-
-
 #endif
