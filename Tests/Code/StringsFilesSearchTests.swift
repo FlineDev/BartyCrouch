@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import BartyCrouchFramework
+@testable import BartyCrouchKit
 
 class StringsFilesSearchTests: XCTestCase {
     // MARK: - Test Methods
