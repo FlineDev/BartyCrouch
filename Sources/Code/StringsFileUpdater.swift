@@ -138,7 +138,7 @@ public class StringsFileUpdater {
                 return translations.sorted(by: sortingClosure)
             }()
 
-            rewriteFile(with: updatedTranslations)
+            rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
         } catch {
             print(error.localizedDescription)
         }
@@ -151,9 +151,33 @@ public class StringsFileUpdater {
     }
 
     // Rewrites file with specified translations and reloads lines from new file.
-    func rewriteFile(with translations: [TranslationEntry]) {
+    func rewriteFile(with translations: [TranslationEntry], keepWhitespaceSurroundings: Bool) {
         do {
-            let newContentsOfFile = stringFromTranslations(translations: translations)
+            var newContentsOfFile = stringFromTranslations(translations: translations)
+
+            if keepWhitespaceSurroundings {
+                var whitespacesOrNewlinesAtEnd = ""
+                for i in 1...10 { // allows a maximum of 10 whitespace chars at end
+                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.endIndex, offsetBy: -i))
+                    if substring.isBlank {
+                        whitespacesOrNewlinesAtEnd = substring
+                    } else {
+                        break
+                    }
+                }
+
+                var whitespacesOrNewlinesAtBegin = ""
+                for i in 1...10 { // allows a maximum of 10 whitespace chars at end
+                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.startIndex, offsetBy: i))
+                    if substring.isBlank {
+                        whitespacesOrNewlinesAtBegin = substring
+                    } else {
+                        break
+                    }
+                }
+
+                newContentsOfFile = whitespacesOrNewlinesAtBegin + newContentsOfFile.strip + whitespacesOrNewlinesAtEnd
+            }
 
             try FileManager.default.removeItem(atPath: path)
             try newContentsOfFile.write(toFile: path, atomically: true, encoding: .utf8)
@@ -260,7 +284,7 @@ public class StringsFileUpdater {
             // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
             while awaitingTranslationRequestsCount > 0 {}
 
-            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations) }
+            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
 
             return translatedValuesCount
         } catch {
