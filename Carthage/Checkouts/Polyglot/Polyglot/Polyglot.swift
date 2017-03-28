@@ -161,7 +161,7 @@ open class Polyglot {
                 let translation: String
                 guard
                     let data = data,
-                    let xmlString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
+                    let xmlString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as String?
                 else {
                     translation = ""
                     return

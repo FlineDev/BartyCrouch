@@ -286,11 +286,11 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
         let updater = StringsFileUpdater(path: newStringsFilePath)!
 
         let expectedPairs: [String: (String, String?)?] = [
-            "bli/bla/blubb/de.lproj/Main.strings":              ("de", nil),
-            "bli/bla/blubb/en-GB.lproj/Main.strings":           ("en", "GB"),
-            "bli/bla/blubb/pt-BR.lproj/Main.strings":           ("pt", "BR"),
-            "bli/bla/blubb/zh-Hans.lproj/Main.strings":         ("zh", "Hans"),
-            "bli/bla/blubb/No-Locale/de-DE/Main.strings":       nil
+            "bli/bla/blubb/de.lproj/Main.strings": ("de", nil),
+            "bli/bla/blubb/en-GB.lproj/Main.strings": ("en", "GB"),
+            "bli/bla/blubb/pt-BR.lproj/Main.strings": ("pt", "BR"),
+            "bli/bla/blubb/zh-Hans.lproj/Main.strings": ("zh", "Hans"),
+            "bli/bla/blubb/No-Locale/de-DE/Main.strings": nil
         ]
 
         expectedPairs.forEach { path, expectedResult in
@@ -313,9 +313,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/en.lproj/Localizable.strings"
 
             let expectedTranslatedCarsValues: [String: String] = [
-                "de":       "Autos",
-                "ja":       "車",
-                "zh-Hans":  "汽车"
+                "de": "Autos",
+                "ja": "車",
+                "zh-Hans": "汽车"
             ]
 
             for locale in ["de", "ja", "zh-Hans"] {
@@ -381,15 +381,15 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             }
 
             let expectedTranslatedBicyclesValues: [String: String] = [
-                "de":       "Fahrräder",
-                "ja":       "自転車",
-                "zh-Hans":  "自行车"
+                "de": "Fahrräder",
+                "ja": "自転車",
+                "zh-Hans": "自行车"
             ]
 
             let expectedTranslatedSheSaidStopValues: [String: String] = [
-                "de":       "Sie sagte: \\\"Stop!\\\"", // BartyCrouch is expected to escape double quotes
-                "ja":       "彼女は言った: '停止'!",
-                "zh-Hans":  "她说: '停止' ！"
+                "de": "Sie sagte: \\\"Stop!\\\"", // BartyCrouch is expected to escape double quotes
+                "ja": "彼女は言った: '停止'!",
+                "zh-Hans": "她说: '停止' ！"
             ]
 
             // test with create keys options
