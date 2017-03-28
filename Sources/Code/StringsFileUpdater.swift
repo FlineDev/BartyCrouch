@@ -325,7 +325,7 @@ public class StringsFileUpdater {
     }
 
     func stringFromTranslations(translations: [TranslationEntry]) -> String {
-        return "\n" + translations.map { (key, value, comment, line) -> String in
+        return "\n" + translations.map { (key, value, comment, _) -> String in
             let translationLine = "\"\(key)\" = \"\(value)\";"
             if let comment = comment { return "/*\(comment)*/\n" + translationLine }
             return translationLine

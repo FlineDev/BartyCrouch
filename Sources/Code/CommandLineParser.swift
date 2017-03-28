@@ -12,9 +12,9 @@ public class CommandLineParser {
     // MARK: - Sub Types
 
     public enum SubCommand: String {
-        case code = "code"
-        case interfaces = "interfaces"
-        case translate = "translate"
+        case code
+        case interfaces
+        case translate
 
         static func all() -> [SubCommand] {
             return [.code, .interfaces, .translate]
