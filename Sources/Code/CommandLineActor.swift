@@ -154,6 +154,10 @@ public class CommandLineActor {
         }
 
         let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
+        guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
+            printError("No localizations extracted from Code in directory '\(inputDirectoryPath)'.")
+            exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
+        }
 
         for outputStringsFilePath in outputStringsFilePaths {
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
