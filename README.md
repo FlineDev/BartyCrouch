@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.7.1-blue.svg"
-             alt="Version: 3.7.1">
+        <img src="https://img.shields.io/badge/Version-3.7.2-blue.svg"
+             alt="Version: 3.7.2">
     </a>
     <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
          alt="Swift: 3">
