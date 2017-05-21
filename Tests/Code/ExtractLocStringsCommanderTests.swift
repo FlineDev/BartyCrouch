@@ -13,13 +13,13 @@ import XCTest
 class ExtractLocStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties
 
-    let baseMultipleArgumentTestCodeFunctionNamesAndDirectories : [(String?, String)] = [
+    let baseMultipleArgumentFunctionDirectories: [(String?, String)] = [
      (nil, "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code"),
      ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code Custom Function")
     ]
 
     override func tearDown() {
-        for (_, directory) in baseMultipleArgumentTestCodeFunctionNamesAndDirectories {
+        for (_, directory) in baseMultipleArgumentFunctionDirectories {
             removeLocalizableStringsFilesRecursively(in: URL(fileURLWithPath: directory))
         }
     }
@@ -27,7 +27,7 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     // MARK: - Test Methods
 
     func test2Arguments() {
-        for (functionName, directory) in baseMultipleArgumentTestCodeFunctionNamesAndDirectories {
+        for (functionName, directory) in baseMultipleArgumentFunctionDirectories {
             assert(
                 ExtractLocStringsCommander.shared,
                 takesCodeIn: "\(directory)/2 Arguments",
@@ -43,7 +43,7 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     }
 
     func test3ArgumentsValue() {
-        for (functionName, directory) in baseMultipleArgumentTestCodeFunctionNamesAndDirectories {
+        for (functionName, directory) in baseMultipleArgumentFunctionDirectories {
             assert(
                 ExtractLocStringsCommander.shared,
                 takesCodeIn: "\(directory)/3 Arguments",
@@ -59,7 +59,7 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     }
 
     func test4ArgumentsBundleValue() {
-        for (functionName, directory) in baseMultipleArgumentTestCodeFunctionNamesAndDirectories {
+        for (functionName, directory) in baseMultipleArgumentFunctionDirectories {
             assert(
                 ExtractLocStringsCommander.shared,
                 takesCodeIn: "\(directory)/4 Arguments",
@@ -74,8 +74,7 @@ class ExtractLocStringsCommanderTests: XCTestCase {
         }
     }
 
-    func assert(_ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?,
-                producesResult expectedLocalizableContentLines: [String]) {
+    func assert(_ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, producesResult expectedLocalizableContentLines: [String]) {
         let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: customFunction)
         XCTAssertTrue(exportSuccess, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
 

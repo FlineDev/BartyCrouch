@@ -34,8 +34,11 @@ public class CommandLineActor {
                 exit(EX_USAGE)
             }
 
-            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value,
-                           overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value, sortByKeys: sortByKeys.value, unstripped: unstripped.value, customFunction: customFunction.value)
+            self.actOnCode(
+                path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
+                additive: additiveOption.value, overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value,
+                sortByKeys: sortByKeys.value, unstripped: unstripped.value, customFunction: customFunction.value
+            )
 
         case let .interfacesOptions(defaultToBaseOption, unstripped):
             self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value, unstripped: unstripped.value)

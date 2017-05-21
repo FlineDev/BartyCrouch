@@ -13,7 +13,7 @@ import XCTest
 class GenStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties
 
-    let exampleCodeFilesFunctionNamesAndDirectoryPaths : [(String?, String)] = [
+    let exampleCodeFunctionDirectoryData: [(String?, String)] = [
         (nil, "\(BASE_DIR)/Tests/Assets/Code Files"),
         ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Code Files Custom Function")
     ]
@@ -22,7 +22,7 @@ class GenStringsCommanderTests: XCTestCase {
 
     override func tearDown() {
         do {
-            for (_, path) in exampleCodeFilesFunctionNamesAndDirectoryPaths {
+            for (_, path) in exampleCodeFunctionDirectoryData {
                 try FileManager.default.removeItem(atPath: path + "/Localizable.strings")
             }
         } catch {
@@ -33,11 +33,9 @@ class GenStringsCommanderTests: XCTestCase {
     // MARK: - Test Methods
 
     func testCodeExamples() {
-        for (customFunction, path) in exampleCodeFilesFunctionNamesAndDirectoryPaths {
+        for (customFunction, path) in exampleCodeFunctionDirectoryData {
 
-            let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: path,
-                                                                  fromCodeInDirectoryPath: path,
-                                                                  customFunction: customFunction)
+            let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: path, fromCodeInDirectoryPath: path, customFunction: customFunction)
 
             do {
                 let contentsOfStringsFile = try String(contentsOfFile: path + "/Localizable.strings")

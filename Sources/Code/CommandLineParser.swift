@@ -126,8 +126,10 @@ public class CommandLineParser {
         let customFunction = StringOption(shortFlag: "f", longFlag: "custom-function", required: false, helpMessage: "Specifies a custom function to be parsed via '-s' option.")
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.codeOptions(localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
-                                                              useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction)
+        let subCommandOptions = SubCommandOptions.codeOptions(
+            localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
+            useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction
+        )
 
         commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction)
         return (commandLine, commonOptions, subCommandOptions)
