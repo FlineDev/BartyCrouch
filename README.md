@@ -197,6 +197,7 @@ Here's an overview of all options available for the sub command `code`:
 - `extract-loc-strings`
 - `sort-by-keys`
 - `unstripped`
+- `custom-function`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -260,7 +261,6 @@ Example:
 $ bartycrouch code -p "/path/to/code/files" -l "/path/to/localizables" -s
 ```
 
-
 #### Unstripped (aka `-u`, `--unstripped`) <small>*optional*</small>
 
 If you use any **service or other tool that alters your Strings files** and if BartyCrouch seems to change the beginning and ends of those files due to different whitespacing/newline conventions, then you can simply use the `-u` command to keep the beginning and end as they are. By default BartyCrouch adds exactly one line to both the beginning and end of a file. Note that this option keeps up to 10 newline/whitespace characters from the original file at both beginning and end.
@@ -269,6 +269,14 @@ Example:
 
 ```shell
 $ bartycrouch interfaces -p "/path/to/project" -u
+```
+
+#### Custom Function (aka `-f`, `--custom-function`) <small>*optional*</small>
+
+If you use a **custom function** in your code to localize your Strings (instead of `NSLocalizedString`) you can specify it using this option. BartyCrouch passes this along to the `genstrings`/`extractLocStrings` tools. So you need to make sure your custom function follows the requirements of `genstrings`/`extractLocStrings`.
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
 ```
 
 ---

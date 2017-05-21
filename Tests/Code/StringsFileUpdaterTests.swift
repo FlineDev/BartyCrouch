@@ -11,7 +11,7 @@
 
 import XCTest
 
-@testable import BartyCrouch
+@testable import BartyCrouchKit
 
 class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_length
     // MARK: - Stored Instance Properties
@@ -306,8 +306,8 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
 
     func testTranslateEmptyValues() { // swiftlint:disable:this function_body_length
         // Note: This test only runs with correct Microsoft Translator API credentials provided
-        let id: String?         = "Cruciverber"       // specify this to run this test
-        let secret: String?     = "RFykBwu#6=Tja0hzlQ1gA3zhNFl#lB2Z"       // specify this to run this test
+        let id: String?         = nil       // specify this to run this test
+        let secret: String?     = nil       // specify this to run this test
 
         if let id = id, let secret = secret {
             let sourceStringsFilePath = "\(BASE_DIR)/Tests/Assets/Strings Files/en.lproj/Localizable.strings"
