@@ -28,14 +28,17 @@ public class CommandLineActor {
         let verbose = commonOptions.verbose.value
 
         switch subCommandOptions {
-        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped):
+        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction):
             guard let localizable = localizableOption.value else {
                 printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
             }
 
-            self.actOnCode(path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value, additive: additiveOption.value,
-                           overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value, sortByKeys: sortByKeys.value, unstripped: unstripped.value)
+            self.actOnCode(
+                path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
+                additive: additiveOption.value, overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value,
+                sortByKeys: sortByKeys.value, unstripped: unstripped.value, customFunction: customFunction.value
+            )
 
         case let .interfacesOptions(defaultToBaseOption, unstripped):
             self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value, unstripped: unstripped.value)
@@ -61,7 +64,7 @@ public class CommandLineActor {
     }
 
     private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
-                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool) {
+                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?) {
         let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: "Localizable")
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
@@ -78,7 +81,7 @@ public class CommandLineActor {
 
         self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
                                    additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys,
-                                   unstripped: unstripped)
+                                   unstripped: unstripped, customFunction: customFunction)
     }
 
     private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
@@ -136,7 +139,7 @@ public class CommandLineActor {
     }
 
     private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
-                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool) {
+                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?) {
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
         do {
@@ -148,7 +151,7 @@ public class CommandLineActor {
 
         let codeCommander: CodeCommander = useExtractLocStrings ? ExtractLocStringsCommander.shared : GenStringsCommander.shared
 
-        guard codeCommander.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath) else {
+        guard codeCommander.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath, customFunction: customFunction) else {
             printError("Could not extract strings from Code in directory '\(inputDirectoryPath)'.")
             exit(EX_UNAVAILABLE)
         }

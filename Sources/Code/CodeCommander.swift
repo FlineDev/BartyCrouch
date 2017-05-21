@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CodeCommander {
-    func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool
+    func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) -> Bool
 }
 
 extension CodeCommander {

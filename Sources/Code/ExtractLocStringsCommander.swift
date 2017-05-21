@@ -17,9 +17,11 @@ public class ExtractLocStringsCommander: CodeCommander {
 
     // MARK: - Instance Methods
 
-    public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String) -> Bool {
+    public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) -> Bool {
         let findFilesResult = findFiles(in: codeDirectoryPath)
-        let exportFileResult = Commander.shared.run(command: "/usr/bin/xcrun", arguments: ["extractLocStrings"] + findFilesResult.outputs + ["-o", stringsFilePath])
+        let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
+        let exportFileResult = Commander.shared.run(command: "/usr/bin/xcrun",
+                                                    arguments: ["extractLocStrings"] + findFilesResult.outputs + ["-o", stringsFilePath] + customFunctionArgs)
         return findFilesResult.exitCode == 0 && exportFileResult.exitCode == 0
     }
 }

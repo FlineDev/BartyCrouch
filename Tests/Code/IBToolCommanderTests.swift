@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import BartyCrouch
+@testable import BartyCrouchKit
 
 class IBToolCommanderTests: XCTestCase {
     func testiOSExampleStoryboard() {
