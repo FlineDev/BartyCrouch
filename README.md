@@ -51,17 +51,25 @@ Install Homebrew first if you don't have it already (more about Homebrew [here](
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Then simply run the commands
+**Bartycrouch now is part of Homebrew Core! No tap needed any more.**
+
+If you had installed a previous version (<= 3.8.0) via the tap, you should run the following once:
+
 ```shell
-$ brew tap flinesoft/bartycrouch
-$ brew install flinesoft/bartycrouch/bartycrouch
+$ brew untap flinesoft/bartycrouch
 ```
-to install BartyCrouch.
+
+To install Bartycrouch the first time, simply run the command:
+
+```shell
+$ brew install bartycrouch
+```
 
 To **update** to the newest version of BartyCrouch when you have an old version already installed run:
+
 ```shell
 $ brew update
-$ brew upgrade flinesoft/bartycrouch/bartycrouch
+$ brew upgrade bartycrouch
 ```
 
 ## Usage
