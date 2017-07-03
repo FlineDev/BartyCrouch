@@ -37,29 +37,25 @@ class Session {
 
     func getAccessToken(_ callback: @escaping ((_ token: String) -> (Void))) {
         if (accessToken == nil || isExpired) {
-            let url = URL(string: "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13")
+            let url = URL(string: "https://api.cognitive.microsoft.com/sts/v1.0/issueToken")
 
             var request = URLRequest(url: url!)
             request.httpMethod = "POST"
+            request.addValue(clientSecret, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
 
-            let bodyString = "client_id=\(clientId.urlEncoded!)&client_secret=\(clientSecret.urlEncoded!)&scope=http://api.microsofttranslator.com&grant_type=client_credentials"
-            request.httpBody = bodyString.data(using: String.Encoding.utf8)
-
+            
             let task = URLSession.shared.dataTask(with: request, completionHandler: {(data, response, error) in
                 guard
                     let data = data,
-                let resultsDict = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? [String: Any],
-                    let expiresIn = resultsDict?["expires_in"] as? NSString
+                    let responseText = String(data: data, encoding: String.Encoding.utf8)
                 else {
                     callback("")
                     return
                 }
-                self.expirationTime = Date(timeIntervalSinceNow: expiresIn.doubleValue)
+                
+                self.expirationTime = Date(timeIntervalSinceNow: 600)
+                self.accessToken = responseText
 
-                let token = resultsDict?["access_token"] as! String
-                self.accessToken = token
-
-                callback(token)
             }) 
 
             task.resume()
