@@ -382,6 +382,14 @@ func updateTimeLabel(minutes: Int) {
 ```
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings.
 
+### Use #bc-ignore! in Interface builder without affecting your texts
+
+To avoid littering views with `#bc-ignore!` token, you can add #bc-ignore! into "Comment for localizer" box in object properties:
+
+<img src="Ignore-Example1.png" width="275px" height="491px">
+
+<img src="Ignore-Example2.png" width="272px" height="195px">
+
 ## Migration Guides
 
 This project follows [Semantic Versioning](http://semver.org).
