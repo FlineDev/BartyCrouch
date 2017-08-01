@@ -59,7 +59,7 @@ public class StringsFilesSearch {
 
     func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String] {
         do {
-            let pathsToIgnore = [".git/", "Carthage/", "build/", "docs/"]
+            let pathsToIgnore = [".git/", "Carthage/", "Pods/", "build/", "docs/"]
             let allFilePaths = try FileManager.default.subpathsOfDirectory(atPath: baseDirectoryPath).filter { !$0.containsAny(of: pathsToIgnore) }
             let ibFilePaths = allFilePaths.filter { filePath in
                 return !regularExpression.matches(in: filePath, options: .reportCompletion, range: filePath.fullRange).isEmpty
