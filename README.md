@@ -46,6 +46,8 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 
 ## Installation
 
+### Using Homebrew:
+
 Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
 ```shell
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -70,6 +72,14 @@ To **update** to the newest version of BartyCrouch when you have an old version 
 ```shell
 $ brew update
 $ brew upgrade bartycrouch
+```
+
+### Using CocoaPods:
+
+Simply add the following line to your Podfile:
+
+```ruby
+pod 'BartyCrouch'
 ```
 
 ## Usage
@@ -359,6 +369,12 @@ fi
 ```
 
 It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this script to point to the **directory of your own code only**, for example by using `-p "$PROJECT_DIR/Sources"` instead. Also you should alter `-l "$PROJECT_DIR"` to a path more specific (e.g. `-l "$PROJECT_DIR/Sources/Supporting Files"`). This is to make sure BartyCrouch doesn't change any `Localizable.strings` files within frameworks included using the likes of Carthage or CocoaPods.
+
+Alternatively, if you've installed BartyCrouch via CocoaPods the script should look like this:
+
+```shell
+"${PODS_ROOT}/BartyCrouch/bartycrouch" interfaces -p "$PROJECT_DIR"
+```
 
 ---
 
