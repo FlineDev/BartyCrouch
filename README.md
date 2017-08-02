@@ -365,12 +365,20 @@ It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this sc
 ### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are gonna be set programmatically**.
-For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file.
+For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file. Alternatively you can add `#bc-ignore!` into the field "Comment For Localizer" box in the utilities pane.
+
 This will tell BartyCrouch to ignore this specific view when updating your `.strings` files.
 
 Here's an example of how a base localized view in a XIB file with partly ignored strings might look like:
 
 <img src="Exclusion-Example.png">
+
+Here's an example with the alternative comment variant:
+
+<div style="float:left;">
+	<img src="IB-Comment-Exclusion-Example1.png" width="275px" height="491px">
+	<img src="IB-Comment-Exclusion-Example2.png" width="272px" height="195px">
+</div>
 
 You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This is helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).
 
@@ -381,14 +389,6 @@ func updateTimeLabel(minutes: Int) {
 }
 ```
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings.
-
-### Use #bc-ignore! in Interface builder without affecting your texts
-
-To avoid littering views with `#bc-ignore!` token, you can add #bc-ignore! into "Comment for localizer" box in object properties:
-
-<img src="Ignore-Example1.png" width="275px" height="491px">
-
-<img src="Ignore-Example2.png" width="272px" height="195px">
 
 ## Migration Guides
 
