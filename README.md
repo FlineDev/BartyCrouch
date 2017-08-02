@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.8.0-blue.svg"
-             alt="Version: 3.8.0">
+        <img src="https://img.shields.io/badge/Version-3.8.1-blue.svg"
+             alt="Version: 3.8.1">
     </a>
     <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
          alt="Swift: 3">
@@ -46,22 +46,40 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 
 ## Installation
 
+### Using Homebrew:
+
 Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
 ```shell
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Then simply run the commands
+**Bartycrouch now is part of Homebrew Core! No tap needed any more.**
+
+If you had installed a previous version (<= 3.8.0) via the tap, you should run the following once:
+
 ```shell
-$ brew tap flinesoft/bartycrouch
-$ brew install flinesoft/bartycrouch/bartycrouch
+$ brew untap flinesoft/bartycrouch
 ```
-to install BartyCrouch.
+
+To install Bartycrouch the first time, simply run the command:
+
+```shell
+$ brew install bartycrouch
+```
 
 To **update** to the newest version of BartyCrouch when you have an old version already installed run:
+
 ```shell
 $ brew update
-$ brew upgrade flinesoft/bartycrouch/bartycrouch
+$ brew upgrade bartycrouch
+```
+
+### Using CocoaPods:
+
+Simply add the following line to your Podfile:
+
+```ruby
+pod 'BartyCrouch'
 ```
 
 ## Usage
@@ -352,17 +370,31 @@ fi
 
 It is recommended that you update the `-p "$PROJECT_DIR"` appearances in this script to point to the **directory of your own code only**, for example by using `-p "$PROJECT_DIR/Sources"` instead. Also you should alter `-l "$PROJECT_DIR"` to a path more specific (e.g. `-l "$PROJECT_DIR/Sources/Supporting Files"`). This is to make sure BartyCrouch doesn't change any `Localizable.strings` files within frameworks included using the likes of Carthage or CocoaPods.
 
+Alternatively, if you've installed BartyCrouch via CocoaPods the script should look like this:
+
+```shell
+"${PODS_ROOT}/BartyCrouch/bartycrouch" interfaces -p "$PROJECT_DIR"
+```
+
 ---
 
 ### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are gonna be set programmatically**.
-For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file.
+For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file. Alternatively you can add `#bc-ignore!` into the field "Comment For Localizer" box in the utilities pane.
+
 This will tell BartyCrouch to ignore this specific view when updating your `.strings` files.
 
 Here's an example of how a base localized view in a XIB file with partly ignored strings might look like:
 
 <img src="Exclusion-Example.png">
+
+Here's an example with the alternative comment variant:
+
+<div style="float:left;">
+	<img src="IB-Comment-Exclusion-Example1.png" width="275px" height="491px">
+	<img src="IB-Comment-Exclusion-Example2.png" width="272px" height="195px">
+</div>
 
 You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This is helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).
 

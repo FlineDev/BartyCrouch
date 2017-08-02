@@ -120,10 +120,10 @@ public class CommandLineParser {
         let defaultToKeys = BoolOption(shortFlag: "k", longFlag: "default-to-keys", required: false, helpMessage: "Uses the keys as values when adding new keys from code.")
         let additive = BoolOption(shortFlag: "a", longFlag: "additive", required: false, helpMessage: "Only adds new keys keeping all existing keys even when seemingly unused.")
         let overrideComments = BoolOption(shortFlag: "c", longFlag: "override-comments", required: false, helpMessage: "Overrides existing translation comments.")
-        let useExtractLocStrings = BoolOption(shortFlag: "e", longFlag: "extract-loc-strings", required: false, helpMessage: "Uses extractLocStrings instead of genstrings")
+        let useExtractLocStrings = BoolOption(shortFlag: "e", longFlag: "extract-loc-strings", required: false, helpMessage: "Uses the extractLocStrings tool instead of genstrings.")
         let sortByKeys = BoolOption(shortFlag: "s", longFlag: "sort-by-keys", required: false, helpMessage: "Sorts the entries in the resulting Strings file by keys.")
         let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
-        let customFunction = StringOption(shortFlag: "f", longFlag: "custom-function", required: false, helpMessage: "Specifies a custom function to be parsed via '-s' option.")
+        let customFunction = StringOption(shortFlag: "f", longFlag: "custom-function", required: false, helpMessage: "Specifies a custom function to be searched for instead of NSLocalizedString.")
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.codeOptions(
