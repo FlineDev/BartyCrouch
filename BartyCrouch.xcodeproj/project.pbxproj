@@ -163,6 +163,7 @@
 		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
+		A1A1BE7C1F3212BB006A0049 /* BartyCrouch.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = BartyCrouch.podspec; sourceTree = "<group>"; };
 		A1B73EAF1E00744D0070D20F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A1B73EB11E00A8320070D20F /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		A1B73EB51E00ABDE0070D20F /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -495,6 +496,7 @@
 				820649CD1C7CA636009E501E /* Cartfile */,
 				A1B73EB11E00A8320070D20F /* Cartfile.resolved */,
 				82F2E1041D27CF7900C6386A /* .swiftlint.yml */,
+				A1A1BE7C1F3212BB006A0049 /* BartyCrouch.podspec */,
 			);
 			name = "Root Files";
 			sourceTree = "<group>";
