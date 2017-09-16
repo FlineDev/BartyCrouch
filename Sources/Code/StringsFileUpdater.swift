@@ -7,7 +7,6 @@
 //
 
 // swiftlint:disable function_body_length
-// swiftlint:disable file_length
 
 import Foundation
 
