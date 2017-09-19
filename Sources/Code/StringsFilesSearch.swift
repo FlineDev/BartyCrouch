@@ -38,17 +38,24 @@ public class StringsFilesSearch {
     public func findAllStringsFiles(within baseDirectoryPath: String) -> [String] {
         // swiftlint:disable:next force_try
         let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\.lproj.*\\.strings\\z", options: .caseInsensitive)
-        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
+        let stringFiles = self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
+
+        let ibFileNames = self.findAllIBFiles(within: baseDirectoryPath).map { extractFileName(from: $0) }
+
+        return stringFiles.filter { stringFilePath in
+            for ibFileName in ibFileNames {
+                if stringFilePath.range(of: ibFileName) != nil {
+                    return false
+                }
+            }
+            return true
+        }
     }
 
     public func findAllLocalesForStringsFile(sourceFilePath: String) -> [String] {
-        var pathComponents = sourceFilePath.components(separatedBy: "/")
-        let storyboardName: String = {
-            var fileNameComponents = pathComponents.last!.components(separatedBy: ".")
-            fileNameComponents.removeLast()
-            return fileNameComponents.joined(separator: ".")
-        }()
+        let storyboardName = extractFileName(from: sourceFilePath)
 
+        var pathComponents = sourceFilePath.components(separatedBy: "/")
         pathComponents.removeLast() // Remove last path component from folder/base.lproj/some.storyboard
         pathComponents.removeLast() // Remove last path component from folder/base.lproj
 
@@ -74,5 +81,12 @@ public class StringsFilesSearch {
         } catch {
             return []
         }
+    }
+
+    private func extractFileName(from filePath: String) -> String {
+        let pathComponents = filePath.components(separatedBy: "/")
+        var fileNameComponents = pathComponents.last!.components(separatedBy: ".")
+        fileNameComponents.removeLast()
+        return fileNameComponents.joined(separator: ".")
     }
 }
