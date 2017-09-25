@@ -21,7 +21,7 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllIBFiles(within: basePath, withLocale: "Base")
 
         XCTAssertEqual(results.count, expectedIBFilePaths.count)
-        XCTAssertEqual(results, expectedIBFilePaths)
+        XCTAssertEqual(results.sorted(), expectedIBFilePaths.sorted())
     }
 
     func testFindAllStringsFiles() {
@@ -33,7 +33,7 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllStringsFiles(within: basePath, withLocale: "de")
 
         XCTAssertEqual(results.count, expectedStringsFilePaths.count)
-        XCTAssertEqual(results, expectedStringsFilePaths)
+        XCTAssertEqual(results.sorted(), expectedStringsFilePaths.sorted())
     }
 
     func testiOSFindAllLocalesForStringsFile() {
@@ -43,7 +43,7 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: baseStoryboardPath)
 
         XCTAssertEqual(results.count, expectedStringsPaths.count)
-        XCTAssertEqual(results, expectedStringsPaths)
+        XCTAssertEqual(results.sorted(), expectedStringsPaths.sorted())
     }
 
 
