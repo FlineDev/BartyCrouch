@@ -108,7 +108,8 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     }
 
     func assert(
-        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, tableName: String = "Localizable", producesResult expectedLocalizableContentLines: [String]
+        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, tableName: String = "Localizable",
+        producesResult expectedLocalizableContentLines: [String]
     ) {
         let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: customFunction)
         XCTAssertTrue(exportSuccess, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
@@ -117,7 +118,8 @@ class ExtractLocStringsCommanderTests: XCTestCase {
             let contentsOfStringsFile = try String(contentsOfFile: directory + "/\(tableName).strings")
             let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
             XCTAssertEqual(
-                linesInStringsFile, expectedLocalizableContentLines, "Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
+                linesInStringsFile, expectedLocalizableContentLines,
+                "Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
             )
         } catch {
             XCTFail("Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")

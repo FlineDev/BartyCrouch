@@ -1,6 +1,6 @@
 //
 //  SwiftExampleMultipleTables.swift
-//  BartyCrouchTests
+//  BartyCrouch
 //
 //  Created by Max Bothe on 16.09.17.
 //  Copyright © 2017 Flinesoft. All rights reserved.

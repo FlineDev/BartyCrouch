@@ -27,7 +27,7 @@ class StringsFilesSearchTests: XCTestCase {
 
         let expectedStringsFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "de", type: "strings") }
             + ["\(BASE_DIR)/Tests/Assets/Strings Files/de.lproj/CustomName.strings",
-                "\(BASE_DIR)/Tests/Assets/Strings Files/de.lproj/Localizable.strings"]
+            "\(BASE_DIR)/Tests/Assets/Strings Files/de.lproj/Localizable.strings"]
 
         let results = StringsFilesSearch.shared.findAllStringsFiles(within: basePath, withLocale: "de")
 

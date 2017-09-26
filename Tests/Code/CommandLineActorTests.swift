@@ -31,16 +31,19 @@ class CommandLineActorTests: XCTestCase {
     // MARK: - Test Callbacks
     override func setUp() {
         super.setUp()
-        
+
         for filePath in CommandLineActorTests.filePathsToBackup {
             if FileManager.default.fileExists(atPath: filePath + ".backup") {
                 try! FileManager.default.removeItem(atPath: filePath + ".backup")
             }
+
             try! FileManager.default.copyItem(atPath: filePath, toPath: filePath + ".backup")
         }
     }
 
     override func tearDown() {
+        super.tearDown()
+
         for filePath in CommandLineActorTests.filePathsToBackup {
             try! FileManager.default.removeItem(atPath: filePath)
             try! FileManager.default.copyItem(atPath: filePath + ".backup", toPath: filePath)
@@ -100,7 +103,7 @@ class CommandLineActorTests: XCTestCase {
             "-l", CommandLineActorTests.multipleTablesDirPath,
             "-e"
         ]
-        CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
+        CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             let expectedKeysPerTable = [

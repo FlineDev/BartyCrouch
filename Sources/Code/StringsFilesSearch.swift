@@ -40,11 +40,13 @@ public class StringsFilesSearch {
         let ibFileNames = self.findAllIBFiles(within: baseDirectoryPath).map { extractFileName(from: $0) }
 
         return stringFiles.filter { stringFilePath in
+            // swiftlint:disable:next if_as_guard
             for ibFileName in ibFileNames {
                 if stringFilePath.range(of: ibFileName) != nil {
                     return false
                 }
             }
+
             return true
         }
     }
