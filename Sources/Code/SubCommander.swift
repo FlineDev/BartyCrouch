@@ -10,7 +10,6 @@ import Foundation
 
 public class SubCommander {
     // MARK: - Sub Types
-
     public enum ParseError: Error, CustomStringConvertible {
         case missingSubCommand(supportedSubCommands: [String])
         case unsupportedSubCommand(supportedSubCommands: [String])
@@ -19,6 +18,7 @@ public class SubCommander {
             switch self {
             case let .missingSubCommand(supportedSubCommands):
                 return "Missing sub command. Try one of the following: \(supportedSubCommands)"
+
             case let .unsupportedSubCommand(supportedSubCommands):
                 return "Sub command not supported. Try one of the following: \(supportedSubCommands)"
             }
@@ -27,19 +27,16 @@ public class SubCommander {
 
     private struct StderrOutputStream: TextOutputStream {
         static let stream = StderrOutputStream()
+
         func write(_ string: String) {
             fputs(string, stderr)
         }
     }
 
-
     // MARK: - Stored Instance Properties
-
     private var subCommandLines: [CommandLineParser.SubCommand: () -> CommandLineKit] = [:]
 
-
     // MARK: - Instance Methods
-
     public func addCommandLineBlock(commandLineBlock: @escaping () -> CommandLineKit, forSubCommand subCommand: CommandLineParser.SubCommand) {
         self.subCommandLines[subCommand] = commandLineBlock
     }

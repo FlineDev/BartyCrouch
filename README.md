@@ -13,11 +13,11 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.8.1-blue.svg"
-             alt="Version: 3.8.1">
+        <img src="https://img.shields.io/badge/Version-3.9.0-blue.svg"
+             alt="Version: 3.9.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-3-FFAC45.svg"
-         alt="Swift: 3">
+    <img src="https://img.shields.io/badge/Swift-4-FFAC45.svg"
+         alt="Swift: 4">
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
@@ -41,7 +41,7 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 
 ## Requirements
 
-- Xcode 8 and Swift 3
+- Xcode 9 and Swift 4
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Installation

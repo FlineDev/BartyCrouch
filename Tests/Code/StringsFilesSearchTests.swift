@@ -6,13 +6,11 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class StringsFilesSearchTests: XCTestCase {
     // MARK: - Test Methods
-
     func testFindAllIBFiles() {
         let basePath = "\(BASE_DIR)/Tests"
 
@@ -21,7 +19,7 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllIBFiles(within: basePath, withLocale: "Base")
 
         XCTAssertEqual(results.count, expectedIBFilePaths.count)
-        XCTAssertEqual(results, expectedIBFilePaths)
+        XCTAssertEqual(results.sorted(), expectedIBFilePaths.sorted())
     }
 
     func testFindAllStringsFiles() {
@@ -33,7 +31,7 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllStringsFiles(within: basePath, withLocale: "de")
 
         XCTAssertEqual(results.count, expectedStringsFilePaths.count)
-        XCTAssertEqual(results, expectedStringsFilePaths)
+        XCTAssertEqual(results.sorted(), expectedStringsFilePaths.sorted())
     }
 
     func testiOSFindAllLocalesForStringsFile() {
@@ -43,12 +41,10 @@ class StringsFilesSearchTests: XCTestCase {
         let results = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: baseStoryboardPath)
 
         XCTAssertEqual(results.count, expectedStringsPaths.count)
-        XCTAssertEqual(results, expectedStringsPaths)
+        XCTAssertEqual(results.sorted(), expectedStringsPaths.sorted())
     }
 
-
     // MARK: - Helpers
-
     func examplePath(platform: String, locale: String, type: String) -> String {
         return "\(BASE_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
     }

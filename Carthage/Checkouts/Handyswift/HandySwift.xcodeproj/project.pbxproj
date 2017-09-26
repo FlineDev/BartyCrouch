@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		821F8D641CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D631CC40E6E00F9BCD0 /* ColorExtension.swift */; };
-		821F8D651CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D631CC40E6E00F9BCD0 /* ColorExtension.swift */; };
-		821F8D661CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D631CC40E6E00F9BCD0 /* ColorExtension.swift */; };
-		821F8D6C1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D6B1CC4222B00F9BCD0 /* ColorExtensionTests.swift */; };
-		821F8D6D1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D6B1CC4222B00F9BCD0 /* ColorExtensionTests.swift */; };
-		821F8D6E1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821F8D6B1CC4222B00F9BCD0 /* ColorExtensionTests.swift */; };
 		823B2B351C24AAB7007B3CDD /* HandySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 823B2B341C24AAB7007B3CDD /* HandySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		823B2B3C1C24AAB7007B3CDD /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823B2B311C24AAB6007B3CDD /* HandySwift.framework */; };
 		823B2B4D1C24ABA4007B3CDD /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */; };
@@ -57,12 +51,9 @@
 		826F69B01C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AF1C389DB800B2CC6B /* FrequencyTableTests.swift */; };
 		826F69B11C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AF1C389DB800B2CC6B /* FrequencyTableTests.swift */; };
 		826F69B21C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AF1C389DB800B2CC6B /* FrequencyTableTests.swift */; };
-		827CE9931D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9921D07CDE2007A62A8 /* CoreGraphicsExtensions.swift */; };
-		827CE9941D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9921D07CDE2007A62A8 /* CoreGraphicsExtensions.swift */; };
-		827CE9951D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9921D07CDE2007A62A8 /* CoreGraphicsExtensions.swift */; };
-		827CE9971D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9961D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift */; };
-		827CE9981D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9961D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift */; };
-		827CE9991D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827CE9961D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift */; };
+		827599641E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */; };
+		827599651E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */; };
+		827599661E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */; };
 		8280D7DC1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */; };
 		8280D7DD1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */; };
 		8280D7DE1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */; };
@@ -79,6 +70,15 @@
 		82CAE2941C2ED5E000F934A7 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */; };
 		82CAE2961C2EE64900F934A7 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */; };
 		82CAE2981C2EE95200F934A7 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */; };
+		A11830D31E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
+		A11830D41E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
+		A11830D51E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
+		A11830D71E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */; };
+		A11830D81E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */; };
+		A11830D91E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */; };
+		A1F221641E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
+		A1F221651E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
+		A1F221661E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,8 +106,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		821F8D631CC40E6E00F9BCD0 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		821F8D6B1CC4222B00F9BCD0 /* ColorExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensionTests.swift; sourceTree = "<group>"; };
 		823B2B311C24AAB6007B3CDD /* HandySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		823B2B341C24AAB7007B3CDD /* HandySwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandySwift.h; sourceTree = "<group>"; };
 		823B2B361C24AAB7007B3CDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,8 +125,7 @@
 		825EFDF21C33351300558497 /* HandySwift tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HandySwift tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
 		826F69AF1C389DB800B2CC6B /* FrequencyTableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTableTests.swift; sourceTree = "<group>"; };
-		827CE9921D07CDE2007A62A8 /* CoreGraphicsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensions.swift; sourceTree = "<group>"; };
-		827CE9961D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensionsTests.swift; sourceTree = "<group>"; };
+		827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
 		8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		8280D7DF1C4A6FF3001172EF /* DictionaryExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensionTests.swift; sourceTree = "<group>"; };
 		82812A9A1D06877B00CD5B6C /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
@@ -138,9 +135,13 @@
 		82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		82F22E551C26434900E784A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		82F967F31C67A65E0003F12A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
+		A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
+		A15C62221EE734F100A7CA38 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A16B85EB1D8EA9A200B39055 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A19DD6921DE2B70F00C66584 /* HandySwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HandySwift.podspec; sourceTree = "<group>"; };
+		A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
+		A1F221851E3FEE7C00419B06 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		A1F5AEEB1E05702E003D6949 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,8 +226,8 @@
 				82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */,
 				825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */,
 				8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */,
-				821F8D631CC40E6E00F9BCD0 /* ColorExtension.swift */,
-				827CE9921D07CDE2007A62A8 /* CoreGraphicsExtensions.swift */,
+				A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */,
+				A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -240,8 +241,8 @@
 				82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */,
 				825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */,
 				8280D7DF1C4A6FF3001172EF /* DictionaryExtensionTests.swift */,
-				821F8D6B1CC4222B00F9BCD0 /* ColorExtensionTests.swift */,
-				827CE9961D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift */,
+				827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */,
+				A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,10 +308,11 @@
 			isa = PBXGroup;
 			children = (
 				A16B85EB1D8EA9A200B39055 /* README.md */,
-				82F967F31C67A65E0003F12A /* .swiftlint.yml */,
+				A1F221851E3FEE7C00419B06 /* LICENSE.md */,
 				82F22E551C26434900E784A2 /* Package.swift */,
 				A19DD6921DE2B70F00C66584 /* HandySwift.podspec */,
 				A1F5AEEB1E05702E003D6949 /* .swift-version */,
+				A15C62221EE734F100A7CA38 /* .swiftlint.yml */,
 			);
 			name = "Root Files";
 			sourceTree = "<group>";
@@ -353,7 +355,7 @@
 				823B2B2D1C24AAB6007B3CDD /* Frameworks */,
 				823B2B2E1C24AAB6007B3CDD /* Headers */,
 				823B2B2F1C24AAB6007B3CDD /* Resources */,
-				82F967F41C67A68A0003F12A /* Run Swift Linter */,
+				82F967F41C67A68A0003F12A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -390,7 +392,7 @@
 				825EFDC61C3333B000558497 /* Frameworks */,
 				825EFDC71C3333B000558497 /* Headers */,
 				825EFDC81C3333B000558497 /* Resources */,
-				82F967F51C67A69A0003F12A /* Run Swift Linter */,
+				82F967F51C67A69A0003F12A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -427,7 +429,7 @@
 				825EFDE51C33351200558497 /* Frameworks */,
 				825EFDE61C33351200558497 /* Headers */,
 				825EFDE71C33351200558497 /* Resources */,
-				82F967F61C67A6A80003F12A /* Run Swift Linter */,
+				82F967F61C67A6A80003F12A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -463,32 +465,32 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Flinesoft;
 				TargetAttributes = {
 					823B2B301C24AAB6007B3CDD = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					823B2B3A1C24AAB7007B3CDD = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					825EFDC91C3333B000558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					825EFDD21C3333B000558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					825EFDE81C33351200558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					825EFDF11C33351300558497 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -560,47 +562,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		82F967F41C67A68A0003F12A /* Run Swift Linter */ = {
+		82F967F41C67A68A0003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Swift Linter";
+			name = SwiftLint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
 		};
-		82F967F51C67A69A0003F12A /* Run Swift Linter */ = {
+		82F967F51C67A69A0003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Swift Linter";
+			name = SwiftLint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
 		};
-		82F967F61C67A6A80003F12A /* Run Swift Linter */ = {
+		82F967F61C67A6A80003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Swift Linter";
+			name = SwiftLint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -612,14 +614,14 @@
 				8258E4561C2E0C140031CBFF /* SortedArray.swift in Sources */,
 				826F69AC1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFDBD1C331EF000558497 /* IntegerTypeExtension.swift in Sources */,
-				821F8D641CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */,
+				A1F221641E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
 				825EFDBF1C3321B300558497 /* CharacterViewExtension.swift in Sources */,
 				823B2B4D1C24ABA4007B3CDD /* IntExtension.swift in Sources */,
 				82CAE2921C2ED1A200F934A7 /* StringExtension.swift in Sources */,
 				82CAE2961C2EE64900F934A7 /* ArrayExtension.swift in Sources */,
 				82812A9B1D06877B00CD5B6C /* Globals.swift in Sources */,
-				827CE9931D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */,
 				8280D7DC1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */,
+				A11830D31E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,11 +629,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821F8D6C1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */,
 				826F69B01C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
+				827599641E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
 				825EFDC31C332AD200558497 /* CharacterViewExtensionTests.swift in Sources */,
-				827CE9971D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */,
 				8258E4591C2E1ACE0031CBFF /* SortedArrayTests.swift in Sources */,
+				A11830D71E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
 				825EFDC11C332ABB00558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				823B2B501C24AC00007B3CDD /* IntExtensionTests.swift in Sources */,
 				82CAE2941C2ED5E000F934A7 /* StringExtensionTests.swift in Sources */,
@@ -648,14 +650,14 @@
 				825EFE061C33358400558497 /* ArrayExtension.swift in Sources */,
 				826F69AD1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE051C33358400558497 /* StringExtension.swift in Sources */,
-				821F8D651CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */,
+				A1F221651E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
 				825EFE071C33358400558497 /* CharacterViewExtension.swift in Sources */,
 				825EFE041C33358400558497 /* IntegerTypeExtension.swift in Sources */,
 				825EFE021C33358400558497 /* SortedArray.swift in Sources */,
 				825EFE031C33358400558497 /* IntExtension.swift in Sources */,
 				82812A9C1D06877B00CD5B6C /* Globals.swift in Sources */,
-				827CE9941D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */,
 				8280D7DD1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */,
+				A11830D41E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,11 +665,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821F8D6D1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */,
 				826F69B11C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
+				827599651E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
 				825EFE131C3335A400558497 /* CharacterViewExtensionTests.swift in Sources */,
-				827CE9981D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */,
 				825EFE111C3335A400558497 /* StringExtensionTests.swift in Sources */,
+				A11830D81E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
 				825EFE0E1C3335A400558497 /* SortedArrayTests.swift in Sources */,
 				825EFE101C3335A400558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				825EFE121C3335A400558497 /* ArrayExtensionTests.swift in Sources */,
@@ -684,14 +686,14 @@
 				825EFE0C1C33358500558497 /* ArrayExtension.swift in Sources */,
 				826F69AE1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE0B1C33358500558497 /* StringExtension.swift in Sources */,
-				821F8D661CC40E6E00F9BCD0 /* ColorExtension.swift in Sources */,
+				A1F221661E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
 				825EFE0D1C33358500558497 /* CharacterViewExtension.swift in Sources */,
 				825EFE0A1C33358500558497 /* IntegerTypeExtension.swift in Sources */,
 				825EFE081C33358500558497 /* SortedArray.swift in Sources */,
 				825EFE091C33358500558497 /* IntExtension.swift in Sources */,
 				82812A9D1D06877B00CD5B6C /* Globals.swift in Sources */,
-				827CE9951D07CDE2007A62A8 /* CoreGraphicsExtensions.swift in Sources */,
 				8280D7DE1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */,
+				A11830D51E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,11 +701,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				821F8D6E1CC4222B00F9BCD0 /* ColorExtensionTests.swift in Sources */,
 				826F69B21C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
+				827599661E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
 				825EFE191C3335A500558497 /* CharacterViewExtensionTests.swift in Sources */,
-				827CE9991D07D53F007A62A8 /* CoreGraphicsExtensionsTests.swift in Sources */,
 				825EFE171C3335A500558497 /* StringExtensionTests.swift in Sources */,
+				A11830D91E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
 				825EFE141C3335A500558497 /* SortedArrayTests.swift in Sources */,
 				825EFE161C3335A500558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				825EFE181C3335A500558497 /* ArrayExtensionTests.swift in Sources */,
@@ -742,14 +744,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -778,6 +786,7 @@
 				PRODUCT_MODULE_NAME = HandySwift;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -793,14 +802,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -822,6 +837,7 @@
 				PRODUCT_MODULE_NAME = HandySwift;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -849,7 +865,7 @@
 				PRODUCT_NAME = HandySwift;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -871,7 +887,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.HandySwift;
 				PRODUCT_NAME = HandySwift;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -883,7 +899,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-iOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_iOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -895,7 +911,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-iOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_iOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -918,7 +934,7 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -941,7 +957,7 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -958,7 +974,7 @@
 				PRODUCT_MODULE_NAME = HandySwift_OSX_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -975,7 +991,7 @@
 				PRODUCT_MODULE_NAME = HandySwift_OSX_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -995,7 +1011,7 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1017,7 +1033,7 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1032,7 +1048,7 @@
 				PRODUCT_MODULE_NAME = HandySwift_tvOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
@@ -1046,7 +1062,7 @@
 				PRODUCT_MODULE_NAME = HandySwift_tvOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;

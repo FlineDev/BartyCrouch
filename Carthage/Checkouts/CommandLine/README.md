@@ -2,7 +2,7 @@
 
 A pure Swift library for creating command-line interfaces.
 
-*Note: CommandLineKit `master` requires Xcode 7.3 / Swift 2.2, and aims to support the latest 2.2-dev snapshot on Linux (although not all tests pass yet). If you're using older versions of Swift, please check out the [earlier releases](https://github.com/jatoben/CommandLine/releases).*
+*Note: CommandLineKit `master` requires Xcode 8 / Swift 3.0. If you're using older versions of Swift, please check out the [earlier releases](https://github.com/jatoben/CommandLine/releases).*
 
 ## Usage
 
@@ -11,7 +11,7 @@ CommandLine aims to have a simple and self-explanatory API.
 ```swift
 import CommandLineKit
 
-let cli = CommandLineKit.CommandLineKit()
+let cli = CommandLineKit.CommandLine()
 
 let filePath = StringOption(shortFlag: "f", longFlag: "file", required: true,
   helpMessage: "Path to the output file.")
@@ -40,7 +40,7 @@ See `Option.swift` for additional Option types.
 
 To use CommandLineKit in your project, add it to your workspace, then add CommandLineKit.framework to the __Build Phases / Link Binary With Libraries__ setting of your target.
 
-If you are building a command-line tool and need to embed this and other frameworks to it, follow the steps in http://colemancda.github.io/programming/2015/02/12/embedded-swift-frameworks-osx-command-line-tools/ to link Swift frameworks to your command-line tool.
+If you are building a command-line tool and need to embed this and other frameworks to it, follow the steps in http://colemancda.github.io/2015/02/12/embedded-swift-frameworks-osx-command-line-tools/ to link Swift frameworks to your command-line tool.
 
 If you are building a standalone command-line tool, you'll need to add the CommandLineKit source files directly to your target, because Xcode [can't yet build static libraries that contain Swift code](https://github.com/ksm/SwiftInFlux#static-libraries).
 
@@ -119,13 +119,13 @@ $ LC_NUMERIC=sv_SE.UTF-8 ./example2 --float 3,1419
 
 ```swift
 enum Operation: String {
-  case Create  = "c"
-  case Extract = "x"
-  case List    = "l"
-  case Verify  = "v"
+  case create  = "c"
+  case extract = "x"
+  case list    = "l"
+  case verify  = "v"
 }
 
-let cli = CommandLineKit.CommandLineKit()
+let cli = CommandLineKit.CommandLine()
 let op = EnumOption<Operation>(shortFlag: "o", longFlag: "operation", required: true,
   helpMessage: "File operation - c for create, x for extract, l for list, or v for verify.")
 cli.setOptions(op)

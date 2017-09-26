@@ -10,7 +10,6 @@ import Foundation
 
 public class CommandLineParser {
     // MARK: - Sub Types
-
     public enum SubCommand: String {
         case code
         case interfaces
@@ -33,24 +32,68 @@ public class CommandLineParser {
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
 
-
     // MARK: - Stored Instance Properties
-
     private var commonOptions: CommonOptions?
     private var subCommandOptions: SubCommandOptions?
 
     let arguments: [String]
 
+    // MARK: Options
+    private let defaultToKeys = BoolOption(
+        shortFlag: "k",
+        longFlag: "default-to-keys",
+        required: false,
+        helpMessage: "Uses the keys as values when adding new keys from code."
+    )
+
+    private let additive = BoolOption(
+        shortFlag: "a",
+        longFlag: "additive",
+        required: false,
+        helpMessage: "Only adds new keys keeping all existing keys even when seemingly unused."
+    )
+
+    private let overrideComments = BoolOption(
+        shortFlag: "c",
+        longFlag: "override-comments",
+        required: false,
+        helpMessage: "Overrides existing translation comments."
+    )
+
+    private let useExtractLocStrings = BoolOption(
+        shortFlag: "e",
+        longFlag: "extract-loc-strings",
+        required: false,
+        helpMessage: "Uses the extractLocStrings tool instead of genstrings."
+    )
+
+    private let sortByKeys = BoolOption(
+        shortFlag: "s",
+        longFlag: "sort-by-keys",
+        required: false,
+        helpMessage: "Sorts the entries in the resulting Strings file by keys."
+    )
+
+    private let unstripped = BoolOption(
+        shortFlag: "u",
+        longFlag: "unstripped",
+        required: false,
+        helpMessage: "Keep newlines at beginning/end of Strings files."
+    )
+
+    private let customFunction = StringOption(
+        shortFlag: "f",
+        longFlag: "custom-function",
+        required: false,
+        helpMessage: "Specifies a custom function to be searched for instead of NSLocalizedString."
+    )
 
     // MARK: - Initializers
-
     public init(arguments: [String] = CommandLine.arguments) {
         self.arguments = arguments
     }
 
-
     // MARK: - Instance Methods
-
     public func parse(completion: (_ commonOptions: CommonOptions, _ subCommandOptions: SubCommandOptions) -> Void) {
         let subCommander = self.setupSubCommander()
         var commandLine: CommandLineKit!
@@ -87,6 +130,7 @@ public class CommandLineParser {
                 self.subCommandOptions = subCommandOptions
                 return commandLine
             }
+
             subCommander.addCommandLineBlock(commandLineBlock: commandLineBlock, forSubCommand: subCommand)
         }
 
@@ -97,8 +141,10 @@ public class CommandLineParser {
         switch subCommand {
         case .code:
             return self.setupCodeCLI()
+
         case .interfaces:
             return self.setupInterfacesCLI()
+
         case .translate:
             return self.setupTranslateCLI()
         }
@@ -117,21 +163,17 @@ public class CommandLineParser {
         let override = self.overrideOption(helpMessage: "Overrides existing translation values and comments. Use carefully.")
         let verbose = self.verboseOption()
 
-        let defaultToKeys = BoolOption(shortFlag: "k", longFlag: "default-to-keys", required: false, helpMessage: "Uses the keys as values when adding new keys from code.")
-        let additive = BoolOption(shortFlag: "a", longFlag: "additive", required: false, helpMessage: "Only adds new keys keeping all existing keys even when seemingly unused.")
-        let overrideComments = BoolOption(shortFlag: "c", longFlag: "override-comments", required: false, helpMessage: "Overrides existing translation comments.")
-        let useExtractLocStrings = BoolOption(shortFlag: "e", longFlag: "extract-loc-strings", required: false, helpMessage: "Uses the extractLocStrings tool instead of genstrings.")
-        let sortByKeys = BoolOption(shortFlag: "s", longFlag: "sort-by-keys", required: false, helpMessage: "Sorts the entries in the resulting Strings file by keys.")
-        let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
-        let customFunction = StringOption(shortFlag: "f", longFlag: "custom-function", required: false, helpMessage: "Specifies a custom function to be searched for instead of NSLocalizedString.")
-
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.codeOptions(
             localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
             useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction
         )
 
-        commandLine.addOptions(path, localizable, override, verbose, defaultToKeys, additive, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction)
+        commandLine.addOptions(
+            path, localizable, override, verbose, defaultToKeys, additive, overrideComments,
+            useExtractLocStrings, sortByKeys, unstripped, customFunction
+        )
+
         return (commandLine, commonOptions, subCommandOptions)
     }
 
@@ -145,10 +187,14 @@ public class CommandLineParser {
         let override = self.overrideOption(helpMessage: "Overrides existing translation values and comments. Use carefully.")
         let verbose = self.verboseOption()
 
-        let defaultToBase = BoolOption(shortFlag: "b", longFlag: "default-to-base", required: false,
-                                       helpMessage: "Uses the values from the Base localized Interface Builder files when adding new keys.")
-        let unstripped = BoolOption(shortFlag: "u", longFlag: "unstripped", required: false, helpMessage: "Keep newlines at beginning/end of Strings files.")
-
+        let defaultToBase = BoolOption(
+            shortFlag: "b", longFlag: "default-to-base", required: false,
+            helpMessage: "Uses the values from the Base localized Interface Builder files when adding new keys."
+        )
+        let unstripped = BoolOption(
+            shortFlag: "u", longFlag: "unstripped", required: false,
+            helpMessage: "Keep newlines at beginning/end of Strings files."
+        )
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped)
@@ -178,9 +224,7 @@ public class CommandLineParser {
         return (commandLine, commonOptions, subCommandOptions)
     }
 
-
     // MARK: - Option Creator Methods
-
     private func pathOption(helpMessage: String) -> StringOption {
         return StringOption(shortFlag: "p", longFlag: "path", required: true, helpMessage: helpMessage)
     }

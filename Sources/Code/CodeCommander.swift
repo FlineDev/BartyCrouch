@@ -1,5 +1,5 @@
 //
-//  BaseCodeCommander.swift
+//  CodeCommander.swift
 //  BartyCrouch
 //
 //  Created by Fyodor Volchyok on 12/9/16.
@@ -14,7 +14,9 @@ protocol CodeCommander {
 
 extension CodeCommander {
     func findFiles(in codeDirectoryPath: String) -> Commander.CommandLineResult {
-        return Commander.shared.run(command: "/usr/bin/find", arguments:
-            [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"])
+        return Commander.shared.run(
+            command: "/usr/bin/find",
+            arguments: [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"]
+        )
     }
 }
