@@ -11,12 +11,9 @@ import Foundation
 /// Searchs for `.strings` files given a base internationalized Storyboard.
 public class StringsFilesSearch {
     // MARK: - Stored Type Properties
-
     public static let shared = StringsFilesSearch()
 
-
     // MARK: - Instance Methods
-
     public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try
         let ibFileRegex = try! NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
@@ -51,7 +48,7 @@ public class StringsFilesSearch {
         do {
             let filesInDirectory = try FileManager.default.contentsOfDirectory(atPath: folderWithLanguageSubfoldersPath)
             let languageDirPaths = filesInDirectory.filter { $0.range(of: ".lproj") != nil && $0 != "Base.lproj" }
-            return languageDirPaths.map { folderWithLanguageSubfoldersPath + "/" + $0 + "/" + storyboardName + ".strings" }
+            return languageDirPaths.map { [folderWithLanguageSubfoldersPath, $0, "\(storyboardName).strings"].joined(separator: "/") }
         } catch {
             return []
         }
@@ -64,6 +61,7 @@ public class StringsFilesSearch {
             let ibFilePaths = allFilePaths.filter { filePath in
                 return !regularExpression.matches(in: filePath, options: .reportCompletion, range: filePath.fullRange).isEmpty
             }
+
             return ibFilePaths.map { baseDirectoryPath + "/" + $0 }
         } catch {
             return []

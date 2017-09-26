@@ -8,6 +8,4 @@
 
 import PackageDescription
 
-let package = Package(
-    name: "HandySwift"
-)
+let package = Package(name: "HandySwift")

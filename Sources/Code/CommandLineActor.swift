@@ -17,7 +17,6 @@ public enum CommandLineAction {
 
 public class CommandLineActor {
     // MARK: - Instance Methods
-
     public func act(commonOptions: CommandLineParser.CommonOptions, subCommandOptions: CommandLineParser.SubCommandOptions) {
         guard let path = commonOptions.path.value else {
             printError("Path option `-p` is missing.")
@@ -28,7 +27,7 @@ public class CommandLineActor {
         let verbose = commonOptions.verbose.value
 
         switch subCommandOptions {
-        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction):
+        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction): // swiftlint:disable:this line_length
             guard let localizable = localizableOption.value else {
                 printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
@@ -79,9 +78,11 @@ public class CommandLineActor {
             }
         }
 
-        self.incrementalCodeUpdate(inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
-                                   additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys,
-                                   unstripped: unstripped, customFunction: customFunction)
+        self.incrementalCodeUpdate(
+            inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
+            additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys,
+            unstripped: unstripped, customFunction: customFunction
+        )
     }
 
     private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
@@ -107,7 +108,9 @@ public class CommandLineActor {
                 }
             }
 
-            self.incrementalInterfacesUpdate(inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, unstripped: unstripped)
+            self.incrementalInterfacesUpdate(
+                inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, unstripped: unstripped
+            )
         }
     }
 
@@ -138,8 +141,10 @@ public class CommandLineActor {
         }
     }
 
-    private func incrementalCodeUpdate(inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
-                                       additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?) {
+    private func incrementalCodeUpdate(
+        inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
+        additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?
+    ) {
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
         do {
@@ -151,7 +156,9 @@ public class CommandLineActor {
 
         let codeCommander: CodeCommander = useExtractLocStrings ? ExtractLocStringsCommander.shared : GenStringsCommander.shared
 
-        guard codeCommander.export(stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath, customFunction: customFunction) else {
+        guard codeCommander.export(
+            stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath, customFunction: customFunction
+        ) else {
             printError("Could not extract strings from Code in directory '\(inputDirectoryPath)'.")
             exit(EX_UNAVAILABLE)
         }
@@ -168,9 +175,11 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
-                                                       override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys,
-                                                       keepWhitespaceSurroundings: unstripped)
+            stringsFileUpdater.incrementallyUpdateKeys(
+                withStringsFileAtPath: extractedLocalizableStringsFilePath, addNewValuesAsEmpty: !defaultToKeys,
+                override: override, keepExistingKeys: additive, overrideComments: overrideComments, sortByKeys: sortByKeys,
+                keepWhitespaceSurroundings: unstripped
+            )
 
             if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.") }
         }
@@ -185,7 +194,9 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully updated strings file(s) of Code files.")
     }
 
-    private func incrementalInterfacesUpdate(_ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
+    private func incrementalInterfacesUpdate(
+        _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool
+    ) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
         guard IBToolCommander.shared.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
@@ -199,8 +210,12 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: extractedStringsFilePath, addNewValuesAsEmpty: !defaultToBase, override: override,
-                                                       keepWhitespaceSurroundings: unstripped)
+            stringsFileUpdater.incrementallyUpdateKeys(
+                withStringsFileAtPath: extractedStringsFilePath,
+                addNewValuesAsEmpty: !defaultToBase,
+                override: override,
+                keepWhitespaceSurroundings: unstripped
+            )
 
             if verbose {
                 print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
@@ -227,7 +242,9 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            let translationsCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, override: override)
+            let translationsCount = stringsFileUpdater.translateEmptyValues(
+                usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, override: override
+            )
 
             if verbose { print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.") }
 
@@ -240,9 +257,7 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.")
     }
 
-
     // MARK: - Helper Methods
-
     private func printError(_ message: String) {
         print("Error! \(message)")
     }

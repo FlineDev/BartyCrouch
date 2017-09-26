@@ -39,14 +39,14 @@ class StringExtensionTests: XCTestCase {
         XCTAssertNil("".language?.rawValue, "Empty strings should return nil.")
     }
 
-    func AssertEqualOptional<T : Equatable>(@autoclosure optional:  () -> T?, @autoclosure _ expected:  () -> T, file: String = #file, line: UInt = #line) {
+    func AssertEqualOptional<T : Equatable>(_ optional:  @autoclosure () -> T?, _ expected:  @autoclosure () -> T, file: String = #file, line: UInt = #line) {
         if let nonOptional = optional() {
             if nonOptional != expected() {
-                self.recordFailureWithDescription("Optional (\(nonOptional)) is not equal to (\(expected()))", inFile: file, atLine: line, expected: true)
+                self.recordFailure(withDescription: "Optional (\(nonOptional)) is not equal to (\(expected()))", inFile: file, atLine: line, expected: true)
             }
         }
         else {
-            self.recordFailureWithDescription("Optional value is empty", inFile: file, atLine: line, expected: true)
+            self.recordFailure(withDescription: "Optional value is empty", inFile: file, atLine: line, expected: true)
         }
     }
 

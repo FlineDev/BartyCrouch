@@ -6,21 +6,20 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class GenStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties
-
     let exampleCodeFunctionDirectoryData: [(String?, String)] = [
         (nil, "\(BASE_DIR)/Tests/Assets/Code Files"),
         ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Code Files Custom Function")
     ]
 
     // MARK: - Test Configuration Methods
-
     override func tearDown() {
+        super.tearDown()
+
         do {
             for (_, path) in exampleCodeFunctionDirectoryData {
                 try FileManager.default.removeItem(atPath: path + "/Localizable.strings")
@@ -31,10 +30,8 @@ class GenStringsCommanderTests: XCTestCase {
     }
 
     // MARK: - Test Methods
-
     func testCodeExamples() {
         for (customFunction, path) in exampleCodeFunctionDirectoryData {
-
             let exportSuccess = GenStringsCommander.shared.export(stringsFilesToPath: path, fromCodeInDirectoryPath: path, customFunction: customFunction)
 
             do {
@@ -68,10 +65,11 @@ class GenStringsCommanderTests: XCTestCase {
                     "\"TestKey2\" = \"TestKey2\";",
                     "",
                     ""
-                    ], "Failed for \(path) with function \"\(customFunction ?? "NSLocalizedString")\"")
+                ], "Failed for \(path) with function \"\(customFunction ?? "NSLocalizedString")\"")
             } catch {
                 XCTFail("Failed for \(path) with function \"\(customFunction ?? "NSLocalizedString")\"")
             }
+
             XCTAssertTrue(exportSuccess, "Failed for \(path) with function \"\(customFunction ?? "NSLocalizedString")\"")
         }
     }

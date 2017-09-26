@@ -6,13 +6,11 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class StringsFilesSearchTests: XCTestCase {
     // MARK: - Test Methods
-
     func testFindAllIBFiles() {
         let basePath = "\(BASE_DIR)/Tests"
 
@@ -46,9 +44,7 @@ class StringsFilesSearchTests: XCTestCase {
         XCTAssertEqual(results.sorted(), expectedStringsPaths.sorted())
     }
 
-
     // MARK: - Helpers
-
     func examplePath(platform: String, locale: String, type: String) -> String {
         return "\(BASE_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
     }

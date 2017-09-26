@@ -6,26 +6,25 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class ExtractLocStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties
-
     let baseMultipleArgumentFunctionDirectories: [(String?, String)] = [
-     (nil, "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code"),
-     ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code Custom Function")
+        (nil, "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code"),
+        ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code Custom Function")
     ]
 
     override func tearDown() {
+        super.tearDown()
+
         for (_, directory) in baseMultipleArgumentFunctionDirectories {
             removeLocalizableStringsFilesRecursively(in: URL(fileURLWithPath: directory))
         }
     }
 
     // MARK: - Test Methods
-
     func test2Arguments() {
         for (functionName, directory) in baseMultipleArgumentFunctionDirectories {
             assert(
@@ -74,17 +73,20 @@ class ExtractLocStringsCommanderTests: XCTestCase {
         }
     }
 
-    func assert(_ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, producesResult expectedLocalizableContentLines: [String]) {
+    func assert(
+        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, producesResult expectedLocalizableContentLines: [String]
+    ) {
         let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: customFunction)
         XCTAssertTrue(exportSuccess, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
 
         do {
             let contentsOfStringsFile = try String(contentsOfFile: directory + "/Localizable.strings")
             let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
-            XCTAssertEqual(linesInStringsFile, expectedLocalizableContentLines, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
+            XCTAssertEqual(
+                linesInStringsFile, expectedLocalizableContentLines, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
+            )
         } catch {
             XCTFail("Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
-
         }
     }
 

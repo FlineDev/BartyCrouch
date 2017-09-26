@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+cd "$(dirname $0)/../"
+
+BUILD_PATH=".build"
+if [ "$(uname)" != "Darwin" ]; then
+  BUILD_PATH=".build-linux"
+fi
+
+locale-gen sv_SE.UTF-8
+
+swift build -Xlinker -L/usr/local/lib --build-path $BUILD_PATH -v
+swift test -Xlinker -L/usr/local/lib --build-path $BUILD_PATH

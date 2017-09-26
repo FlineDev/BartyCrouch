@@ -6,9 +6,8 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class IBToolCommanderTests: XCTestCase {
     func testiOSExampleStoryboard() {
