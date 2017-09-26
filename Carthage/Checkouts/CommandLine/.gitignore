@@ -2,6 +2,7 @@
 #
 build/
 .build/
+.build-linux
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -17,4 +18,5 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+.DS_Store
 

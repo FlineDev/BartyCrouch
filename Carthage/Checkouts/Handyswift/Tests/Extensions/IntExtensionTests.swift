@@ -6,17 +6,16 @@
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import HandySwift
+import XCTest
 
 class IntExtensionTests: XCTestCase {
     func testInitRandomBelow() {
         10.times {
-            XCTAssertTrue(Int(randomBelow: 15) < 15)
-            XCTAssertTrue(Int(randomBelow: 15) >= 0)
-            XCTAssertTrue(Int(randomBelow: 0) == 0)
-            XCTAssertTrue(Int(randomBelow: -1) == 0)
+            XCTAssertTrue(Int(randomBelow: 15)! < 15)
+            XCTAssertTrue(Int(randomBelow: 15)! >= 0)
+            XCTAssertNil(Int(randomBelow: 0))
+            XCTAssertNil(Int(randomBelow: -1))
         }
     }
 }

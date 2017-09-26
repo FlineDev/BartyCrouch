@@ -7,29 +7,21 @@
 //
 
 // swiftlint:disable function_body_length
-// swiftlint:disable file_length
 
 import Foundation
 
 public class StringsFileUpdater {
     // MARK: - Sub Types
-
     typealias TranslationEntry = (key: String, value: String, comment: String?, line: Int)
 
-
     // MARK: - Stored Type Properties
-
-    static let defaultIgnoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
-
+    public static let defaultIgnoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
     // MARK: - Stored Instance Properties
-
     let path: String
     var oldContentString: String = ""
 
-
     // MARK: - Initializers
-
     public init?(path: String) {
         self.path = path
         do {
@@ -41,10 +33,12 @@ public class StringsFileUpdater {
     }
 
     // Updates the keys of this instances strings file with those of the given strings file.
-    public func incrementallyUpdateKeys(withStringsFileAtPath otherStringFilePath: String,
-                                        addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
-                                        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
-                                        overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false) {
+    public func incrementallyUpdateKeys(
+        withStringsFileAtPath otherStringFilePath: String,
+        addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
+        override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
+        overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false
+    ) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
 
@@ -52,15 +46,15 @@ public class StringsFileUpdater {
             var newTranslations = findTranslations(inString: newContentString)
 
             if let lastOldTranslation = oldTranslations.last {
-                newTranslations = newTranslations.map { ($0.0, $0.1, $0.2, $0.3+lastOldTranslation.line+1) }
+                newTranslations = newTranslations.map { ($0.0, $0.1, $0.2, $0.3 + lastOldTranslation.line + 1) }
             }
 
             let updatedTranslations: [TranslationEntry] = {
                 var translations: [TranslationEntry] = []
 
                 if keepExistingKeys {
-                    translations += oldTranslations.filter { (oldKey, _, _, _) in
-                        return newTranslations.filter { (newKey, _, _, _) in oldKey == newKey }.isEmpty
+                    translations += oldTranslations.filter { oldKey, _, _, _ in
+                        return newTranslations.filter { newKey, _, _, _ in oldKey == newKey }.isEmpty
                     }
                 }
 
@@ -71,14 +65,15 @@ public class StringsFileUpdater {
                     // Skip keys that have been marked for ignore in comment
                     if let newComment = newTranslation.comment, newComment.containsAny(of: ignores) { continue }
 
-                    let oldTranslation = oldTranslations.first { (oldKey, _, _, _) in oldKey == newTranslation.key }
+                    let oldTranslation = oldTranslations.first { oldKey, _, _, _ in oldKey == newTranslation.key }
 
                     // get value from default comment structure if possible
                     let oldBaseValue: String? = {
-                        if let oldComment = oldTranslation?.comment, let foundMatch = defaultCommentStructureMatches(inString: oldComment) {
-                            return (oldComment as NSString).substring(with: foundMatch.rangeAt(1))
+                        guard let oldComment = oldTranslation?.comment, let foundMatch = defaultCommentStructureMatches(inString: oldComment) else {
+                            return nil
                         }
-                        return nil
+
+                        return (oldComment as NSString).substring(with: foundMatch.range(at: 1))
                     }()
 
                     let updatedComment: String? = {
@@ -122,7 +117,7 @@ public class StringsFileUpdater {
 
                 let sortingClosure: (TranslationEntry, TranslationEntry) -> Bool = {
                     if sortByKeys {
-                        return { (translation1, translation2) in
+                        return { translation1, translation2 in
                             // ensure keys with empty values are appended to the end
                             if translation1.value.isEmpty == translation2.value.isEmpty {
                                 return translation1.key.lowercased() < translation2.key.lowercased()
@@ -131,7 +126,7 @@ public class StringsFileUpdater {
                             }
                         }
                     } else {
-                        return { (translation1, translation2) in translation1.line < translation2.line }
+                        return { translation1, translation2 in translation1.line < translation2.line }
                     }
                 }()
 
@@ -146,7 +141,9 @@ public class StringsFileUpdater {
 
     private func defaultCommentStructureMatches(inString string: String) -> NSTextCheckingResult? {
         // swiftlint:disable:next force_try
-        let defaultCommentStructureRegex = try! NSRegularExpression(pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .caseInsensitive)
+        let defaultCommentStructureRegex = try! NSRegularExpression(
+            pattern: "\\A Class = \".*\"; .* = \"(.*)\"; ObjectID = \".*\"; \\z", options: .caseInsensitive
+        )
         return defaultCommentStructureRegex.firstMatch(in: string, options: .reportCompletion, range: string.fullRange)
     }
 
@@ -176,7 +173,7 @@ public class StringsFileUpdater {
                     }
                 }
 
-                newContentsOfFile = whitespacesOrNewlinesAtBegin + newContentsOfFile.strip + whitespacesOrNewlinesAtEnd
+                newContentsOfFile = whitespacesOrNewlinesAtBegin + newContentsOfFile.stripped() + whitespacesOrNewlinesAtEnd
             }
 
             try FileManager.default.removeItem(atPath: path)
@@ -245,7 +242,7 @@ public class StringsFileUpdater {
 
             for sourceTranslation in sourceTranslations {
                 let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
-                var targetTranslationOptional = existingTargetTranslations.filter { $0.0 == sourceKey }.first
+                var targetTranslationOptional = existingTargetTranslations.first { $0.0 == sourceKey }
 
                 if targetTranslationOptional == nil {
                     targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
@@ -255,6 +252,7 @@ public class StringsFileUpdater {
                     NSException(name: NSExceptionName(rawValue: "targetTranslation was nil when not expected"), reason: nil, userInfo: nil).raise()
                     exit(EXIT_FAILURE)
                 }
+
                 let (key, value, comment, line) = targetTranslation
 
                 guard value.isEmpty || override else {
@@ -303,24 +301,28 @@ public class StringsFileUpdater {
         let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
         // swiftlint:enable force_try
 
-        let positionsOfNewlines = SortedArray(array: newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.rangeAt(1).location })
+        let positionsOfNewlines = SortedArray(
+            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
+        )
 
         let matches = translationRegex.matches(in: string, options: .reportCompletion, range: string.fullRange)
         var translations: [TranslationEntry] = []
         autoreleasepool {
             translations = matches.map { match in
-                let valueRange = match.rangeAt(match.numberOfRanges - 1)
+                let valueRange = match.range(at: match.numberOfRanges - 1)
                 let value: String = (string as NSString).substring(with: valueRange)
-                let key = (string as NSString).substring(with: match.rangeAt(match.numberOfRanges - 2))
+                let key = (string as NSString).substring(with: match.range(at: match.numberOfRanges - 2))
                 var comment: String?
                 if match.numberOfRanges >= 4 {
-                    let range = match.rangeAt(match.numberOfRanges - 3)
+                    let range = match.range(at: match.numberOfRanges - 3)
                     if range.location != NSNotFound && range.length > 0 { comment = (string as NSString).substring(with: range) }
                 }
-                let numberOfNewlines = positionsOfNewlines.firstMatchingIndex { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
+
+                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
                 return TranslationEntry(key: key, value: value, comment: comment, line: numberOfNewlines - 1)
             }
         }
+
         return translations
     }
 
@@ -345,33 +347,29 @@ public class StringsFileUpdater {
 
         // Get language from path
         guard let languageMatch = languageRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else { return nil }
-        let language = (path as NSString).substring(with: languageMatch.rangeAt(1))
+        let language = (path as NSString).substring(with: languageMatch.range(at: 1))
 
         // Get region from path if existent
         guard let regionMatch = regionRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else {
             return (language, nil)
         }
 
-        let region = (path as NSString).substring(with: regionMatch.rangeAt(1))
+        let region = (path as NSString).substring(with: regionMatch.range(at: 1))
         return (language, region)
     }
 }
 
-
 // MARK: - String Extension
-
 extension String {
     func containsAny(of substrings: [String]) -> Bool {
-        for substring in substrings {
+        for substring in substrings { // swiftlint:disable:this if_as_guard
             if contains(substring) { return true }
         }
+
         return false
     }
 
     /// Unescapes any special characters to make String valid String Literal.
-    ///
-    /// Source: https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/StringsAndCharacters.html (to be cont.)
-    /// Continued: #//apple_ref/doc/uid/TP40014097-CH7-ID295
     var asStringLiteral: String {
         let charactersToEscape = ["\\", "\""] // important: backslash must be first entry
         var escapedString = self

@@ -6,9 +6,8 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import HandySwift
+import XCTest
 
 class FrequencyTableTests: XCTestCase {
     func testSample() {
@@ -17,7 +16,7 @@ class FrequencyTableTests: XCTestCase {
 
         var allSamples: [String] = []
 
-        16_000.times { allSamples.append(frequencyTable.sample()!) }
+        16_000.times { allSamples.append(frequencyTable.sample!) }
 
         let harryCount = allSamples.filter { $0 == "Harry" }.count
         XCTAssertGreaterThan(harryCount, 4_000)
@@ -30,7 +29,6 @@ class FrequencyTableTests: XCTestCase {
         let ronaldCount = allSamples.filter { $0 == "Ronald" }.count
         XCTAssertGreaterThan(ronaldCount, 0)
         XCTAssertLessThan(ronaldCount, 2_000)
-
     }
 
     func testSampleWithSize() {

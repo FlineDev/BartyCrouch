@@ -15,13 +15,9 @@
  * limitations under the License.
  */
 
+import Foundation
 import XCTest
 @testable import CommandLineKit
-#if os(OSX)
-  import Darwin
-#elseif os(Linux)
-  import Glibc
-#endif
 
 class StringExtensionTests: XCTestCase {
   static var allTests : [(String, (StringExtensionTests) -> () throws -> Void)] {
@@ -75,8 +71,8 @@ class StringExtensionTests: XCTestCase {
 
 
     /* Various extraneous chars */
-    let k = "+42.3".toDouble()
-    XCTAssertNil(k, "Parsed double with extraneous +")
+    let k = "+42.3".toDouble()      // 4 Jan 2017: leading + is valid language syntax
+    XCTAssertEqual(k, 42.3, "Failed to parse double with leading +")
 
     let l = " 827.2".toDouble()
     XCTAssertNil(l, "Parsed double with extraneous space")
@@ -91,7 +87,7 @@ class StringExtensionTests: XCTestCase {
     setlocale(LC_NUMERIC, "sv_SE.UTF-8")
 
     let o = "888,8".toDouble()
-    XCTAssertEqual(o!, 888.8, "Failed to parse double in alternate locale")
+    XCTAssert(o == 888.8, "Failed to parse double in alternate locale")
 
     let p = "888.8".toDouble()
     XCTAssertNil(p, "Parsed double in alternate locale with wrong decimal point")
@@ -128,19 +124,11 @@ class StringExtensionTests: XCTestCase {
                    a.characters.count, "Bad padding with negative pad width")
 
     let b = a.padded(toWidth: 80)
-    #if swift(>=3.0)
-      let lastBCharIndex = b.index(before: b.endIndex)
-		#else
-      let lastBCharIndex = b.endIndex.advancedBy(-1)
-		#endif
+    let lastBCharIndex = b.index(before: b.endIndex)
     XCTAssertEqual(b[lastBCharIndex], " " as Character, "Failed to pad with default character")
 
     let c = a.padded(toWidth: 80, with: "+")
-    #if swift(>=3.0)
-      let lastCCharIndex = c.index(before: b.endIndex)
-    #else
-      let lastCCharIndex = c.endIndex.advancedBy(-1)
-    #endif
+    let lastCCharIndex = c.index(before: b.endIndex)
     XCTAssertEqual(c[lastCCharIndex], "+" as Character, "Failed to pad with specified character")
   }
 

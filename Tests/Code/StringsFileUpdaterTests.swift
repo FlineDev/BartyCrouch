@@ -8,14 +8,13 @@
 
 // swiftlint:disable file_length
 // swiftlint:disable function_body_length
-
-import XCTest
+// swiftlint:disable type_body_length
 
 @testable import BartyCrouchKit
+import XCTest
 
-class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_length
+class StringsFileUpdaterTests: XCTestCase {
     // MARK: - Stored Instance Properties
-
     static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
 
     let oldStringsFilePath = "\(stringsFilesDirPath)/OldExample.strings"
@@ -25,16 +24,17 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
     let longNewStringsFilePath = "\(stringsFilesDirPath)/LongNewExample.strings"
 
     let testStringsFilePath = "\(stringsFilesDirPath)/TestExample.strings"
+
     func testStringsFilePath(_ iteration: Int) -> String {
         return "\(StringsFileUpdaterTests.stringsFilesDirPath)/TestExample\(iteration).strings"
     }
 
     let testExamplesRange = 0...1
 
-
     // MARK: - Test Callbacks
-
     override func setUp() {
+        super.setUp()
+
         // ensure temporary files are cleaned up before testing
         do {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
@@ -47,6 +47,8 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
     }
 
     override func tearDown() {
+        super.tearDown()
+
         // cleanup temporary files after testing
         do {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
@@ -58,9 +60,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
         } catch { print("No TestExample{i}.strings to clean up") }
     }
 
-
     // MARK: - Unit Tests
-
     func testFindTranslationsInLines() {
         let stringsFileUpdater = StringsFileUpdater(path: oldStringsFilePath)!
 
@@ -71,7 +71,8 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
             ("test.key", "This is a test key", " Completely custom comment structure in one line "),
             ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
             ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; "),
-            ("em1-3S-vgp.text", "Refrakční vzdálenost v metrech", " Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; ")
+            ("em1-3S-vgp.text", "Refrakční vzdálenost v metrech",
+             " Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; ")
         ]
 
         let results = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
@@ -80,7 +81,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
 
         var index = 0
 
-        expectedTranslations.forEach { (key, value, comment) in
+        expectedTranslations.forEach { key, value, comment in
             XCTAssertGreaterThan(results.count, index)
 
             XCTAssertEqual(results[index].0, key)
@@ -326,6 +327,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                     if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
                         try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                     }
+
                     try FileManager.default.copyItem(atPath: localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTAssertTrue(false)
@@ -334,7 +336,6 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
 
                 let stringsFileUpdater = StringsFileUpdater(path: localizableStringsFilePath + ".tmp")!
                 var translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
-
 
                 // test before state (update if failing)
                 XCTAssertEqual(translations[0].key, "Test key")
@@ -351,14 +352,14 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 XCTAssertEqual(translations[2].value, "")
                 XCTAssertEqual(translations[2].comment, nil)
 
-
                 // run tested method
-                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(
+                    usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret
+                )
 
                 translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
                 XCTAssertEqual(changedValuesCount, 3)
-
 
                 // test after state (update if failing)
                 XCTAssertEqual(translations.count, 4)
@@ -401,6 +402,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                     if FileManager.default.fileExists(atPath: localizableStringsFilePath + ".tmp") {
                         try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                     }
+
                     try FileManager.default.copyItem(atPath: localizableStringsFilePath, toPath: localizableStringsFilePath + ".tmp")
                 } catch {
                     XCTAssertTrue(false)
@@ -424,7 +426,9 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
                 XCTAssertEqual(translations[1].comment, " A string where value only available in English. ")
 
                 // run tested method
-                let changedValuesCount = stringsFileUpdater.translateEmptyValues(usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret)
+                let changedValuesCount = stringsFileUpdater.translateEmptyValues(
+                    usingValuesFromStringsFile: sourceStringsFilePath, clientId: id, clientSecret: secret
+                )
 
                 translations = stringsFileUpdater.findTranslations(inString: stringsFileUpdater.oldContentString)
 
@@ -462,9 +466,7 @@ class StringsFileUpdaterTests: XCTestCase { // swiftlint:disable:this type_body_
         }
     }
 
-
     // MARK: - Performance Tests
-
     func testInitPerformance() {
         measure {
             100.times {

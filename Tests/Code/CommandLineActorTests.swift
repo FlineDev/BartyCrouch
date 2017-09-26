@@ -6,15 +6,13 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 // swiftlint:disable force_try
 
 class CommandLineActorTests: XCTestCase {
     // MARK: - Stored Properties
-
     static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
 
     static let unsortedKeysCodeFilesDirPath = "\(BASE_DIR)/Tests/Assets/Code Files/UnsortedKeys"
@@ -31,8 +29,9 @@ class CommandLineActorTests: XCTestCase {
     ]
 
     // MARK: - Test Callbacks
-
     override func setUp() {
+        super.setUp()
+        
         for filePath in CommandLineActorTests.filePathsToBackup {
             if FileManager.default.fileExists(atPath: filePath + ".backup") {
                 try! FileManager.default.removeItem(atPath: filePath + ".backup")
@@ -49,9 +48,7 @@ class CommandLineActorTests: XCTestCase {
         }
     }
 
-
     // MARK: - Test Methods
-
     func testActOnCode() {
         let args = [
             "bartycrouch", "code",
@@ -59,7 +56,7 @@ class CommandLineActorTests: XCTestCase {
             "-l", CommandLineActorTests.unsortedKeysDirPath,
             "-a"
         ]
-        CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
+        CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             guard let updater = StringsFileUpdater(path: CommandLineActorTests.unsortedKeysStringsFilePath) else {
@@ -81,7 +78,7 @@ class CommandLineActorTests: XCTestCase {
             "-l", CommandLineActorTests.unsortedKeysDirPath,
             "-a", "-s"
         ]
-        CommandLineParser(arguments: args).parse { (commonOptions, subCommandOptions) in
+        CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             guard let updater = StringsFileUpdater(path: CommandLineActorTests.unsortedKeysStringsFilePath) else {

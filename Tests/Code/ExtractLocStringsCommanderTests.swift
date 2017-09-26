@@ -6,13 +6,11 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-import XCTest
-
 @testable import BartyCrouchKit
+import XCTest
 
 class ExtractLocStringsCommanderTests: XCTestCase {
     // MARK: - Stored Properties
-
     let baseMultipleArgumentFunctionDirectories: [(String?, String)] = [
         (nil, "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code"),
         ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code Custom Function")
@@ -24,13 +22,14 @@ class ExtractLocStringsCommanderTests: XCTestCase {
     ]
 
     override func tearDown() {
+        super.tearDown()
+
         for (_, directory) in baseMultipleArgumentFunctionDirectories + baseMultipleTablesFunctionDirectoryData {
             removeLocalizableStringsFilesRecursively(in: URL(fileURLWithPath: directory))
         }
     }
 
     // MARK: - Test Methods
-
     func test2Arguments() {
         for (functionName, directory) in baseMultipleArgumentFunctionDirectories {
             assert(
@@ -108,17 +107,20 @@ class ExtractLocStringsCommanderTests: XCTestCase {
         }
     }
 
-    func assert(_ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, tableName: String = "Localizable", producesResult expectedOutputContentLines: [String]) {
+    func assert(
+        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, tableName: String = "Localizable", producesResult expectedLocalizableContentLines: [String]
+    ) {
         let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: customFunction)
         XCTAssertTrue(exportSuccess, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
 
         do {
             let contentsOfStringsFile = try String(contentsOfFile: directory + "/\(tableName).strings")
             let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
-            XCTAssertEqual(linesInStringsFile, expectedOutputContentLines, "Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
+            XCTAssertEqual(
+                linesInStringsFile, expectedLocalizableContentLines, "Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
+            )
         } catch {
             XCTFail("Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
-
         }
     }
 
