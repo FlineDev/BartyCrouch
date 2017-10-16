@@ -15,36 +15,54 @@ class CommandLineActorTests: XCTestCase {
     // MARK: - Stored Properties
     static let stringsFilesDirPath = "\(BASE_DIR)/Tests/Assets/Strings Files"
 
-    let codeFilesDirPath = "\(BASE_DIR)/Tests/Assets/Code Files/UnsortedKeys"
-    let unsortedKeysStringsFilePath = "\(stringsFilesDirPath)/UnsortedKeys/Base.lproj/Localizable.strings"
-    let unsortedKeysDirPath = "\(stringsFilesDirPath)/UnsortedKeys"
+    static let unsortedKeysCodeFilesDirPath = "\(BASE_DIR)/Tests/Assets/Code Files/UnsortedKeys"
+    static let unsortedKeysStringsFilePath = "\(stringsFilesDirPath)/UnsortedKeys/Base.lproj/Localizable.strings"
+    static let unsortedKeysDirPath = "\(stringsFilesDirPath)/UnsortedKeys"
+
+    static let multipleTablesCodeFilesDirPath = "\(BASE_DIR)/Tests/Assets/Multiple Tables Code/"
+    static let multipleTablesDirPath = "\(stringsFilesDirPath)/Multiple Tables"
+
+    static let filePathsToBackup = [
+        unsortedKeysStringsFilePath,
+        multipleTablesStringsFilePath(forTableName: "Localizable"),
+        multipleTablesStringsFilePath(forTableName: "CustomName")
+    ]
 
     // MARK: - Test Callbacks
     override func setUp() {
         super.setUp()
 
-        if FileManager.default.fileExists(atPath: unsortedKeysStringsFilePath + ".backup") {
-            try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath + ".backup")
-        }
+        for filePath in CommandLineActorTests.filePathsToBackup {
+            if FileManager.default.fileExists(atPath: filePath + ".backup") {
+                try! FileManager.default.removeItem(atPath: filePath + ".backup")
+            }
 
-        try! FileManager.default.copyItem(atPath: unsortedKeysStringsFilePath, toPath: unsortedKeysStringsFilePath + ".backup")
+            try! FileManager.default.copyItem(atPath: filePath, toPath: filePath + ".backup")
+        }
     }
 
     override func tearDown() {
         super.tearDown()
 
-        try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath)
-        try! FileManager.default.copyItem(atPath: unsortedKeysStringsFilePath + ".backup", toPath: unsortedKeysStringsFilePath)
-        try! FileManager.default.removeItem(atPath: unsortedKeysStringsFilePath + ".backup")
+        for filePath in CommandLineActorTests.filePathsToBackup {
+            try! FileManager.default.removeItem(atPath: filePath)
+            try! FileManager.default.copyItem(atPath: filePath + ".backup", toPath: filePath)
+            try! FileManager.default.removeItem(atPath: filePath + ".backup")
+        }
     }
 
     // MARK: - Test Methods
     func testActOnCode() {
-        let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a"]
+        let args = [
+            "bartycrouch", "code",
+            "-p", CommandLineActorTests.unsortedKeysCodeFilesDirPath,
+            "-l", CommandLineActorTests.unsortedKeysDirPath,
+            "-a"
+        ]
         CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
-            guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
+            guard let updater = StringsFileUpdater(path: CommandLineActorTests.unsortedKeysStringsFilePath) else {
                 XCTFail()
                 return
             }
@@ -57,11 +75,16 @@ class CommandLineActorTests: XCTestCase {
     }
 
     func testActOnCodeWithSortedOption() {
-        let args = ["bartycrouch", "code", "-p", codeFilesDirPath, "-l", unsortedKeysDirPath, "-a", "-s"]
+        let args = [
+            "bartycrouch", "code",
+            "-p", CommandLineActorTests.unsortedKeysCodeFilesDirPath,
+            "-l", CommandLineActorTests.unsortedKeysDirPath,
+            "-a", "-s"
+        ]
         CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
-            guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
+            guard let updater = StringsFileUpdater(path: CommandLineActorTests.unsortedKeysStringsFilePath) else {
                 XCTFail()
                 return
             }
@@ -71,6 +94,39 @@ class CommandLineActorTests: XCTestCase {
 
             XCTAssertEqual(resultingKeys, expectedKeys)
         }
+    }
+
+    func testActOnCodeMultipleTables() {
+        let args = [
+            "bartycrouch", "code",
+            "-p", CommandLineActorTests.multipleTablesCodeFilesDirPath,
+            "-l", CommandLineActorTests.multipleTablesDirPath,
+            "-e"
+        ]
+        CommandLineParser(arguments: args).parse { commonOptions, subCommandOptions in
+            CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
+
+            let expectedKeysPerTable = [
+                "Localizable": ["test.defaultTableName"],
+                "CustomName": ["test.customTableName"]
+            ]
+
+            for (tableName, expectedKeys) in expectedKeysPerTable {
+                let filePath = CommandLineActorTests.multipleTablesStringsFilePath(forTableName: tableName)
+                guard let updater = StringsFileUpdater(path: filePath) else {
+                    XCTFail()
+                    return
+                }
+
+                let resultingKeys = updater.findTranslations(inString: updater.oldContentString).map { $0.key }
+
+                XCTAssertEqual(resultingKeys, expectedKeys)
+            }
+        }
+    }
+
+    static func multipleTablesStringsFilePath(forTableName tableName: String) -> String {
+        return "\(multipleTablesDirPath)/Base.lproj/\(tableName).strings"
     }
 }
 

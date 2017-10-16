@@ -64,10 +64,10 @@ public class CommandLineActor {
 
     private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
                            overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?) {
-        let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: "Localizable")
+        let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable)
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
-            printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
+            printError("No `*.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Custom names for your `*.strings` file do also work. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
             exit(EX_USAGE)
         }
 
@@ -163,13 +163,18 @@ public class CommandLineActor {
             exit(EX_UNAVAILABLE)
         }
 
-        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
-        guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
-            printError("No localizations extracted from Code in directory '\(inputDirectoryPath)'.")
-            exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
-        }
-
         for outputStringsFilePath in outputStringsFilePaths {
+            guard let fileName = outputStringsFilePath.components(separatedBy: "/").last else {
+                printError("Could not extract name of string file at path '\(outputStringsFilePath)'")
+                exit(EX_CONFIG)
+            }
+
+            let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + fileName
+            guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
+                printError("No localizations extracted from Code for string file '\(fileName)' in directory '\(inputDirectoryPath)'.")
+                exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
+            }
+
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
                 printError("Could not read strings file at path '\(outputStringsFilePath)'")
                 exit(EX_CONFIG)
