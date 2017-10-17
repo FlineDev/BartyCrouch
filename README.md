@@ -128,6 +128,8 @@ Usage: /usr/local/bin/bartycrouch [options]
   ...
 ```
 
+_**Important Notice:** Please make sure you always localize all localizable files in all the languages you support in your project. Otherwise BartyCrouch might not work as expected. If you don't need to localize a Storyboard (like the LaunchScreen) then you should simply unlocalize the screen entirely so it doesn't appear even in Base.lproj._
+
 ---
 
 ### Options for all Sub Commands
