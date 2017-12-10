@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.9.0-blue.svg"
-             alt="Version: 3.9.0">
+        <img src="https://img.shields.io/badge/Version-3.9.1-blue.svg"
+             alt="Version: 3.9.1">
     </a>
     <img src="https://img.shields.io/badge/Swift-4-FFAC45.svg"
          alt="Swift: 4">
@@ -127,6 +127,8 @@ Usage: /usr/local/bin/bartycrouch [options]
       The path to the folder of your output `Localizable.strings` file to be updated.
   ...
 ```
+
+_**Important Notice:** Please make sure you always localize all localizable files in all the languages you support in your project. Otherwise BartyCrouch might not work as expected. If you don't need to localize a Storyboard (like the LaunchScreen) then you should simply unlocalize the screen entirely so it doesn't appear even in Base.lproj._
 
 ---
 
