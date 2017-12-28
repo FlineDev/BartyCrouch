@@ -169,10 +169,14 @@ public class CommandLineActor {
                 exit(EX_CONFIG)
             }
 
-            let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + fileName
-            guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
-                printError("No localizations extracted from Code for string file '\(outputStringsFilePath)'.")
-                continue
+            var extractedLocalizableStringsFilePath = extractedStringsFileDirectory + fileName
+            if !FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) {
+                extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
+
+                guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
+                    printError("No localizations extracted from Code for string file '\(outputStringsFilePath)'.")
+                    continue
+                }
             }
 
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
