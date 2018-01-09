@@ -16,7 +16,7 @@ extension CodeCommander {
     func findFiles(in codeDirectoryPath: String) -> Commander.CommandLineResult {
         return Commander.shared.run(
             command: "/usr/bin/find",
-            arguments: [codeDirectoryPath, "-name", "*.[hm]", "-o", "-name", "*.mm", "-o", "-name", "*.swift"]
+            arguments: [codeDirectoryPath, "-name", "*.h", "-o", "-name", "*.m", "-o", "-name", "*.mm", "-o", "-name", "*.swift"]
         )
     }
 }
