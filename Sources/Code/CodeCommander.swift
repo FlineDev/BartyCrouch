@@ -21,11 +21,11 @@ extension CodeCommander {
         let fileManager = FileManager.default
 
         var isDirectory: ObjCBool = false
-        guard !fileManager.fileExists(atPath: codeDirectoryPath, isDirectory: &isDirectory) else {
+        guard fileManager.fileExists(atPath: codeDirectoryPath, isDirectory: &isDirectory) else {
             return ([], [codeDirectoryPath + "doesn't exist"], 1)
         }
 
-        guard !isDirectory.boolValue else {
+        guard isDirectory.boolValue else {
             return ([], [codeDirectoryPath + "isn't a directory"], 1)
         }
 
