@@ -28,7 +28,7 @@ public class CommandLineParser {
             localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
             useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption, customFunction: StringOption
         )
-        case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
+        case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption, ignoreEmptyStrings: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
     }
 
@@ -195,11 +195,15 @@ public class CommandLineParser {
             shortFlag: "u", longFlag: "unstripped", required: false,
             helpMessage: "Keep newlines at beginning/end of Strings files."
         )
+        let ignoreEmptyStrings = BoolOption(
+            shortFlag: "i", longFlag: "ignore-empty-strings", required: false,
+            helpMessage: "Ignores empty strings and strings consisting of whitespace only."
+        )
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped)
+        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped, ignoreEmptyStrings: ignoreEmptyStrings)
 
-        commandLine.addOptions(path, override, verbose, defaultToBase, unstripped)
+        commandLine.addOptions(path, override, verbose, defaultToBase, unstripped, ignoreEmptyStrings)
         return (commandLine, commonOptions, subCommandOptions)
     }
 
