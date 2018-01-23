@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BartyCrouchKit
 
 func run() {
     CommandLineParser().parse { commonOptions, subCommandOptions in
