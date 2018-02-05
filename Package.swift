@@ -4,32 +4,21 @@ import PackageDescription
 let package = Package(
     name: "BartyCrouch",
     products: [
-        .executable(name: "bartycrouch", targets: ["BartyCrouch CLI"]),
-        .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"])
+        .executable(name: "bartycrouch", targets: ["BartyCrouch CLI"])
     ],
     dependencies: [
     ],
     targets: [
         .target(
-            name: "BartyCrouchKit",
-            dependencies: [
-            ],
+            name: "BartyCrouch CLI",
+            dependencies: [],
             path: ".",
             sources: [
+                "BartyCrouch CLI/",
                 "Sources/Code",
                 "Carthage/CommandLine",
                 "Carthage/Handyswift",
                 "Carthage/Polyglot"
-            ]
-        ),
-        .target(
-            name: "BartyCrouch CLI",
-            dependencies: [
-                "BartyCrouchKit"
-            ],
-            path: ".",
-            sources: [
-                "BartyCrouch CLI/"
             ]
         )
     ],
