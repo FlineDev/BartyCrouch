@@ -29,10 +29,10 @@ disabled_rules:
 included:
 - Sources
 - Tests
+- Package.swift
 
 excluded:
 - Carthage
-- Package.swift
 - UsageExamples.playground
 
 line_length: 160

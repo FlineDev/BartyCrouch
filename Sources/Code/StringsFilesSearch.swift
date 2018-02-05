@@ -13,6 +13,8 @@ public class StringsFilesSearch {
     // MARK: - Stored Type Properties
     public static let shared = StringsFilesSearch()
 
+    fileprivate static let blacklistedStringFileNames: Set<String> = ["InfoPlist.strings"]
+    
     // MARK: - Instance Methods
     public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try
@@ -46,6 +48,10 @@ public class StringsFilesSearch {
                     return false
                 }
             }
+
+            let stringFileURL = URL(fileURLWithPath: stringFilePath)
+            
+            return StringsFilesSearch.blacklistedStringFileNames.contains(stringFileURL.lastPathComponent) == false
 
             return true
         }
