@@ -106,6 +106,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		000731D02028A52200C29CAB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		000731D12028A53B00C29CAB /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		00CAD6181F7A6EA60090DD38 /* CommandLineKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; };
 		00CAD61A1F7A6EA60090DD38 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		00CAD61B1F7A6EA60090DD38 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -553,12 +555,14 @@
 		A1B73EB21E00A8490070D20F /* Root Files */ = {
 			isa = PBXGroup;
 			children = (
-				82F2E1061D27DB8A00C6386A /* README.md */,
-				82F2E1051D27DB8A00C6386A /* LICENSE.md */,
-				820649CD1C7CA636009E501E /* Cartfile */,
-				A1B73EB11E00A8320070D20F /* Cartfile.resolved */,
 				82F2E1041D27CF7900C6386A /* .swiftlint.yml */,
 				A1A1BE7C1F3212BB006A0049 /* BartyCrouch.podspec */,
+				820649CD1C7CA636009E501E /* Cartfile */,
+				A1B73EB11E00A8320070D20F /* Cartfile.resolved */,
+				82F2E1051D27DB8A00C6386A /* LICENSE.md */,
+				000731D12028A53B00C29CAB /* Makefile */,
+				000731D02028A52200C29CAB /* Package.swift */,
+				82F2E1061D27DB8A00C6386A /* README.md */,
 			);
 			name = "Root Files";
 			sourceTree = "<group>";
