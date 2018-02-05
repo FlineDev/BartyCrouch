@@ -16,6 +16,9 @@ public enum CommandLineAction {
 }
 
 public class CommandLineActor {
+
+    public init() {}
+
     // MARK: - Instance Methods
     public func act(commonOptions: CommandLineParser.CommonOptions, subCommandOptions: CommandLineParser.SubCommandOptions) {
         guard let path = commonOptions.path.value else {
