@@ -12,11 +12,35 @@ protocol CodeCommander {
     func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) -> Bool
 }
 
+private struct CodeCommanderConstants {
+    static let sourceCodeExtensions: Set<String> = ["h", "m", "mm", "swift"]
+}
+
 extension CodeCommander {
     func findFiles(in codeDirectoryPath: String) -> Commander.CommandLineResult {
-        return Commander.shared.run(
-            command: "/usr/bin/find",
-            arguments: [codeDirectoryPath, "-name", "*.h", "-o", "-name", "*.m", "-o", "-name", "*.mm", "-o", "-name", "*.swift"]
-        )
+        let fileManager = FileManager.default
+
+        var isDirectory: ObjCBool = false
+        guard fileManager.fileExists(atPath: codeDirectoryPath, isDirectory: &isDirectory) else {
+            return ([], [codeDirectoryPath + "doesn't exist"], 1)
+        }
+
+        guard isDirectory.boolValue else {
+            return ([], [codeDirectoryPath + "isn't a directory"], 1)
+        }
+
+        guard let enumerator = fileManager.enumerator(at: URL(fileURLWithPath: codeDirectoryPath), includingPropertiesForKeys: []) else {
+            return ([], ["failed to create enumerator for " + codeDirectoryPath], 1)
+        }
+
+        var matchedFiles = [String]()
+
+        while let anURL = enumerator.nextObject() as? URL {
+            if CodeCommanderConstants.sourceCodeExtensions.contains(anURL.pathExtension) {
+                matchedFiles.append(anURL.path)
+            }
+        }
+
+        return (matchedFiles, [], 0)
     }
 }
