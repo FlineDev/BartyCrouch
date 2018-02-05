@@ -55,10 +55,18 @@ class StringsFilesSearchTests: XCTestCase {
             + [stringsFilePath(name: "Localizable", locale: "Base", subpath: "UnsortedKeys")]
         ).sorted()
 
+        let notExpectedStringsFilePath = (
+            ["en"].map { stringsFilePath(name: "InfoPlist", locale: $0) }
+        ).sorted()
+
         let results = StringsFilesSearch.shared.findAllStringsFiles(within: basePath).sorted()
 
         XCTAssertEqual(results.count, expectedStringsFilePaths.count)
         XCTAssertEqual(results, expectedStringsFilePaths)
+
+        for anUnexpectedStringsFilePath in notExpectedStringsFilePath {
+            XCTAssertFalse(results.contains(anUnexpectedStringsFilePath))
+        }
     }
 
     // MARK: - Helpers
