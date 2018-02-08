@@ -18,13 +18,13 @@ public class StringsFilesSearch {
     // MARK: - Instance Methods
     public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try
-        let ibFileRegex = try! NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
+        let ibFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
         return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
     }
 
     public func findAllStringsFiles(within baseDirectoryPath: String, withLocale locale: String) -> [String] {
         // swiftlint:disable:next force_try
-        let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\/\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
+        let stringsFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
         return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
     }
 
@@ -52,8 +52,6 @@ public class StringsFilesSearch {
             let stringFileURL = URL(fileURLWithPath: stringFilePath)
             
             return StringsFilesSearch.blacklistedStringFileNames.contains(stringFileURL.lastPathComponent) == false
-
-            return true
         }
     }
 
