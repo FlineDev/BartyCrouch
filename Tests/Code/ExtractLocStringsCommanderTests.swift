@@ -16,15 +16,10 @@ class ExtractLocStringsCommanderTests: XCTestCase {
         ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Arguments Code Custom Function")
     ]
 
-    let baseMultipleTablesFunctionDirectoryData: [(String?, String)] = [
-        (nil, "\(BASE_DIR)/Tests/Assets/Multiple Tables Code"),
-        ("BCLocalizedString", "\(BASE_DIR)/Tests/Assets/Multiple Tables Code Custom Function")
-    ]
-
     override func tearDown() {
         super.tearDown()
 
-        for (_, directory) in baseMultipleArgumentFunctionDirectories + baseMultipleTablesFunctionDirectoryData {
+        for (_, directory) in baseMultipleArgumentFunctionDirectories {
             removeLocalizableStringsFilesRecursively(in: URL(fileURLWithPath: directory))
         }
     }
@@ -78,51 +73,20 @@ class ExtractLocStringsCommanderTests: XCTestCase {
         }
     }
 
-    func testMultipleTables() {
-        for (functionName, directory) in baseMultipleTablesFunctionDirectoryData {
-            assert(
-                ExtractLocStringsCommander.shared,
-                takesCodeIn: directory,
-                customFunction: functionName,
-                producesResult: [
-                    "/* test comment in default table name */",
-                    "\"test.defaultTableName\" = \"test.defaultTableName\";",
-                    "",
-                    ""
-                ]
-            )
-
-            assert(
-                ExtractLocStringsCommander.shared,
-                takesCodeIn: directory,
-                customFunction: functionName,
-                tableName: "CustomName",
-                producesResult: [
-                    "/* test comment in custom table name */",
-                    "\"test.customTableName\" = \"test.customTableName\";",
-                    "",
-                    ""
-                ]
-            )
-        }
-    }
-
     func assert(
-        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, tableName: String = "Localizable",
-        producesResult expectedLocalizableContentLines: [String]
+        _ codeCommander: CodeCommander, takesCodeIn directory: String, customFunction: String?, producesResult expectedLocalizableContentLines: [String]
     ) {
         let exportSuccess = codeCommander.export(stringsFilesToPath: directory, fromCodeInDirectoryPath: directory, customFunction: customFunction)
         XCTAssertTrue(exportSuccess, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
 
         do {
-            let contentsOfStringsFile = try String(contentsOfFile: directory + "/\(tableName).strings")
+            let contentsOfStringsFile = try String(contentsOfFile: directory + "/Localizable.strings")
             let linesInStringsFile = contentsOfStringsFile.components(separatedBy: CharacterSet.newlines)
             XCTAssertEqual(
-                linesInStringsFile, expectedLocalizableContentLines,
-                "Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
+                linesInStringsFile, expectedLocalizableContentLines, "Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\""
             )
         } catch {
-            XCTFail("Failed for \(tableName).strings in \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
+            XCTFail("Failed for \(directory) with function \"\(customFunction ?? "NSLocalizedString")\"")
         }
     }
 
