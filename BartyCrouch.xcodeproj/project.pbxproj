@@ -41,8 +41,6 @@
 		00CAD6D71F7A74540090DD38 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6831F7A6EA60090DD38 /* Polyglot.swift */; };
 		00CAD6D81F7A74540090DD38 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6841F7A6EA60090DD38 /* Session.swift */; };
 		00CAD6D91F7A74540090DD38 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */; };
-		50A47DB71F6D334300A1C0AA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50A47DB91F6D334300A1C0AA /* Localizable.strings */; };
-		50A47DBD1F6D339000A1C0AA /* CustomName.strings in Resources */ = {isa = PBXBuildFile; fileRef = 50A47DBF1F6D339000A1C0AA /* CustomName.strings */; };
 		5975B123200B9B040014EEE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5975B125200B9B040014EEE6 /* InfoPlist.strings */; };
 		82053A261CD32A0200434DAD /* LongOldExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A251CD32A0200434DAD /* LongOldExample.strings */; };
 		82053A281CD32B4900434DAD /* LongNewExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A271CD32B4900434DAD /* LongNewExample.strings */; };
@@ -126,10 +124,6 @@
 		00CAD6831F7A6EA60090DD38 /* Polyglot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyglot.swift; sourceTree = "<group>"; };
 		00CAD6841F7A6EA60090DD38 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionPolyglot.swift; sourceTree = "<group>"; };
-		5050F0921F6D2CB500F80CB4 /* SwiftExampleMultipleTables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExampleMultipleTables.swift; sourceTree = "<group>"; };
-		5050F0951F6D2E0200F80CB4 /* SwiftExampleMultipleTables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExampleMultipleTables.swift; sourceTree = "<group>"; };
-		50A47DBA1F6D334B00A1C0AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		50A47DC01F6D339500A1C0AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/CustomName.strings; sourceTree = "<group>"; };
 		5975B124200B9B040014EEE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
 		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
@@ -280,31 +274,6 @@
 				00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */,
 			);
 			path = Polyglot;
-			sourceTree = "<group>";
-		};
-		5050F08E1F6D297E00F80CB4 /* Multiple Tables */ = {
-			isa = PBXGroup;
-			children = (
-				50A47DB91F6D334300A1C0AA /* Localizable.strings */,
-				50A47DBF1F6D339000A1C0AA /* CustomName.strings */,
-			);
-			path = "Multiple Tables";
-			sourceTree = "<group>";
-		};
-		5050F0961F6D306E00F80CB4 /* Multiple Tables Code */ = {
-			isa = PBXGroup;
-			children = (
-				5050F0921F6D2CB500F80CB4 /* SwiftExampleMultipleTables.swift */,
-			);
-			path = "Multiple Tables Code";
-			sourceTree = "<group>";
-		};
-		5050F0971F6D308100F80CB4 /* Multiple Tables Code Custom Function */ = {
-			isa = PBXGroup;
-			children = (
-				5050F0951F6D2E0200F80CB4 /* SwiftExampleMultipleTables.swift */,
-			);
-			path = "Multiple Tables Code Custom Function";
 			sourceTree = "<group>";
 		};
 		820649CE1C7CA6FA009E501E /* Carthage */ = {
@@ -472,8 +441,6 @@
 			children = (
 				E7974AF81DFAECA700E31754 /* Multiple Arguments Code */,
 				E4EDD5F71E3151BE0010D878 /* Multiple Arguments Code Custom Function */,
-				5050F0961F6D306E00F80CB4 /* Multiple Tables Code */,
-				5050F0971F6D308100F80CB4 /* Multiple Tables Code Custom Function */,
 				82463E011CD915DB00D28A2C /* Code Files */,
 				E4EDD6041E3156E00010D878 /* Code Files Custom Function */,
 				82CDE2F81C6C0BAA00055FE6 /* Strings Files */,
@@ -500,7 +467,6 @@
 				82053A251CD32A0200434DAD /* LongOldExample.strings */,
 				82053A271CD32B4900434DAD /* LongNewExample.strings */,
 				A14DE16D1D71B0400010F856 /* UnsortedKeys */,
-				5050F08E1F6D297E00F80CB4 /* Multiple Tables */,
 			);
 			path = "Strings Files";
 			sourceTree = "<group>";
@@ -793,10 +759,8 @@
 			files = (
 				825550FC1C7E637700DB5DCF /* Localizable.strings in Resources */,
 				5975B123200B9B040014EEE6 /* InfoPlist.strings in Resources */,
-				50A47DB71F6D334300A1C0AA /* Localizable.strings in Resources */,
 				A1B73EB01E00744D0070D20F /* Localizable.strings in Resources */,
 				82053A281CD32B4900434DAD /* LongNewExample.strings in Resources */,
-				50A47DBD1F6D339000A1C0AA /* CustomName.strings in Resources */,
 				82053A261CD32A0200434DAD /* LongOldExample.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -919,22 +883,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		50A47DB91F6D334300A1C0AA /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50A47DBA1F6D334B00A1C0AA /* Base */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		50A47DBF1F6D339000A1C0AA /* CustomName.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				50A47DC01F6D339500A1C0AA /* Base */,
-			);
-			name = CustomName.strings;
-			sourceTree = "<group>";
-		};
 		5975B125200B9B040014EEE6 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
