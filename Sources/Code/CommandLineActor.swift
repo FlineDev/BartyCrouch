@@ -169,7 +169,7 @@ public class CommandLineActor {
             exit(EX_UNAVAILABLE)
         }
 
-        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "\(localizableFileName).strings"
+        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
         guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
             print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
             exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
