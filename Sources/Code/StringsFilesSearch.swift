@@ -1,7 +1,4 @@
 //
-//  StringsFilesSearch.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 14.02.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -14,7 +11,7 @@ public class StringsFilesSearch {
     public static let shared = StringsFilesSearch()
 
     fileprivate static let blacklistedStringFileNames: Set<String> = ["InfoPlist.strings"]
-    
+
     // MARK: - Instance Methods
     public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try

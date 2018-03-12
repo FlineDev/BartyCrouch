@@ -1,7 +1,4 @@
 //
-//  StringsFileUpdaterTests.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 11.02.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -377,7 +374,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 do {
                     try FileManager.default.removeItem(atPath: localizableStringsFilePath + ".tmp")
                 } catch {
-                    XCTFail()
+                    XCTFail("File couldn't be removed at path: \(localizableStringsFilePath).tmp")
                 }
             }
 

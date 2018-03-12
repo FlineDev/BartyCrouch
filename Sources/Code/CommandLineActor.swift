@@ -1,22 +1,19 @@
 //
-//  CommandLineActor.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 05.05.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
 // swiftlint:disable function_parameter_count
-// swiftlint:disable variable_name
 
 import Foundation
 
 public enum CommandLineAction {
-    case interfaces, code, translate
+    case interfaces
+    case code
+    case translate
 }
 
 public class CommandLineActor {
-
     public init() {}
 
     // MARK: - Instance Methods

@@ -1,7 +1,4 @@
 //
-//  StringsFileUpdater.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 10.02.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -95,7 +92,7 @@ public class StringsFileUpdater {
                     let updatedValue: String = {
                         guard let oldValue = oldTranslation?.1 else {
                             // add new key with empty value
-                            if addNewValuesAsEmpty { return "" }
+                            guard !addNewValuesAsEmpty else { return "" }
 
                             // add new key with Base value
                             return newTranslation.value
@@ -327,7 +324,7 @@ public class StringsFileUpdater {
     }
 
     func stringFromTranslations(translations: [TranslationEntry]) -> String {
-        return "\n" + translations.map { (key, value, comment, _) -> String in
+        return "\n" + translations.map { key, value, comment, _ -> String in
             let translationLine = "\"\(key)\" = \"\(value)\";"
             if let comment = comment { return "/*\(comment)*/\n" + translationLine }
             return translationLine
