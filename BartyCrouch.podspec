@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name           = 'BartyCrouch'
-  s.version        = '3.11.0'
+  s.version        = '3.11.1'
   s.summary        = 'Localization/I18n: Incrementally update your Strings files from .swift, .h, .m(m), .storyboard or .xib files and/or use machine-translation.'
   s.homepage       = 'https://github.com/Flinesoft/BartyCrouch'
   s.license        = { :type => 'MIT', :file => 'LICENSE.md' }
