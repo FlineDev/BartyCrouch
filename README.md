@@ -218,6 +218,7 @@ Here's an overview of all options available for the sub command `code`:
 - `sort-by-keys`
 - `unstripped`
 - `custom-function`
+- `custom-localizable-name`
 
 #### Localizable (aka `-l`, `--localizable`) <small>*required*</small>
 
@@ -297,6 +298,14 @@ If you use a **custom function** in your code to localize your Strings (instead 
 
 ```shell
 $ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
+```
+
+#### Custom Localizable Name (aka `-n`, `--custom-localizable-name`) <small>*optional*</small>
+
+If you want to use a different name for your `Localizable.strings` file for whatever reason, you can specify a custom name using this option like this:
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -n "MyCustomLocalizable"
 ```
 
 ---
