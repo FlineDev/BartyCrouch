@@ -19,7 +19,7 @@ public class CommandLineActor {
     // MARK: - Instance Methods
     public func act(commonOptions: CommandLineParser.CommonOptions, subCommandOptions: CommandLineParser.SubCommandOptions) {
         guard let path = commonOptions.path.value else {
-            printError("Path option `-p` is missing.")
+            print("Path option `-p` is missing.", level: .error)
             exit(EX_USAGE)
         }
 
@@ -29,7 +29,7 @@ public class CommandLineActor {
         switch subCommandOptions {
         case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction, customLocalizableName): // swiftlint:disable:this line_length
             guard let localizable = localizableOption.value else {
-                printError("Localizable option `-l` is missing.")
+                print("Localizable option `-l` is missing.", level: .error)
                 exit(EX_USAGE)
             }
 
@@ -45,17 +45,17 @@ public class CommandLineActor {
 
         case let .translateOptions(idOption, secretOption, localeOption):
             guard let id = idOption.value else {
-                printError("Microsoft Translator API credential 'id' missing. Specify via option `-i`.")
+                print("Microsoft Translator API credential 'id' missing. Specify via option `-i`.", level: .error)
                 exit(EX_USAGE)
             }
 
             guard let secret = secretOption.value else {
-                printError("Microsoft Translator API credential 'secret' missing. Specify via option `-s`.")
+                print("Microsoft Translator API credential 'secret' missing. Specify via option `-s`.", level: .error)
                 exit(EX_USAGE)
             }
 
             guard let locale = localeOption.value else {
-                printError("Locale option `-l` is missing.")
+                print("Locale option `-l` is missing.", level: .error)
                 exit(EX_USAGE)
             }
 
@@ -72,13 +72,13 @@ public class CommandLineActor {
         let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: localizableFileName)
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
-            printError("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
+            print("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.", level: .error) // swiftlint:disable:this line_length
             exit(EX_USAGE)
         }
 
         for localizableStringsFilePath in allLocalizableStringsFilePaths {
             guard FileManager.default.fileExists(atPath: localizableStringsFilePath) else {
-                printError("No file exists at output path '\(localizableStringsFilePath)'")
+                print("No file exists at output path '\(localizableStringsFilePath)'", level: .error)
                 exit(EX_NOINPUT)
             }
         }
@@ -94,13 +94,13 @@ public class CommandLineActor {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
         guard !inputFilePaths.isEmpty else {
-            printError("No input files found.")
+            print("No input files found.", level: .error)
             exit(EX_USAGE)
         }
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
-                printError("No file exists at input path '\(inputFilePath)'")
+                print("No file exists at input path '\(inputFilePath)'", level: .error)
                 exit(EX_NOINPUT)
             }
 
@@ -108,7 +108,7 @@ public class CommandLineActor {
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    printError("No file exists at output path '\(outputStringsFilePath)'.")
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error)
                     exit(EX_CONFIG)
                 }
             }
@@ -123,13 +123,13 @@ public class CommandLineActor {
         let inputFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
 
         guard !inputFilePaths.isEmpty else {
-            printError("No input files found.")
+            print("No input files found.", level: .error)
             exit(EX_USAGE)
         }
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
-                printError("No file exists at input path '\(inputFilePath)'")
+                print("No file exists at input path '\(inputFilePath)'", level: .error)
                 exit(EX_NOINPUT)
             }
 
@@ -137,7 +137,7 @@ public class CommandLineActor {
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    printError("No file exists at output path '\(outputStringsFilePath)'.")
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error)
                     exit(EX_CONFIG)
                 }
             }
@@ -156,7 +156,7 @@ public class CommandLineActor {
         do {
             try FileManager.default.createDirectory(atPath: extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            print(error)
+            print(error.localizedDescription, level: .error)
             exit(EX_IOERR)
         }
 
@@ -165,19 +165,19 @@ public class CommandLineActor {
         guard codeCommander.export(
             stringsFilesToPath: extractedStringsFileDirectory, fromCodeInDirectoryPath: inputDirectoryPath, customFunction: customFunction
         ) else {
-            printError("Could not extract strings from Code in directory '\(inputDirectoryPath)'.")
+            print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)
             exit(EX_UNAVAILABLE)
         }
 
         let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "\(localizableFileName).strings"
         guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
-            printError("No localizations extracted from Code in directory '\(inputDirectoryPath)'.")
+            print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
             exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
         }
 
         for outputStringsFilePath in outputStringsFilePaths {
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                printError("Could not read strings file at path '\(outputStringsFilePath)'")
+                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
                 exit(EX_CONFIG)
             }
 
@@ -187,17 +187,17 @@ public class CommandLineActor {
                 keepWhitespaceSurroundings: unstripped
             )
 
-            if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.") }
+            if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info) }
         }
 
         do {
             try FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
         } catch {
-            printError("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'")
+            print("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'", level: .error)
             exit(EX_IOERR)
         }
 
-        print("BartyCrouch: Successfully updated strings file(s) of Code files.")
+        print("BartyCrouch: Successfully updated strings file(s) of Code files.", level: .info)
     }
 
     private func incrementalInterfacesUpdate(
@@ -206,13 +206,13 @@ public class CommandLineActor {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
         guard IBToolCommander.shared.export(stringsFileToPath: extractedStringsFilePath, fromIbFileAtPath: inputFilePath) else {
-            printError("Could not extract strings from Storyboard or XIB at path '\(inputFilePath)'.")
+            print("Could not extract strings from Storyboard or XIB at path '\(inputFilePath)'.", level: .error)
             exit(EX_UNAVAILABLE)
         }
 
         for outputStringsFilePath in outputStringsFilePaths {
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                printError("Could not read strings file at path '\(outputStringsFilePath)'")
+                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
                 exit(EX_CONFIG)
             }
 
@@ -224,18 +224,18 @@ public class CommandLineActor {
             )
 
             if verbose {
-                print("Incrementally updated keys of file '\(outputStringsFilePath)'.")
+                print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info)
             }
         }
 
         do {
             try FileManager.default.removeItem(atPath: extractedStringsFilePath)
         } catch {
-            printError("Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'")
+            print("Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'", level: .error)
             exit(EX_IOERR)
         }
 
-        print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.")
+        print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.", level: .info)
     }
 
     private func translate(id: String, secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
@@ -244,7 +244,7 @@ public class CommandLineActor {
 
         for outputStringsFilePath in outputStringsFilePaths {
             guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                printError("Could not read strings file at path '\(outputStringsFilePath)'")
+                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
                 exit(EX_CONFIG)
             }
 
@@ -252,7 +252,7 @@ public class CommandLineActor {
                 usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, override: override
             )
 
-            if verbose { print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.") }
+            if verbose { print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.", level: .info) }
 
             if translationsCount > 0 {
                 overallTranslatedValuesCount += translationsCount
@@ -260,12 +260,7 @@ public class CommandLineActor {
             }
         }
 
-        print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.")
-    }
-
-    // MARK: - Helper Methods
-    private func printError(_ message: String) {
-        print("Error! \(message)")
+        print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .info)
     }
 }
 

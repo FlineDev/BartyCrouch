@@ -118,7 +118,7 @@ public class CommandLineParser {
         }
 
         guard let commonOptions = self.commonOptions, let subCommandOptions = self.subCommandOptions else {
-            print("Error! Could not read options properly. Please report here: https://github.com/Flinesoft/BartyCrouch/issues")
+            print("Could not read options properly. Please report here: https://github.com/Flinesoft/BartyCrouch/issues", level: .error)
             exit(EX_SOFTWARE)
         }
 

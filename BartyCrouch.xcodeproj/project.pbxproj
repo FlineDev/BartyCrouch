@@ -37,6 +37,30 @@
 		00135F542056C33B00696558 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4F2056C33B00696558 /* CommandLineKit.swift */; };
 		00135F552056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
 		00135F562056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
+		00135F6E2056CD5900696558 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F632056CD5800696558 /* OutputTarget.swift */; };
+		00135F6F2056CD5900696558 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F632056CD5800696558 /* OutputTarget.swift */; };
+		00135F702056CD5900696558 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F642056CD5900696558 /* ControlCode.swift */; };
+		00135F712056CD5900696558 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F642056CD5900696558 /* ControlCode.swift */; };
+		00135F722056CD5900696558 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F652056CD5900696558 /* ModesExtractor.swift */; };
+		00135F732056CD5900696558 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F652056CD5900696558 /* ModesExtractor.swift */; };
+		00135F742056CD5900696558 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F662056CD5900696558 /* CodesParser.swift */; };
+		00135F752056CD5900696558 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F662056CD5900696558 /* CodesParser.swift */; };
+		00135F762056CD5900696558 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F672056CD5900696558 /* Rainbow.swift */; };
+		00135F772056CD5900696558 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F672056CD5900696558 /* Rainbow.swift */; };
+		00135F782056CD5900696558 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F682056CD5900696558 /* String+Rainbow.swift */; };
+		00135F792056CD5900696558 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F682056CD5900696558 /* String+Rainbow.swift */; };
+		00135F7A2056CD5900696558 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F692056CD5900696558 /* StringGenerator.swift */; };
+		00135F7B2056CD5900696558 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F692056CD5900696558 /* StringGenerator.swift */; };
+		00135F7C2056CD5900696558 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6A2056CD5900696558 /* Style.swift */; };
+		00135F7D2056CD5900696558 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6A2056CD5900696558 /* Style.swift */; };
+		00135F7E2056CD5900696558 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6B2056CD5900696558 /* Color.swift */; };
+		00135F7F2056CD5900696558 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6B2056CD5900696558 /* Color.swift */; };
+		00135F802056CD5900696558 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6C2056CD5900696558 /* BackgroundColor.swift */; };
+		00135F812056CD5900696558 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6C2056CD5900696558 /* BackgroundColor.swift */; };
+		00135F822056CD5900696558 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */; };
+		00135F832056CD5900696558 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */; };
+		00135F852056CDA700696558 /* PrintLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F842056CDA700696558 /* PrintLevel.swift */; };
+		00135F862056CDA700696558 /* PrintLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F842056CDA700696558 /* PrintLevel.swift */; };
 		5975B123200B9B040014EEE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5975B125200B9B040014EEE6 /* InfoPlist.strings */; };
 		82053A261CD32A0200434DAD /* LongOldExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A251CD32A0200434DAD /* LongOldExample.strings */; };
 		82053A281CD32B4900434DAD /* LongNewExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A271CD32B4900434DAD /* LongNewExample.strings */; };
@@ -118,6 +142,18 @@
 		00135F4E2056C33B00696558 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Checkouts/CommandLine/CommandLineKit/StringExtensions.swift; sourceTree = "<group>"; };
 		00135F4F2056C33B00696558 /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLineKit.swift; path = Checkouts/CommandLine/CommandLineKit/CommandLineKit.swift; sourceTree = "<group>"; };
 		00135F502056C33B00696558 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Checkouts/CommandLine/CommandLineKit/Option.swift; sourceTree = "<group>"; };
+		00135F632056CD5800696558 /* OutputTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputTarget.swift; path = Checkouts/Rainbow/Sources/OutputTarget.swift; sourceTree = "<group>"; };
+		00135F642056CD5900696558 /* ControlCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ControlCode.swift; path = Checkouts/Rainbow/Sources/ControlCode.swift; sourceTree = "<group>"; };
+		00135F652056CD5900696558 /* ModesExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModesExtractor.swift; path = Checkouts/Rainbow/Sources/ModesExtractor.swift; sourceTree = "<group>"; };
+		00135F662056CD5900696558 /* CodesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodesParser.swift; path = Checkouts/Rainbow/Sources/CodesParser.swift; sourceTree = "<group>"; };
+		00135F672056CD5900696558 /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rainbow.swift; path = Checkouts/Rainbow/Sources/Rainbow.swift; sourceTree = "<group>"; };
+		00135F682056CD5900696558 /* String+Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Rainbow.swift"; path = "Checkouts/Rainbow/Sources/String+Rainbow.swift"; sourceTree = "<group>"; };
+		00135F692056CD5900696558 /* StringGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringGenerator.swift; path = Checkouts/Rainbow/Sources/StringGenerator.swift; sourceTree = "<group>"; };
+		00135F6A2056CD5900696558 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Checkouts/Rainbow/Sources/Style.swift; sourceTree = "<group>"; };
+		00135F6B2056CD5900696558 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Checkouts/Rainbow/Sources/Color.swift; sourceTree = "<group>"; };
+		00135F6C2056CD5900696558 /* BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundColor.swift; path = Checkouts/Rainbow/Sources/BackgroundColor.swift; sourceTree = "<group>"; };
+		00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XcodeColorsSupport.swift; path = Checkouts/Rainbow/Sources/XcodeColorsSupport.swift; sourceTree = "<group>"; };
+		00135F842056CDA700696558 /* PrintLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLevel.swift; sourceTree = "<group>"; };
 		5975B124200B9B040014EEE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
 		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
@@ -270,9 +306,28 @@
 			path = Checkouts/HandySwift/Sources/Structs;
 			sourceTree = "<group>";
 		};
+		00135F622056CD3C00696558 /* Rainbow */ = {
+			isa = PBXGroup;
+			children = (
+				00135F6C2056CD5900696558 /* BackgroundColor.swift */,
+				00135F662056CD5900696558 /* CodesParser.swift */,
+				00135F6B2056CD5900696558 /* Color.swift */,
+				00135F642056CD5900696558 /* ControlCode.swift */,
+				00135F652056CD5900696558 /* ModesExtractor.swift */,
+				00135F632056CD5800696558 /* OutputTarget.swift */,
+				00135F672056CD5900696558 /* Rainbow.swift */,
+				00135F682056CD5900696558 /* String+Rainbow.swift */,
+				00135F692056CD5900696558 /* StringGenerator.swift */,
+				00135F6A2056CD5900696558 /* Style.swift */,
+				00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */,
+			);
+			name = Rainbow;
+			sourceTree = "<group>";
+		};
 		820649CE1C7CA6FA009E501E /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				00135F622056CD3C00696558 /* Rainbow */,
 				00135F172056C21000696558 /* CommandLine */,
 				00135F212056C22B00696558 /* HandySwift */,
 				00135F222056C25400696558 /* Polyglot */,
@@ -347,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				824DAA621CDB6F520077F93A /* SubCommander.swift */,
+				00135F842056CDA700696558 /* PrintLevel.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -786,15 +842,21 @@
 				00135F522056C33B00696558 /* StringExtensions.swift in Sources */,
 				00135F542056C33B00696558 /* CommandLineKit.swift in Sources */,
 				00135F322056C26600696558 /* ArrayExtension.swift in Sources */,
+				00135F792056CD5900696558 /* String+Rainbow.swift in Sources */,
+				00135F7B2056CD5900696558 /* StringGenerator.swift in Sources */,
 				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
+				00135F862056CDA700696558 /* PrintLevel.swift in Sources */,
 				824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
+				00135F812056CD5900696558 /* BackgroundColor.swift in Sources */,
 				00135F4D2056C28D00696558 /* Polyglot.swift in Sources */,
 				00135F402056C26600696558 /* FrequencyTable.swift in Sources */,
 				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
+				00135F712056CD5900696558 /* ControlCode.swift in Sources */,
 				828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */,
 				00135F422056C26600696558 /* SortedArray.swift in Sources */,
 				00135F3E2056C26600696558 /* Globals.swift in Sources */,
 				00135F342056C26600696558 /* IntExtension.swift in Sources */,
+				00135F732056CD5900696558 /* ModesExtractor.swift in Sources */,
 				00135F4B2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
 				824DAA641CDB6F520077F93A /* SubCommander.swift in Sources */,
 				E78B1E151DFAB33900C7C290 /* ExtractLocStringsCommander.swift in Sources */,
@@ -802,11 +864,17 @@
 				A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */,
 				824DAA5E1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
 				E78B1E181DFABB1900C7C290 /* CodeCommander.swift in Sources */,
+				00135F7F2056CD5900696558 /* Color.swift in Sources */,
+				00135F832056CD5900696558 /* XcodeColorsSupport.swift in Sources */,
 				00135F382056C26600696558 /* StringExtension.swift in Sources */,
+				00135F772056CD5900696558 /* Rainbow.swift in Sources */,
 				00135F562056C33B00696558 /* Option.swift in Sources */,
+				00135F752056CD5900696558 /* CodesParser.swift in Sources */,
 				00135F3C2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
 				00135F3A2056C26600696558 /* DictionaryExtension.swift in Sources */,
+				00135F6F2056CD5900696558 /* OutputTarget.swift in Sources */,
 				00135F492056C28D00696558 /* Session.swift in Sources */,
+				00135F7D2056CD5900696558 /* Style.swift in Sources */,
 				824DAA5F1CDB60E90077F93A /* GenStringsCommander.swift in Sources */,
 				00135F362056C26600696558 /* TimeIntervalExtension.swift in Sources */,
 			);
@@ -820,30 +888,42 @@
 				00135F3F2056C26600696558 /* FrequencyTable.swift in Sources */,
 				00135F312056C26600696558 /* ArrayExtension.swift in Sources */,
 				E78B1E141DFAB33200C7C290 /* ExtractLocStringsCommander.swift in Sources */,
+				00135F6E2056CD5900696558 /* OutputTarget.swift in Sources */,
 				00135F352056C26600696558 /* TimeIntervalExtension.swift in Sources */,
 				00135F332056C26600696558 /* IntExtension.swift in Sources */,
+				00135F7C2056CD5900696558 /* Style.swift in Sources */,
+				00135F742056CD5900696558 /* CodesParser.swift in Sources */,
 				824DAA5D1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
+				00135F7E2056CD5900696558 /* Color.swift in Sources */,
+				00135F802056CD5900696558 /* BackgroundColor.swift in Sources */,
 				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
 				00135F532056C33B00696558 /* CommandLineKit.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
 				E7974AFE1DFAECA700E31754 /* SwiftExample3Arguments.swift in Sources */,
+				00135F702056CD5900696558 /* ControlCode.swift in Sources */,
 				00135F3B2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
+				00135F7A2056CD5900696558 /* StringGenerator.swift in Sources */,
 				82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */,
 				00135F392056C26600696558 /* DictionaryExtension.swift in Sources */,
 				00135F4C2056C28D00696558 /* Polyglot.swift in Sources */,
 				00135F372056C26600696558 /* StringExtension.swift in Sources */,
 				00135F552056C33B00696558 /* Option.swift in Sources */,
+				00135F822056CD5900696558 /* XcodeColorsSupport.swift in Sources */,
 				E7974AFD1DFAECA700E31754 /* SwiftExample2Arguments.swift in Sources */,
 				E7974B011DFAFD2D00E31754 /* SwiftExample4Arguments.swift in Sources */,
 				00135F3D2056C26600696558 /* Globals.swift in Sources */,
+				00135F852056CDA700696558 /* PrintLevel.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
+				00135F762056CD5900696558 /* Rainbow.swift in Sources */,
 				00135F482056C28D00696558 /* Session.swift in Sources */,
 				00135F4A2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
 				824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
+				00135F722056CD5900696558 /* ModesExtractor.swift in Sources */,
 				E78B1E171DFABA5500C7C290 /* CodeCommander.swift in Sources */,
 				824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */,
 				00135F512056C33B00696558 /* StringExtensions.swift in Sources */,
 				00135F412056C26600696558 /* SortedArray.swift in Sources */,
+				00135F782056CD5900696558 /* String+Rainbow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
