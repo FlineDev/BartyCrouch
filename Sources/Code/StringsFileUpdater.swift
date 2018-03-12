@@ -152,7 +152,7 @@ public class StringsFileUpdater {
             if keepWhitespaceSurroundings {
                 var whitespacesOrNewlinesAtEnd = ""
                 for i in 1...10 { // allows a maximum of 10 whitespace chars at end
-                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.endIndex, offsetBy: -i))
+                    let substring = String(oldContentString.suffix(i))
                     if substring.isBlank {
                         whitespacesOrNewlinesAtEnd = substring
                     } else {
@@ -162,7 +162,7 @@ public class StringsFileUpdater {
 
                 var whitespacesOrNewlinesAtBegin = ""
                 for i in 1...10 { // allows a maximum of 10 whitespace chars at end
-                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.startIndex, offsetBy: i))
+                    let substring = String(oldContentString.suffix(oldContentString.count - i))
                     if substring.isBlank {
                         whitespacesOrNewlinesAtBegin = substring
                     } else {
