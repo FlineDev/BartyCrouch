@@ -1,5 +1,5 @@
 # A pure Swift library for creating command-line interfaces
-github "pdesantis/CommandLine" "swift4"
+github "Dschee/CommandLine" "master"
 
 # A simple Swift API for Microsoft Translator
 github "Dschee/Polyglot" "master"

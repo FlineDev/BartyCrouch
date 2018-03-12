@@ -1,7 +1,4 @@
 //
-//  StringsFilesSearchTests.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 14.02.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -28,7 +25,7 @@ class StringsFilesSearchTests: XCTestCase {
 		let expectedIBFilePaths = ["iOS", "OSX", "tvOS"].map { examplePath(platform: $0, locale: "Base", type: "storyboard") }
 
 		var results = [String]()
-		["iOS", "OSX", "tvOS"].forEach { (platform) in
+		["iOS", "OSX", "tvOS"].forEach { platform in
 			results += StringsFilesSearch.shared.findAllIBFiles(within: basePath + platform, withLocale: "Base")
 		}
 
@@ -55,7 +52,7 @@ class StringsFilesSearchTests: XCTestCase {
 			+ ["\(BASE_DIR)/Tests/Assets/Strings Files/de.lproj/Localizable.strings"]
 
 		var results = [String]()
-		["iOS", "OSX", "tvOS"].forEach { (platform) in
+		["iOS", "OSX", "tvOS"].forEach { platform in
 			results += StringsFilesSearch.shared.findAllStringsFiles(within: basePath + "Storyboards/" + platform, withLocale: "de")
 		}
 		results += StringsFilesSearch.shared.findAllStringsFiles(within: basePath + "Strings Files", withLocale: "de")

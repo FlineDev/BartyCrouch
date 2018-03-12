@@ -7,40 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00CAD6B81F7A6EF80090DD38 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6181F7A6EA60090DD38 /* CommandLineKit.swift */; };
-		00CAD6B91F7A6EF80090DD38 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD61A1F7A6EA60090DD38 /* Option.swift */; };
-		00CAD6BA1F7A6EF80090DD38 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD61B1F7A6EA60090DD38 /* StringExtensions.swift */; };
-		00CAD6BB1F7A6F0A0090DD38 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64A1F7A6EA60090DD38 /* ArrayExtension.swift */; };
-		00CAD6BC1F7A6F0A0090DD38 /* CharacterViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64B1F7A6EA60090DD38 /* CharacterViewExtension.swift */; };
-		00CAD6BD1F7A6F0A0090DD38 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64C1F7A6EA60090DD38 /* DictionaryExtension.swift */; };
-		00CAD6BE1F7A6F0A0090DD38 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64D1F7A6EA60090DD38 /* DispatchTimeIntervalExtension.swift */; };
-		00CAD6BF1F7A6F0A0090DD38 /* IntegerTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64E1F7A6EA60090DD38 /* IntegerTypeExtension.swift */; };
-		00CAD6C01F7A6F0A0090DD38 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64F1F7A6EA60090DD38 /* IntExtension.swift */; };
-		00CAD6C11F7A6F0A0090DD38 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6501F7A6EA60090DD38 /* StringExtension.swift */; };
-		00CAD6C21F7A6F0A0090DD38 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6511F7A6EA60090DD38 /* TimeIntervalExtension.swift */; };
-		00CAD6C31F7A6F0A0090DD38 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6521F7A6EA60090DD38 /* Globals.swift */; };
-		00CAD6C41F7A6F0A0090DD38 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6541F7A6EA60090DD38 /* FrequencyTable.swift */; };
-		00CAD6C51F7A6F0A0090DD38 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6551F7A6EA60090DD38 /* SortedArray.swift */; };
-		00CAD6C61F7A6F110090DD38 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6831F7A6EA60090DD38 /* Polyglot.swift */; };
-		00CAD6C71F7A6F110090DD38 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6841F7A6EA60090DD38 /* Session.swift */; };
-		00CAD6C81F7A6F110090DD38 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */; };
-		00CAD6C91F7A743D0090DD38 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6181F7A6EA60090DD38 /* CommandLineKit.swift */; };
-		00CAD6CA1F7A743D0090DD38 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD61A1F7A6EA60090DD38 /* Option.swift */; };
-		00CAD6CB1F7A743D0090DD38 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD61B1F7A6EA60090DD38 /* StringExtensions.swift */; };
-		00CAD6CC1F7A744D0090DD38 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64A1F7A6EA60090DD38 /* ArrayExtension.swift */; };
-		00CAD6CD1F7A744D0090DD38 /* CharacterViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64B1F7A6EA60090DD38 /* CharacterViewExtension.swift */; };
-		00CAD6CE1F7A744D0090DD38 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64C1F7A6EA60090DD38 /* DictionaryExtension.swift */; };
-		00CAD6CF1F7A744D0090DD38 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64D1F7A6EA60090DD38 /* DispatchTimeIntervalExtension.swift */; };
-		00CAD6D01F7A744D0090DD38 /* IntegerTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64E1F7A6EA60090DD38 /* IntegerTypeExtension.swift */; };
-		00CAD6D11F7A744D0090DD38 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD64F1F7A6EA60090DD38 /* IntExtension.swift */; };
-		00CAD6D21F7A744D0090DD38 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6501F7A6EA60090DD38 /* StringExtension.swift */; };
-		00CAD6D31F7A744D0090DD38 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6511F7A6EA60090DD38 /* TimeIntervalExtension.swift */; };
-		00CAD6D41F7A744D0090DD38 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6521F7A6EA60090DD38 /* Globals.swift */; };
-		00CAD6D51F7A744D0090DD38 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6541F7A6EA60090DD38 /* FrequencyTable.swift */; };
-		00CAD6D61F7A744D0090DD38 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6551F7A6EA60090DD38 /* SortedArray.swift */; };
-		00CAD6D71F7A74540090DD38 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6831F7A6EA60090DD38 /* Polyglot.swift */; };
-		00CAD6D81F7A74540090DD38 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6841F7A6EA60090DD38 /* Session.swift */; };
-		00CAD6D91F7A74540090DD38 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */; };
+		00135F312056C26600696558 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F242056C26600696558 /* ArrayExtension.swift */; };
+		00135F322056C26600696558 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F242056C26600696558 /* ArrayExtension.swift */; };
+		00135F332056C26600696558 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F252056C26600696558 /* IntExtension.swift */; };
+		00135F342056C26600696558 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F252056C26600696558 /* IntExtension.swift */; };
+		00135F352056C26600696558 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F262056C26600696558 /* TimeIntervalExtension.swift */; };
+		00135F362056C26600696558 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F262056C26600696558 /* TimeIntervalExtension.swift */; };
+		00135F372056C26600696558 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F272056C26600696558 /* StringExtension.swift */; };
+		00135F382056C26600696558 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F272056C26600696558 /* StringExtension.swift */; };
+		00135F392056C26600696558 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F282056C26600696558 /* DictionaryExtension.swift */; };
+		00135F3A2056C26600696558 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F282056C26600696558 /* DictionaryExtension.swift */; };
+		00135F3B2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */; };
+		00135F3C2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */; };
+		00135F3D2056C26600696558 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2A2056C26600696558 /* Globals.swift */; };
+		00135F3E2056C26600696558 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2A2056C26600696558 /* Globals.swift */; };
+		00135F3F2056C26600696558 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2C2056C26600696558 /* FrequencyTable.swift */; };
+		00135F402056C26600696558 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2C2056C26600696558 /* FrequencyTable.swift */; };
+		00135F412056C26600696558 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2D2056C26600696558 /* SortedArray.swift */; };
+		00135F422056C26600696558 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2D2056C26600696558 /* SortedArray.swift */; };
+		00135F482056C28D00696558 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F452056C28C00696558 /* Session.swift */; };
+		00135F492056C28D00696558 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F452056C28C00696558 /* Session.swift */; };
+		00135F4A2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F462056C28C00696558 /* StringExtensionPolyglot.swift */; };
+		00135F4B2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F462056C28C00696558 /* StringExtensionPolyglot.swift */; };
+		00135F4C2056C28D00696558 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F472056C28C00696558 /* Polyglot.swift */; };
+		00135F4D2056C28D00696558 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F472056C28C00696558 /* Polyglot.swift */; };
+		00135F512056C33B00696558 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4E2056C33B00696558 /* StringExtensions.swift */; };
+		00135F522056C33B00696558 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4E2056C33B00696558 /* StringExtensions.swift */; };
+		00135F532056C33B00696558 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4F2056C33B00696558 /* CommandLineKit.swift */; };
+		00135F542056C33B00696558 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4F2056C33B00696558 /* CommandLineKit.swift */; };
+		00135F552056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
+		00135F562056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
 		5975B123200B9B040014EEE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5975B125200B9B040014EEE6 /* InfoPlist.strings */; };
 		82053A261CD32A0200434DAD /* LongOldExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A251CD32A0200434DAD /* LongOldExample.strings */; };
 		82053A281CD32B4900434DAD /* LongNewExample.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82053A271CD32B4900434DAD /* LongNewExample.strings */; };
@@ -107,23 +103,21 @@
 /* Begin PBXFileReference section */
 		000731D02028A52200C29CAB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		000731D12028A53B00C29CAB /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		00CAD6181F7A6EA60090DD38 /* CommandLineKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; };
-		00CAD61A1F7A6EA60090DD38 /* Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
-		00CAD61B1F7A6EA60090DD38 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		00CAD64A1F7A6EA60090DD38 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		00CAD64B1F7A6EA60090DD38 /* CharacterViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewExtension.swift; sourceTree = "<group>"; };
-		00CAD64C1F7A6EA60090DD38 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
-		00CAD64D1F7A6EA60090DD38 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
-		00CAD64E1F7A6EA60090DD38 /* IntegerTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerTypeExtension.swift; sourceTree = "<group>"; };
-		00CAD64F1F7A6EA60090DD38 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
-		00CAD6501F7A6EA60090DD38 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		00CAD6511F7A6EA60090DD38 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
-		00CAD6521F7A6EA60090DD38 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		00CAD6541F7A6EA60090DD38 /* FrequencyTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
-		00CAD6551F7A6EA60090DD38 /* SortedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
-		00CAD6831F7A6EA60090DD38 /* Polyglot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyglot.swift; sourceTree = "<group>"; };
-		00CAD6841F7A6EA60090DD38 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionPolyglot.swift; sourceTree = "<group>"; };
+		00135F242056C26600696558 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		00135F252056C26600696558 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		00135F262056C26600696558 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
+		00135F272056C26600696558 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		00135F282056C26600696558 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
+		00135F2A2056C26600696558 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Checkouts/HandySwift/Sources/Globals.swift; sourceTree = "<group>"; };
+		00135F2C2056C26600696558 /* FrequencyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
+		00135F2D2056C26600696558 /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
+		00135F452056C28C00696558 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Checkouts/Polyglot/Polyglot/Session.swift; sourceTree = "<group>"; };
+		00135F462056C28C00696558 /* StringExtensionPolyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensionPolyglot.swift; path = Checkouts/Polyglot/Polyglot/StringExtensionPolyglot.swift; sourceTree = "<group>"; };
+		00135F472056C28C00696558 /* Polyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Polyglot.swift; path = Checkouts/Polyglot/Polyglot/Polyglot.swift; sourceTree = "<group>"; };
+		00135F4E2056C33B00696558 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Checkouts/CommandLine/CommandLineKit/StringExtensions.swift; sourceTree = "<group>"; };
+		00135F4F2056C33B00696558 /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLineKit.swift; path = Checkouts/CommandLine/CommandLineKit/CommandLineKit.swift; sourceTree = "<group>"; };
+		00135F502056C33B00696558 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Checkouts/CommandLine/CommandLineKit/Option.swift; sourceTree = "<group>"; };
 		5975B124200B9B040014EEE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
 		8203A2981C6D159D00BCE479 /* OldExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = OldExample.strings; sourceTree = "<group>"; };
@@ -222,66 +216,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00CAD6171F7A6EA60090DD38 /* CommandLine */ = {
+		00135F172056C21000696558 /* CommandLine */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD6181F7A6EA60090DD38 /* CommandLineKit.swift */,
-				00CAD61A1F7A6EA60090DD38 /* Option.swift */,
-				00CAD61B1F7A6EA60090DD38 /* StringExtensions.swift */,
+				00135F4F2056C33B00696558 /* CommandLineKit.swift */,
+				00135F502056C33B00696558 /* Option.swift */,
+				00135F4E2056C33B00696558 /* StringExtensions.swift */,
 			);
-			path = CommandLine;
+			name = CommandLine;
 			sourceTree = "<group>";
 		};
-		00CAD6481F7A6EA60090DD38 /* HandySwift */ = {
+		00135F212056C22B00696558 /* HandySwift */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD6491F7A6EA60090DD38 /* Extensions */,
-				00CAD6521F7A6EA60090DD38 /* Globals.swift */,
-				00CAD6531F7A6EA60090DD38 /* Structs */,
+				00135F232056C26600696558 /* Extensions */,
+				00135F2A2056C26600696558 /* Globals.swift */,
+				00135F2B2056C26600696558 /* Structs */,
 			);
-			path = HandySwift;
+			name = HandySwift;
 			sourceTree = "<group>";
 		};
-		00CAD6491F7A6EA60090DD38 /* Extensions */ = {
+		00135F222056C25400696558 /* Polyglot */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD64A1F7A6EA60090DD38 /* ArrayExtension.swift */,
-				00CAD64B1F7A6EA60090DD38 /* CharacterViewExtension.swift */,
-				00CAD64C1F7A6EA60090DD38 /* DictionaryExtension.swift */,
-				00CAD64D1F7A6EA60090DD38 /* DispatchTimeIntervalExtension.swift */,
-				00CAD64E1F7A6EA60090DD38 /* IntegerTypeExtension.swift */,
-				00CAD64F1F7A6EA60090DD38 /* IntExtension.swift */,
-				00CAD6501F7A6EA60090DD38 /* StringExtension.swift */,
-				00CAD6511F7A6EA60090DD38 /* TimeIntervalExtension.swift */,
+				00135F472056C28C00696558 /* Polyglot.swift */,
+				00135F452056C28C00696558 /* Session.swift */,
+				00135F462056C28C00696558 /* StringExtensionPolyglot.swift */,
 			);
-			path = Extensions;
+			name = Polyglot;
 			sourceTree = "<group>";
 		};
-		00CAD6531F7A6EA60090DD38 /* Structs */ = {
+		00135F232056C26600696558 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD6541F7A6EA60090DD38 /* FrequencyTable.swift */,
-				00CAD6551F7A6EA60090DD38 /* SortedArray.swift */,
+				00135F242056C26600696558 /* ArrayExtension.swift */,
+				00135F252056C26600696558 /* IntExtension.swift */,
+				00135F262056C26600696558 /* TimeIntervalExtension.swift */,
+				00135F272056C26600696558 /* StringExtension.swift */,
+				00135F282056C26600696558 /* DictionaryExtension.swift */,
+				00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */,
 			);
-			path = Structs;
+			name = Extensions;
+			path = Checkouts/HandySwift/Sources/Extensions;
 			sourceTree = "<group>";
 		};
-		00CAD6821F7A6EA60090DD38 /* Polyglot */ = {
+		00135F2B2056C26600696558 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD6831F7A6EA60090DD38 /* Polyglot.swift */,
-				00CAD6841F7A6EA60090DD38 /* Session.swift */,
-				00CAD6851F7A6EA60090DD38 /* StringExtensionPolyglot.swift */,
+				00135F2C2056C26600696558 /* FrequencyTable.swift */,
+				00135F2D2056C26600696558 /* SortedArray.swift */,
 			);
-			path = Polyglot;
+			name = Structs;
+			path = Checkouts/HandySwift/Sources/Structs;
 			sourceTree = "<group>";
 		};
 		820649CE1C7CA6FA009E501E /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				00CAD6821F7A6EA60090DD38 /* Polyglot */,
-				00CAD6481F7A6EA60090DD38 /* HandySwift */,
-				00CAD6171F7A6EA60090DD38 /* CommandLine */,
+				00135F172056C21000696558 /* CommandLine */,
+				00135F212056C22B00696558 /* HandySwift */,
+				00135F222056C25400696558 /* Polyglot */,
 			);
 			path = Carthage;
 			sourceTree = "<group>";
@@ -789,34 +783,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00CAD6CC1F7A744D0090DD38 /* ArrayExtension.swift in Sources */,
-				00CAD6D51F7A744D0090DD38 /* FrequencyTable.swift in Sources */,
+				00135F522056C33B00696558 /* StringExtensions.swift in Sources */,
+				00135F542056C33B00696558 /* CommandLineKit.swift in Sources */,
+				00135F322056C26600696558 /* ArrayExtension.swift in Sources */,
 				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
-				00CAD6D71F7A74540090DD38 /* Polyglot.swift in Sources */,
 				824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
-				00CAD6CF1F7A744D0090DD38 /* DispatchTimeIntervalExtension.swift in Sources */,
-				00CAD6C91F7A743D0090DD38 /* CommandLineKit.swift in Sources */,
+				00135F4D2056C28D00696558 /* Polyglot.swift in Sources */,
+				00135F402056C26600696558 /* FrequencyTable.swift in Sources */,
 				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
 				828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */,
+				00135F422056C26600696558 /* SortedArray.swift in Sources */,
+				00135F3E2056C26600696558 /* Globals.swift in Sources */,
+				00135F342056C26600696558 /* IntExtension.swift in Sources */,
+				00135F4B2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
 				824DAA641CDB6F520077F93A /* SubCommander.swift in Sources */,
-				00CAD6D21F7A744D0090DD38 /* StringExtension.swift in Sources */,
 				E78B1E151DFAB33900C7C290 /* ExtractLocStringsCommander.swift in Sources */,
-				00CAD6CA1F7A743D0090DD38 /* Option.swift in Sources */,
-				00CAD6CE1F7A744D0090DD38 /* DictionaryExtension.swift in Sources */,
-				00CAD6D91F7A74540090DD38 /* StringExtensionPolyglot.swift in Sources */,
 				82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */,
 				A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */,
-				00CAD6D11F7A744D0090DD38 /* IntExtension.swift in Sources */,
-				00CAD6D81F7A74540090DD38 /* Session.swift in Sources */,
-				00CAD6CB1F7A743D0090DD38 /* StringExtensions.swift in Sources */,
-				00CAD6CD1F7A744D0090DD38 /* CharacterViewExtension.swift in Sources */,
-				00CAD6D41F7A744D0090DD38 /* Globals.swift in Sources */,
 				824DAA5E1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
 				E78B1E181DFABB1900C7C290 /* CodeCommander.swift in Sources */,
+				00135F382056C26600696558 /* StringExtension.swift in Sources */,
+				00135F562056C33B00696558 /* Option.swift in Sources */,
+				00135F3C2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
+				00135F3A2056C26600696558 /* DictionaryExtension.swift in Sources */,
+				00135F492056C28D00696558 /* Session.swift in Sources */,
 				824DAA5F1CDB60E90077F93A /* GenStringsCommander.swift in Sources */,
-				00CAD6D01F7A744D0090DD38 /* IntegerTypeExtension.swift in Sources */,
-				00CAD6D31F7A744D0090DD38 /* TimeIntervalExtension.swift in Sources */,
-				00CAD6D61F7A744D0090DD38 /* SortedArray.swift in Sources */,
+				00135F362056C26600696558 /* TimeIntervalExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,35 +817,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				82125E931D0312CF00B9C66B /* Commander.swift in Sources */,
-				00CAD6C71F7A6F110090DD38 /* Session.swift in Sources */,
-				00CAD6BB1F7A6F0A0090DD38 /* ArrayExtension.swift in Sources */,
+				00135F3F2056C26600696558 /* FrequencyTable.swift in Sources */,
+				00135F312056C26600696558 /* ArrayExtension.swift in Sources */,
 				E78B1E141DFAB33200C7C290 /* ExtractLocStringsCommander.swift in Sources */,
-				00CAD6B81F7A6EF80090DD38 /* CommandLineKit.swift in Sources */,
-				00CAD6C51F7A6F0A0090DD38 /* SortedArray.swift in Sources */,
+				00135F352056C26600696558 /* TimeIntervalExtension.swift in Sources */,
+				00135F332056C26600696558 /* IntExtension.swift in Sources */,
 				824DAA5D1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
-				00CAD6C01F7A6F0A0090DD38 /* IntExtension.swift in Sources */,
 				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
-				00CAD6C21F7A6F0A0090DD38 /* TimeIntervalExtension.swift in Sources */,
+				00135F532056C33B00696558 /* CommandLineKit.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
-				00CAD6C41F7A6F0A0090DD38 /* FrequencyTable.swift in Sources */,
 				E7974AFE1DFAECA700E31754 /* SwiftExample3Arguments.swift in Sources */,
-				00CAD6B91F7A6EF80090DD38 /* Option.swift in Sources */,
-				00CAD6BA1F7A6EF80090DD38 /* StringExtensions.swift in Sources */,
+				00135F3B2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
 				82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */,
-				00CAD6C61F7A6F110090DD38 /* Polyglot.swift in Sources */,
-				00CAD6C31F7A6F0A0090DD38 /* Globals.swift in Sources */,
+				00135F392056C26600696558 /* DictionaryExtension.swift in Sources */,
+				00135F4C2056C28D00696558 /* Polyglot.swift in Sources */,
+				00135F372056C26600696558 /* StringExtension.swift in Sources */,
+				00135F552056C33B00696558 /* Option.swift in Sources */,
 				E7974AFD1DFAECA700E31754 /* SwiftExample2Arguments.swift in Sources */,
 				E7974B011DFAFD2D00E31754 /* SwiftExample4Arguments.swift in Sources */,
+				00135F3D2056C26600696558 /* Globals.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
-				00CAD6BC1F7A6F0A0090DD38 /* CharacterViewExtension.swift in Sources */,
-				00CAD6BE1F7A6F0A0090DD38 /* DispatchTimeIntervalExtension.swift in Sources */,
-				00CAD6BD1F7A6F0A0090DD38 /* DictionaryExtension.swift in Sources */,
-				00CAD6C81F7A6F110090DD38 /* StringExtensionPolyglot.swift in Sources */,
+				00135F482056C28D00696558 /* Session.swift in Sources */,
+				00135F4A2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
 				824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
-				00CAD6BF1F7A6F0A0090DD38 /* IntegerTypeExtension.swift in Sources */,
 				E78B1E171DFABA5500C7C290 /* CodeCommander.swift in Sources */,
-				00CAD6C11F7A6F0A0090DD38 /* StringExtension.swift in Sources */,
 				824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */,
+				00135F512056C33B00696558 /* StringExtensions.swift in Sources */,
+				00135F412056C26600696558 /* SortedArray.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

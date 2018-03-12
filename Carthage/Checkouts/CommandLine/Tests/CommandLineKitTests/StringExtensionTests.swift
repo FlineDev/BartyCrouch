@@ -15,9 +15,13 @@
  * limitations under the License.
  */
 
-import Foundation
 import XCTest
 @testable import CommandLineKit
+#if os(OSX)
+  import Darwin
+#elseif os(Linux)
+  import Glibc
+#endif
 
 class StringExtensionTests: XCTestCase {
   static var allTests : [(String, (StringExtensionTests) -> () throws -> Void)] {
@@ -71,8 +75,8 @@ class StringExtensionTests: XCTestCase {
 
 
     /* Various extraneous chars */
-    let k = "+42.3".toDouble()      // 4 Jan 2017: leading + is valid language syntax
-    XCTAssertEqual(k, 42.3, "Failed to parse double with leading +")
+    let k = "+42.3".toDouble()
+    XCTAssertNil(k, "Parsed double with extraneous +")
 
     let l = " 827.2".toDouble()
     XCTAssertNil(l, "Parsed double with extraneous space")
@@ -87,7 +91,7 @@ class StringExtensionTests: XCTestCase {
     setlocale(LC_NUMERIC, "sv_SE.UTF-8")
 
     let o = "888,8".toDouble()
-    XCTAssert(o == 888.8, "Failed to parse double in alternate locale")
+    XCTAssertEqual(o!, 888.8, "Failed to parse double in alternate locale")
 
     let p = "888.8".toDouble()
     XCTAssertNil(p, "Parsed double in alternate locale with wrong decimal point")
@@ -116,26 +120,23 @@ class StringExtensionTests: XCTestCase {
   func testPadded() {
     let a = "this is a test"
 
-    XCTAssertEqual(a.padded(toWidth: 80).characters.count,
-                   80, "Failed to pad to correct width")
-    XCTAssertEqual(a.padded(toWidth: 5).characters.count,
-                   a.characters.count, "Bad padding when pad width is less than string width")
-    XCTAssertEqual(a.padded(toWidth: -2).characters.count,
-                   a.characters.count, "Bad padding with negative pad width")
+    XCTAssertEqual(a.padded(toWidth: 80).count, 80, "Failed to pad to correct width")
+    XCTAssertEqual(a.padded(toWidth: 5).count, a.count, "Bad padding when pad width is less than string width")
+    XCTAssertEqual(a.padded(toWidth: -2).count, a.count, "Bad padding with negative pad width")
 
     let b = a.padded(toWidth: 80)
     let lastBCharIndex = b.index(before: b.endIndex)
     XCTAssertEqual(b[lastBCharIndex], " " as Character, "Failed to pad with default character")
 
     let c = a.padded(toWidth: 80, with: "+")
-    let lastCCharIndex = c.index(before: b.endIndex)
+  let lastCCharIndex = c.index(before: b.endIndex)
     XCTAssertEqual(c[lastCCharIndex], "+" as Character, "Failed to pad with specified character")
   }
 
   func testWrapped() {
     let lipsum = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     for line in lipsum.wrapped(atWidth: 80).split(by: "\n") {
-      XCTAssertLessThanOrEqual(line.characters.count, 80, "Failed to wrap long line: \(line)")
+      XCTAssertLessThanOrEqual(line.count, 80, "Failed to wrap long line: \(line)")
     }
 
     /* Words longer than the wrap width should not be split */
@@ -143,7 +144,7 @@ class StringExtensionTests: XCTestCase {
     let lines = longWords.wrapped(atWidth: 3).split(by: "\n")
     XCTAssertEqual(lines.count, 8, "Failed to wrap long words")
     for line in lines {
-      XCTAssertGreaterThan(line.characters.count, 3, "Bad long word wrapping on line: \(line)")
+      XCTAssertGreaterThan(line.count, 3, "Bad long word wrapping on line: \(line)")
     }
   }
 }

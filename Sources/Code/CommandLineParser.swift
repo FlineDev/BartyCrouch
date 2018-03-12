@@ -1,7 +1,4 @@
 //
-//  CommandLineParser.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 05.05.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -26,7 +23,8 @@ public class CommandLineParser {
     public enum SubCommandOptions {
         case codeOptions(
             localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
-            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption, customFunction: StringOption
+            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption, customFunction: StringOption,
+            customLocalizableName: StringOption
         )
         case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
@@ -86,6 +84,13 @@ public class CommandLineParser {
         longFlag: "custom-function",
         required: false,
         helpMessage: "Specifies a custom function to be searched for instead of NSLocalizedString."
+    )
+
+    private let customLocalizableName = StringOption(
+        shortFlag: "n",
+        longFlag: "custom-localizable-name",
+        required: false,
+        helpMessage: "Specified a custom name for the Strings file instead of the default `Localizable.strings`."
     )
 
     // MARK: - Initializers
@@ -166,12 +171,13 @@ public class CommandLineParser {
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
         let subCommandOptions = SubCommandOptions.codeOptions(
             localizable: localizable, defaultToKeys: defaultToKeys, additive: additive, overrideComments: overrideComments,
-            useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction
+            useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys, unstripped: unstripped, customFunction: customFunction,
+            customLocalizableName: customLocalizableName
         )
 
         commandLine.addOptions(
             path, localizable, override, verbose, defaultToKeys, additive, overrideComments,
-            useExtractLocStrings, sortByKeys, unstripped, customFunction
+            useExtractLocStrings, sortByKeys, unstripped, customFunction, customLocalizableName
         )
 
         return (commandLine, commonOptions, subCommandOptions)

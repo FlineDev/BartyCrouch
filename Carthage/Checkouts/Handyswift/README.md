@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/HandySwift/releases">
-        <img src="https://img.shields.io/badge/Version-2.4.0-blue.svg"
-             alt="Version: 2.4.0">
+        <img src="https://img.shields.io/badge/Version-2.5.0-blue.svg"
+             alt="Version: 2.5.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-4.0-FFAC45.svg"
          alt="Swift: 4.0">
@@ -129,20 +129,21 @@ Int(randomBelow: 50)! // => 26
 Int(randomBelow: 1_000_000)! // => 208041
 ```
 
-### IntegerTypeExtension
-
 #### .times
 
 Repeat some code block a given number of times.
 
 ``` Swift
-3.times { array.append("Hello World!") }
-// => ["Hello World!", "Hello World!", "Hello World!"]
+3.times { print("Hello World!") }
+// => prints "Hello World!" 3 times
+```
 
-5.times {
-  let randomInt = Int(randomBelow: 1_000)!
-  intArray.append(randomInt)
-}
+#### .timesMake
+
+Makes array by adding closure's return value n times.
+
+``` Swift
+let intArray = 5.timesMake { Int(randomBelow: 1_000)! }
 // => [481, 16, 680, 87, 912]
 ```
 

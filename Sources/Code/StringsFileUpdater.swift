@@ -1,7 +1,4 @@
 //
-//  StringsFileUpdater.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 10.02.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -95,7 +92,7 @@ public class StringsFileUpdater {
                     let updatedValue: String = {
                         guard let oldValue = oldTranslation?.1 else {
                             // add new key with empty value
-                            if addNewValuesAsEmpty { return "" }
+                            guard !addNewValuesAsEmpty else { return "" }
 
                             // add new key with Base value
                             return newTranslation.value
@@ -155,7 +152,7 @@ public class StringsFileUpdater {
             if keepWhitespaceSurroundings {
                 var whitespacesOrNewlinesAtEnd = ""
                 for i in 1...10 { // allows a maximum of 10 whitespace chars at end
-                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.endIndex, offsetBy: -i))
+                    let substring = String(oldContentString.suffix(i))
                     if substring.isBlank {
                         whitespacesOrNewlinesAtEnd = substring
                     } else {
@@ -165,7 +162,7 @@ public class StringsFileUpdater {
 
                 var whitespacesOrNewlinesAtBegin = ""
                 for i in 1...10 { // allows a maximum of 10 whitespace chars at end
-                    let substring = oldContentString.substring(from: oldContentString.index(oldContentString.startIndex, offsetBy: i))
+                    let substring = String(oldContentString.suffix(oldContentString.count - i))
                     if substring.isBlank {
                         whitespacesOrNewlinesAtBegin = substring
                     } else {
@@ -327,7 +324,7 @@ public class StringsFileUpdater {
     }
 
     func stringFromTranslations(translations: [TranslationEntry]) -> String {
-        return "\n" + translations.map { (key, value, comment, _) -> String in
+        return "\n" + translations.map { key, value, comment, _ -> String in
             let translationLine = "\"\(key)\" = \"\(value)\";"
             if let comment = comment { return "/*\(comment)*/\n" + translationLine }
             return translationLine
