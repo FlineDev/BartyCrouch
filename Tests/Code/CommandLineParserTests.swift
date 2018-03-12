@@ -10,7 +10,7 @@ class CommandLineParserTests: XCTestCase {
     func testIfCommentCommandIsAdded() {
         CommandLineParser(arguments: ["bartycrouch", "code", "-p", ".", "-l", ".", "--override-comments"]).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(overrideComments.value)
 
             default:
@@ -20,7 +20,7 @@ class CommandLineParserTests: XCTestCase {
 
         CommandLineParser(arguments: ["bartycrouch", "code", "-p", ".", "-l", ".", "-c"]).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(overrideComments.value)
 
             default:
@@ -34,7 +34,7 @@ class CommandLineParserTests: XCTestCase {
             arguments: ["bartycrouch", "translate", "-p", ".", "-i", "no", "-s", "abc", "-l", ".", "--override-comments"]
         ).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(!overrideComments.value)
 
             default:
@@ -46,7 +46,7 @@ class CommandLineParserTests: XCTestCase {
             arguments: ["bartycrouch", "translate", "-p", ".", "-i", "no", "-s", "abc", "-l", ".", "-c"]
         ).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(!overrideComments.value)
 
             default:
@@ -58,7 +58,7 @@ class CommandLineParserTests: XCTestCase {
             arguments: ["bartycrouch", "interfaces", "-p", ".", "-i", "no", "--override-comments"]
         ).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(!overrideComments.value)
 
             default:
@@ -70,7 +70,7 @@ class CommandLineParserTests: XCTestCase {
             arguments: ["bartycrouch", "interfaces", "-p", ".", "-c"]
         ).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(!overrideComments.value)
 
             default:
@@ -82,7 +82,7 @@ class CommandLineParserTests: XCTestCase {
             arguments: ["bartycrouch", "code", "-p", ".", "-l", "."]
         ).parse { _, subCommandOptions in
             switch subCommandOptions {
-            case let .codeOptions(_, _, _, overrideComments, _, _, _, _):
+            case let .codeOptions(_, _, _, overrideComments, _, _, _, _, _):
                 XCTAssertTrue(!overrideComments.value)
 
             default:
