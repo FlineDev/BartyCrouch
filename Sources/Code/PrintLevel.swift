@@ -14,12 +14,12 @@ enum PrintLevel {
 func print(_ message: String, level: PrintLevel) {
     switch level {
     case .info:
-        print("ℹ️ ", message.lightBlue)
+        print("ℹ️", message.lightBlue)
 
     case .warning:
-        print("⚠️ Warning!", message.yellow)
+        print("⚠️", "Warning!".yellow, message.yellow)
 
     case .error:
-        print("❌ Error!", message.red)
+        print("❌", "Error!".lightRed, message.lightRed)
     }
 }
