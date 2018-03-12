@@ -24,7 +24,7 @@ public class StringsFileUpdater {
         do {
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription)
+            print(error.localizedDescription, level: .error)
             return nil
         }
     }
@@ -132,7 +132,7 @@ public class StringsFileUpdater {
 
             rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
         } catch {
-            print(error.localizedDescription)
+            print(error.localizedDescription, level: .error)
         }
     }
 
@@ -178,7 +178,7 @@ public class StringsFileUpdater {
 
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription)
+            print(error.localizedDescription, level: .error)
         }
     }
 
@@ -201,24 +201,24 @@ public class StringsFileUpdater {
     public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String,
                                      clientId: String, clientSecret: String, override: Bool = false) -> Int {
         guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
-            print("Error! Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            print("Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
             return 0
         }
 
         guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
-            print("Error! Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            print("Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
             return 0
         }
 
         guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
             let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
-            print("Warning! Automatic translation from the locale '\(locale)' is not supported.")
+            print("Automatic translation from the locale '\(locale)' is not supported.", level: .warning)
             return 0
         }
 
         guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
             let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
-            print("Warning! Automatic translation to the locale '\(locale)' is not supported.")
+            print("Automatic translation to the locale '\(locale)' is not supported.", level: .warning)
             return 0
         }
 
@@ -246,8 +246,8 @@ public class StringsFileUpdater {
                 }
 
                 guard let targetTranslation = targetTranslationOptional else {
-                    NSException(name: NSExceptionName(rawValue: "targetTranslation was nil when not expected"), reason: nil, userInfo: nil).raise()
-                    exit(EXIT_FAILURE)
+                    print("targetTranslation was nil when not expected", level: .error)
+                    exit(EX_IOERR)
                 }
 
                 let (key, value, comment, line) = targetTranslation
@@ -258,7 +258,7 @@ public class StringsFileUpdater {
                 }
 
                 guard !sourceValue.isEmpty else {
-                    print("Warning! Value for key '\(key)' in source translations is empty.")
+                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
                     continue
                 }
 
@@ -283,8 +283,8 @@ public class StringsFileUpdater {
 
             return translatedValuesCount
         } catch {
-            print(error.localizedDescription)
-            return 0
+            print(error.localizedDescription, level: .warning)
+            exit(EX_OK)
         }
     }
 
