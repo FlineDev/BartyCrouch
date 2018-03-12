@@ -13,38 +13,26 @@
 		823B2B501C24AC00007B3CDD /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */; };
 		8258E4561C2E0C140031CBFF /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4551C2E0C140031CBFF /* SortedArray.swift */; };
 		8258E4591C2E1ACE0031CBFF /* SortedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */; };
-		825EFDBD1C331EF000558497 /* IntegerTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBC1C331EF000558497 /* IntegerTypeExtension.swift */; };
-		825EFDBF1C3321B300558497 /* CharacterViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */; };
-		825EFDC11C332ABB00558497 /* IntegerTypeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC01C332ABB00558497 /* IntegerTypeExtensionTests.swift */; };
-		825EFDC31C332AD200558497 /* CharacterViewExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */; };
 		825EFDD41C3333B000558497 /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825EFDCA1C3333B000558497 /* HandySwift.framework */; };
 		825EFDF31C33351300558497 /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825EFDE91C33351200558497 /* HandySwift.framework */; };
 		825EFE001C33357000558497 /* HandySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 823B2B341C24AAB7007B3CDD /* HandySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825EFE011C33357200558497 /* HandySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 823B2B341C24AAB7007B3CDD /* HandySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		825EFE021C33358400558497 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4551C2E0C140031CBFF /* SortedArray.swift */; };
 		825EFE031C33358400558497 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */; };
-		825EFE041C33358400558497 /* IntegerTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBC1C331EF000558497 /* IntegerTypeExtension.swift */; };
 		825EFE051C33358400558497 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2911C2ED1A200F934A7 /* StringExtension.swift */; };
 		825EFE061C33358400558497 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */; };
-		825EFE071C33358400558497 /* CharacterViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */; };
 		825EFE081C33358500558497 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4551C2E0C140031CBFF /* SortedArray.swift */; };
 		825EFE091C33358500558497 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */; };
-		825EFE0A1C33358500558497 /* IntegerTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBC1C331EF000558497 /* IntegerTypeExtension.swift */; };
 		825EFE0B1C33358500558497 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2911C2ED1A200F934A7 /* StringExtension.swift */; };
 		825EFE0C1C33358500558497 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */; };
-		825EFE0D1C33358500558497 /* CharacterViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */; };
 		825EFE0E1C3335A400558497 /* SortedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */; };
 		825EFE0F1C3335A400558497 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */; };
-		825EFE101C3335A400558497 /* IntegerTypeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC01C332ABB00558497 /* IntegerTypeExtensionTests.swift */; };
 		825EFE111C3335A400558497 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */; };
 		825EFE121C3335A400558497 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */; };
-		825EFE131C3335A400558497 /* CharacterViewExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */; };
 		825EFE141C3335A500558497 /* SortedArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */; };
 		825EFE151C3335A500558497 /* IntExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */; };
-		825EFE161C3335A500558497 /* IntegerTypeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC01C332ABB00558497 /* IntegerTypeExtensionTests.swift */; };
 		825EFE171C3335A500558497 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */; };
 		825EFE181C3335A500558497 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */; };
-		825EFE191C3335A500558497 /* CharacterViewExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */; };
 		826F69AC1C3895A300B2CC6B /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */; };
 		826F69AD1C3895A300B2CC6B /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */; };
 		826F69AE1C3895A300B2CC6B /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */; };
@@ -115,12 +103,8 @@
 		823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtensionTests.swift; sourceTree = "<group>"; };
 		8258E4551C2E0C140031CBFF /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArrayTests.swift; sourceTree = "<group>"; };
-		825EFDBC1C331EF000558497 /* IntegerTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerTypeExtension.swift; sourceTree = "<group>"; };
-		825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterViewExtension.swift; sourceTree = "<group>"; };
-		825EFDC01C332ABB00558497 /* IntegerTypeExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegerTypeExtensionTests.swift; sourceTree = "<group>"; };
-		825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterViewExtensionTests.swift; sourceTree = "<group>"; };
 		825EFDCA1C3333B000558497 /* HandySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		825EFDD31C3333B000558497 /* HandySwift OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HandySwift OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		825EFDD31C3333B000558497 /* HandySwift macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HandySwift macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		825EFDE91C33351200558497 /* HandySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		825EFDF21C33351300558497 /* HandySwift tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HandySwift tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
@@ -210,7 +194,7 @@
 				823B2B311C24AAB6007B3CDD /* HandySwift.framework */,
 				823B2B3B1C24AAB7007B3CDD /* HandySwift iOS Tests.xctest */,
 				825EFDCA1C3333B000558497 /* HandySwift.framework */,
-				825EFDD31C3333B000558497 /* HandySwift OSX Tests.xctest */,
+				825EFDD31C3333B000558497 /* HandySwift macOS Tests.xctest */,
 				825EFDE91C33351200558497 /* HandySwift.framework */,
 				825EFDF21C33351300558497 /* HandySwift tvOS Tests.xctest */,
 			);
@@ -221,10 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */,
-				825EFDBC1C331EF000558497 /* IntegerTypeExtension.swift */,
 				82CAE2911C2ED1A200F934A7 /* StringExtension.swift */,
 				82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */,
-				825EFDBE1C3321B300558497 /* CharacterViewExtension.swift */,
 				8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */,
 				A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */,
 				A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */,
@@ -236,10 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */,
-				825EFDC01C332ABB00558497 /* IntegerTypeExtensionTests.swift */,
 				82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */,
 				82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */,
-				825EFDC21C332AD200558497 /* CharacterViewExtensionTests.swift */,
 				8280D7DF1C4A6FF3001172EF /* DictionaryExtensionTests.swift */,
 				827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */,
 				A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */,
@@ -384,9 +364,9 @@
 			productReference = 823B2B3B1C24AAB7007B3CDD /* HandySwift iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		825EFDC91C3333B000558497 /* HandySwift OSX */ = {
+		825EFDC91C3333B000558497 /* HandySwift macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 825EFDDB1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift OSX" */;
+			buildConfigurationList = 825EFDDB1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift macOS" */;
 			buildPhases = (
 				825EFDC51C3333B000558497 /* Sources */,
 				825EFDC61C3333B000558497 /* Frameworks */,
@@ -398,14 +378,14 @@
 			);
 			dependencies = (
 			);
-			name = "HandySwift OSX";
+			name = "HandySwift macOS";
 			productName = "HandySwift OSX";
 			productReference = 825EFDCA1C3333B000558497 /* HandySwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		825EFDD21C3333B000558497 /* HandySwift OSX Tests */ = {
+		825EFDD21C3333B000558497 /* HandySwift macOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 825EFDDE1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift OSX Tests" */;
+			buildConfigurationList = 825EFDDE1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift macOS Tests" */;
 			buildPhases = (
 				825EFDCF1C3333B000558497 /* Sources */,
 				825EFDD01C3333B000558497 /* Frameworks */,
@@ -416,9 +396,9 @@
 			dependencies = (
 				825EFDD61C3333B000558497 /* PBXTargetDependency */,
 			);
-			name = "HandySwift OSX Tests";
+			name = "HandySwift macOS Tests";
 			productName = "HandySwift OSXTests";
-			productReference = 825EFDD31C3333B000558497 /* HandySwift OSX Tests.xctest */;
+			productReference = 825EFDD31C3333B000558497 /* HandySwift macOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		825EFDE81C33351200558497 /* HandySwift tvOS */ = {
@@ -508,8 +488,8 @@
 			targets = (
 				823B2B301C24AAB6007B3CDD /* HandySwift iOS */,
 				823B2B3A1C24AAB7007B3CDD /* HandySwift iOS Tests */,
-				825EFDC91C3333B000558497 /* HandySwift OSX */,
-				825EFDD21C3333B000558497 /* HandySwift OSX Tests */,
+				825EFDC91C3333B000558497 /* HandySwift macOS */,
+				825EFDD21C3333B000558497 /* HandySwift macOS Tests */,
 				825EFDE81C33351200558497 /* HandySwift tvOS */,
 				825EFDF11C33351300558497 /* HandySwift tvOS Tests */,
 			);
@@ -613,9 +593,7 @@
 			files = (
 				8258E4561C2E0C140031CBFF /* SortedArray.swift in Sources */,
 				826F69AC1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
-				825EFDBD1C331EF000558497 /* IntegerTypeExtension.swift in Sources */,
 				A1F221641E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
-				825EFDBF1C3321B300558497 /* CharacterViewExtension.swift in Sources */,
 				823B2B4D1C24ABA4007B3CDD /* IntExtension.swift in Sources */,
 				82CAE2921C2ED1A200F934A7 /* StringExtension.swift in Sources */,
 				82CAE2961C2EE64900F934A7 /* ArrayExtension.swift in Sources */,
@@ -631,10 +609,8 @@
 			files = (
 				826F69B01C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
 				827599641E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
-				825EFDC31C332AD200558497 /* CharacterViewExtensionTests.swift in Sources */,
 				8258E4591C2E1ACE0031CBFF /* SortedArrayTests.swift in Sources */,
 				A11830D71E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
-				825EFDC11C332ABB00558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				823B2B501C24AC00007B3CDD /* IntExtensionTests.swift in Sources */,
 				82CAE2941C2ED5E000F934A7 /* StringExtensionTests.swift in Sources */,
 				82CAE2981C2EE95200F934A7 /* ArrayExtensionTests.swift in Sources */,
@@ -651,8 +627,6 @@
 				826F69AD1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE051C33358400558497 /* StringExtension.swift in Sources */,
 				A1F221651E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
-				825EFE071C33358400558497 /* CharacterViewExtension.swift in Sources */,
-				825EFE041C33358400558497 /* IntegerTypeExtension.swift in Sources */,
 				825EFE021C33358400558497 /* SortedArray.swift in Sources */,
 				825EFE031C33358400558497 /* IntExtension.swift in Sources */,
 				82812A9C1D06877B00CD5B6C /* Globals.swift in Sources */,
@@ -667,11 +641,9 @@
 			files = (
 				826F69B11C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
 				827599651E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
-				825EFE131C3335A400558497 /* CharacterViewExtensionTests.swift in Sources */,
 				825EFE111C3335A400558497 /* StringExtensionTests.swift in Sources */,
 				A11830D81E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
 				825EFE0E1C3335A400558497 /* SortedArrayTests.swift in Sources */,
-				825EFE101C3335A400558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				825EFE121C3335A400558497 /* ArrayExtensionTests.swift in Sources */,
 				825EFE0F1C3335A400558497 /* IntExtensionTests.swift in Sources */,
 				82812AA01D06926800CD5B6C /* GlobalsTests.swift in Sources */,
@@ -687,8 +659,6 @@
 				826F69AE1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE0B1C33358500558497 /* StringExtension.swift in Sources */,
 				A1F221661E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
-				825EFE0D1C33358500558497 /* CharacterViewExtension.swift in Sources */,
-				825EFE0A1C33358500558497 /* IntegerTypeExtension.swift in Sources */,
 				825EFE081C33358500558497 /* SortedArray.swift in Sources */,
 				825EFE091C33358500558497 /* IntExtension.swift in Sources */,
 				82812A9D1D06877B00CD5B6C /* Globals.swift in Sources */,
@@ -703,11 +673,9 @@
 			files = (
 				826F69B21C389DB800B2CC6B /* FrequencyTableTests.swift in Sources */,
 				827599661E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift in Sources */,
-				825EFE191C3335A500558497 /* CharacterViewExtensionTests.swift in Sources */,
 				825EFE171C3335A500558497 /* StringExtensionTests.swift in Sources */,
 				A11830D91E58A11D00CBE087 /* TimeIntervalExtensionTests.swift in Sources */,
 				825EFE141C3335A500558497 /* SortedArrayTests.swift in Sources */,
-				825EFE161C3335A500558497 /* IntegerTypeExtensionTests.swift in Sources */,
 				825EFE181C3335A500558497 /* ArrayExtensionTests.swift in Sources */,
 				825EFE151C3335A500558497 /* IntExtensionTests.swift in Sources */,
 				82812AA11D06926800CD5B6C /* GlobalsTests.swift in Sources */,
@@ -725,7 +693,7 @@
 		};
 		825EFDD61C3333B000558497 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 825EFDC91C3333B000558497 /* HandySwift OSX */;
+			target = 825EFDC91C3333B000558497 /* HandySwift macOS */;
 			targetProxy = 825EFDD51C3333B000558497 /* PBXContainerItemProxy */;
 		};
 		825EFDF51C33351300558497 /* PBXTargetDependency */ = {
@@ -1097,7 +1065,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		825EFDDB1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift OSX" */ = {
+		825EFDDB1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				825EFDDC1C3333B000558497 /* Debug */,
@@ -1106,7 +1074,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		825EFDDE1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift OSX Tests" */ = {
+		825EFDDE1C3333B000558497 /* Build configuration list for PBXNativeTarget "HandySwift macOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				825EFDDF1C3333B000558497 /* Debug */,
