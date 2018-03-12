@@ -38,7 +38,6 @@ Int(randomBelow: 50)
 Int(randomBelow: 1_000_000)
 
 
-//: ## IntegerTypeExtension
 //: ### n.times { someCode }
 //: Calls someCode n times.
 
@@ -47,13 +46,10 @@ var stringArray: [String] = []
 3.times{ stringArray.append("Hello World!") }
 stringArray
 
-var intArray: [Int] = []
-5.times {
-    let randomInt = Int(randomBelow: 1_000)!
-    intArray.append(randomInt)
-}
-intArray
+//: ### n.timesMake { someCode }
+//: Makes array by adding someCode's return value n times.
 
+let intArray = 5.timesMake { Int(randomBelow: 1_000)! }
 
 //: ## StringExtension
 //: ### string.strip

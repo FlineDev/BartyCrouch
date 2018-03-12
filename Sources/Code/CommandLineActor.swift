@@ -1,22 +1,19 @@
 //
-//  CommandLineActor.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 05.05.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
 // swiftlint:disable function_parameter_count
-// swiftlint:disable variable_name
 
 import Foundation
 
 public enum CommandLineAction {
-    case interfaces, code, translate
+    case interfaces
+    case code
+    case translate
 }
 
 public class CommandLineActor {
-
     public init() {}
 
     // MARK: - Instance Methods
@@ -30,7 +27,7 @@ public class CommandLineActor {
         let verbose = commonOptions.verbose.value
 
         switch subCommandOptions {
-        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction): // swiftlint:disable:this line_length
+        case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction, customLocalizableName): // swiftlint:disable:this line_length
             guard let localizable = localizableOption.value else {
                 printError("Localizable option `-l` is missing.")
                 exit(EX_USAGE)
@@ -39,7 +36,8 @@ public class CommandLineActor {
             self.actOnCode(
                 path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
                 additive: additiveOption.value, overrideComments: overrideComments.value, useExtractLocStrings: useExtractLocStrings.value,
-                sortByKeys: sortByKeys.value, unstripped: unstripped.value, customFunction: customFunction.value
+                sortByKeys: sortByKeys.value, unstripped: unstripped.value, customFunction: customFunction.value,
+                customLocalizableName: customLocalizableName.value
             )
 
         case let .interfacesOptions(defaultToBaseOption, unstripped):
@@ -65,11 +63,16 @@ public class CommandLineActor {
         }
     }
 
-    private func actOnCode(path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
-                           overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?) {
-        let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: "Localizable")
+    private func actOnCode(
+        path: String, override: Bool, verbose: Bool, localizable: String, defaultToKeys: Bool, additive: Bool,
+        overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?,
+        customLocalizableName: String?
+    ) {
+        let localizableFileName = customLocalizableName ??  "Localizable"
+        let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: localizableFileName)
+
         guard !allLocalizableStringsFilePaths.isEmpty else {
-            printError("No `Localizable.strings` file found for output.\nTo fix this, please add a `Localizable.strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
+            printError("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.") // swiftlint:disable:this line_length
             exit(EX_USAGE)
         }
 
@@ -83,7 +86,7 @@ public class CommandLineActor {
         self.incrementalCodeUpdate(
             inputDirectoryPath: path, allLocalizableStringsFilePaths, override: override, verbose: verbose, defaultToKeys: defaultToKeys,
             additive: additive, overrideComments: overrideComments, useExtractLocStrings: useExtractLocStrings, sortByKeys: sortByKeys,
-            unstripped: unstripped, customFunction: customFunction
+            unstripped: unstripped, customFunction: customFunction, localizableFileName: localizableFileName
         )
     }
 
@@ -145,7 +148,8 @@ public class CommandLineActor {
 
     private func incrementalCodeUpdate(
         inputDirectoryPath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToKeys: Bool,
-        additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?
+        additive: Bool, overrideComments: Bool, useExtractLocStrings: Bool, sortByKeys: Bool, unstripped: Bool, customFunction: String?,
+        localizableFileName: String
     ) {
         let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
@@ -165,7 +169,7 @@ public class CommandLineActor {
             exit(EX_UNAVAILABLE)
         }
 
-        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
+        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "\(localizableFileName).strings"
         guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
             printError("No localizations extracted from Code in directory '\(inputDirectoryPath)'.")
             exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.

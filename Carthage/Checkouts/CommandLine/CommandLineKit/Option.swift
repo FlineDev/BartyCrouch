@@ -18,27 +18,27 @@
 /**
  * The base class for a command-line option.
  */
-public class Option {
-  public let shortFlag: String?
-  public let longFlag: String?
-  public let required: Bool
-  public let helpMessage: String
-
+open class Option {
+  open let shortFlag: String?
+  open let longFlag: String?
+  open let required: Bool
+  open let helpMessage: String
+  
   /** True if the option was set when parsing command-line arguments */
-  public var wasSet: Bool {
+  open var wasSet: Bool {
     return false
   }
 
-  public var claimedValues: Int { return 0 }
+  open var claimedValues: Int { return 0 }
 
-  public var flagDescription: String {
+  open var flagDescription: String {
     switch (shortFlag, longFlag) {
     case let (sf?, lf?):
-      return "\(shortOptionPrefix)\(sf), \(longOptionPrefix)\(lf)"
+      return "\(ShortOptionPrefix)\(sf), \(LongOptionPrefix)\(lf)"
     case (nil, let lf?):
-      return "\(longOptionPrefix)\(lf)"
+      return "\(LongOptionPrefix)\(lf)"
     case (let sf?, nil):
-      return "\(shortOptionPrefix)\(sf)"
+      return "\(ShortOptionPrefix)\(sf)"
     default:
       return ""
     }
@@ -46,34 +46,34 @@ public class Option {
 
   internal init(_ shortFlag: String?, _ longFlag: String?, _ required: Bool, _ helpMessage: String) {
     if let sf = shortFlag {
-      assert(sf.characters.count == 1, "Short flag must be a single character")
+      assert(sf.count == 1, "Short flag must be a single character")
       assert(Int(sf) == nil && sf.toDouble() == nil, "Short flag cannot be a numeric value")
     }
-
+    
     if let lf = longFlag {
       assert(Int(lf) == nil && lf.toDouble() == nil, "Long flag cannot be a numeric value")
     }
-
+    
     self.shortFlag = shortFlag
     self.longFlag = longFlag
     self.helpMessage = helpMessage
     self.required = required
   }
-
+  
   /* The optional casts in these initalizers force them to call the private initializer. Without
    * the casts, they recursively call themselves.
    */
-
+  
   /** Initializes a new Option that has both long and short flags. */
   public convenience init(shortFlag: String, longFlag: String, required: Bool = false, helpMessage: String) {
     self.init(shortFlag as String?, longFlag, required, helpMessage)
   }
-
+  
   /** Initializes a new Option that has only a short flag. */
   public convenience init(shortFlag: String, required: Bool = false, helpMessage: String) {
     self.init(shortFlag as String?, nil, required, helpMessage)
   }
-
+  
   /** Initializes a new Option that has only a long flag. */
   public convenience init(longFlag: String, required: Bool = false, helpMessage: String) {
     self.init(nil, longFlag as String?, required, helpMessage)
@@ -82,7 +82,7 @@ public class Option {
   func flagMatch(_ flag: String) -> Bool {
     return flag == shortFlag || flag == longFlag
   }
-
+  
   func setValue(_ values: [String]) -> Bool {
     return false
   }
@@ -92,14 +92,14 @@ public class Option {
  * A boolean option. The presence of either the short or long flag will set the value to true;
  * absence of the flag(s) is equivalent to false.
  */
-public class BoolOption: Option {
-  private var _value: Bool = false
-
-  public var value: Bool {
+open class BoolOption: Option {
+  fileprivate var _value: Bool = false
+  
+  open var value: Bool {
     return _value
   }
 
-  override public var wasSet: Bool {
+  override open var wasSet: Bool {
     return _value
   }
 
@@ -110,18 +110,18 @@ public class BoolOption: Option {
 }
 
 /**  An option that accepts a positive or negative integer value. */
-public class IntOption: Option {
-  private var _value: Int?
-
-  public var value: Int? {
+open class IntOption: Option {
+  fileprivate var _value: Int?
+  
+  open var value: Int? {
     return _value
   }
-
-  override public var wasSet: Bool {
+  
+  override open var wasSet: Bool {
     return _value != nil
   }
 
-  override public var claimedValues: Int {
+  override open var claimedValues: Int {
     return _value != nil ? 1 : 0
   }
 
@@ -143,18 +143,18 @@ public class IntOption: Option {
  * An option that represents an integer counter. Each time the short or long flag is found
  * on the command-line, the counter will be incremented.
  */
-public class CounterOption: Option {
-  private var _value: Int = 0
-
-  public var value: Int {
+open class CounterOption: Option {
+  fileprivate var _value: Int = 0
+  
+  open var value: Int {
     return _value
   }
-
-  override public var wasSet: Bool {
+  
+  override open var wasSet: Bool {
     return _value > 0
   }
 
-  public func reset() {
+  open func reset() {
     _value = 0
   }
 
@@ -165,18 +165,18 @@ public class CounterOption: Option {
 }
 
 /**  An option that accepts a positive or negative floating-point value. */
-public class DoubleOption: Option {
-  private var _value: Double?
-
-  public var value: Double? {
+open class DoubleOption: Option {
+  fileprivate var _value: Double?
+  
+  open var value: Double? {
     return _value
   }
 
-  override public var wasSet: Bool {
+  override open var wasSet: Bool {
     return _value != nil
   }
 
-  override public var claimedValues: Int {
+  override open var claimedValues: Int {
     return _value != nil ? 1 : 0
   }
 
@@ -195,18 +195,18 @@ public class DoubleOption: Option {
 }
 
 /**  An option that accepts a string value. */
-public class StringOption: Option {
-  private var _value: String? = nil
-
-  public var value: String? {
+open class StringOption: Option {
+  fileprivate var _value: String? = nil
+  
+  open var value: String? {
     return _value
   }
-
-  override public var wasSet: Bool {
+  
+  override open var wasSet: Bool {
     return _value != nil
   }
 
-  override public var claimedValues: Int {
+  override open var claimedValues: Int {
     return _value != nil ? 1 : 0
   }
 
@@ -221,18 +221,18 @@ public class StringOption: Option {
 }
 
 /**  An option that accepts one or more string values. */
-public class MultiStringOption: Option {
-  private var _value: [String]?
-
-  public var value: [String]? {
+open class MultiStringOption: Option {
+  fileprivate var _value: [String]?
+  
+  open var value: [String]? {
     return _value
   }
-
-  override public var wasSet: Bool {
+  
+  override open var wasSet: Bool {
     return _value != nil
   }
 
-  override public var claimedValues: Int {
+  override open var claimedValues: Int {
     if let v = _value {
       return v.count
     }
@@ -289,9 +289,7 @@ public class EnumOption<T:RawRepresentable>: Option where T.RawValue == String {
   }
 
   override func setValue(_ values: [String]) -> Bool {
-    if values.count == 0 {
-      return false
-    }
+    if values.count == 0 { return false }
 
     if let v = T(rawValue: values[0]) {
       _value = v

@@ -1,11 +1,22 @@
-//
-//  Package.swift
-//  HandySwift
-//
-//  Created by Cihat Gündüz on 20.12.15.
-//  Copyright © 2015 Flinesoft. All rights reserved.
-//
-
+// swift-tools-version:4.0
 import PackageDescription
 
-let package = Package(name: "HandySwift")
+let package = Package(
+    name: "HandySwift",
+    products: [
+        .library(
+            name: "HandySwift",
+            targets: ["HandySwift"]
+        )
+    ],
+    targets: [
+        .target(
+            name: "HandySwift",
+            path: "Sources",
+            exclude: [
+                "Sources/Supporting Files"
+            ]
+        )
+    ],
+    swiftLanguageVersions: [4]
+)

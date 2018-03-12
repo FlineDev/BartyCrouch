@@ -1,7 +1,4 @@
 //
-//  CommandLineActorTests.swift
-//  BartyCrouch
-//
 //  Created by Cihat Gündüz on 05.05.16.
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
@@ -46,7 +43,7 @@ class CommandLineActorTests: XCTestCase {
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
-                XCTFail()
+                XCTFail("Updater could not be initialized. Is the file missing? Path: \(self.unsortedKeysStringsFilePath)")
                 return
             }
 
@@ -64,7 +61,7 @@ class CommandLineActorTests: XCTestCase {
             CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
 
             guard let updater = StringsFileUpdater(path: self.unsortedKeysStringsFilePath) else {
-                XCTFail()
+                XCTFail("Updater could not be initialized. Is the file missing? Path: \(self.unsortedKeysStringsFilePath)")
                 return
             }
 

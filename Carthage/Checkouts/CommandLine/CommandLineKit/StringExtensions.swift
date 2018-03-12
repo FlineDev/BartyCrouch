@@ -26,12 +26,15 @@ internal extension String {
   /* Retrieves locale-specified decimal separator from the environment
    * using localeconv(3).
    */
-  private func _localDecimalPoint() -> Character {
-    guard let locale = localeconv(), let decimalPoint = locale.pointee.decimal_point else {
-      return "."
+  fileprivate func _localDecimalPoint() -> Character {
+    let locale = localeconv()
+    if locale != nil {
+      if let decimalPoint = locale?.pointee.decimal_point {
+        return Character(UnicodeScalar(UInt32(decimalPoint.pointee))!)
+      }
     }
 
-    return Character(UnicodeScalar(UInt8(bitPattern: decimalPoint.pointee)))
+    return "."
   }
 
   /**
@@ -40,10 +43,40 @@ internal extension String {
    * - returns: A Double if the string can be parsed, nil otherwise.
    */
   func toDouble() -> Double? {
-    let decimalPoint = String(self._localDecimalPoint())
-    guard decimalPoint == "." || self.range(of: ".") == nil else { return nil }
-    let localeSelf = self.replacingOccurrences(of: decimalPoint, with: ".")
-    return Double(localeSelf)
+    var characteristic: String = "0"
+    var mantissa: String = "0"
+    var inMantissa: Bool = false
+    var isNegative: Bool = false
+    let decimalPoint = self._localDecimalPoint()
+
+    let charactersEnumerator = self.enumerated()
+    for (i, c) in charactersEnumerator {
+      if i == 0 && c == "-" {
+        isNegative = true
+        continue
+      }
+
+      if c == decimalPoint {
+        inMantissa = true
+        continue
+      }
+
+      if Int(String(c)) != nil {
+        if !inMantissa {
+          characteristic.append(c)
+        } else {
+          mantissa.append(c)
+        }
+      } else {
+        /* Non-numeric character found, bail */
+        return nil
+      }
+    }
+
+    let doubleCharacteristic = Double(Int(characteristic)!)
+    return (doubleCharacteristic +
+      Double(Int(mantissa)!) / pow(Double(10), Double(mantissa.count - 1))) *
+      (isNegative ? -1 : 1)
   }
 
   /**
@@ -59,25 +92,17 @@ internal extension String {
     var numSplits = 0
 
     var curIdx = self.startIndex
-    for i in self.characters.indices {
+    for i in self.indices {
       let c = self[i]
       if c == by && (maxSplits == 0 || numSplits < maxSplits) {
-#if swift(>=3.2)
         s.append(String(self[curIdx..<i]))
-#else
-        s.append(self[curIdx..<i])
-#endif
         curIdx = self.index(after: i)
         numSplits += 1
       }
     }
 
     if curIdx != self.endIndex {
-#if swift(>=3.2)
       s.append(String(self[curIdx..<self.endIndex]))
-#else
-      s.append(self[curIdx..<self.endIndex])
-#endif
     }
 
     return s
@@ -93,7 +118,7 @@ internal extension String {
    */
   func padded(toWidth width: Int, with padChar: Character = " ") -> String {
     var s = self
-    var currentLength = self.characters.count
+    var currentLength = self.count
 
     while currentLength < width {
       s.append(padChar)
@@ -121,7 +146,7 @@ internal extension String {
     var currentLineWidth = 0
 
     for word in self.split(by: splitBy) {
-      let wordLength = word.characters.count
+      let wordLength = word.count
 
       if currentLineWidth + wordLength + 1 > width {
         /* Word length is greater than line length, can't wrap */
