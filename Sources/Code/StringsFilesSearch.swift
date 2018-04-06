@@ -54,16 +54,26 @@ public class StringsFilesSearch {
     }
 
     func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String] {
-        do {
-            let pathsToIgnore = [".git/", "Carthage/", "Pods/", "build/", "docs/"]
-            let allFilePaths = try FileManager.default.subpathsOfDirectory(atPath: baseDirectoryPath).filter { !$0.containsAny(of: pathsToIgnore) }
-            let ibFilePaths = allFilePaths.filter { filePath in
-                return !regularExpression.matches(in: filePath, options: .reportCompletion, range: filePath.fullRange).isEmpty
+        let baseDirectoryURL = URL(fileURLWithPath: baseDirectoryPath)
+        guard let enumerator = FileManager.default.enumerator(at: baseDirectoryURL, includingPropertiesForKeys: nil) else { return [] }
+
+        var filePaths = [String]()
+        let dirsToIgnore = Set([".git", "Carthage", "Pods", "build", "docs"])
+        let baseDirectoryAbsolutePath = baseDirectoryURL.path
+
+        for case let url as URL in enumerator {
+            if dirsToIgnore.contains(url.lastPathComponent) {
+                enumerator.skipDescendants()
+                continue
             }
 
-            return ibFilePaths.map { baseDirectoryPath + "/" + $0 }
-        } catch {
-            return []
+            let absolutePath = url.path
+            let searchRange = NSRange(location: baseDirectoryAbsolutePath.count, length: absolutePath.count - baseDirectoryAbsolutePath.count)
+            if regularExpression.firstMatch(in: absolutePath, options: [], range: searchRange) != nil {
+                filePaths.append(absolutePath)
+            }
         }
+
+        return filePaths
     }
 }
