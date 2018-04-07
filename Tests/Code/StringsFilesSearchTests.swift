@@ -71,6 +71,16 @@ class StringsFilesSearchTests: XCTestCase {
         XCTAssertEqual(results.sorted(), expectedStringsPaths.sorted())
     }
 
+    // MARK: - Performance Tests
+    func testSearchFilesPerformance() {
+        measure {
+            100.times {
+                _ = StringsFilesSearch.shared.findAllIBFiles(within: "\(BASE_DIR)/Tests/Assets/Storyboards")
+                _ = StringsFilesSearch.shared.findAllStringsFiles(within: "\(BASE_DIR)/Tests/Assets/Strings Files", withLocale: "en")
+            }
+        }
+    }
+
     // MARK: - Helpers
     func examplePath(platform: String, locale: String, type: String) -> String {
         return "\(BASE_DIR)/Tests/Assets/Storyboards/\(platform)/\(locale).lproj/Example.\(type)"
