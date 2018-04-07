@@ -37,8 +37,8 @@ class StringsFileUpdaterTests: XCTestCase {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
         } catch { print("No TestExample.strings to clean up") }
         do {
-            for i in self.testExamplesRange {
-                try FileManager.default.removeItem(atPath: self.testStringsFilePath(i))
+            for index in self.testExamplesRange {
+                try FileManager.default.removeItem(atPath: self.testStringsFilePath(index))
             }
         } catch { print("No TestExample{i}.strings to clean up") }
     }
@@ -51,8 +51,8 @@ class StringsFileUpdaterTests: XCTestCase {
             try FileManager.default.removeItem(atPath: self.testStringsFilePath)
         } catch { print("No TestExample.strings to clean up") }
         do {
-            for i in self.testExamplesRange {
-                try FileManager.default.removeItem(atPath: self.testStringsFilePath(i))
+            for index in self.testExamplesRange {
+                try FileManager.default.removeItem(atPath: self.testStringsFilePath(index))
             }
         } catch { print("No TestExample{i}.strings to clean up") }
     }
@@ -474,13 +474,13 @@ class StringsFileUpdaterTests: XCTestCase {
 
     func testIncrementallyUpdateKeysPerformance() {
         do {
-            for i in self.testExamplesRange {
-                try FileManager.default.copyItem(atPath: longOldStringsFilePath, toPath: self.testStringsFilePath(i))
+            for index in self.testExamplesRange {
+                try FileManager.default.copyItem(atPath: longOldStringsFilePath, toPath: self.testStringsFilePath(index))
             }
 
             measure {
-                for i in self.testExamplesRange {
-                    let stringsFileUpdater = StringsFileUpdater(path: self.testStringsFilePath(i))!
+                for index in self.testExamplesRange {
+                    let stringsFileUpdater = StringsFileUpdater(path: self.testStringsFilePath(index))!
                     stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: self.longNewStringsFilePath, addNewValuesAsEmpty: false)
                 }
             }
