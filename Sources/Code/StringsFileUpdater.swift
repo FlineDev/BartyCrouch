@@ -114,14 +114,7 @@ public class StringsFileUpdater {
 
                 let sortingClosure: (TranslationEntry, TranslationEntry) -> Bool = {
                     if sortByKeys {
-                        return { translation1, translation2 in
-                            // ensure keys with empty values are appended to the end
-                            if translation1.value.isEmpty == translation2.value.isEmpty {
-                                return translation1.key.lowercased() < translation2.key.lowercased()
-                            } else {
-                                return translation2.value.isEmpty
-                            }
-                        }
+                        return translationEntrySortingClosure(lhs:rhs:)
                     } else {
                         return { translation1, translation2 in translation1.line < translation2.line }
                     }
@@ -133,6 +126,22 @@ public class StringsFileUpdater {
             rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
         } catch {
             print(error.localizedDescription, level: .error)
+        }
+    }
+
+    public func sortByKeys(keepWhitespaceSurroundings: Bool = false) {
+        let translations = findTranslations(inString: oldContentString)
+        let sortedTranslations = translations.sorted(by: translationEntrySortingClosure(lhs:rhs:), stable: true)
+
+        rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
+    }
+
+    private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
+        // ensure keys with empty values are appended to the end
+        if lhs.value.isEmpty == rhs.value.isEmpty {
+            return lhs.key.lowercased() < rhs.key.lowercased()
+        } else {
+            return rhs.value.isEmpty
         }
     }
 
