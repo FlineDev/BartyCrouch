@@ -172,6 +172,21 @@ public class CommandLineActor {
         let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
         guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
             print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
+
+            if sortByKeys {
+                // sort file even if no localizations extracted if specified to do so
+                for outputStringsFilePath in outputStringsFilePaths {
+                    guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
+                        print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
+                        exit(EX_CONFIG)
+                    }
+
+                    stringsFileUpdater.sortByKeys(keepWhitespaceSurroundings: unstripped)
+
+                    if verbose { print("Sorted keys of file '\(outputStringsFilePath)'.", level: .info) }
+                }
+            }
+
             exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
         }
 

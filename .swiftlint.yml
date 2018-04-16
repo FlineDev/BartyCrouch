@@ -34,6 +34,7 @@ excluded:
 - Carthage
 - Package.swift
 - UsageExamples.playground
+- Tests/Assets
 
 
 identifier_name:
