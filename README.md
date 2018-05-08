@@ -99,6 +99,9 @@ $ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Lo
 
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
+
+# Normalize your Strings files to keep them nice an clean
+$ bartycrouch normalize -p "/path/to/project" -l en -d -w -h -s
 ```
 
 Also you can make your life a lot easier by using the **build script method** described [below](#build-script).
