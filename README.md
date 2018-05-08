@@ -112,6 +112,7 @@ The `bartycrouch` main command accepts one of the following sub commands:
 - **`interfaces`:** Incrementally updates Strings files of localized Storyboards and XIBs.
 - **`code`:** Incrementally updates `Localizable.strings` files from `.h`, `.m` and `.swift` files.
 - **`translate`:** Machine-translates values from a source Strings file to all other languages.
+- **`normalize`:** Normalizes Strings files with configurable options to keep them nice and clean.
 
 Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running a sub command without options like so:
 
@@ -338,6 +339,96 @@ Example:
 ```shell
 # Uses Simpliied Chinese as the source language for translating to all other languages
 $ bartycrouch translate -p "/path/to/project" -l "zh-Hans" -i "<API_ID>" -s "<API_SECRET>"
+```
+
+---
+
+
+### Options for `normalize`
+
+Here's an overview of all options available for the sub command `normalize`:
+
+- `path` (required), `override` and `verbose` (see [Options for all Sub Commands](#options-for-all-sub-commands) above)
+- `locale` (required)
+- `prevent-duplicate-keys`
+- `warn-empty-values`
+- `harmonize-with-source`
+- `sort-by-keys`
+
+#### Locale (aka `-l`, `--locale`) <small>*required*</small>
+
+Specify the source locale from which to normalize other languages Strings files (.strings).
+
+Example:
+
+```shell
+$ bartycrouch normalize -p "/path/to/code/files" -l en
+```
+
+#### Prevent Duplicate Keys (aka `-d`, `--prevent-duplicate-keys`) <small>*optional*</small>
+
+Warns if Strings files contain duplicate keys or removes duplicates automatically if values are equal.
+
+Example:
+
+```shell
+$ bartycrouch normalize -p "/path/to/code/files" -l en -d
+```
+
+#### Warn Empty Values (aka `-w`, `--warn-empty-values`) <small>*optional*</small>
+
+Warns if Strings files contain keys with empty values. Designed to be used as part of Xcode build scripts.
+
+Example:
+
+```shell
+$ bartycrouch normalize -p "/path/to/code/files" -l en -w
+```
+
+#### Harmonize with Source (aka `-h`, `--harmonize-with-source`) <small>*optional*</small>
+
+Makes sure all languages have exactly the same keys as the source language specified with `-l`. This command will remove all keys from target languages files which don't appear in the source language file. And vice versa it also adds keys to target language files that are missing compared to the source language file.
+
+Example:
+
+```shell
+$ bartycrouch normalize -p "/path/to/code/files" -l en -h
+```
+
+#### Sort by Keys (aka `-s`, `--sort-by-keys`) <small>*optional*</small>
+
+If you want the order of translations in your Strings files to be **alphabetically sorted** by their keys just use the option `-s`. To ensure that you can still easily find your untranslated keys this option will check the value of your translations and **place those without a translation at the end of the file**. Once you translated those entries they will be correctly sorted amongst the translated keys on the next run of BartyCrouch.
+
+Example:
+
+```shell
+$ bartycrouch normalize -p "/path/to/code/files" -l en -s
+```
+
+#### Unstripped (aka `-u`, `--unstripped`) <small>*optional*</small>
+
+If you use any **service or other tool that alters your Strings files** and if BartyCrouch seems to change the beginning and ends of those files due to different whitespacing/newline conventions, then you can simply use the `-u` command to keep the beginning and end as they are. By default BartyCrouch adds exactly one line to both the beginning and end of a file. Note that this option keeps up to 10 newline/whitespace characters from the original file at both beginning and end.
+
+Example:
+
+```shell
+$ bartycrouch interfaces -p "/path/to/project" -u
+```
+
+#### Custom Function (aka `-f`, `--custom-function`) <small>*optional*</small>
+
+If you use a **custom function** in your code to localize your Strings (instead of `NSLocalizedString`) you can specify it using this option. BartyCrouch passes this along to the `genstrings`/`extractLocStrings` tools. So you need to make sure your custom function follows the requirements of `genstrings`/`extractLocStrings`.
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
+```
+
+#### Custom Localizable Name (aka `-n`, `--custom-localizable-name`) <small>*optional*</small>
+
+If you want to use a different name for your `Localizable.strings` file for whatever reason, you can specify a custom name using this option like this:
+
+```shell
+$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -n "MyCustomLocalizable"
 ```
 
 ---
