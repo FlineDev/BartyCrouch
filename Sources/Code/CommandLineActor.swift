@@ -166,22 +166,29 @@ public class CommandLineActor {
                 }
             }
 
-            allStringsFilePaths.forEach { filePath in
-                if preventDuplicateKeys {
-                    preventDuplicateEntries(inFile: filePath)
-                }
-
-                if sortByKeys {
-                    sortEntries(inFile: filePath)
-                }
-
-                if warnEmptyValues {
-                    warnEmptyValueEntries(inFile: filePath)
+            targetStringsFilePaths.forEach { filePath in
+                let stringsFileUpdater = StringsFileUpdater(path: filePath)
+                do {
+                    try stringsFileUpdater?.harmonizeKeys(withSource: sourceFilePath)
+                } catch {
+                    print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error); exit(EX_USAGE)
                 }
             }
 
-            targetStringsFilePaths.forEach { filePath in
-                harmonizeKeys(inFile: filePath, fromSource: sourceFilePath)
+            allStringsFilePaths.forEach { filePath in
+                let stringsFileUpdater = StringsFileUpdater(path: filePath)
+
+                if preventDuplicateKeys {
+                    stringsFileUpdater?.preventDuplicateEntries(verbose: verbose)
+                }
+
+                if sortByKeys {
+                    stringsFileUpdater?.sortByKeys()
+                }
+
+                if warnEmptyValues {
+                    stringsFileUpdater?.warnEmptyValueEntries()
+                }
             }
         }
     }
@@ -316,29 +323,6 @@ public class CommandLineActor {
         }
 
         print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .info)
-    }
-
-    private func preventDuplicateEntries(inFile filePath: String) {
-        // TODO: not yet implemented
-        // should auto-fix if duplicate entry has the same value and only keep first
-        // should show a warning in Xcode if the values differ
-    }
-
-    private func sortEntries(inFile filePath: String) {
-        // TODO: not yet implemented
-        // should sort by keys alphabetically
-        // should keep strings with empty values at the end of the file
-    }
-
-    private func warnEmptyValueEntries(inFile filePath: String) {
-        // TODO: not yet implemented
-        // should show a warning when entries are not yet translated
-    }
-
-    private func harmonizeKeys(inFile filePath: String, fromSource sourceFilePath: String) {
-        // TODO: not yet implemented
-        // should only keep keys that are apparent in the source language file
-        // should add all keys that are missing form the source language file
     }
 }
 
