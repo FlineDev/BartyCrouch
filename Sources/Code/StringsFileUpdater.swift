@@ -3,7 +3,7 @@
 //  Copyright © 2016 Flinesoft. All rights reserved.
 //
 
-// swiftlint:disable function_body_length
+// swiftlint:disable function_body_length type_body_length file_length
 
 import Foundation
 
@@ -29,6 +29,7 @@ public class StringsFileUpdater {
         }
     }
 
+    // MARK: - Methods
     // Updates the keys of this instances strings file with those of the given strings file.
     public func incrementallyUpdateKeys(
         withStringsFileAtPath otherStringFilePath: String,
@@ -171,6 +172,10 @@ public class StringsFileUpdater {
 
                 var whitespacesOrNewlinesAtBegin = ""
                 for index in 1...10 { // allows a maximum of 10 whitespace chars at end
+                    if oldContentString.count < index {
+                        break
+                    }
+
                     let substring = String(oldContentString.suffix(oldContentString.count - index))
                     if substring.isBlank {
                         whitespacesOrNewlinesAtBegin = substring
@@ -362,6 +367,83 @@ public class StringsFileUpdater {
 
         let region = (path as NSString).substring(with: regionMatch.range(at: 1))
         return (language, region)
+    }
+
+    func preventDuplicateEntries() {
+        let translations = findTranslations(inString: oldContentString)
+        let translationsDict = Dictionary(grouping: translations) { $0.key }
+        let duplicateTranslationsDict = translationsDict.filter { $1.count > 1 }
+
+        var fixedTranslations = Array(translations)
+
+        for (duplicateKey, duplicateKeyTranslations) in duplicateTranslationsDict {
+            let firstTranslation = duplicateKeyTranslations.first!
+
+            let hasDifferentValuesOrComments = duplicateKeyTranslations.reduce(false) { result, translation in
+                return result || translation.value != firstTranslation.value || translation.comment != firstTranslation.comment
+            }
+
+            if hasDifferentValuesOrComments {
+                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning)
+
+                duplicateKeyTranslations.forEach { translation in
+                    print(xcodeWarning(filePath: path, line: translation.line, message: "Duplicate key. Remove all but one."))
+                }
+            } else {
+                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info)
+
+                duplicateKeyTranslations.dropFirst().forEach { translation in
+                    fixedTranslations = fixedTranslations.filter { $0.line != translation.line }
+                }
+            }
+        }
+
+        rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
+    }
+
+    func warnEmptyValueEntries() {
+        let translations = findTranslations(inString: oldContentString)
+        translations.filter { $0.value.isEmpty }.forEach { translation in
+            print(xcodeWarning(filePath: path, line: translation.line, message: "Empty translation value."))
+        }
+    }
+
+    func harmonizeKeys(withSource sourceFilePath: String) throws {
+        let sourceFileContentString = try String(contentsOfFile: sourceFilePath)
+
+        let sourceTranslations = findTranslations(inString: sourceFileContentString)
+        let translations = findTranslations(inString: oldContentString)
+
+        var fixedTranslations = Array(translations)
+
+        let sourceTranslationsDict = Dictionary(grouping: sourceTranslations) { $0.key }
+        let translationsDict = Dictionary(grouping: translations) { $0.key }
+
+        let keysToAdd = Set(sourceTranslationsDict.keys).subtracting(translationsDict.keys)
+        let keysToRemove = Set(translationsDict.keys).subtracting(sourceTranslationsDict.keys)
+
+        let translationsToAdd = sourceTranslationsDict.filter { keysToAdd.contains($0.key) }.mapValues { $0.first! }
+        if !translationsToAdd.isEmpty {
+            print("Adding missing keys \(translationsToAdd.keys) to Strings file \(path).", level: .info)
+        }
+
+        translationsToAdd.sorted { lhs, rhs in lhs.value.line < rhs.value.line }.forEach { translationTuple in
+            fixedTranslations.append(translationTuple.value)
+        }
+
+        if !keysToRemove.isEmpty {
+            print("Removing unnecessary keys \(keysToRemove) from Strings file \(path).", level: .info)
+        }
+
+        keysToRemove.forEach { keyToRemove in
+            fixedTranslations = fixedTranslations.filter { $0.key != keyToRemove }
+        }
+
+        rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
+    }
+
+    func xcodeWarning(filePath: String, line: Int, message: String) -> String {
+        return "\(filePath):\(line): warning: BartyCrouch: \(message)"
     }
 }
 

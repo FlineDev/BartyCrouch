@@ -11,9 +11,10 @@ public class CommandLineParser {
         case code
         case interfaces
         case translate
+        case normalize
 
         static func all() -> [SubCommand] {
-            return [.code, .interfaces, .translate]
+            return [.code, .interfaces, .translate, .normalize]
         }
     }
 
@@ -22,12 +23,25 @@ public class CommandLineParser {
 
     public enum SubCommandOptions {
         case codeOptions(
-            localizable: StringOption, defaultToKeys: BoolOption, additive: BoolOption, overrideComments: BoolOption,
-            useExtractLocStrings: BoolOption, sortByKeys: BoolOption, unstripped: BoolOption, customFunction: StringOption,
+            localizable: StringOption,
+            defaultToKeys: BoolOption,
+            additive: BoolOption,
+            overrideComments: BoolOption,
+            useExtractLocStrings: BoolOption,
+            sortByKeys: BoolOption,
+            unstripped: BoolOption,
+            customFunction: StringOption,
             customLocalizableName: StringOption
         )
         case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
+        case normalizeOptions(
+            locale: StringOption,
+            preventDuplicateKeys: BoolOption,
+            sortByKeys: BoolOption,
+            warnEmptyValues: BoolOption,
+            harmonizeWithSource: BoolOption
+        )
     }
 
     // MARK: - Stored Instance Properties
@@ -93,6 +107,27 @@ public class CommandLineParser {
         helpMessage: "Specified a custom name for the Strings file instead of the default `Localizable.strings`."
     )
 
+    private let preventDuplicateKeys = BoolOption(
+        shortFlag: "d",
+        longFlag: "prevent-duplicate-keys",
+        required: false,
+        helpMessage: "Warns if Strings files contain duplicate keys or removes duplicates automatically if values are equal."
+    )
+
+    private let warnEmptyValues = BoolOption(
+        shortFlag: "w",
+        longFlag: "warn-empty-values",
+        required: false,
+        helpMessage: "Warns if Strings files contain keys with empty values. Designed to be used as part of Xcode build scripts."
+    )
+
+    private let harmonizeWithSource = BoolOption(
+        shortFlag: "h",
+        longFlag: "harmonize-with-source",
+        required: false,
+        helpMessage: "Makes sure all languages have exactly the same keys as the source language specified with `-l`."
+    )
+
     // MARK: - Initializers
     public init(arguments: [String] = CommandLine.arguments) {
         self.arguments = arguments
@@ -152,6 +187,9 @@ public class CommandLineParser {
 
         case .translate:
             return self.setupTranslateCLI()
+
+        case .normalize:
+            return self.setupNormalizeCLI()
         }
     }
 
@@ -227,6 +265,35 @@ public class CommandLineParser {
         let subCommandOptions = SubCommandOptions.translateOptions(id: id, secret: secret, locale: locale)
 
         commandLine.addOptions(path, id, secret, locale, override, verbose)
+        return (commandLine, commonOptions, subCommandOptions)
+    }
+
+    private func setupNormalizeCLI() -> CommandLineContext {
+        let commandLine = CommandLineKit(arguments: self.arguments(for: .normalize))
+
+        // Required
+        let path = self.pathOption(helpMessage: "Set the base path to recursively search within for Strings files (.strings).")
+        let locale = StringOption(
+            shortFlag: "l",
+            longFlag: "locale",
+            required: true,
+            helpMessage: "Specify the source locale from which to normalize other languages Strings files (.strings)."
+        )
+
+        // Optional
+        let override = self.overrideOption(helpMessage: "Overrides existing translation values. Use carefully.") // NOTE: probably not needed here
+        let verbose = self.verboseOption()
+
+        let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
+        let subCommandOptions = SubCommandOptions.normalizeOptions(
+            locale: locale,
+            preventDuplicateKeys: preventDuplicateKeys,
+            sortByKeys: sortByKeys,
+            warnEmptyValues: warnEmptyValues,
+            harmonizeWithSource: harmonizeWithSource
+        )
+
+        commandLine.addOptions(path, locale, preventDuplicateKeys, sortByKeys, warnEmptyValues, harmonizeWithSource, override, verbose)
         return (commandLine, commonOptions, subCommandOptions)
     }
 
