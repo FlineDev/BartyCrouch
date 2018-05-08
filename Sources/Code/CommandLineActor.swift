@@ -179,7 +179,7 @@ public class CommandLineActor {
                 let stringsFileUpdater = StringsFileUpdater(path: filePath)
 
                 if preventDuplicateKeys {
-                    stringsFileUpdater?.preventDuplicateEntries(verbose: verbose)
+                    stringsFileUpdater?.preventDuplicateEntries()
                 }
 
                 if sortByKeys {

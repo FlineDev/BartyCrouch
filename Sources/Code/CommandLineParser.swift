@@ -293,7 +293,7 @@ public class CommandLineParser {
             harmonizeWithSource: harmonizeWithSource
         )
 
-        commandLine.addOptions(path, verbose)
+        commandLine.addOptions(path, locale, preventDuplicateKeys, sortByKeys, warnEmptyValues, harmonizeWithSource, override, verbose)
         return (commandLine, commonOptions, subCommandOptions)
     }
 
