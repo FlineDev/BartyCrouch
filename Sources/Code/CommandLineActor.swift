@@ -28,10 +28,7 @@ public class CommandLineActor {
 
         switch subCommandOptions {
         case let .codeOptions(localizableOption, defaultToKeysOption, additiveOption, overrideComments, useExtractLocStrings, sortByKeys, unstripped, customFunction, customLocalizableName): // swiftlint:disable:this line_length
-            guard let localizable = localizableOption.value else {
-                print("Localizable option `-l` is missing.", level: .error)
-                exit(EX_USAGE)
-            }
+            guard let localizable = localizableOption.value else { print("Localizable option `-l` is missing.", level: .error); exit(EX_USAGE) }
 
             self.actOnCode(
                 path: path, override: override, verbose: verbose, localizable: localizable, defaultToKeys: defaultToKeysOption.value,
@@ -45,21 +42,25 @@ public class CommandLineActor {
 
         case let .translateOptions(idOption, secretOption, localeOption):
             guard let id = idOption.value else {
-                print("Microsoft Translator API credential 'id' missing. Specify via option `-i`.", level: .error)
-                exit(EX_USAGE)
+                print("Microsoft Translator API credential 'id' missing. Specify via option `-i`.", level: .error); exit(EX_USAGE)
             }
 
             guard let secret = secretOption.value else {
-                print("Microsoft Translator API credential 'secret' missing. Specify via option `-s`.", level: .error)
-                exit(EX_USAGE)
+                print("Microsoft Translator API credential 'secret' missing. Specify via option `-s`.", level: .error); exit(EX_USAGE)
             }
 
-            guard let locale = localeOption.value else {
-                print("Locale option `-l` is missing.", level: .error)
-                exit(EX_USAGE)
-            }
+            guard let locale = localeOption.value else { print("Locale option `-l` is missing.", level: .error); exit(EX_USAGE) }
 
             self.actOnTranslate(path: path, override: override, verbose: verbose, id: id, secret: secret, locale: locale)
+
+        case let .normalizeOptions(locale, preventDuplicateKeys, sortByKeys, warnEmptyValues, harmonizeWithSource):
+            guard let locale = locale.value else { print("Locale option `-l` is missing.", level: .error); exit(EX_USAGE) }
+
+            self.actOnNormalize(
+                path: path, override: override, verbose: verbose,
+                locale: locale, preventDuplicateKeys: preventDuplicateKeys.value, sortByKeys: sortByKeys.value,
+                warnEmptyValues: warnEmptyValues.value, harmonizeWithSource: harmonizeWithSource.value
+            )
         }
     }
 
@@ -78,8 +79,7 @@ public class CommandLineActor {
 
         for localizableStringsFilePath in allLocalizableStringsFilePaths {
             guard FileManager.default.fileExists(atPath: localizableStringsFilePath) else {
-                print("No file exists at output path '\(localizableStringsFilePath)'", level: .error)
-                exit(EX_NOINPUT)
+                print("No file exists at output path '\(localizableStringsFilePath)'", level: .error); exit(EX_NOINPUT)
             }
         }
 
@@ -93,23 +93,18 @@ public class CommandLineActor {
     private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
-        guard !inputFilePaths.isEmpty else {
-            print("No input files found.", level: .error)
-            exit(EX_USAGE)
-        }
+        guard !inputFilePaths.isEmpty else { print("No input files found.", level: .error); exit(EX_USAGE) }
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
-                print("No file exists at input path '\(inputFilePath)'", level: .error)
-                exit(EX_NOINPUT)
+                print("No file exists at input path '\(inputFilePath)'", level: .error); exit(EX_NOINPUT)
             }
 
             let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error)
-                    exit(EX_CONFIG)
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error); exit(EX_CONFIG)
                 }
             }
 
@@ -129,20 +124,65 @@ public class CommandLineActor {
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
-                print("No file exists at input path '\(inputFilePath)'", level: .error)
-                exit(EX_NOINPUT)
+                print("No file exists at input path '\(inputFilePath)'.", level: .error); exit(EX_NOINPUT)
             }
 
             let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error)
-                    exit(EX_CONFIG)
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error); exit(EX_CONFIG)
                 }
             }
 
             self.translate(id: id, secret: secret, inputFilePath, outputStringsFilePaths, override: override, verbose: verbose)
+        }
+    }
+
+    private func actOnNormalize(
+        path: String,
+        override: Bool,
+        verbose: Bool,
+        locale: String,
+        preventDuplicateKeys: Bool,
+        sortByKeys: Bool,
+        warnEmptyValues: Bool,
+        harmonizeWithSource: Bool
+    ) {
+        let sourceFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
+        guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .error); exit(EX_USAGE) }
+
+        for sourceFilePath in sourceFilePaths {
+            guard FileManager.default.fileExists(atPath: sourceFilePath) else {
+                print("No file exists at input path '\(sourceFilePath)'.", level: .error); exit(EX_NOINPUT)
+            }
+
+            let allStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: sourceFilePath)
+            let targetStringsFilePaths = allStringsFilePaths.filter { $0 != sourceFilePath }
+
+            for targetStringsFilePath in targetStringsFilePaths {
+                guard FileManager.default.fileExists(atPath: targetStringsFilePath) else {
+                    print("No file exists at other language path '\(targetStringsFilePath)'.", level: .error); exit(EX_CONFIG)
+                }
+            }
+
+            allStringsFilePaths.forEach { filePath in
+                if preventDuplicateKeys {
+                    preventDuplicateEntries(inFile: filePath)
+                }
+
+                if sortByKeys {
+                    sortEntries(inFile: filePath)
+                }
+
+                if warnEmptyValues {
+                    warnEmptyValueEntries(inFile: filePath)
+                }
+            }
+
+            targetStringsFilePaths.forEach { filePath in
+                harmonizeKeys(inFile: filePath, fromSource: sourceFilePath)
+            }
         }
     }
 
@@ -276,6 +316,29 @@ public class CommandLineActor {
         }
 
         print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .info)
+    }
+
+    private func preventDuplicateEntries(inFile filePath: String) {
+        // TODO: not yet implemented
+        // should auto-fix if duplicate entry has the same value and only keep first
+        // should show a warning in Xcode if the values differ
+    }
+
+    private func sortEntries(inFile filePath: String) {
+        // TODO: not yet implemented
+        // should sort by keys alphabetically
+        // should keep strings with empty values at the end of the file
+    }
+
+    private func warnEmptyValueEntries(inFile filePath: String) {
+        // TODO: not yet implemented
+        // should show a warning when entries are not yet translated
+    }
+
+    private func harmonizeKeys(inFile filePath: String, fromSource sourceFilePath: String) {
+        // TODO: not yet implemented
+        // should only keep keys that are apparent in the source language file
+        // should add all keys that are missing form the source language file
     }
 }
 
