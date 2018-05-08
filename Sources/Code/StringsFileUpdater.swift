@@ -387,7 +387,8 @@ public class StringsFileUpdater {
                 print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning)
 
                 duplicateKeyTranslations.forEach { translation in
-                    print(xcodeWarning(filePath: path, line: translation.line, message: "Duplicate key. Remove all but one."))
+                    let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
+                    print(xcodeWarning(filePath: path, line: keyValueLine, message: "Duplicate key. Remove all but one."))
                 }
             } else {
                 print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info)
@@ -404,7 +405,8 @@ public class StringsFileUpdater {
     func warnEmptyValueEntries() {
         let translations = findTranslations(inString: oldContentString)
         translations.filter { $0.value.isEmpty }.forEach { translation in
-            print(xcodeWarning(filePath: path, line: translation.line, message: "Empty translation value."))
+            let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
+            print(xcodeWarning(filePath: path, line: keyValueLine, message: "Empty translation value."))
         }
     }
 
