@@ -25,6 +25,7 @@ opt_in_rules:
 disabled_rules:
 - todo
 - cyclomatic_complexity
+- type_body_length
 
 included:
 - Sources

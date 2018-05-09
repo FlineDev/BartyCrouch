@@ -31,6 +31,12 @@ public class StringsFilesSearch {
         return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
     }
 
+    public func findAllStringsFiles(within baseDirectoryPath: String) -> [String] {
+        // swiftlint:disable:next force_try
+        let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\.lproj/.+\\.strings\\z", options: .caseInsensitive)
+        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: stringsFileRegex)
+    }
+
     public func findAllLocalesForStringsFile(sourceFilePath: String) -> [String] {
         var pathComponents = sourceFilePath.components(separatedBy: "/")
         let storyboardName: String = {

@@ -6,6 +6,7 @@
 import Cocoa
 
 enum PrintLevel {
+    case success
     case info
     case warning
     case error
@@ -13,6 +14,9 @@ enum PrintLevel {
 
 func print(_ message: String, level: PrintLevel) {
     switch level {
+    case .success:
+        print("✅", "Success!".lightGreen, message.lightGreen)
+
     case .info:
         print("ℹ️", message.lightBlue)
 

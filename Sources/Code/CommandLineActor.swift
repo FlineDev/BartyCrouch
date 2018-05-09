@@ -58,6 +58,9 @@ public class CommandLineActor {
                 locale: locale, preventDuplicateKeys: preventDuplicateKeys.value, sortByKeys: sortByKeys.value,
                 warnEmptyValues: warnEmptyValues.value, harmonizeWithSource: harmonizeWithSource.value
             )
+
+        case let .lintOptions(emptyValues, duplicateKeys):
+            self.actOnLint(path: path, duplicateKeys: duplicateKeys.value, emptyValues: emptyValues.value)
         }
     }
 
@@ -184,6 +187,65 @@ public class CommandLineActor {
                     stringsFileUpdater?.warnEmptyValueEntries()
                 }
             }
+        }
+    }
+
+    private func actOnLint(path: String, duplicateKeys: Bool, emptyValues: Bool) {
+        let stringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path)
+        guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); exit(EX_OK) }
+
+        let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
+
+        if totalChecks <= 0 {
+            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning)
+        }
+
+        var failedFilePaths: [String] = []
+        var totalFails = 0
+
+        for stringsFilePath in stringsFilePaths {
+            guard FileManager.default.fileExists(atPath: stringsFilePath) else {
+                print("No file exists at file path '\(stringsFilePath)'.", level: .error); exit(EX_NOINPUT)
+            }
+
+            let stringsFileUpdater = StringsFileUpdater(path: stringsFilePath)
+            var lintingFailed = false
+
+            if duplicateKeys {
+                let duplicateKeyEntries: [String: [StringsFileUpdater.TranslationEntry]] = stringsFileUpdater!.findDuplicateEntries()
+                for (duplicateKey, translations) in duplicateKeyEntries {
+                    print("Found \(translations.count) translations for key '\(duplicateKey)' in file \(stringsFilePath).", level: .info)
+                }
+
+                if !duplicateKeyEntries.isEmpty {
+                    lintingFailed = true
+                    totalFails += duplicateKeyEntries.count
+                }
+            }
+
+            if emptyValues {
+                let emptyValueEntries: [StringsFileUpdater.TranslationEntry] = stringsFileUpdater!.findEmptyValueEntries()
+                for translation in emptyValueEntries {
+                    print("Found empty value for key '\(translation.key)' in file \(stringsFilePath).", level: .info)
+                }
+
+                if !emptyValueEntries.isEmpty {
+                    lintingFailed = true
+                    totalFails += emptyValueEntries.count
+                }
+            }
+
+            if lintingFailed {
+                failedFilePaths.append(stringsFilePath)
+            }
+        }
+
+        if failedFilePaths.count > 0 {
+            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .error)
+            exit(EXIT_FAILURE)
+        } else {
+            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success)
+            exit(EX_OK)
         }
     }
 
