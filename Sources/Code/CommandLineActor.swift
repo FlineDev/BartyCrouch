@@ -18,10 +18,7 @@ public class CommandLineActor {
 
     // MARK: - Instance Methods
     public func act(commonOptions: CommandLineParser.CommonOptions, subCommandOptions: CommandLineParser.SubCommandOptions) {
-        guard let path = commonOptions.path.value else {
-            print("Path option `-p` is missing.", level: .error)
-            exit(EX_USAGE)
-        }
+        guard let path = commonOptions.path.value else { print("Path option `-p` is missing.", level: .error); exit(EX_USAGE) }
 
         let override = commonOptions.override.value
         let verbose = commonOptions.verbose.value
@@ -93,7 +90,7 @@ public class CommandLineActor {
     private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
-        guard !inputFilePaths.isEmpty else { print("No input files found.", level: .error); exit(EX_USAGE) }
+        guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
@@ -117,10 +114,7 @@ public class CommandLineActor {
     private func actOnTranslate(path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
         let inputFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
 
-        guard !inputFilePaths.isEmpty else {
-            print("No input files found.", level: .error)
-            exit(EX_USAGE)
-        }
+        guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
 
         for inputFilePath in inputFilePaths {
             guard FileManager.default.fileExists(atPath: inputFilePath) else {
@@ -150,7 +144,7 @@ public class CommandLineActor {
         harmonizeWithSource: Bool
     ) {
         let sourceFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
-        guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .error); exit(EX_USAGE) }
+        guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .warning); exit(EX_OK) }
 
         for sourceFilePath in sourceFilePaths {
             guard FileManager.default.fileExists(atPath: sourceFilePath) else {

@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.12.1-blue.svg"
-             alt="Version: 3.12.1">
+        <img src="https://img.shields.io/badge/Version-3.12.2-blue.svg"
+             alt="Version: 3.12.2">
     </a>
     <img src="https://img.shields.io/badge/Swift-4-FFAC45.svg"
          alt="Swift: 4">
@@ -346,7 +346,6 @@ $ bartycrouch translate -p "/path/to/project" -l "zh-Hans" -i "<API_ID>" -s "<AP
 
 ---
 
-
 ### Options for `normalize`
 
 Here's an overview of all options available for the sub command `normalize`:
@@ -406,32 +405,6 @@ Example:
 
 ```shell
 $ bartycrouch normalize -p "/path/to/code/files" -l en -s
-```
-
-#### Unstripped (aka `-u`, `--unstripped`) <small>*optional*</small>
-
-If you use any **service or other tool that alters your Strings files** and if BartyCrouch seems to change the beginning and ends of those files due to different whitespacing/newline conventions, then you can simply use the `-u` command to keep the beginning and end as they are. By default BartyCrouch adds exactly one line to both the beginning and end of a file. Note that this option keeps up to 10 newline/whitespace characters from the original file at both beginning and end.
-
-Example:
-
-```shell
-$ bartycrouch interfaces -p "/path/to/project" -u
-```
-
-#### Custom Function (aka `-f`, `--custom-function`) <small>*optional*</small>
-
-If you use a **custom function** in your code to localize your Strings (instead of `NSLocalizedString`) you can specify it using this option. BartyCrouch passes this along to the `genstrings`/`extractLocStrings` tools. So you need to make sure your custom function follows the requirements of `genstrings`/`extractLocStrings`.
-
-```shell
-$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -f "YourCustomFunction"
-```
-
-#### Custom Localizable Name (aka `-n`, `--custom-localizable-name`) <small>*optional*</small>
-
-If you want to use a different name for your `Localizable.strings` file for whatever reason, you can specify a custom name using this option like this:
-
-```shell
-$ bartycrouch code -p "/path/to/code/files" -l "/path/to/Localizables" -n "MyCustomLocalizable"
 ```
 
 ---
