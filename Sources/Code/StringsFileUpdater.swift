@@ -369,6 +369,12 @@ public class StringsFileUpdater {
         return (language, region)
     }
 
+    func findDuplicateEntries() -> [String: [TranslationEntry]] {
+        let translations = findTranslations(inString: oldContentString)
+        let translationsDict = Dictionary(grouping: translations) { $0.key }
+        return translationsDict.filter { $1.count > 1 }
+    }
+
     func preventDuplicateEntries() {
         let translations = findTranslations(inString: oldContentString)
         let translationsDict = Dictionary(grouping: translations) { $0.key }
@@ -402,9 +408,14 @@ public class StringsFileUpdater {
         rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
     }
 
-    func warnEmptyValueEntries() {
+    func findEmptyValueEntries() -> [TranslationEntry] {
         let translations = findTranslations(inString: oldContentString)
-        translations.filter { $0.value.isEmpty }.forEach { translation in
+        return translations.filter { $0.value.isEmpty }
+    }
+
+    func warnEmptyValueEntries() {
+        let emptyValueEntries = findEmptyValueEntries()
+        emptyValueEntries.forEach { translation in
             let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
             print(xcodeWarning(filePath: path, line: keyValueLine, message: "Empty translation value."))
         }

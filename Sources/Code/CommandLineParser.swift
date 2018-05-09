@@ -12,9 +12,10 @@ public class CommandLineParser {
         case interfaces
         case translate
         case normalize
+        case lint
 
         static func all() -> [SubCommand] {
-            return [.code, .interfaces, .translate, .normalize]
+            return [.code, .interfaces, .translate, .normalize, .lint]
         }
     }
 
@@ -42,6 +43,7 @@ public class CommandLineParser {
             warnEmptyValues: BoolOption,
             harmonizeWithSource: BoolOption
         )
+        case lintOptions(emptyValues: BoolOption, duplicateKeys: BoolOption)
     }
 
     // MARK: - Stored Instance Properties
@@ -128,6 +130,20 @@ public class CommandLineParser {
         helpMessage: "Makes sure all languages have exactly the same keys as the source language specified with `-l`."
     )
 
+    private let lintEmptyValues = BoolOption(
+        shortFlag: "e",
+        longFlag: "empty-values",
+        required: false,
+        helpMessage: "Fails if Strings files contain keys with empty values. Designed to be used as part of a CI service."
+    )
+
+    private let lintDuplicateKeys = BoolOption(
+        shortFlag: "d",
+        longFlag: "duplicate-keys",
+        required: false,
+        helpMessage: "Fails if Strings files contain duplicate keys. Designed to be used as part of a CI service."
+    )
+
     // MARK: - Initializers
     public init(arguments: [String] = CommandLine.arguments) {
         self.arguments = arguments
@@ -190,6 +206,9 @@ public class CommandLineParser {
 
         case .normalize:
             return self.setupNormalizeCLI()
+
+        case .lint:
+            return self.setupLintCLI()
         }
     }
 
@@ -294,6 +313,23 @@ public class CommandLineParser {
         )
 
         commandLine.addOptions(path, locale, preventDuplicateKeys, sortByKeys, warnEmptyValues, harmonizeWithSource, override, verbose)
+        return (commandLine, commonOptions, subCommandOptions)
+    }
+
+    private func setupLintCLI() -> CommandLineContext {
+        let commandLine = CommandLineKit(arguments: self.arguments(for: .lint))
+
+        // Required
+        let path = self.pathOption(helpMessage: "Set the base path to recursively search within for Strings files (.strings).")
+
+        // Optional
+        let override = self.overrideOption(helpMessage: "Overrides existing translation values. Use carefully.") // NOTE: probably not needed here
+        let verbose = self.verboseOption()
+
+        let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
+        let subCommandOptions = SubCommandOptions.lintOptions(emptyValues: lintEmptyValues, duplicateKeys: lintDuplicateKeys)
+
+        commandLine.addOptions(path, lintEmptyValues, lintDuplicateKeys)
         return (commandLine, commonOptions, subCommandOptions)
     }
 
