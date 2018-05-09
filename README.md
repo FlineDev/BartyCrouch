@@ -100,8 +100,11 @@ $ bartycrouch code -p "/path/to/code/directory" -l "/directory/containing/all/Lo
 # Machine-translate all empty localization values using English as source language
 $ bartycrouch translate -p "/path/to/project" -l en -i "<API_ID>" -s "<API_SECRET>"
 
-# Normalize your Strings files to keep them nice an clean
+# Normalize your Strings files to keep them nice and clean
 $ bartycrouch normalize -p "/path/to/project" -l en -d -w -h -s
+
+# Lint your Strings files to check if they are nice and clean
+$ bartycrouch lint -p "/path/to/project" -d -e
 ```
 
 Also you can make your life a lot easier by using the **build script method** described [below](#build-script).
@@ -116,6 +119,7 @@ The `bartycrouch` main command accepts one of the following sub commands:
 - **`code`:** Incrementally updates `Localizable.strings` files from `.h`, `.m` and `.swift` files.
 - **`translate`:** Machine-translates values from a source Strings file to all other languages.
 - **`normalize`:** Normalizes Strings files with configurable options to keep them nice and clean.
+- **`lint`:** Lint your Strings files to check if they are nice and clean.
 
 Note that *each sub command accepts a different set of options*. Some of them are **required** and some *optional*. You can **combine all options** with each other to create your own expected behavior. If you're not sure which options are available or required you can always look them up in terminal by running a sub command without options like so:
 
@@ -405,6 +409,36 @@ Example:
 
 ```shell
 $ bartycrouch normalize -p "/path/to/code/files" -l en -s
+```
+
+---
+
+### Options for `lint`
+
+Here's an overview of all options available for the sub command `lint`:
+
+- `path` (required) (see [Options for all Sub Commands](#options-for-all-sub-commands) above)
+- `duplicate-keys`
+- `empty-values`
+
+#### Duplicate Keys (aka `-d`, `--duplicate-keys`) <small>*optional*</small>
+
+Fails if any Strings file contains duplicate keys. Designed to be used as part of a CI service.
+
+Example:
+
+```shell
+$ bartycrouch lint -p "/path/to/code/files" -d
+```
+
+#### Empty Values (aka `-e`, `--empty-values`) <small>*optional*</small>
+
+Fails if any Strings file contains a key with an empty value. Designed to be used as part of a CI service.
+
+Example:
+
+```shell
+$ bartycrouch lint -p "/path/to/code/files" -e
 ```
 
 ---
