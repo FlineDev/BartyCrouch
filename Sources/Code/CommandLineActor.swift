@@ -240,7 +240,8 @@ public class CommandLineActor {
             }
         }
 
-        if failedFilePaths.count > 0 {
+        if !failedFilePaths.isEmpty {
+            // swiftlint:disable:next line_length
             print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .error)
             exit(EXIT_FAILURE)
         } else {
