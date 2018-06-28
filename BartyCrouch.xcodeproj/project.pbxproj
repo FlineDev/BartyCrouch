@@ -89,6 +89,7 @@
 		82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
 		82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */; };
 		82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */; };
+		9CAC272E20E5119500B7E112 /* FindFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC272D20E5119500B7E112 /* FindFilesTests.swift */; };
 		A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
 		A1B73EB01E00744D0070D20F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1B73EAE1E00744D0070D20F /* Localizable.strings */; };
 		E4EDD5ED1E314F080010D878 /* BartyCrouchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */; };
@@ -208,6 +209,7 @@
 		82F2E1041D27CF7900C6386A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9CAC272D20E5119500B7E112 /* FindFilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFilesTests.swift; sourceTree = "<group>"; };
 		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
 		A1A1BE7C1F3212BB006A0049 /* BartyCrouch.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = BartyCrouch.podspec; sourceTree = "<group>"; };
 		A1B73EAF1E00744D0070D20F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
 				82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */,
 				E7974AF11DFAE9AA00E31754 /* ExtractLocStringsCommanderTests.swift */,
+				9CAC272D20E5119500B7E112 /* FindFilesTests.swift */,
 			);
 			name = "Command Line";
 			sourceTree = "<group>";
@@ -934,6 +937,7 @@
 				82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */,
 				821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */,
 				82463E0B1CD9197600D28A2C /* GenStringsCommanderTests.swift in Sources */,
+				9CAC272E20E5119500B7E112 /* FindFilesTests.swift in Sources */,
 				824DAA6D1CDBA55F0077F93A /* CommandLineParserTests.swift in Sources */,
 				E7974AF31DFAE9DF00E31754 /* ExtractLocStringsCommanderTests.swift in Sources */,
 				82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */,
