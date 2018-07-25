@@ -1,7 +1,4 @@
 //
-//  IntegerTypeExtensionTests.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 18.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //

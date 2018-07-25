@@ -235,3 +235,62 @@ randomWord
 frequencyTable.sample(size: 6)
 let randomWords = frequencyTable.sample(size: 6)!.map{ $0.word }
 randomWords
+
+
+//: ## Regex
+//: `Regex` is a swifty regex engine built on top of the `NSRegularExpression` api.
+//: ### Regex(_:options:)
+//: Initialize with pattern and options.
+
+do {
+    let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
+    let regex = try Regex("(Phil|John), [d]{4}", options: options)
+    regex
+} catch {
+    // Regex expression was invalid
+}
+
+//: ### StringLiteral Init
+//: Crashes on invalid pattern. Provides no interface to specify options.
+let regex = try Regex("(Phil|John), (\\d{4})")
+
+//: ### regex.matches(_:)
+//: Checks whether regex matches string
+let regexMatchesString = regex.matches("Phil, 1991")
+regexMatchesString
+
+//: ### regex.matches(in:)
+//: Returns all matches
+let matches = regex.matches(in: "Phil, 1991 and John, 1985")
+let match = matches.first!
+
+//: ### regex.firstMatch(in:)
+//: Returns first match if any
+let firstMatch = regex.firstMatch(in: "Phil, 1991 and John, 1985")
+firstMatch
+
+//: ### regex.replacingMatches(in:with:count:)
+//: Replaces all matches in a string with a template string, up to the a maximum of matches (count).
+let replacedString = regex.replacingMatches(in: "Phil, 1991 and John, 1985", with: "$1 was born in $2", count: 2)
+replacedString
+
+//: ### match.string
+//: Returns the captured string
+let matchString = match.string
+matchString
+
+//: ### match.range
+//: Returns the range of the captured string within the base string
+let matchRange = match.range
+matchRange
+
+//: ### match.captures
+//: Returns the capture groups of the match
+let captures = match.captures
+captures
+
+//: ### match.string(applyingTemplate:)
+//: Replaces the matched string with a template string
+let stringWithTemplateApplied = match.string(applyingTemplate: "$1 was born in $2")
+stringWithTemplateApplied
+

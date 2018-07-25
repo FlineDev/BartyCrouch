@@ -1,6 +1,6 @@
 <p align="center">
     <img src="https://raw.githubusercontent.com/Flinesoft/HandySwift/stable/Logo.png"
-      width=600 height=167>
+      width=600>
 </p>
 
 <p align="center">
@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/HandySwift/releases">
-        <img src="https://img.shields.io/badge/Version-2.5.0-blue.svg"
-             alt="Version: 2.5.0">
+        <img src="https://img.shields.io/badge/Version-2.6.0-blue.svg"
+             alt="Version: 2.6.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-4.0-FFAC45.svg"
          alt="Swift: 4.0">
@@ -100,6 +100,7 @@ Open the Playground from within the `.xcworkspace` in order for it to work.
 - New types
   - [SortedArray](#sortedarray)
   - [FrequencyTable](#frequencytable)
+  - [Regex](#regex)
 
 ---
 
@@ -360,6 +361,96 @@ let randomWords = frequencyTable.sample(size: 6)!.map{ $0.word }
 // => ["Harry", "Ronald", "Harry", "Harry", "Hermione", "Hermione"]
 ```
 
+
+### Regex
+
+`Regex` is a swifty regex engine built on top of the `NSRegularExpression` API.
+
+#### Regex(_:options:)
+
+Initialize with pattern and options.
+
+``` swift
+let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
+let regex = try Regex("(Phil|John), [d]{4}", options: options)
+```
+
+#### StringLiteral Init
+
+Crashes on invalid pattern. Provides no interface to specify options.
+
+``` swift
+let regex = try Regex("(Phil|John), (\\d{4})")
+// => Regex<"(Phil|John), (\d{4})">
+```
+
+#### regex.matches(_:)
+
+Checks whether regex matches string
+
+``` swift
+regex.matches("Phil, 1991") // => true
+````
+
+#### regex.matches(in:)
+
+Returns all matches
+
+``` swift
+regex.matches(in: "Phil, 1991 and John, 1985")  
+// => [Match<"Phil, 1991">, Match<"John, 1985">]
+```
+
+#### regex.firstMatch(in:)
+
+Returns first match if any
+
+``` swift
+regex.firstMatch(in: "Phil, 1991 and John, 1985")
+// => Match<"Phil, 1991">
+```
+
+#### regex.replacingMatches(in:with:count:)
+
+Replaces all matches in a string with a template string, up to the a maximum of matches (count).
+
+``` swift
+regex.replacingMatches(in: "Phil, 1991 and John, 1985", with: "$1 was born in $2", count: 2)
+// => "Phil was born in 1991 and John was born in 1985"
+```
+
+#### match.string
+
+Returns the captured string
+
+``` swift
+match.string // => "Phil, 1991"
+```
+
+#### match.range
+
+Returns the range of the captured string within the base string
+
+``` swift
+match.range // => Range
+```
+
+#### match.captures
+
+Returns the capture groups of a match
+
+``` swift
+match.captures // => ["Phil", "1991"]
+```
+
+#### match.string(applyingTemplate:)
+
+Replaces the matched string with a template string
+
+``` swift
+match.string(applyingTemplate: "$1 was born in $2")
+// => 
+```
 
 ## Contributing
 

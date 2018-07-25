@@ -1,7 +1,4 @@
 //
-//  TimeIntervalExtension.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 18.02.17.
 //  Copyright © 2017 Flinesoft. All rights reserved.
 //

@@ -34,21 +34,23 @@ excluded:
 - Package.swift
 - UsageExamples.playground
 
+
+identifier_name:
+  excluded:
+    - id
+
 line_length: 160
 
 file_header:
   required_pattern: |
                     \/\/
-                    \/\/  .*?\.swift
-                    \/\/  HandySwift
-                    \/\/
-                    \/\/  Created by .*? on \S{8,10}\.
+                    \/\/  Created by [^\(\)\d\n]+ on \S{6,10}\.
                     \/\/  Copyright © \d{4} Flinesoft\. All rights reserved\.
                     \/\/
 custom_rules:
   closing_brace_whitespace:
     included: ".*.swift"
-    regex: '(?:\n| {2,})\}\)? *\n *[^ \n\})\]]'
+    regex: '(?:\n| {2,})\}\)? *\n *[^ \n\})\]s]'
     name: "Closing Brace Whitespace"
     message: "Empty line required after closing curly braces if code with same indentation follows."
     severity: warning
@@ -60,7 +62,7 @@ custom_rules:
     severity: warning
   if_as_guard:
     included: ".*.swift"
-    regex: '\n *if [^\{]+\{\s*return[^\n]*\n *\}(?! *else)'
+    regex: '\n *if [^\{]+\{\s*return\s*(?:nil){0,1}([^a-zA-z\n]*)\n*\s*\}(?! *else)'
     name: "If as Guard"
     message: "Don't use an if statement to just return – use guard for such cases instead."
     severity: warning
@@ -78,9 +80,33 @@ custom_rules:
     severity: warning
   multiple_closure_params:
     included: ".*.swift"
-    regex: '\} *\) *\{'
+    regex: '\n *(?:[^\.\n=]+\.)+[^\(\s]+\([^\{\n]+\{[^\}\n]+\}\)\s*\{'
     name: "Multiple Closure Params"
     message: "Don't use multiple in-line closures – save one or more of them to variables instead."
+    severity: warning
+  none_case_enum:
+    included: ".*.swift"
+    regex: 'enum\s+[^\{]+\{(?:\s*\/\/[^\n]*)*(?:\s*case\s+[^\n]+)*\s*case\s+none[^\S]'
+    name: "Non Case Enum"
+    message: "Do not call enum cases `none` as you might run into problems with Optionals of this type."
+    severity: warning
+  quick_temporary_disabling:
+    included: ".*.swift"
+    regex: '\sxdescribe\(|\sxcontext\(|\sxit\('
+    name: "Quick Temporary Disabling"
+    message: "Temporary disabled Quick examples or groups shouldn't be commited."
+    severity: warning
+  quick_temporary_focus:
+    included: ".*.swift"
+    regex: '\sfdescribe\(|\sfcontext\(|\sfit\('
+    name: "Quick Temporary Focus"
+    message: "Temporary focused Quick examples or groups shouldn't be commited."
+    severity: warning
+  single_line_enum_cases:
+    included: ".*.swift"
+    regex: 'enum [^\{]+\{\s*(?:\s*\/\/[^\n]*)*\s*case\s+[^,(\n]+,'
+    name: "Single Line Enum Cases"
+    message: "Use a new line for each enum case."
     severity: warning
   single_line_guard:
     included: ".*.swift"
@@ -102,7 +128,7 @@ custom_rules:
     severity: warning
   unnecessary_case_break:
     included: ".*.swift"
-    regex: '(case |default)(?:[^\n\}]+\n){2,}\s*break|\n *\n *break(?:\n *\n|\n *\})'
+    regex: '(case |default)(?:[^\n\}]+\n){2,}\s*break *\n|\n *\n *break(?:\n *\n|\n *\})'
     name: "Unnecessary Case Break"
     message: "Don't use break in switch cases – Swift breaks by default."
     severity: warning
@@ -138,7 +164,7 @@ custom_rules:
     severity: warning
   whitespace_comment_start:
     included: ".*.swift"
-    regex: '[^:]\/\/[^\s\/]'
+    regex: '[^:#][^:#]\/\/[^\s\/]'
     name: "Whitespace Comment Start"
     message: "A comment should always start with a whitespace."
     severity: warning
