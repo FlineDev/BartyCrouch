@@ -1,7 +1,4 @@
 //
-//  StringExtension.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 26.12.15.
 //  Copyright © 2015 Flinesoft. All rights reserved.
 //
@@ -53,7 +50,7 @@ extension String {
     ///   - size: The number of random characters wanted.
     /// - Returns: A String with the given number of random characters or `nil` if empty.
     public func sample(size: Int) -> String? {
-        if isEmpty { return nil }
+        guard !isEmpty else { return nil }
 
         var sampleElements = String()
         size.times { sampleElements.append(sample!) }

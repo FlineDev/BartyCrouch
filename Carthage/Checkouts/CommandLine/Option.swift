@@ -19,10 +19,10 @@
  * The base class for a command-line option.
  */
 open class Option {
-  open let shortFlag: String?
-  open let longFlag: String?
-  open let required: Bool
-  open let helpMessage: String
+  public let shortFlag: String?
+  public let longFlag: String?
+  public let required: Bool
+  public let helpMessage: String
   
   /** True if the option was set when parsing command-line arguments */
   open var wasSet: Bool {

@@ -1,7 +1,4 @@
 //
-//  DispatchTimeIntervalExtensionTests.swift
-//  HandySwift
-//
 //  Created by Cihat Gündüz on 13.02.17.
 //  Copyright © 2017 Flinesoft. All rights reserved.
 //

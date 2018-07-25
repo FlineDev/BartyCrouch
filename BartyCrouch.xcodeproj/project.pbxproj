@@ -7,58 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00135F312056C26600696558 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F242056C26600696558 /* ArrayExtension.swift */; };
-		00135F322056C26600696558 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F242056C26600696558 /* ArrayExtension.swift */; };
-		00135F332056C26600696558 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F252056C26600696558 /* IntExtension.swift */; };
-		00135F342056C26600696558 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F252056C26600696558 /* IntExtension.swift */; };
-		00135F352056C26600696558 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F262056C26600696558 /* TimeIntervalExtension.swift */; };
-		00135F362056C26600696558 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F262056C26600696558 /* TimeIntervalExtension.swift */; };
-		00135F372056C26600696558 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F272056C26600696558 /* StringExtension.swift */; };
-		00135F382056C26600696558 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F272056C26600696558 /* StringExtension.swift */; };
-		00135F392056C26600696558 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F282056C26600696558 /* DictionaryExtension.swift */; };
-		00135F3A2056C26600696558 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F282056C26600696558 /* DictionaryExtension.swift */; };
-		00135F3B2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */; };
-		00135F3C2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */; };
-		00135F3D2056C26600696558 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2A2056C26600696558 /* Globals.swift */; };
-		00135F3E2056C26600696558 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2A2056C26600696558 /* Globals.swift */; };
-		00135F3F2056C26600696558 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2C2056C26600696558 /* FrequencyTable.swift */; };
-		00135F402056C26600696558 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2C2056C26600696558 /* FrequencyTable.swift */; };
-		00135F412056C26600696558 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2D2056C26600696558 /* SortedArray.swift */; };
-		00135F422056C26600696558 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F2D2056C26600696558 /* SortedArray.swift */; };
-		00135F482056C28D00696558 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F452056C28C00696558 /* Session.swift */; };
-		00135F492056C28D00696558 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F452056C28C00696558 /* Session.swift */; };
-		00135F4A2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F462056C28C00696558 /* StringExtensionPolyglot.swift */; };
-		00135F4B2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F462056C28C00696558 /* StringExtensionPolyglot.swift */; };
-		00135F4C2056C28D00696558 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F472056C28C00696558 /* Polyglot.swift */; };
-		00135F4D2056C28D00696558 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F472056C28C00696558 /* Polyglot.swift */; };
-		00135F512056C33B00696558 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4E2056C33B00696558 /* StringExtensions.swift */; };
-		00135F522056C33B00696558 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4E2056C33B00696558 /* StringExtensions.swift */; };
-		00135F532056C33B00696558 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4F2056C33B00696558 /* CommandLineKit.swift */; };
-		00135F542056C33B00696558 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F4F2056C33B00696558 /* CommandLineKit.swift */; };
-		00135F552056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
-		00135F562056C33B00696558 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F502056C33B00696558 /* Option.swift */; };
-		00135F6E2056CD5900696558 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F632056CD5800696558 /* OutputTarget.swift */; };
-		00135F6F2056CD5900696558 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F632056CD5800696558 /* OutputTarget.swift */; };
-		00135F702056CD5900696558 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F642056CD5900696558 /* ControlCode.swift */; };
-		00135F712056CD5900696558 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F642056CD5900696558 /* ControlCode.swift */; };
-		00135F722056CD5900696558 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F652056CD5900696558 /* ModesExtractor.swift */; };
-		00135F732056CD5900696558 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F652056CD5900696558 /* ModesExtractor.swift */; };
-		00135F742056CD5900696558 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F662056CD5900696558 /* CodesParser.swift */; };
-		00135F752056CD5900696558 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F662056CD5900696558 /* CodesParser.swift */; };
-		00135F762056CD5900696558 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F672056CD5900696558 /* Rainbow.swift */; };
-		00135F772056CD5900696558 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F672056CD5900696558 /* Rainbow.swift */; };
-		00135F782056CD5900696558 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F682056CD5900696558 /* String+Rainbow.swift */; };
-		00135F792056CD5900696558 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F682056CD5900696558 /* String+Rainbow.swift */; };
-		00135F7A2056CD5900696558 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F692056CD5900696558 /* StringGenerator.swift */; };
-		00135F7B2056CD5900696558 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F692056CD5900696558 /* StringGenerator.swift */; };
-		00135F7C2056CD5900696558 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6A2056CD5900696558 /* Style.swift */; };
-		00135F7D2056CD5900696558 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6A2056CD5900696558 /* Style.swift */; };
-		00135F7E2056CD5900696558 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6B2056CD5900696558 /* Color.swift */; };
-		00135F7F2056CD5900696558 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6B2056CD5900696558 /* Color.swift */; };
-		00135F802056CD5900696558 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6C2056CD5900696558 /* BackgroundColor.swift */; };
-		00135F812056CD5900696558 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6C2056CD5900696558 /* BackgroundColor.swift */; };
-		00135F822056CD5900696558 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */; };
-		00135F832056CD5900696558 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */; };
 		00135F852056CDA700696558 /* PrintLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F842056CDA700696558 /* PrintLevel.swift */; };
 		00135F862056CDA700696558 /* PrintLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F842056CDA700696558 /* PrintLevel.swift */; };
 		5975B123200B9B040014EEE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5975B125200B9B040014EEE6 /* InfoPlist.strings */; };
@@ -79,6 +27,58 @@
 		824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA691CDB80E10077F93A /* CommandLineParser.swift */; };
 		824DAA6D1CDBA55F0077F93A /* CommandLineParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA6C1CDBA55F0077F93A /* CommandLineParserTests.swift */; };
 		825550FC1C7E637700DB5DCF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 825550FE1C7E637700DB5DCF /* Localizable.strings */; };
+		825CDA432108961C00CC3AD1 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD98F2108961B00CC3AD1 /* CommandLineKit.swift */; };
+		825CDA442108961C00CC3AD1 /* CommandLineKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD98F2108961B00CC3AD1 /* CommandLineKit.swift */; };
+		825CDA452108961C00CC3AD1 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9902108961B00CC3AD1 /* Option.swift */; };
+		825CDA462108961C00CC3AD1 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9902108961B00CC3AD1 /* Option.swift */; };
+		825CDA472108961C00CC3AD1 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9912108961B00CC3AD1 /* StringExtensions.swift */; };
+		825CDA482108961C00CC3AD1 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9912108961B00CC3AD1 /* StringExtensions.swift */; };
+		825CDA632108961C00CC3AD1 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B72108961B00CC3AD1 /* ModesExtractor.swift */; };
+		825CDA642108961C00CC3AD1 /* ModesExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B72108961B00CC3AD1 /* ModesExtractor.swift */; };
+		825CDA652108961C00CC3AD1 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B82108961B00CC3AD1 /* BackgroundColor.swift */; };
+		825CDA662108961C00CC3AD1 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B82108961B00CC3AD1 /* BackgroundColor.swift */; };
+		825CDA672108961C00CC3AD1 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B92108961B00CC3AD1 /* CodesParser.swift */; };
+		825CDA682108961C00CC3AD1 /* CodesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9B92108961B00CC3AD1 /* CodesParser.swift */; };
+		825CDA692108961C00CC3AD1 /* Rainbow.h in Headers */ = {isa = PBXBuildFile; fileRef = 825CD9BA2108961B00CC3AD1 /* Rainbow.h */; };
+		825CDA6A2108961C00CC3AD1 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BB2108961B00CC3AD1 /* ControlCode.swift */; };
+		825CDA6B2108961C00CC3AD1 /* ControlCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BB2108961B00CC3AD1 /* ControlCode.swift */; };
+		825CDA6C2108961C00CC3AD1 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BC2108961B00CC3AD1 /* StringGenerator.swift */; };
+		825CDA6D2108961C00CC3AD1 /* StringGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BC2108961B00CC3AD1 /* StringGenerator.swift */; };
+		825CDA6E2108961C00CC3AD1 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BD2108961B00CC3AD1 /* Rainbow.swift */; };
+		825CDA6F2108961C00CC3AD1 /* Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BD2108961B00CC3AD1 /* Rainbow.swift */; };
+		825CDA702108961C00CC3AD1 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BE2108961B00CC3AD1 /* OutputTarget.swift */; };
+		825CDA712108961C00CC3AD1 /* OutputTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BE2108961B00CC3AD1 /* OutputTarget.swift */; };
+		825CDA722108961C00CC3AD1 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BF2108961B00CC3AD1 /* XcodeColorsSupport.swift */; };
+		825CDA732108961C00CC3AD1 /* XcodeColorsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9BF2108961B00CC3AD1 /* XcodeColorsSupport.swift */; };
+		825CDA742108961C00CC3AD1 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C02108961B00CC3AD1 /* Style.swift */; };
+		825CDA752108961C00CC3AD1 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C02108961B00CC3AD1 /* Style.swift */; };
+		825CDA762108961C00CC3AD1 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C12108961B00CC3AD1 /* String+Rainbow.swift */; };
+		825CDA772108961C00CC3AD1 /* String+Rainbow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C12108961B00CC3AD1 /* String+Rainbow.swift */; };
+		825CDA782108961C00CC3AD1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C22108961B00CC3AD1 /* Color.swift */; };
+		825CDA792108961C00CC3AD1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9C22108961B00CC3AD1 /* Color.swift */; };
+		825CDA812108961C00CC3AD1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9DC2108961B00CC3AD1 /* Session.swift */; };
+		825CDA832108961C00CC3AD1 /* StringExtensionPolyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9DD2108961B00CC3AD1 /* StringExtensionPolyglot.swift */; };
+		825CDA852108961C00CC3AD1 /* Polyglot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CD9DE2108961B00CC3AD1 /* Polyglot.swift */; };
+		825CDAB92108961C00CC3AD1 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA182108961C00CC3AD1 /* ArrayExtension.swift */; };
+		825CDABA2108961C00CC3AD1 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA182108961C00CC3AD1 /* ArrayExtension.swift */; };
+		825CDABB2108961C00CC3AD1 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA192108961C00CC3AD1 /* IntExtension.swift */; };
+		825CDABC2108961C00CC3AD1 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA192108961C00CC3AD1 /* IntExtension.swift */; };
+		825CDABD2108961C00CC3AD1 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1A2108961C00CC3AD1 /* TimeIntervalExtension.swift */; };
+		825CDABE2108961C00CC3AD1 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1A2108961C00CC3AD1 /* TimeIntervalExtension.swift */; };
+		825CDABF2108961C00CC3AD1 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1B2108961C00CC3AD1 /* StringExtension.swift */; };
+		825CDAC02108961C00CC3AD1 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1B2108961C00CC3AD1 /* StringExtension.swift */; };
+		825CDAC12108961C00CC3AD1 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1C2108961C00CC3AD1 /* DictionaryExtension.swift */; };
+		825CDAC22108961C00CC3AD1 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1C2108961C00CC3AD1 /* DictionaryExtension.swift */; };
+		825CDAC32108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1D2108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift */; };
+		825CDAC42108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1D2108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift */; };
+		825CDAC52108961C00CC3AD1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1E2108961C00CC3AD1 /* Globals.swift */; };
+		825CDAC62108961C00CC3AD1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA1E2108961C00CC3AD1 /* Globals.swift */; };
+		825CDAC72108961C00CC3AD1 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA202108961C00CC3AD1 /* FrequencyTable.swift */; };
+		825CDAC82108961C00CC3AD1 /* FrequencyTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA202108961C00CC3AD1 /* FrequencyTable.swift */; };
+		825CDAC92108961C00CC3AD1 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA212108961C00CC3AD1 /* Regex.swift */; };
+		825CDACA2108961C00CC3AD1 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA212108961C00CC3AD1 /* Regex.swift */; };
+		825CDACB2108961C00CC3AD1 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA222108961C00CC3AD1 /* SortedArray.swift */; };
+		825CDACC2108961C00CC3AD1 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825CDA222108961C00CC3AD1 /* SortedArray.swift */; };
 		8278A9001CA129C30041B196 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8278A8FF1CA129960041B196 /* Constants.m */; };
 		828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
 		828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
@@ -89,6 +89,7 @@
 		82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */; };
 		82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */; };
 		82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2EE1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift */; };
+		9CAC272E20E5119500B7E112 /* FindFilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAC272D20E5119500B7E112 /* FindFilesTests.swift */; };
 		A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
 		A1B73EB01E00744D0070D20F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1B73EAE1E00744D0070D20F /* Localizable.strings */; };
 		E4EDD5ED1E314F080010D878 /* BartyCrouchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */; };
@@ -127,32 +128,6 @@
 /* Begin PBXFileReference section */
 		000731D02028A52200C29CAB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		000731D12028A53B00C29CAB /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		00135F242056C26600696558 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		00135F252056C26600696558 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
-		00135F262056C26600696558 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
-		00135F272056C26600696558 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		00135F282056C26600696558 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
-		00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
-		00135F2A2056C26600696558 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Checkouts/HandySwift/Sources/Globals.swift; sourceTree = "<group>"; };
-		00135F2C2056C26600696558 /* FrequencyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
-		00135F2D2056C26600696558 /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
-		00135F452056C28C00696558 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Session.swift; path = Checkouts/Polyglot/Polyglot/Session.swift; sourceTree = "<group>"; };
-		00135F462056C28C00696558 /* StringExtensionPolyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensionPolyglot.swift; path = Checkouts/Polyglot/Polyglot/StringExtensionPolyglot.swift; sourceTree = "<group>"; };
-		00135F472056C28C00696558 /* Polyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Polyglot.swift; path = Checkouts/Polyglot/Polyglot/Polyglot.swift; sourceTree = "<group>"; };
-		00135F4E2056C33B00696558 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Checkouts/CommandLine/CommandLineKit/StringExtensions.swift; sourceTree = "<group>"; };
-		00135F4F2056C33B00696558 /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommandLineKit.swift; path = Checkouts/CommandLine/CommandLineKit/CommandLineKit.swift; sourceTree = "<group>"; };
-		00135F502056C33B00696558 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Option.swift; path = Checkouts/CommandLine/CommandLineKit/Option.swift; sourceTree = "<group>"; };
-		00135F632056CD5800696558 /* OutputTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OutputTarget.swift; path = Checkouts/Rainbow/Sources/OutputTarget.swift; sourceTree = "<group>"; };
-		00135F642056CD5900696558 /* ControlCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ControlCode.swift; path = Checkouts/Rainbow/Sources/ControlCode.swift; sourceTree = "<group>"; };
-		00135F652056CD5900696558 /* ModesExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModesExtractor.swift; path = Checkouts/Rainbow/Sources/ModesExtractor.swift; sourceTree = "<group>"; };
-		00135F662056CD5900696558 /* CodesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodesParser.swift; path = Checkouts/Rainbow/Sources/CodesParser.swift; sourceTree = "<group>"; };
-		00135F672056CD5900696558 /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rainbow.swift; path = Checkouts/Rainbow/Sources/Rainbow.swift; sourceTree = "<group>"; };
-		00135F682056CD5900696558 /* String+Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Rainbow.swift"; path = "Checkouts/Rainbow/Sources/String+Rainbow.swift"; sourceTree = "<group>"; };
-		00135F692056CD5900696558 /* StringGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringGenerator.swift; path = Checkouts/Rainbow/Sources/StringGenerator.swift; sourceTree = "<group>"; };
-		00135F6A2056CD5900696558 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Style.swift; path = Checkouts/Rainbow/Sources/Style.swift; sourceTree = "<group>"; };
-		00135F6B2056CD5900696558 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Checkouts/Rainbow/Sources/Color.swift; sourceTree = "<group>"; };
-		00135F6C2056CD5900696558 /* BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BackgroundColor.swift; path = Checkouts/Rainbow/Sources/BackgroundColor.swift; sourceTree = "<group>"; };
-		00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XcodeColorsSupport.swift; path = Checkouts/Rainbow/Sources/XcodeColorsSupport.swift; sourceTree = "<group>"; };
 		00135F842056CDA700696558 /* PrintLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLevel.swift; sourceTree = "<group>"; };
 		5975B124200B9B040014EEE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8203A2971C6D159D00BCE479 /* NewExample.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = NewExample.strings; sourceTree = "<group>"; };
@@ -191,6 +166,34 @@
 		825551021C7E63AF00DB5DCF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Example.strings"; sourceTree = "<group>"; };
 		825551031C7E63B000DB5DCF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Example.strings"; sourceTree = "<group>"; };
 		825551041C7E63B000DB5DCF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		825CD98F2108961B00CC3AD1 /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; };
+		825CD9902108961B00CC3AD1 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		825CD9912108961B00CC3AD1 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		825CD9B72108961B00CC3AD1 /* ModesExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModesExtractor.swift; sourceTree = "<group>"; };
+		825CD9B82108961B00CC3AD1 /* BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		825CD9B92108961B00CC3AD1 /* CodesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodesParser.swift; sourceTree = "<group>"; };
+		825CD9BA2108961B00CC3AD1 /* Rainbow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rainbow.h; sourceTree = "<group>"; };
+		825CD9BB2108961B00CC3AD1 /* ControlCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlCode.swift; sourceTree = "<group>"; };
+		825CD9BC2108961B00CC3AD1 /* StringGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringGenerator.swift; sourceTree = "<group>"; };
+		825CD9BD2108961B00CC3AD1 /* Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rainbow.swift; sourceTree = "<group>"; };
+		825CD9BE2108961B00CC3AD1 /* OutputTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputTarget.swift; sourceTree = "<group>"; };
+		825CD9BF2108961B00CC3AD1 /* XcodeColorsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XcodeColorsSupport.swift; sourceTree = "<group>"; };
+		825CD9C02108961B00CC3AD1 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		825CD9C12108961B00CC3AD1 /* String+Rainbow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Rainbow.swift"; sourceTree = "<group>"; };
+		825CD9C22108961B00CC3AD1 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		825CD9DC2108961B00CC3AD1 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		825CD9DD2108961B00CC3AD1 /* StringExtensionPolyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionPolyglot.swift; sourceTree = "<group>"; };
+		825CD9DE2108961B00CC3AD1 /* Polyglot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyglot.swift; sourceTree = "<group>"; };
+		825CDA182108961C00CC3AD1 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		825CDA192108961C00CC3AD1 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		825CDA1A2108961C00CC3AD1 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
+		825CDA1B2108961C00CC3AD1 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		825CDA1C2108961C00CC3AD1 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		825CDA1D2108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
+		825CDA1E2108961C00CC3AD1 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		825CDA202108961C00CC3AD1 /* FrequencyTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequencyTable.swift; sourceTree = "<group>"; };
+		825CDA212108961C00CC3AD1 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		825CDA222108961C00CC3AD1 /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		8278A8FF1CA129960041B196 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		8278A9011CA129FA0041B196 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 		82F2E1041D27CF7900C6386A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		82F2E1051D27DB8A00C6386A /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		82F2E1061D27DB8A00C6386A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9CAC272D20E5119500B7E112 /* FindFilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindFilesTests.swift; sourceTree = "<group>"; };
 		A14DE1751D71B2930010F856 /* SwiftExample3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample3.swift; sourceTree = "<group>"; };
 		A1A1BE7C1F3212BB006A0049 /* BartyCrouch.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = BartyCrouch.podspec; sourceTree = "<group>"; };
 		A1B73EAF1E00744D0070D20F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -252,85 +256,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00135F172056C21000696558 /* CommandLine */ = {
-			isa = PBXGroup;
-			children = (
-				00135F4F2056C33B00696558 /* CommandLineKit.swift */,
-				00135F502056C33B00696558 /* Option.swift */,
-				00135F4E2056C33B00696558 /* StringExtensions.swift */,
-			);
-			name = CommandLine;
-			sourceTree = "<group>";
-		};
-		00135F212056C22B00696558 /* HandySwift */ = {
-			isa = PBXGroup;
-			children = (
-				00135F232056C26600696558 /* Extensions */,
-				00135F2A2056C26600696558 /* Globals.swift */,
-				00135F2B2056C26600696558 /* Structs */,
-			);
-			name = HandySwift;
-			sourceTree = "<group>";
-		};
-		00135F222056C25400696558 /* Polyglot */ = {
-			isa = PBXGroup;
-			children = (
-				00135F472056C28C00696558 /* Polyglot.swift */,
-				00135F452056C28C00696558 /* Session.swift */,
-				00135F462056C28C00696558 /* StringExtensionPolyglot.swift */,
-			);
-			name = Polyglot;
-			sourceTree = "<group>";
-		};
-		00135F232056C26600696558 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				00135F242056C26600696558 /* ArrayExtension.swift */,
-				00135F252056C26600696558 /* IntExtension.swift */,
-				00135F262056C26600696558 /* TimeIntervalExtension.swift */,
-				00135F272056C26600696558 /* StringExtension.swift */,
-				00135F282056C26600696558 /* DictionaryExtension.swift */,
-				00135F292056C26600696558 /* DispatchTimeIntervalExtension.swift */,
-			);
-			name = Extensions;
-			path = Checkouts/HandySwift/Sources/Extensions;
-			sourceTree = "<group>";
-		};
-		00135F2B2056C26600696558 /* Structs */ = {
-			isa = PBXGroup;
-			children = (
-				00135F2C2056C26600696558 /* FrequencyTable.swift */,
-				00135F2D2056C26600696558 /* SortedArray.swift */,
-			);
-			name = Structs;
-			path = Checkouts/HandySwift/Sources/Structs;
-			sourceTree = "<group>";
-		};
-		00135F622056CD3C00696558 /* Rainbow */ = {
-			isa = PBXGroup;
-			children = (
-				00135F6C2056CD5900696558 /* BackgroundColor.swift */,
-				00135F662056CD5900696558 /* CodesParser.swift */,
-				00135F6B2056CD5900696558 /* Color.swift */,
-				00135F642056CD5900696558 /* ControlCode.swift */,
-				00135F652056CD5900696558 /* ModesExtractor.swift */,
-				00135F632056CD5800696558 /* OutputTarget.swift */,
-				00135F672056CD5900696558 /* Rainbow.swift */,
-				00135F682056CD5900696558 /* String+Rainbow.swift */,
-				00135F692056CD5900696558 /* StringGenerator.swift */,
-				00135F6A2056CD5900696558 /* Style.swift */,
-				00135F6D2056CD5900696558 /* XcodeColorsSupport.swift */,
-			);
-			name = Rainbow;
-			sourceTree = "<group>";
-		};
 		820649CE1C7CA6FA009E501E /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				00135F622056CD3C00696558 /* Rainbow */,
-				00135F172056C21000696558 /* CommandLine */,
-				00135F212056C22B00696558 /* HandySwift */,
-				00135F222056C25400696558 /* Polyglot */,
+				825CD97F2108961B00CC3AD1 /* CommandLine */,
+				825CD9FA2108961C00CC3AD1 /* HandySwift */,
+				825CD9D42108961B00CC3AD1 /* Polyglot */,
+				825CD99E2108961B00CC3AD1 /* Rainbow */,
 			);
 			path = Carthage;
 			sourceTree = "<group>";
@@ -385,6 +317,7 @@
 				82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */,
 				82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */,
 				E7974AF11DFAE9AA00E31754 /* ExtractLocStringsCommanderTests.swift */,
+				9CAC272D20E5119500B7E112 /* FindFilesTests.swift */,
 			);
 			name = "Command Line";
 			sourceTree = "<group>";
@@ -405,6 +338,82 @@
 				00135F842056CDA700696558 /* PrintLevel.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		825CD97F2108961B00CC3AD1 /* CommandLine */ = {
+			isa = PBXGroup;
+			children = (
+				825CD98F2108961B00CC3AD1 /* CommandLineKit.swift */,
+				825CD9902108961B00CC3AD1 /* Option.swift */,
+				825CD9912108961B00CC3AD1 /* StringExtensions.swift */,
+			);
+			name = CommandLine;
+			path = Checkouts/CommandLine;
+			sourceTree = "<group>";
+		};
+		825CD99E2108961B00CC3AD1 /* Rainbow */ = {
+			isa = PBXGroup;
+			children = (
+				825CD9B72108961B00CC3AD1 /* ModesExtractor.swift */,
+				825CD9B82108961B00CC3AD1 /* BackgroundColor.swift */,
+				825CD9B92108961B00CC3AD1 /* CodesParser.swift */,
+				825CD9BA2108961B00CC3AD1 /* Rainbow.h */,
+				825CD9BB2108961B00CC3AD1 /* ControlCode.swift */,
+				825CD9BC2108961B00CC3AD1 /* StringGenerator.swift */,
+				825CD9BD2108961B00CC3AD1 /* Rainbow.swift */,
+				825CD9BE2108961B00CC3AD1 /* OutputTarget.swift */,
+				825CD9BF2108961B00CC3AD1 /* XcodeColorsSupport.swift */,
+				825CD9C02108961B00CC3AD1 /* Style.swift */,
+				825CD9C12108961B00CC3AD1 /* String+Rainbow.swift */,
+				825CD9C22108961B00CC3AD1 /* Color.swift */,
+			);
+			name = Rainbow;
+			path = Checkouts/Rainbow;
+			sourceTree = "<group>";
+		};
+		825CD9D42108961B00CC3AD1 /* Polyglot */ = {
+			isa = PBXGroup;
+			children = (
+				825CD9DC2108961B00CC3AD1 /* Session.swift */,
+				825CD9DD2108961B00CC3AD1 /* StringExtensionPolyglot.swift */,
+				825CD9DE2108961B00CC3AD1 /* Polyglot.swift */,
+			);
+			name = Polyglot;
+			path = Checkouts/Polyglot;
+			sourceTree = "<group>";
+		};
+		825CD9FA2108961C00CC3AD1 /* HandySwift */ = {
+			isa = PBXGroup;
+			children = (
+				825CDA172108961C00CC3AD1 /* Extensions */,
+				825CDA1E2108961C00CC3AD1 /* Globals.swift */,
+				825CDA1F2108961C00CC3AD1 /* Structs */,
+			);
+			name = HandySwift;
+			path = Checkouts/HandySwift;
+			sourceTree = "<group>";
+		};
+		825CDA172108961C00CC3AD1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				825CDA182108961C00CC3AD1 /* ArrayExtension.swift */,
+				825CDA192108961C00CC3AD1 /* IntExtension.swift */,
+				825CDA1A2108961C00CC3AD1 /* TimeIntervalExtension.swift */,
+				825CDA1B2108961C00CC3AD1 /* StringExtension.swift */,
+				825CDA1C2108961C00CC3AD1 /* DictionaryExtension.swift */,
+				825CDA1D2108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		825CDA1F2108961C00CC3AD1 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				825CDA202108961C00CC3AD1 /* FrequencyTable.swift */,
+				825CDA212108961C00CC3AD1 /* Regex.swift */,
+				825CDA222108961C00CC3AD1 /* SortedArray.swift */,
+			);
+			path = Structs;
 			sourceTree = "<group>";
 		};
 		82CDE23C1C6ABB3300055FE6 = {
@@ -689,6 +698,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */,
+				825CDA692108961C00CC3AD1 /* Rainbow.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,44 +849,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00135F522056C33B00696558 /* StringExtensions.swift in Sources */,
-				00135F542056C33B00696558 /* CommandLineKit.swift in Sources */,
-				00135F322056C26600696558 /* ArrayExtension.swift in Sources */,
-				00135F792056CD5900696558 /* String+Rainbow.swift in Sources */,
-				00135F7B2056CD5900696558 /* StringGenerator.swift in Sources */,
 				828ED5361C710C2F00E0E947 /* IBToolCommander.swift in Sources */,
+				825CDAC22108961C00CC3AD1 /* DictionaryExtension.swift in Sources */,
 				00135F862056CDA700696558 /* PrintLevel.swift in Sources */,
 				824DAA6B1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
-				00135F812056CD5900696558 /* BackgroundColor.swift in Sources */,
-				00135F4D2056C28D00696558 /* Polyglot.swift in Sources */,
-				00135F402056C26600696558 /* FrequencyTable.swift in Sources */,
+				825CDA682108961C00CC3AD1 /* CodesParser.swift in Sources */,
+				825CDAC62108961C00CC3AD1 /* Globals.swift in Sources */,
+				825CDABE2108961C00CC3AD1 /* TimeIntervalExtension.swift in Sources */,
 				828ED5351C710C2B00E0E947 /* StringsFileUpdater.swift in Sources */,
-				00135F712056CD5900696558 /* ControlCode.swift in Sources */,
+				825CDA6B2108961C00CC3AD1 /* ControlCode.swift in Sources */,
+				825CDAC42108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift in Sources */,
 				828ED5371C710C3100E0E947 /* StringsFilesSearch.swift in Sources */,
-				00135F422056C26600696558 /* SortedArray.swift in Sources */,
-				00135F3E2056C26600696558 /* Globals.swift in Sources */,
-				00135F342056C26600696558 /* IntExtension.swift in Sources */,
-				00135F732056CD5900696558 /* ModesExtractor.swift in Sources */,
-				00135F4B2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
+				825CDA752108961C00CC3AD1 /* Style.swift in Sources */,
 				824DAA641CDB6F520077F93A /* SubCommander.swift in Sources */,
+				825CDA6D2108961C00CC3AD1 /* StringGenerator.swift in Sources */,
+				825CDA462108961C00CC3AD1 /* Option.swift in Sources */,
+				825CDACA2108961C00CC3AD1 /* Regex.swift in Sources */,
+				825CDABA2108961C00CC3AD1 /* ArrayExtension.swift in Sources */,
 				E78B1E151DFAB33900C7C290 /* ExtractLocStringsCommander.swift in Sources */,
 				82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */,
+				825CDA6F2108961C00CC3AD1 /* Rainbow.swift in Sources */,
+				825CDA482108961C00CC3AD1 /* StringExtensions.swift in Sources */,
+				825CDAC02108961C00CC3AD1 /* StringExtension.swift in Sources */,
 				A140FE0F1D4BD6FB001E0C4B /* Commander.swift in Sources */,
+				825CDA732108961C00CC3AD1 /* XcodeColorsSupport.swift in Sources */,
+				825CDABC2108961C00CC3AD1 /* IntExtension.swift in Sources */,
+				825CDA792108961C00CC3AD1 /* Color.swift in Sources */,
+				825CDA712108961C00CC3AD1 /* OutputTarget.swift in Sources */,
+				825CDACC2108961C00CC3AD1 /* SortedArray.swift in Sources */,
 				824DAA5E1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
 				E78B1E181DFABB1900C7C290 /* CodeCommander.swift in Sources */,
-				00135F7F2056CD5900696558 /* Color.swift in Sources */,
-				00135F832056CD5900696558 /* XcodeColorsSupport.swift in Sources */,
-				00135F382056C26600696558 /* StringExtension.swift in Sources */,
-				00135F772056CD5900696558 /* Rainbow.swift in Sources */,
-				00135F562056C33B00696558 /* Option.swift in Sources */,
-				00135F752056CD5900696558 /* CodesParser.swift in Sources */,
-				00135F3C2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
-				00135F3A2056C26600696558 /* DictionaryExtension.swift in Sources */,
-				00135F6F2056CD5900696558 /* OutputTarget.swift in Sources */,
-				00135F492056C28D00696558 /* Session.swift in Sources */,
-				00135F7D2056CD5900696558 /* Style.swift in Sources */,
+				825CDA442108961C00CC3AD1 /* CommandLineKit.swift in Sources */,
+				825CDA642108961C00CC3AD1 /* ModesExtractor.swift in Sources */,
+				825CDA662108961C00CC3AD1 /* BackgroundColor.swift in Sources */,
 				824DAA5F1CDB60E90077F93A /* GenStringsCommander.swift in Sources */,
-				00135F362056C26600696558 /* TimeIntervalExtension.swift in Sources */,
+				825CDAC82108961C00CC3AD1 /* FrequencyTable.swift in Sources */,
+				825CDA772108961C00CC3AD1 /* String+Rainbow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,45 +893,46 @@
 			buildActionMask = 2147483647;
 			files = (
 				82125E931D0312CF00B9C66B /* Commander.swift in Sources */,
-				00135F3F2056C26600696558 /* FrequencyTable.swift in Sources */,
-				00135F312056C26600696558 /* ArrayExtension.swift in Sources */,
 				E78B1E141DFAB33200C7C290 /* ExtractLocStringsCommander.swift in Sources */,
-				00135F6E2056CD5900696558 /* OutputTarget.swift in Sources */,
-				00135F352056C26600696558 /* TimeIntervalExtension.swift in Sources */,
-				00135F332056C26600696558 /* IntExtension.swift in Sources */,
-				00135F7C2056CD5900696558 /* Style.swift in Sources */,
-				00135F742056CD5900696558 /* CodesParser.swift in Sources */,
+				825CDA632108961C00CC3AD1 /* ModesExtractor.swift in Sources */,
 				824DAA5D1CDB60E00077F93A /* CommandLineActor.swift in Sources */,
-				00135F7E2056CD5900696558 /* Color.swift in Sources */,
-				00135F802056CD5900696558 /* BackgroundColor.swift in Sources */,
 				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
-				00135F532056C33B00696558 /* CommandLineKit.swift in Sources */,
+				825CDABD2108961C00CC3AD1 /* TimeIntervalExtension.swift in Sources */,
+				825CDAB92108961C00CC3AD1 /* ArrayExtension.swift in Sources */,
+				825CDA672108961C00CC3AD1 /* CodesParser.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
+				825CDA782108961C00CC3AD1 /* Color.swift in Sources */,
+				825CDA452108961C00CC3AD1 /* Option.swift in Sources */,
+				825CDA6C2108961C00CC3AD1 /* StringGenerator.swift in Sources */,
 				E7974AFE1DFAECA700E31754 /* SwiftExample3Arguments.swift in Sources */,
-				00135F702056CD5900696558 /* ControlCode.swift in Sources */,
-				00135F3B2056C26600696558 /* DispatchTimeIntervalExtension.swift in Sources */,
-				00135F7A2056CD5900696558 /* StringGenerator.swift in Sources */,
+				825CDA6A2108961C00CC3AD1 /* ControlCode.swift in Sources */,
+				825CDAC32108961C00CC3AD1 /* DispatchTimeIntervalExtension.swift in Sources */,
 				82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */,
-				00135F392056C26600696558 /* DictionaryExtension.swift in Sources */,
-				00135F4C2056C28D00696558 /* Polyglot.swift in Sources */,
-				00135F372056C26600696558 /* StringExtension.swift in Sources */,
-				00135F552056C33B00696558 /* Option.swift in Sources */,
-				00135F822056CD5900696558 /* XcodeColorsSupport.swift in Sources */,
+				825CDAC12108961C00CC3AD1 /* DictionaryExtension.swift in Sources */,
+				825CDABB2108961C00CC3AD1 /* IntExtension.swift in Sources */,
+				825CDAC92108961C00CC3AD1 /* Regex.swift in Sources */,
+				825CDACB2108961C00CC3AD1 /* SortedArray.swift in Sources */,
+				825CDA722108961C00CC3AD1 /* XcodeColorsSupport.swift in Sources */,
+				825CDA432108961C00CC3AD1 /* CommandLineKit.swift in Sources */,
+				825CDA742108961C00CC3AD1 /* Style.swift in Sources */,
 				E7974AFD1DFAECA700E31754 /* SwiftExample2Arguments.swift in Sources */,
 				E7974B011DFAFD2D00E31754 /* SwiftExample4Arguments.swift in Sources */,
-				00135F3D2056C26600696558 /* Globals.swift in Sources */,
+				825CDA472108961C00CC3AD1 /* StringExtensions.swift in Sources */,
+				825CDAC72108961C00CC3AD1 /* FrequencyTable.swift in Sources */,
 				00135F852056CDA700696558 /* PrintLevel.swift in Sources */,
+				825CDA762108961C00CC3AD1 /* String+Rainbow.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
-				00135F762056CD5900696558 /* Rainbow.swift in Sources */,
-				00135F482056C28D00696558 /* Session.swift in Sources */,
-				00135F4A2056C28D00696558 /* StringExtensionPolyglot.swift in Sources */,
+				825CDA812108961C00CC3AD1 /* Session.swift in Sources */,
+				825CDA6E2108961C00CC3AD1 /* Rainbow.swift in Sources */,
 				824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
-				00135F722056CD5900696558 /* ModesExtractor.swift in Sources */,
 				E78B1E171DFABA5500C7C290 /* CodeCommander.swift in Sources */,
+				825CDA852108961C00CC3AD1 /* Polyglot.swift in Sources */,
+				825CDAC52108961C00CC3AD1 /* Globals.swift in Sources */,
 				824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */,
-				00135F512056C33B00696558 /* StringExtensions.swift in Sources */,
-				00135F412056C26600696558 /* SortedArray.swift in Sources */,
-				00135F782056CD5900696558 /* String+Rainbow.swift in Sources */,
+				825CDA832108961C00CC3AD1 /* StringExtensionPolyglot.swift in Sources */,
+				825CDA652108961C00CC3AD1 /* BackgroundColor.swift in Sources */,
+				825CDA702108961C00CC3AD1 /* OutputTarget.swift in Sources */,
+				825CDABF2108961C00CC3AD1 /* StringExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,6 +943,7 @@
 				82CDE2ED1C6BFE8F00055FE6 /* IBToolCommanderTests.swift in Sources */,
 				821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */,
 				82463E0B1CD9197600D28A2C /* GenStringsCommanderTests.swift in Sources */,
+				9CAC272E20E5119500B7E112 /* FindFilesTests.swift in Sources */,
 				824DAA6D1CDBA55F0077F93A /* CommandLineParserTests.swift in Sources */,
 				E7974AF31DFAE9DF00E31754 /* ExtractLocStringsCommanderTests.swift in Sources */,
 				82CDE2EF1C6BFE9D00055FE6 /* StringsFileUpdaterTests.swift in Sources */,

@@ -147,7 +147,10 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/* test comment 1", "   test comment 2 */",
                 "\"test.multiline_comment\" = \"\";", "",
                 "/* (test comment with brackets) */",
-                "\"test.brackets_comment\" = \"\";", ""
+                "\"test.brackets_comment\" = \"\";", "",
+                "/* test with % character 1 */", "\"more than 23% or less than 45%\" = \"\";", "",
+                "/* test with % character 2 */", "\"%A%B%C\" = \"\";", "",
+                "/* test with placeholders */", "\"%d%@%.2f\" = \"\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
@@ -209,7 +212,10 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/* test comment 1", "   test comment 2 */",
                 "\"test.multiline_comment\" = \"\";", "",
                 "/* (test comment with brackets) */",
-                "\"test.brackets_comment\" = \"\";", "", ""
+                "\"test.brackets_comment\" = \"\";", "",
+                "/* test with % character 1 */", "\"more than 23% or less than 45%\" = \"\";", "",
+                "/* test with % character 2 */", "\"%A%B%C\" = \"\";", "",
+                "/* test with placeholders */", "\"%d%@%.2f\" = \"\";", "", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)
@@ -266,7 +272,10 @@ class StringsFileUpdaterTests: XCTestCase {
                 "/* test comment 1", "   test comment 2 */",
                 "\"test.multiline_comment\" = \"test.multiline_comment.value\";", "",
                 "/* (test comment with brackets) */",
-                "\"test.brackets_comment\" = \"test.brackets_comment\";", ""
+                "\"test.brackets_comment\" = \"test.brackets_comment\";", "",
+                "/* test with % character 1 */", "\"more than 23% or less than 45%\" = \"more than 23% or less than 45%\";", "",
+                "/* test with % character 2 */", "\"%A%B%C\" = \"%A%B%C\";", "",
+                "/* test with placeholders */", "\"%d%@%.2f\" = \"%1$d%2$@%3$.2f\";", ""
             ]
 
             oldLinesInFile = stringsFileUpdater.oldContentString.components(separatedBy: .newlines)

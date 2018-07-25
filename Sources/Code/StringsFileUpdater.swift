@@ -91,17 +91,23 @@ public class StringsFileUpdater {
                     }()
 
                     let updatedValue: String = {
+                        // get new translation value corrected by false % placeholders
+                        var newTranslationValue = newTranslation.value
+                        // swiftlint:disable:next force_try
+                        let regex = try! Regex("%\\d\\$((?![@dcixoufegap]|[l]{1,2}[duixo]|[h][duixo]|L[dfega]|\\.\\d))", options: [])
+                        newTranslationValue = regex.replacingMatches(in: newTranslationValue, with: "%$1")
+
                         guard let oldValue = oldTranslation?.1 else {
                             // add new key with empty value
                             guard !addNewValuesAsEmpty else { return "" }
 
                             // add new key with Base value
-                            return newTranslation.value
+                            return newTranslationValue
                         }
 
-                        if override { return newTranslation.value } // override with new value in force update mode
+                        if override { return newTranslationValue } // override with new value in force update mode
 
-                        if let oldBaseValue = oldBaseValue, oldBaseValue == oldValue { return newTranslation.value } // update base value
+                        if let oldBaseValue = oldBaseValue, oldBaseValue == oldValue { return newTranslationValue } // update base value
 
                         // keep existing translation
                         return oldValue
