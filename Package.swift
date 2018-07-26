@@ -17,7 +17,7 @@ let package = Package(
                 "BartyCrouch CLI/",
                 "Sources/Code",
                 "Carthage/CommandLine",
-                "Carthage/Handyswift",
+                "Carthage/HandySwift",
                 "Carthage/Polyglot"
             ]
         )
