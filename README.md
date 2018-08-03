@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-    <a href="https://www.bitrise.io/app/d2a5a304b2abcc40">
+    <a href="https://app.bitrise.io/app/d2a5a304b2abcc40">
         <img src="https://app.bitrise.io/app/d2a5a304b2abcc40/status.svg?token=iNSSO_Fb9mZitl5WMdVIfQ&branch=stable"
              alt="Build Status">
     </a>
