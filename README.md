@@ -493,7 +493,7 @@ Alternatively, if you've installed BartyCrouch via CocoaPods the script should l
 ### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are gonna be set programmatically**.
-For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file. Alternatively you can add `#bc-ignore!` into the field "Comment For Localizer" box in the utilities pane.
+For these cases you can simply include `#bartycrouch-ignore!` or the one of the shorthands `#bc-ignore!` and `#i!` into your value within your base localized Storyboard/XIB file. Alternatively you can add `#bc-ignore!` into the field "Comment For Localizer" box in the utilities pane.
 
 This will tell BartyCrouch to ignore this specific view when updating your `.strings` files.
 
