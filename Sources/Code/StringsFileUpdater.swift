@@ -60,7 +60,7 @@ public class StringsFileUpdater {
                 for newTranslation in newTranslations {
                     // skip keys marked for ignore
                     guard !newTranslation.value.containsAny(of: ignores) else { continue }
-                    if ignoreEmptyStrings && newTranslation.value.trimmingCharacters(in: .whitespaces).isEmpty { continue }
+                    if ignoreEmptyStrings && newTranslation.isBlank { continue }
 
                     // Skip keys that have been marked for ignore in comment
                     if let newComment = newTranslation.comment, newComment.containsAny(of: ignores) { continue }
