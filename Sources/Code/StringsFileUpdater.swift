@@ -35,7 +35,8 @@ public class StringsFileUpdater {
         withStringsFileAtPath otherStringFilePath: String,
         addNewValuesAsEmpty: Bool, ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
         override: Bool = false, updateCommentWithBase: Bool = true, keepExistingKeys: Bool = false,
-        overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false
+        overrideComments: Bool = false, sortByKeys: Bool = false, keepWhitespaceSurroundings: Bool = false,
+        ignoreEmptyStrings: Bool = false
     ) {
         do {
             let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -59,6 +60,7 @@ public class StringsFileUpdater {
                 for newTranslation in newTranslations {
                     // skip keys marked for ignore
                     guard !newTranslation.value.containsAny(of: ignores) else { continue }
+                    if ignoreEmptyStrings && newTranslation.value.isBlank { continue }
 
                     // Skip keys that have been marked for ignore in comment
                     if let newComment = newTranslation.comment, newComment.containsAny(of: ignores) { continue }

@@ -190,6 +190,7 @@ Here's an overview of all options available for the sub command `interfaces`:
 - `path` (required), `override` and `verbose` (see [Options for all Sub Commands](#options-for-all-sub-commands) above)
 - `default-to-base`
 - `unstripped`
+- `ignore-empty-strings`
 
 #### Default to Base (aka `-b`, `--default-to-base`) <small>*optional*</small>
 
@@ -209,6 +210,16 @@ Example:
 
 ```shell
 $ bartycrouch interfaces -p "/path/to/project" -u
+```
+
+#### Ignore empty strings (aka `-i`, `--ignore-empty-strings`) <small>*optional*</small>
+
+With this options set, strings that are empty, or only contain whitespace, will not appear in the localization files.
+
+Example:
+
+```shell
+$ bartycrouch interfaces -p "/path/to/project" -i
 ```
 
 ---

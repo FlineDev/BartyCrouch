@@ -34,7 +34,7 @@ public class CommandLineParser {
             customFunction: StringOption,
             customLocalizableName: StringOption
         )
-        case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption)
+        case interfacesOptions(defaultToBase: BoolOption, unstripped: BoolOption, ignoreEmptyStrings: BoolOption)
         case translateOptions(id: StringOption, secret: StringOption, locale: StringOption)
         case normalizeOptions(
             locale: StringOption,
@@ -142,6 +142,13 @@ public class CommandLineParser {
         longFlag: "duplicate-keys",
         required: false,
         helpMessage: "Fails if Strings files contain duplicate keys. Designed to be used as part of a CI service."
+    )
+    
+    private let ignoreEmptyStrings = BoolOption(
+        shortFlag: "i",
+        longFlag: "ignore-empty-strings",
+        required: false,
+        helpMessage: "Ignores empty strings and strings consisting of whitespace only."
     )
 
     // MARK: - Initializers
@@ -260,9 +267,9 @@ public class CommandLineParser {
         )
 
         let commonOptions: CommonOptions = (path: path, override: override, verbose: verbose)
-        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped)
+        let subCommandOptions = SubCommandOptions.interfacesOptions(defaultToBase: defaultToBase, unstripped: unstripped, ignoreEmptyStrings: ignoreEmptyStrings)
 
-        commandLine.addOptions(path, override, verbose, defaultToBase, unstripped)
+        commandLine.addOptions(path, override, verbose, defaultToBase, unstripped, ignoreEmptyStrings)
         return (commandLine, commonOptions, subCommandOptions)
     }
 

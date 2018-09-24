@@ -34,8 +34,8 @@ public class CommandLineActor {
                 customLocalizableName: customLocalizableName.value
             )
 
-        case let .interfacesOptions(defaultToBaseOption, unstripped):
-            self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value, unstripped: unstripped.value)
+        case let .interfacesOptions(defaultToBaseOption, unstripped, ignoreEmptyStrings):
+            self.actOnInterfaces(path: path, override: override, verbose: verbose, defaultToBase: defaultToBaseOption.value, unstripped: unstripped.value, ignoreEmptyStrings: ignoreEmptyStrings.value)
 
         case let .translateOptions(idOption, secretOption, localeOption):
             guard let id = idOption.value else {
@@ -90,7 +90,7 @@ public class CommandLineActor {
         )
     }
 
-    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool) {
+    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
@@ -109,7 +109,7 @@ public class CommandLineActor {
             }
 
             self.incrementalInterfacesUpdate(
-                inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, unstripped: unstripped
+                inputFilePath, outputStringsFilePaths, override: override, verbose: verbose, defaultToBase: defaultToBase, unstripped: unstripped, ignoreEmptyStrings: ignoreEmptyStrings
             )
         }
     }
@@ -320,7 +320,7 @@ public class CommandLineActor {
     }
 
     private func incrementalInterfacesUpdate(
-        _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool
+        _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool
     ) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
@@ -339,7 +339,8 @@ public class CommandLineActor {
                 withStringsFileAtPath: extractedStringsFilePath,
                 addNewValuesAsEmpty: !defaultToBase,
                 override: override,
-                keepWhitespaceSurroundings: unstripped
+                keepWhitespaceSurroundings: unstripped,
+                ignoreEmptyStrings: ignoreEmptyStrings
             )
 
             if verbose {

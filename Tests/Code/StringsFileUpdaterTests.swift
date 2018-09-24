@@ -67,6 +67,7 @@ class StringsFileUpdaterTests: XCTestCase {
             ("cHL-Zc-L39.normalTitle", "Example Button 3", " Class = \"UIButton\"; normalTitle = \"Example Button 3\"; ObjectID = \"cHL-Zc-L39\"; "),
             ("test.key", "This is a test key", " Completely custom comment structure in one line "),
             ("test.key.ignored", "This is a test key to be ignored #bc-ignore!", " Completely custom comment structure in one line to be ignored "),
+            ("test.key.ignoreEmptyStrings", " ", " This key should be ignored when ignoreEmptyKeys is set "),
             ("abc-12-345.normalTitle", "😀", " Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; "),
             ("em1-3S-vgp.text", "Refrakční vzdálenost v metrech",
              " Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; ")
@@ -120,6 +121,8 @@ class StringsFileUpdaterTests: XCTestCase {
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* This key should be ignored when ignoreEmptyKeys is set */",
+                "\"test.key.ignoreEmptyStrings\" = \" \";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
                 "\"abc-12-345.normalTitle\" = \"😀\";", "",
                 "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
@@ -133,7 +136,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true, updateCommentWithBase: false)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: true, updateCommentWithBase: false, ignoreEmptyStrings: true)
 
             let expectedLinesAfterIncrementalUpdate = [
                 "", "/* Class = \"UIButton\"; normalTitle = \"Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
@@ -180,6 +183,8 @@ class StringsFileUpdaterTests: XCTestCase {
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* This key should be ignored when ignoreEmptyKeys is set */",
+                "\"test.key.ignoreEmptyStrings\" = \" \";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
                 "\"abc-12-345.normalTitle\" = \"😀\";", "",
                 "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
@@ -197,7 +202,8 @@ class StringsFileUpdaterTests: XCTestCase {
                 withStringsFileAtPath: newStringsFilePath,
                 addNewValuesAsEmpty: true,
                 updateCommentWithBase: false,
-                keepWhitespaceSurroundings: true
+                keepWhitespaceSurroundings: true,
+                ignoreEmptyStrings: true
             )
 
             let expectedLinesAfterIncrementalUpdate = [
@@ -245,6 +251,8 @@ class StringsFileUpdaterTests: XCTestCase {
                 "\"test.key\" = \"This is a test key\";", "",
                 "/* Completely custom comment structure in one line to be ignored */",
                 "\"test.key.ignored\" = \"This is a test key to be ignored #bc-ignore!\";", "",
+                "/* This key should be ignored when ignoreEmptyKeys is set */",
+                "\"test.key.ignoreEmptyStrings\" = \" \";", "",
                 "/* Class = \"UIButton\"; normalTitle = \"😀\"; ObjectID = \"abc-12-345\"; */",
                 "\"abc-12-345.normalTitle\" = \"😀\";", "",
                 "/* Class = \"UILabel\"; text = \"Refraktionsentfernung in Meter\"; ObjectID = \"em1-3S-vgp\"; */",
@@ -258,7 +266,7 @@ class StringsFileUpdaterTests: XCTestCase {
                 XCTAssertEqual(oldLinesInFile[index], expectedLine)
             }
 
-            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false)
+            stringsFileUpdater.incrementallyUpdateKeys(withStringsFileAtPath: newStringsFilePath, addNewValuesAsEmpty: false, ignoreEmptyStrings: true)
 
             let expectedLinesAfterIncrementalUpdate = [
                 "", "/* Class = \"UIButton\"; normalTitle = \"New Example Button 1\"; ObjectID = \"35F-cl-mdI\"; */",
