@@ -470,7 +470,7 @@ else
 fi
 ```
 
-<img src="Build-Script-Example.png">
+<img src="Images/Build-Script-Example.png">
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
 
@@ -510,13 +510,13 @@ This will tell BartyCrouch to ignore this specific view when updating your `.str
 
 Here's an example of how a base localized view in a XIB file with partly ignored strings might look like:
 
-<img src="Exclusion-Example.png">
+<img src="Images/Exclusion-Example.png">
 
 Here's an example with the alternative comment variant:
 
 <div style="float:left;">
-	<img src="IB-Comment-Exclusion-Example1.png" width="275px" height="491px">
-	<img src="IB-Comment-Exclusion-Example2.png" width="272px" height="195px">
+	<img src="Images/IB-Comment-Exclusion-Example1.png" width="275px" height="491px">
+	<img src="Images/IB-Comment-Exclusion-Example2.png" width="272px" height="195px">
 </div>
 
 You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This is helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).

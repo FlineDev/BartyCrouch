@@ -190,6 +190,10 @@
 		825AEBA221904F5A00A98A4B /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		825AEBA321906D3400A98A4B /* CODE_OF_CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CODE_OF_CONDUCT.md; sourceTree = "<group>"; };
 		825AEBA421906D8F00A98A4B /* .projlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .projlint.yml; sourceTree = "<group>"; };
+		825AEBAC21907A9A00A98A4B /* IB-Comment-Exclusion-Example2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IB-Comment-Exclusion-Example2.png"; sourceTree = "<group>"; };
+		825AEBAD21907A9A00A98A4B /* Exclusion-Example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Exclusion-Example.png"; sourceTree = "<group>"; };
+		825AEBAE21907A9A00A98A4B /* Build-Script-Example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Build-Script-Example.png"; sourceTree = "<group>"; };
+		825AEBAF21907A9A00A98A4B /* IB-Comment-Exclusion-Example1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IB-Comment-Exclusion-Example1.png"; sourceTree = "<group>"; };
 		825CD98F2108961B00CC3AD1 /* CommandLineKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineKit.swift; sourceTree = "<group>"; };
 		825CD9902108961B00CC3AD1 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		825CD9912108961B00CC3AD1 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -665,6 +669,17 @@
 			path = UnsortedKeys;
 			sourceTree = "<group>";
 		};
+		825AEBA721907A5E00A98A4B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				825AEBAE21907A9A00A98A4B /* Build-Script-Example.png */,
+				825AEBAD21907A9A00A98A4B /* Exclusion-Example.png */,
+				825AEBAF21907A9A00A98A4B /* IB-Comment-Exclusion-Example1.png */,
+				825AEBAC21907A9A00A98A4B /* IB-Comment-Exclusion-Example2.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		825CD97F2108961B00CC3AD1 /* CommandLine */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,6 +845,7 @@
 				825AEBA121904D5C00A98A4B /* MIGRATION_GUIDES.md */,
 				000731D02028A52200C29CAB /* Package.swift */,
 				82F2E1061D27DB8A00C6386A /* README.md */,
+				825AEBA721907A5E00A98A4B /* Images */,
 			);
 			name = RootFiles;
 			sourceTree = "<group>";
