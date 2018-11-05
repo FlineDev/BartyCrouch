@@ -2,13 +2,13 @@ TEMPORARY_FOLDER?=/tmp/BartyCrouch.dst
 BUILD_TOOL?=xcodebuild
 
 XCODEFLAGS=-project 'BartyCrouch.xcodeproj' \
-	-scheme 'BartyCrouch CLI' \
+	-scheme 'BartyCrouch' \
 	-configuration 'Release' \
 	DSTROOT=$(TEMPORARY_FOLDER) \
 	OTHER_LDFLAGS=-Wl,-headerpad_max_install_names
 
 BINARIES_FOLDER=/usr/local/bin
-LICENSE_PATH="$(shell pwd)/LICENSE.md"
+LICENSE_PATH="$(shell pwd)/LICENSE"
 
 clean:
 	rm -rf "$(TEMPORARY_FOLDER)"
@@ -21,4 +21,4 @@ portable_zip: installables
 	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/bartycrouch" "$(TEMPORARY_FOLDER)"
 	rm -f "./portable_bartycrouch.zip"
 	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_FOLDER)"
-	(cd "$(TEMPORARY_FOLDER)"; zip -yr - "bartycrouch" "LICENSE.md") > "./portable_bartycrouch.zip"
+	(cd "$(TEMPORARY_FOLDER)"; zip -yr - "bartycrouch" "LICENSE") > "./portable_bartycrouch.zip"
