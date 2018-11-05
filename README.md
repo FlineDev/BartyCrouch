@@ -4,8 +4,8 @@
 </p>
 
 <p align="center">
-    <a href="https://app.bitrise.io/app/d2a5a304b2abcc40">
-        <img src="https://app.bitrise.io/app/d2a5a304b2abcc40/status.svg?token=iNSSO_Fb9mZitl5WMdVIfQ&branch=stable"
+    <a href="https://app.bitrise.io/app/5310a5d74c63fbaf">
+        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=stable"
              alt="Build Status">
     </a>
     <a href="https://codebeat.co/projects/github-com-flinesoft-bartycrouch">
@@ -41,46 +41,43 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 
 ## Requirements
 
-- Xcode 9 and Swift 4
+- Xcode 10.1+ & Swift 4.2+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Installation
 
-### Using Homebrew:
-
-Install Homebrew first if you don't have it already (more about Homebrew [here](http://brew.sh)):
-```shell
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-**Bartycrouch now is part of Homebrew Core! No tap needed any more.**
-
-If you had installed a previous version (<= 3.8.0) via the tap, you should run the following once:
-
-```shell
-$ brew untap flinesoft/bartycrouch
-```
-
+<summary>Using [Homebrew](https://brew.sh/)</summary>
+<details>
 To install Bartycrouch the first time, simply run the command:
 
-```shell
-$ brew install bartycrouch
+```bash
+brew install bartycrouch
 ```
 
 To **update** to the newest version of BartyCrouch when you have an old version already installed run:
 
-```shell
-$ brew update
-$ brew upgrade bartycrouch
+```bash
+brew upgrade bartycrouch
 ```
+</details>
 
-### Using CocoaPods:
+<summary>Using [Mint](https://github.com/yonaskolb/Mint)</summary>
+<details>
+To **install** the latest version of ProjLint simply run this command:
 
+```bash
+mint install Flinesoft/BartyCrouch
+```
+</details>
+
+<summary>Using [CocoaPods](https://cocoapods.org/)</summary>
+<details>
 Simply add the following line to your Podfile:
 
 ```ruby
 pod 'BartyCrouch'
 ```
+</details>
 
 ## Usage
 
@@ -531,60 +528,11 @@ The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not 
 
 ## Migration Guides
 
-This project follows [Semantic Versioning](http://semver.org).
-
-Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
-
-### Upgrade from 2.x to 3.x
-
-- Change structure `bartycrouch -s "$BASE_PATH"` to `bartycrouch interfaces -p "$BASE_PATH"`
-- Change structure `bartycrouch -t "{ id: <API_ID> }|{ secret: <API_SECRET> }" -s "$BASE_PATH" -l en` to `bartycrouch translate -p "$BASE_PATH" -l en -i "<API_ID>" -s "<API_SECRET>"`
-- Use automatic file search with `-p` (was `-s` before) instead of options `-i`, `-o`, `-e` (those were deleted)
-- Rename usages of option "force" (`-f`) to be "override" (`-o`)
-
-It is recommended to update your build script to the [currently suggested](#build-script) one if you were using it.
-
-### Upgrade from 1.x to 2.x
-
-- Change command structure `bartycrouch "$BASE_PATH" -a` to `bartycrouch -s "$BASE_PATH"`
-- Remove `-c` option if you were using it, BartyCrouch 2.x creates missing keys by default
-- Use the new `-t` `-s` `-l` options instead of adding all Strings files manually, e.g.:
-
-Simplify this build script code
-
-```shell
-bartycrouch -t $CREDS -i "$EN_PATH/Localizable.strings" -a -c
-bartycrouch -t $CREDS -i "$EN_PATH/Main.strings" -a
-bartycrouch -t $CREDS -i "$EN_PATH/LaunchScreen.strings" -a
-bartycrouch -t $CREDS -i "$EN_PATH/CustomView.strings" -a
-```
-
-by replacing it with this:
-
-```shell
-bartycrouch -t "$CREDS" -s "$PROJECT_DIR" -l en
-```
-
-
-### Upgrade from 0.x to 1.x
-
-- `--input-storyboard` and `-in` were **renamed** to `--input` and `-i`
-- `--output-strings-files` and `-out` were **renamed** to `--output` and `-o`
-- Multiple paths passed to `-output` are now **separated by whitespace instead of comma**
-  - e.g. `-out "path/one,path/two"` should now be `-o "path/one" "path/two"`
-- `--output-all-languages` and `-all` were **renamed** to `--auto` and `-a`
-
+See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/MIGRATION_GUIDES.md).
 
 ## Contributing
 
-Contributions are welcome. Please just **open an Issue** on GitHub to discuss a point or request a feature there or **send a Pull Request** with your suggestion.
-
-When sending a pull request please also make sure to:
-- **write tests for your changes** in order to make sure they don't break in the future
-- follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/))
-
-Note that there is a framework target within the project to make testing easier.
-
+See the file [CONTRIBUTING.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/CONTRIBUTING.md).
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
