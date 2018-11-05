@@ -46,8 +46,9 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 
 ## Installation
 
-<summary>Using [Homebrew](https://brew.sh/)</summary>
 <details>
+<summary>Via [Homebrew](https://brew.sh/)</summary>
+
 To install Bartycrouch the first time, simply run the command:
 
 ```bash
@@ -61,8 +62,9 @@ brew upgrade bartycrouch
 ```
 </details>
 
-<summary>Using [Mint](https://github.com/yonaskolb/Mint)</summary>
 <details>
+<summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
+
 To **install** the latest version of ProjLint simply run this command:
 
 ```bash
@@ -70,8 +72,9 @@ mint install Flinesoft/BartyCrouch
 ```
 </details>
 
-<summary>Using [CocoaPods](https://cocoapods.org/)</summary>
 <details>
+<summary>Via [CocoaPods](https://cocoapods.org/)</summary>
+
 Simply add the following line to your Podfile:
 
 ```ruby
