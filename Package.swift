@@ -8,29 +8,36 @@ let package = Package(
         .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/jatoben/CommandLine.git", .upToNextMajor(from: "2.0.0")),
         .package(url: "https://github.com/Flinesoft/HandySwift.git", .upToNextMajor(from: "2.6.0")),
-        .package(url: "https://github.com/Dschee/Polyglot.git", .branch("master")),
+        .package(url: "https://github.com/mxcl/PromiseKit.git", .upToNextMajor(from: "6.5.2")),
         .package(url: "https://github.com/onevcat/Rainbow.git", .upToNextMajor(from: "3.1.4")),
+        .package(url: "https://github.com/jakeheis/SwiftCLI.git", .upToNextMajor(from: "5.2.0")),
     ],
     targets: [
         .target(
             name: "BartyCrouch",
             dependencies: ["BartyCrouchKit"],
-            path: "Sources/BartyCrouch",
-            exclude: ["Sources/SupportingFiles"]
+            path: "Sources/BartyCrouch"
         ),
         .target(
             name: "BartyCrouchKit",
-            dependencies: ["CommandLine", "HandySwift", "Polyglot", "Rainbow"],
-            path: "Sources/BartyCrouchKit",
-            exclude: ["Sources/SupportingFiles"]
+            dependencies: ["BartyCrouchTranslator", "HandySwift", "PromiseKit", "Rainbow", "SwiftCLI"],
+            path: "Sources/BartyCrouchKit"
         ),
         .testTarget(
             name: "BartyCrouchKitTests",
             dependencies: ["BartyCrouchKit"],
-            path: "Tests/BartyCrouchKitTests",
-            exclude: ["Tests/SupportingFiles"]
+            path: "Tests/BartyCrouchKitTests"
+        ),
+        .target(
+            name: "BartyCrouchTranslator",
+            dependencies: ["HandySwift", "PromiseKit"],
+            path: "Sources/BartyCrouchTranslator"
+        ),
+        .testTarget(
+            name: "BartyCrouchTranslatorTests",
+            dependencies: ["BartyCrouchTranslator"],
+            path: "Sources/BartyCrouchTranslatorTests"
         )
     ],
     swiftLanguageVersions: [.v4_2]

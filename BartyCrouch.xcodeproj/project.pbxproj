@@ -19,6 +19,16 @@
 		824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA691CDB80E10077F93A /* CommandLineParser.swift */; };
 		824DAA6D1CDBA55F0077F93A /* CommandLineParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA6C1CDBA55F0077F93A /* CommandLineParserTests.swift */; };
 		825AEBFC21909F8D00A98A4B /* BartyCrouchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */; };
+		825AEC0E2190A7F200A98A4B /* BartyCrouchTranslator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AEC052190A7F200A98A4B /* BartyCrouchTranslator.framework */; };
+		825AEC1D2190A90700A98A4B /* BartyCrouchTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825AEC1C2190A90700A98A4B /* BartyCrouchTranslator.swift */; };
+		825AEC202190A91300A98A4B /* BartyCrouchTranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825AEC1E2190A91100A98A4B /* BartyCrouchTranslatorTests.swift */; };
+		825AEC222190A9B900A98A4B /* BartyCrouchTranslator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AEC052190A7F200A98A4B /* BartyCrouchTranslator.framework */; };
+		825AECC42190B61800A98A4B /* Rainbow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC12190B61800A98A4B /* Rainbow.framework */; };
+		825AECC52190B61800A98A4B /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC22190B61800A98A4B /* HandySwift.framework */; };
+		825AECC62190B61800A98A4B /* SwiftCLI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC32190B61800A98A4B /* SwiftCLI.framework */; };
+		825AECC82190B68600A98A4B /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC72190B68600A98A4B /* PromiseKit.framework */; };
+		825AECC92190B68600A98A4B /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC72190B68600A98A4B /* PromiseKit.framework */; };
+		825AECCA2190B68800A98A4B /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC22190B61800A98A4B /* HandySwift.framework */; };
 		8278A9001CA129C30041B196 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8278A8FF1CA129960041B196 /* Constants.m */; };
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		825AEC0F2190A7F200A98A4B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82CDE23D1C6ABB3300055FE6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825AEC042190A7F200A98A4B;
+			remoteInfo = BartyCrouchTranslator;
+		};
 		82CDE28A1C6ABF3A00055FE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 82CDE23D1C6ABB3300055FE6 /* Project object */;
@@ -131,15 +148,23 @@
 		825AEBAE21907A9A00A98A4B /* Build-Script-Example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Build-Script-Example.png"; sourceTree = "<group>"; };
 		825AEBAF21907A9A00A98A4B /* IB-Comment-Exclusion-Example1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IB-Comment-Exclusion-Example1.png"; sourceTree = "<group>"; };
 		825AEBFD2190A15B00A98A4B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		825AEC052190A7F200A98A4B /* BartyCrouchTranslator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouchTranslator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		825AEC082190A7F200A98A4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		825AEC0D2190A7F200A98A4B /* BartyCrouchTranslatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTranslatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		825AEC142190A7F200A98A4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		825AEC1C2190A90700A98A4B /* BartyCrouchTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartyCrouchTranslator.swift; sourceTree = "<group>"; };
+		825AEC1E2190A91100A98A4B /* BartyCrouchTranslatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BartyCrouchTranslatorTests.swift; sourceTree = "<group>"; };
+		825AECC12190B61800A98A4B /* Rainbow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rainbow.framework; path = Carthage/Build/Mac/Rainbow.framework; sourceTree = "<group>"; };
+		825AECC22190B61800A98A4B /* HandySwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HandySwift.framework; path = Carthage/Build/Mac/HandySwift.framework; sourceTree = "<group>"; };
+		825AECC32190B61800A98A4B /* SwiftCLI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCLI.framework; path = Carthage/Build/Mac/SwiftCLI.framework; sourceTree = "<group>"; };
+		825AECC72190B68600A98A4B /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
 		8278A8FF1CA129960041B196 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		8278A9011CA129FA0041B196 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
-		82CDE2651C6ABBF500055FE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		82CDE26E1C6ABD8800055FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82CDE2731C6ABE5C00055FE6 /* bartycrouch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bartycrouch; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BartyCrouchKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82CDE2881C6ABF3A00055FE6 /* BartyCrouchKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BartyCrouchKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFileUpdater.swift; sourceTree = "<group>"; };
 		82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommander.swift; sourceTree = "<group>"; };
 		82CDE2EC1C6BFE8F00055FE6 /* IBToolCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBToolCommanderTests.swift; sourceTree = "<group>"; };
@@ -157,6 +182,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		825AEC022190A7F200A98A4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825AECC92190B68600A98A4B /* PromiseKit.framework in Frameworks */,
+				825AECCA2190B68800A98A4B /* HandySwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825AEC0A2190A7F200A98A4B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825AEC0E2190A7F200A98A4B /* BartyCrouchTranslator.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82CDE2701C6ABE5C00055FE6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +211,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825AECC52190B61800A98A4B /* HandySwift.framework in Frameworks */,
+				825AEC222190A9B900A98A4B /* BartyCrouchTranslator.framework in Frameworks */,
+				825AECC82190B68600A98A4B /* PromiseKit.framework in Frameworks */,
+				825AECC42190B61800A98A4B /* Rainbow.framework in Frameworks */,
+				825AECC62190B61800A98A4B /* SwiftCLI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +627,33 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		825AEBFE2190A7C100A98A4B /* BartyCrouchTranslator */ = {
+			isa = PBXGroup;
+			children = (
+				825AEC1C2190A90700A98A4B /* BartyCrouchTranslator.swift */,
+			);
+			path = BartyCrouchTranslator;
+			sourceTree = "<group>";
+		};
+		825AEBFF2190A7C800A98A4B /* BartyCrouchTranslatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				825AEC1E2190A91100A98A4B /* BartyCrouchTranslatorTests.swift */,
+			);
+			path = BartyCrouchTranslatorTests;
+			sourceTree = "<group>";
+		};
+		825AEC232190AB9400A98A4B /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				825AECC22190B61800A98A4B /* HandySwift.framework */,
+				825AECC72190B68600A98A4B /* PromiseKit.framework */,
+				825AECC12190B61800A98A4B /* Rainbow.framework */,
+				825AECC32190B61800A98A4B /* SwiftCLI.framework */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +661,7 @@
 				82CDE2681C6ABC0200055FE6 /* Tests */,
 				A1B73EB21E00A8490070D20F /* RootFiles */,
 				82CDE2471C6ABB3300055FE6 /* Products */,
+				825AEC232190AB9400A98A4B /* Carthage */,
 			);
 			sourceTree = "<group>";
 		};
@@ -595,7 +670,9 @@
 			children = (
 				82CDE2731C6ABE5C00055FE6 /* bartycrouch */,
 				82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */,
-				82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */,
+				82CDE2881C6ABF3A00055FE6 /* BartyCrouchKitTests.xctest */,
+				825AEC052190A7F200A98A4B /* BartyCrouchTranslator.framework */,
+				825AEC0D2190A7F200A98A4B /* BartyCrouchTranslatorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -605,6 +682,7 @@
 			children = (
 				825AEB342190480500A98A4B /* BartyCrouch */,
 				825AEB33219047F100A98A4B /* BartyCrouchKit */,
+				825AEBFE2190A7C100A98A4B /* BartyCrouchTranslator */,
 				82CDE2631C6ABBF500055FE6 /* SupportingFiles */,
 			);
 			path = Sources;
@@ -613,8 +691,8 @@
 		82CDE2631C6ABBF500055FE6 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				825AEC082190A7F200A98A4B /* Info.plist */,
 				82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */,
-				82CDE2651C6ABBF500055FE6 /* Info.plist */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -623,6 +701,7 @@
 			isa = PBXGroup;
 			children = (
 				825AEB352190482500A98A4B /* BartyCrouchKitTests */,
+				825AEBFF2190A7C800A98A4B /* BartyCrouchTranslatorTests */,
 				82CDE26C1C6ABC0200055FE6 /* Resources */,
 				82CDE26A1C6ABC0200055FE6 /* SupportingFiles */,
 			);
@@ -632,7 +711,7 @@
 		82CDE26A1C6ABC0200055FE6 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				82CDE26E1C6ABD8800055FE6 /* Info.plist */,
+				825AEC142190A7F200A98A4B /* Info.plist */,
 				82CDE2F71C6C08F800055FE6 /* BartyCrouchKitTests-Bridging-Header.h */,
 				8278A9011CA129FA0041B196 /* Constants.h */,
 				8278A8FF1CA129960041B196 /* Constants.m */,
@@ -678,6 +757,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		825AEC002190A7F200A98A4B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82CDE27C1C6ABF3A00055FE6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -689,6 +775,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		825AEC042190A7F200A98A4B /* BartyCrouchTranslator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825AEC162190A7F200A98A4B /* Build configuration list for PBXNativeTarget "BartyCrouchTranslator" */;
+			buildPhases = (
+				825AEC002190A7F200A98A4B /* Headers */,
+				825AEC012190A7F200A98A4B /* Sources */,
+				825AEC022190A7F200A98A4B /* Frameworks */,
+				825AEC032190A7F200A98A4B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BartyCrouchTranslator;
+			productName = BartyCrouchTranslator;
+			productReference = 825AEC052190A7F200A98A4B /* BartyCrouchTranslator.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		825AEC0C2190A7F200A98A4B /* BartyCrouchTranslatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825AEC192190A7F200A98A4B /* Build configuration list for PBXNativeTarget "BartyCrouchTranslatorTests" */;
+			buildPhases = (
+				825AEC092190A7F200A98A4B /* Sources */,
+				825AEC0A2190A7F200A98A4B /* Frameworks */,
+				825AEC0B2190A7F200A98A4B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				825AEC102190A7F200A98A4B /* PBXTargetDependency */,
+			);
+			name = BartyCrouchTranslatorTests;
+			productName = BartyCrouchTranslatorTests;
+			productReference = 825AEC0D2190A7F200A98A4B /* BartyCrouchTranslatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		82CDE2721C6ABE5C00055FE6 /* BartyCrouch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82CDE2771C6ABE5D00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouch" */;
@@ -726,9 +848,9 @@
 			productReference = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		82CDE2871C6ABF3A00055FE6 /* BartyCrouchTests */ = {
+		82CDE2871C6ABF3A00055FE6 /* BartyCrouchKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82CDE2931C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchTests" */;
+			buildConfigurationList = 82CDE2931C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchKitTests" */;
 			buildPhases = (
 				82CDE2841C6ABF3A00055FE6 /* Sources */,
 				82CDE2851C6ABF3A00055FE6 /* Frameworks */,
@@ -739,9 +861,9 @@
 			dependencies = (
 				82CDE28B1C6ABF3A00055FE6 /* PBXTargetDependency */,
 			);
-			name = BartyCrouchTests;
+			name = BartyCrouchKitTests;
 			productName = BartyCrouchTests;
-			productReference = 82CDE2881C6ABF3A00055FE6 /* BartyCrouchTests.xctest */;
+			productReference = 82CDE2881C6ABF3A00055FE6 /* BartyCrouchKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -750,10 +872,19 @@
 		82CDE23D1C6ABB3300055FE6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Flinesoft;
 				TargetAttributes = {
+					825AEC042190A7F200A98A4B = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
+					};
+					825AEC0C2190A7F200A98A4B = {
+						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
+					};
 					82CDE2721C6ABE5C00055FE6 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -785,12 +916,28 @@
 			targets = (
 				82CDE2721C6ABE5C00055FE6 /* BartyCrouch */,
 				82CDE27E1C6ABF3A00055FE6 /* BartyCrouchKit */,
-				82CDE2871C6ABF3A00055FE6 /* BartyCrouchTests */,
+				82CDE2871C6ABF3A00055FE6 /* BartyCrouchKitTests */,
+				825AEC042190A7F200A98A4B /* BartyCrouchTranslator */,
+				825AEC0C2190A7F200A98A4B /* BartyCrouchTranslatorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		825AEC032190A7F200A98A4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825AEC0B2190A7F200A98A4B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82CDE27D1C6ABF3A00055FE6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -843,6 +990,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		825AEC012190A7F200A98A4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825AEC1D2190A90700A98A4B /* BartyCrouchTranslator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		825AEC092190A7F200A98A4B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825AEC202190A91300A98A4B /* BartyCrouchTranslatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82CDE26F1C6ABE5C00055FE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -888,6 +1051,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		825AEC102190A7F200A98A4B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825AEC042190A7F200A98A4B /* BartyCrouchTranslator */;
+			targetProxy = 825AEC0F2190A7F200A98A4B /* PBXContainerItemProxy */;
+		};
 		82CDE28B1C6ABF3A00055FE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 82CDE27E1C6ABF3A00055FE6 /* BartyCrouchKit */;
@@ -1015,6 +1183,129 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		825AEC172190A7F200A98A4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Sources/SupportingFiles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTranslator;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		825AEC182190A7F200A98A4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Sources/SupportingFiles/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTranslator;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		825AEC1A2190A7F200A98A4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTranslatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		825AEC1B2190A7F200A98A4B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTranslatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 		82CDE2581C6ABB3400055FE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1063,7 +1354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1117,7 +1408,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1133,7 +1424,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 			};
@@ -1143,7 +1433,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = bartycrouch;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1161,11 +1450,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1185,11 +1477,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Sources/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1206,7 +1501,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "PROJECT_DIR=@\\\"$PROJECT_DIR\\\"";
 				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1224,7 +1518,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "PROJECT_DIR=@\\\"$PROJECT_DIR\\\"";
 				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.BartyCrouchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1235,6 +1528,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		825AEC162190A7F200A98A4B /* Build configuration list for PBXNativeTarget "BartyCrouchTranslator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825AEC172190A7F200A98A4B /* Debug */,
+				825AEC182190A7F200A98A4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825AEC192190A7F200A98A4B /* Build configuration list for PBXNativeTarget "BartyCrouchTranslatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825AEC1A2190A7F200A98A4B /* Debug */,
+				825AEC1B2190A7F200A98A4B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		82CDE2401C6ABB3300055FE6 /* Build configuration list for PBXProject "BartyCrouch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1262,7 +1573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82CDE2931C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchTests" */ = {
+		82CDE2931C6ABF3A00055FE6 /* Build configuration list for PBXNativeTarget "BartyCrouchKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				82CDE2941C6ABF3A00055FE6 /* Debug */,

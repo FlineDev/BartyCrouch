@@ -1,11 +1,11 @@
-# A pure Swift library for creating command-line interfaces
-github "Dschee/CommandLine" "master"
-
-# A simple Swift API for Microsoft Translator
-github "Dschee/Polyglot" "master"
-
 # Handy Swift features that didn't make it into the Swift standard library.
-github "Flinesoft/HandySwift" ~> 2.4
+github "Flinesoft/HandySwift" ~> 2.7
+
+# Promises for Swift & ObjC
+github "mxcl/PromiseKit" ~> 6.5
 
 # Delightful console output for Swift developers.
 github "onevcat/Rainbow" ~> 3.1
+
+# A pure Swift library for creating command-line interfaces
+github "Dschee/SwiftCLI" "master"
