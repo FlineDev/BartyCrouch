@@ -20,7 +20,7 @@ class SortedArrayTests: XCTestCase {
 
         XCTAssertNil(sortedEmptyArray.index { _ in true })
 
-        let intArray: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let intArray: [Int] = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
         let sortedIntArray = SortedArray(intArray)
 
         let expectedIndex = 3
@@ -30,7 +30,7 @@ class SortedArrayTests: XCTestCase {
     }
 
     func testSubArrayToIndex() {
-        let intArray: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let intArray: [Int] = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
         let sortedIntArray = SortedArray(intArray)
 
         let index = sortedIntArray.index { $0 > 5 }!
@@ -40,12 +40,28 @@ class SortedArrayTests: XCTestCase {
     }
 
     func testSubArrayFromIndex() {
-        let intArray: [Int] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let intArray: [Int] = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
         let sortedIntArray = SortedArray(intArray)
 
         let index = sortedIntArray.index { $0 > 5 }!
         let sortedSubArray = sortedIntArray.suffix(from: index)
 
         XCTAssertEqual(sortedSubArray.array, [6, 7, 8, 9])
+    }
+
+    func testCollectionFeatures() {
+        let intArray: [Int] = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
+        let sortedIntArray = SortedArray(intArray)
+        let expectedElementsSum = intArray.reduce(0) { result, element in return result + element }
+
+        var forEachElementsSum = 0
+        sortedIntArray.forEach { forEachElementsSum += $0 }
+        XCTAssertEqual(forEachElementsSum, expectedElementsSum)
+
+        let reduceElementsSum = sortedIntArray.reduce(0) { result, element in return result + element }
+        XCTAssertEqual(reduceElementsSum, expectedElementsSum)
+
+        let increasedByOneSortedArray = sortedIntArray.map { $0 + 1 }
+        XCTAssertEqual(increasedByOneSortedArray, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
 }

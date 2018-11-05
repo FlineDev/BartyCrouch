@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F95C8D220F22A3C0045AFD0 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D120F22A3C0045AFD0 /* CollectionExtension.swift */; };
+		3F95C8D520F22DEE0045AFD0 /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D320F22DC60045AFD0 /* CollectionExtensionTests.swift */; };
+		3F95C8D620F22DEF0045AFD0 /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D320F22DC60045AFD0 /* CollectionExtensionTests.swift */; };
+		3F95C8D720F22DEF0045AFD0 /* CollectionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D320F22DC60045AFD0 /* CollectionExtensionTests.swift */; };
 		823B2B351C24AAB7007B3CDD /* HandySwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 823B2B341C24AAB7007B3CDD /* HandySwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		823B2B3C1C24AAB7007B3CDD /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823B2B311C24AAB6007B3CDD /* HandySwift.framework */; };
 		823B2B4D1C24ABA4007B3CDD /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */; };
@@ -58,6 +62,8 @@
 		82CAE2941C2ED5E000F934A7 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */; };
 		82CAE2961C2EE64900F934A7 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */; };
 		82CAE2981C2EE95200F934A7 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */; };
+		82E21E8E211AF9960061EB1B /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D120F22A3C0045AFD0 /* CollectionExtension.swift */; };
+		82E21E8F211AF9970061EB1B /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95C8D120F22A3C0045AFD0 /* CollectionExtension.swift */; };
 		A11830D31E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
 		A11830D41E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
 		A11830D51E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */; };
@@ -67,6 +73,12 @@
 		A1F221641E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
 		A1F221651E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
 		A1F221661E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */; };
+		C5C89B9420B0A0C10048B07C /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C89B9320B0A0C10048B07C /* Weak.swift */; };
+		C5CFB6AC20B0A70300830511 /* Unowned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFB6AB20B0A70300830511 /* Unowned.swift */; };
+		C5CFB6AD20B0A70300830511 /* Unowned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFB6AB20B0A70300830511 /* Unowned.swift */; };
+		C5CFB6AE20B0A70300830511 /* Unowned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CFB6AB20B0A70300830511 /* Unowned.swift */; };
+		C5CFB6AF20B0A78F00830511 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C89B9320B0A0C10048B07C /* Weak.swift */; };
+		C5CFB6B020B0A79000830511 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C89B9320B0A0C10048B07C /* Weak.swift */; };
 		CC120CC2205FDB9300C37D7C /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC120CC1205FDB9300C37D7C /* Regex.swift */; };
 		CC120CC3205FDC4C00C37D7C /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC120CC1205FDB9300C37D7C /* Regex.swift */; };
 		CC120CC4205FDC4D00C37D7C /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC120CC1205FDB9300C37D7C /* Regex.swift */; };
@@ -100,6 +112,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F95C8D120F22A3C0045AFD0 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		3F95C8D320F22DC60045AFD0 /* CollectionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTests.swift; sourceTree = "<group>"; };
 		823B2B311C24AAB6007B3CDD /* HandySwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandySwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		823B2B341C24AAB7007B3CDD /* HandySwift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HandySwift.h; sourceTree = "<group>"; };
 		823B2B361C24AAB7007B3CDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,6 +138,9 @@
 		82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		82EB7874215B96C70042E0FD /* .projlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .projlint.yml; sourceTree = "<group>"; };
+		82EB7875215B96E20042E0FD /* beak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beak.swift; sourceTree = "<group>"; };
+		82EB7876215B98530042E0FD /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		82F22E551C26434900E784A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
 		A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtensionTests.swift; sourceTree = "<group>"; };
@@ -131,8 +148,8 @@
 		A16B85EB1D8EA9A200B39055 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A19DD6921DE2B70F00C66584 /* HandySwift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = HandySwift.podspec; sourceTree = "<group>"; };
 		A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtension.swift; sourceTree = "<group>"; };
-		A1F221851E3FEE7C00419B06 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		A1F5AEEB1E05702E003D6949 /* .swift-version */ = {isa = PBXFileReference; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
+		C5C89B9320B0A0C10048B07C /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
+		C5CFB6AB20B0A70300830511 /* Unowned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unowned.swift; sourceTree = "<group>"; };
 		CC120CC1205FDB9300C37D7C /* Regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		CC4AE0CD2087D895009931F6 /* RegexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,12 +203,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8203930320F3A4DF0074974F /* HandySwift */ = {
+			isa = PBXGroup;
+			children = (
+				82812A9A1D06877B00CD5B6C /* Globals.swift */,
+				823B2B4B1C24AB7F007B3CDD /* Extensions */,
+				8258E4541C2E0BAF0031CBFF /* Structs */,
+			);
+			path = HandySwift;
+			sourceTree = "<group>";
+		};
+		8203930420F3A63F0074974F /* HandySwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				82812A9E1D06926800CD5B6C /* GlobalsTests.swift */,
+				823B2B4E1C24ABD8007B3CDD /* Extensions */,
+				8258E4571C2E196B0031CBFF /* Structs */,
+			);
+			path = HandySwiftTests;
+			sourceTree = "<group>";
+		};
 		823B2B271C24AAB6007B3CDD = {
 			isa = PBXGroup;
 			children = (
-				A1F5AEEA1E05700F003D6949 /* Root Files */,
-				825EFDE11C3333CE00558497 /* Sources */,
+				825EFDE11C3333CE00558497 /* Frameworks */,
 				825EFDE21C3333D200558497 /* Tests */,
+				A1F5AEEA1E05700F003D6949 /* RootFiles */,
 				823B2B321C24AAB6007B3CDD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -212,11 +249,12 @@
 		823B2B4B1C24AB7F007B3CDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */,
-				82CAE2911C2ED1A200F934A7 /* StringExtension.swift */,
 				82CAE2951C2EE64900F934A7 /* ArrayExtension.swift */,
+				3F95C8D120F22A3C0045AFD0 /* CollectionExtension.swift */,
 				8280D7DB1C4A6EC9001172EF /* DictionaryExtension.swift */,
 				A1F221631E3CC05100419B06 /* DispatchTimeIntervalExtension.swift */,
+				823B2B4C1C24ABA4007B3CDD /* IntExtension.swift */,
+				82CAE2911C2ED1A200F934A7 /* StringExtension.swift */,
 				A11830D21E589F6700CBE087 /* TimeIntervalExtension.swift */,
 			);
 			path = Extensions;
@@ -225,11 +263,12 @@
 		823B2B4E1C24ABD8007B3CDD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */,
-				82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */,
 				82CAE2971C2EE95200F934A7 /* ArrayExtensionTests.swift */,
+				3F95C8D320F22DC60045AFD0 /* CollectionExtensionTests.swift */,
 				8280D7DF1C4A6FF3001172EF /* DictionaryExtensionTests.swift */,
 				827599631E520FB800787F99 /* DispatchTimeIntervalExtensionTests.swift */,
+				823B2B4F1C24AC00007B3CDD /* IntExtensionTests.swift */,
+				82CAE2931C2ED5E000F934A7 /* StringExtensionTests.swift */,
 				A11830D61E58A11D00CBE087 /* TimeIntervalExtensionTests.swift */,
 			);
 			path = Extensions;
@@ -238,9 +277,11 @@
 		8258E4541C2E0BAF0031CBFF /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				8258E4551C2E0C140031CBFF /* SortedArray.swift */,
 				826F69AB1C3895A300B2CC6B /* FrequencyTable.swift */,
 				CC120CC1205FDB9300C37D7C /* Regex.swift */,
+				8258E4551C2E0C140031CBFF /* SortedArray.swift */,
+				C5CFB6AB20B0A70300830511 /* Unowned.swift */,
+				C5C89B9320B0A0C10048B07C /* Weak.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -248,63 +289,60 @@
 		8258E4571C2E196B0031CBFF /* Structs */ = {
 			isa = PBXGroup;
 			children = (
-				8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */,
 				826F69AF1C389DB800B2CC6B /* FrequencyTableTests.swift */,
 				CC4AE0CD2087D895009931F6 /* RegexTests.swift */,
+				8258E4581C2E1ACE0031CBFF /* SortedArrayTests.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
 		};
-		825EFDE11C3333CE00558497 /* Sources */ = {
+		825EFDE11C3333CE00558497 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				82812A9A1D06877B00CD5B6C /* Globals.swift */,
-				8258E4541C2E0BAF0031CBFF /* Structs */,
-				823B2B4B1C24AB7F007B3CDD /* Extensions */,
-				825EFDE31C3333F100558497 /* Supporting Files */,
+				8203930320F3A4DF0074974F /* HandySwift */,
+				825EFDE31C3333F100558497 /* SupportingFiles */,
 			);
-			path = Sources;
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		825EFDE21C3333D200558497 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				82812A9E1D06926800CD5B6C /* GlobalsTests.swift */,
-				8258E4571C2E196B0031CBFF /* Structs */,
-				823B2B4E1C24ABD8007B3CDD /* Extensions */,
-				82B6DD8D1C6A85B2006DA266 /* Supporting Files */,
+				8203930420F3A63F0074974F /* HandySwiftTests */,
+				82B6DD8D1C6A85B2006DA266 /* SupportingFiles */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		825EFDE31C3333F100558497 /* Supporting Files */ = {
+		825EFDE31C3333F100558497 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				823B2B341C24AAB7007B3CDD /* HandySwift.h */,
 				823B2B361C24AAB7007B3CDD /* Info.plist */,
+				823B2B341C24AAB7007B3CDD /* HandySwift.h */,
 			);
-			path = "Supporting Files";
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		82B6DD8D1C6A85B2006DA266 /* Supporting Files */ = {
+		82B6DD8D1C6A85B2006DA266 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				823B2B421C24AAB7007B3CDD /* Info.plist */,
 			);
-			path = "Supporting Files";
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		A1F5AEEA1E05700F003D6949 /* Root Files */ = {
+		A1F5AEEA1E05700F003D6949 /* RootFiles */ = {
 			isa = PBXGroup;
 			children = (
-				A16B85EB1D8EA9A200B39055 /* README.md */,
-				A1F221851E3FEE7C00419B06 /* LICENSE.md */,
-				82F22E551C26434900E784A2 /* Package.swift */,
-				A19DD6921DE2B70F00C66584 /* HandySwift.podspec */,
-				A1F5AEEB1E05702E003D6949 /* .swift-version */,
+				82EB7874215B96C70042E0FD /* .projlint.yml */,
 				A15C62221EE734F100A7CA38 /* .swiftlint.yml */,
+				82EB7875215B96E20042E0FD /* beak.swift */,
+				A19DD6921DE2B70F00C66584 /* HandySwift.podspec */,
+				82EB7876215B98530042E0FD /* LICENSE */,
+				82F22E551C26434900E784A2 /* Package.swift */,
+				A16B85EB1D8EA9A200B39055 /* README.md */,
 			);
-			name = "Root Files";
+			name = RootFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +384,7 @@
 				823B2B2E1C24AAB6007B3CDD /* Headers */,
 				823B2B2F1C24AAB6007B3CDD /* Resources */,
 				82F967F41C67A68A0003F12A /* SwiftLint */,
+				82EB7873215B92E90042E0FD /* ProjLint */,
 			);
 			buildRules = (
 			);
@@ -383,6 +422,7 @@
 				825EFDC71C3333B000558497 /* Headers */,
 				825EFDC81C3333B000558497 /* Resources */,
 				82F967F51C67A69A0003F12A /* SwiftLint */,
+				82EB7878215B9EE30042E0FD /* ProjLint */,
 			);
 			buildRules = (
 			);
@@ -420,6 +460,7 @@
 				825EFDE61C33351200558497 /* Headers */,
 				825EFDE71C33351200558497 /* Resources */,
 				82F967F61C67A6A80003F12A /* SwiftLint */,
+				82EB7879215B9EF10042E0FD /* ProjLint */,
 			);
 			buildRules = (
 			);
@@ -552,6 +593,60 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		82EB7873215B92E90042E0FD /* ProjLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = ProjLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which projlint > /dev/null; then\n        projlint lint --xcode --timeout 2 --ignore-network-errors\n    else\n        echo \"warning: ProjLint not installed, download it from https://github.com/JamitLabs/ProjLint\"\n    fi\nfi\n";
+		};
+		82EB7878215B9EE30042E0FD /* ProjLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = ProjLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which projlint > /dev/null; then\n        projlint lint --xcode --timeout 2 --ignore-network-errors\n    else\n        echo \"warning: ProjLint not installed, download it from https://github.com/JamitLabs/ProjLint\"\n    fi\nfi\n";
+		};
+		82EB7879215B9EF10042E0FD /* ProjLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = ProjLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which projlint > /dev/null; then\n        projlint lint --xcode --timeout 2 --ignore-network-errors\n    else\n        echo \"warning: ProjLint not installed, download it from https://github.com/JamitLabs/ProjLint\"\n    fi\nfi\n";
+		};
 		82F967F41C67A68A0003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,7 +659,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi\n";
 		};
 		82F967F51C67A69A0003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -578,7 +673,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi\n";
 		};
 		82F967F61C67A6A80003F12A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -592,7 +687,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    if which swiftlint > /dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download it from https://github.com/realm/SwiftLint\"\n    fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -605,9 +700,12 @@
 				CC120CC2205FDB9300C37D7C /* Regex.swift in Sources */,
 				826F69AC1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				A1F221641E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
+				3F95C8D220F22A3C0045AFD0 /* CollectionExtension.swift in Sources */,
 				823B2B4D1C24ABA4007B3CDD /* IntExtension.swift in Sources */,
+				C5C89B9420B0A0C10048B07C /* Weak.swift in Sources */,
 				82CAE2921C2ED1A200F934A7 /* StringExtension.swift in Sources */,
 				82CAE2961C2EE64900F934A7 /* ArrayExtension.swift in Sources */,
+				C5CFB6AC20B0A70300830511 /* Unowned.swift in Sources */,
 				82812A9B1D06877B00CD5B6C /* Globals.swift in Sources */,
 				8280D7DC1C4A6EC9001172EF /* DictionaryExtension.swift in Sources */,
 				A11830D31E589F6700CBE087 /* TimeIntervalExtension.swift in Sources */,
@@ -627,6 +725,7 @@
 				82CAE2981C2EE95200F934A7 /* ArrayExtensionTests.swift in Sources */,
 				82812A9F1D06926800CD5B6C /* GlobalsTests.swift in Sources */,
 				8280D7E01C4A6FF3001172EF /* DictionaryExtensionTests.swift in Sources */,
+				3F95C8D520F22DEE0045AFD0 /* CollectionExtensionTests.swift in Sources */,
 				CC4AE0CF2087D8A7009931F6 /* RegexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,8 +736,11 @@
 			files = (
 				825EFE061C33358400558497 /* ArrayExtension.swift in Sources */,
 				CC120CC3205FDC4C00C37D7C /* Regex.swift in Sources */,
+				C5CFB6AD20B0A70300830511 /* Unowned.swift in Sources */,
 				826F69AD1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE051C33358400558497 /* StringExtension.swift in Sources */,
+				82E21E8E211AF9960061EB1B /* CollectionExtension.swift in Sources */,
+				C5CFB6AF20B0A78F00830511 /* Weak.swift in Sources */,
 				A1F221651E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
 				825EFE021C33358400558497 /* SortedArray.swift in Sources */,
 				825EFE031C33358400558497 /* IntExtension.swift in Sources */,
@@ -661,6 +763,7 @@
 				825EFE0F1C3335A400558497 /* IntExtensionTests.swift in Sources */,
 				82812AA01D06926800CD5B6C /* GlobalsTests.swift in Sources */,
 				8280D7E11C4A6FF3001172EF /* DictionaryExtensionTests.swift in Sources */,
+				3F95C8D620F22DEF0045AFD0 /* CollectionExtensionTests.swift in Sources */,
 				CC4AE0D02087D8A8009931F6 /* RegexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,8 +774,11 @@
 			files = (
 				825EFE0C1C33358500558497 /* ArrayExtension.swift in Sources */,
 				CC120CC4205FDC4D00C37D7C /* Regex.swift in Sources */,
+				C5CFB6AE20B0A70300830511 /* Unowned.swift in Sources */,
 				826F69AE1C3895A300B2CC6B /* FrequencyTable.swift in Sources */,
 				825EFE0B1C33358500558497 /* StringExtension.swift in Sources */,
+				82E21E8F211AF9970061EB1B /* CollectionExtension.swift in Sources */,
+				C5CFB6B020B0A79000830511 /* Weak.swift in Sources */,
 				A1F221661E3CC05100419B06 /* DispatchTimeIntervalExtension.swift in Sources */,
 				825EFE081C33358500558497 /* SortedArray.swift in Sources */,
 				825EFE091C33358500558497 /* IntExtension.swift in Sources */,
@@ -695,6 +801,7 @@
 				825EFE151C3335A500558497 /* IntExtensionTests.swift in Sources */,
 				82812AA11D06926800CD5B6C /* GlobalsTests.swift in Sources */,
 				8280D7E21C4A6FF3001172EF /* DictionaryExtensionTests.swift in Sources */,
+				3F95C8D720F22DEF0045AFD0 /* CollectionExtensionTests.swift in Sources */,
 				CC4AE0D12087D8A9009931F6 /* RegexTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -773,6 +880,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -826,6 +934,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -845,7 +954,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -853,7 +962,6 @@
 				PRODUCT_NAME = HandySwift;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -868,38 +976,35 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.HandySwift;
 				PRODUCT_NAME = HandySwift;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		823B2B491C24AAB7007B3CDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-iOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_iOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		823B2B4A1C24AAB7007B3CDD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-iOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_iOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -913,7 +1018,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -922,7 +1027,6 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -936,7 +1040,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -945,7 +1049,6 @@
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -954,15 +1057,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_SWIFT_FLAGS = "-D APPKIT";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-OSX-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-macOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_OSX_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -971,15 +1073,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_SWIFT_FLAGS = "-D APPKIT";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-OSX-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-macOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_OSX_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -992,14 +1093,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.HandySwift;
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1014,14 +1114,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Frameworks/SupportingFiles/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flinesoft.HandySwift;
 				PRODUCT_NAME = HandySwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1030,13 +1129,12 @@
 		825EFDFE1C33351300558497 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-tvOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_tvOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Debug;
@@ -1044,13 +1142,12 @@
 		825EFDFF1C33351300558497 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/SupportingFiles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flinesoft.HandySwift-tvOS-Tests";
 				PRODUCT_MODULE_NAME = HandySwift_tvOS_Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 			};
 			name = Release;

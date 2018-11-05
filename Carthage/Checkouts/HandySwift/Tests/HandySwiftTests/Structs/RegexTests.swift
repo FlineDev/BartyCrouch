@@ -11,7 +11,6 @@ import XCTest
 class RegexTests: XCTestCase {
     // MARK: - Initialization
     func testValidInitialization() {
-        let _: Regex = "abc" // Would crash if invalid
         XCTAssertNoThrow({ try Regex("abc") }) // swiftlint:disable:this trailing_closure
     }
 
@@ -41,28 +40,28 @@ class RegexTests: XCTestCase {
 
     // MARK: - Matching
     func testMatchesBool() {
-        let regex: Regex = "[1-9]+"
-        XCTAssertTrue(regex.matches("5"))
+        let regex = try? Regex("[1-9]+")
+        XCTAssertTrue(regex!.matches("5"))
     }
 
     func testFirstMatch() {
-        let regex: Regex = "[1-9]+"
-        XCTAssertEqual(regex.firstMatch(in: "5 3 7")?.string, "5")
+        let regex = try? Regex("[1-9]?+")
+        XCTAssertEqual(regex?.firstMatch(in: "5 3 7")?.string, "5")
     }
 
     func testMatches() {
-        let regex: Regex = "[1-9]+"
-        XCTAssertEqual(regex.matches(in: "5 432 11").map { $0.string }, ["5", "432", "11"])
+        let regex = try? Regex("[1-9]+")
+        XCTAssertEqual(regex?.matches(in: "5 432 11").map { $0.string }, ["5", "432", "11"])
     }
 
     func testReplacingMatches() {
-        let regex: Regex = "([1-9]+)"
+        let regex = try? Regex("([1-9]+)")
 
-        let stringAfterReplace1 = regex.replacingMatches(in: "5 3 7", with: "2")
-        let stringAfterReplace2 = regex.replacingMatches(in: "5 3 7", with: "$1")
-        let stringAfterReplace3 = regex.replacingMatches(in: "5 3 7", with: "1$1,")
-        let stringAfterReplace4 = regex.replacingMatches(in: "5 3 7", with: "2", count: 5)
-        let stringAfterReplace5 = regex.replacingMatches(in: "5 3 7", with: "2", count: 2)
+        let stringAfterReplace1 = regex?.replacingMatches(in: "5 3 7", with: "2")
+        let stringAfterReplace2 = regex?.replacingMatches(in: "5 3 7", with: "$1")
+        let stringAfterReplace3 = regex?.replacingMatches(in: "5 3 7", with: "1$1,")
+        let stringAfterReplace4 = regex?.replacingMatches(in: "5 3 7", with: "2", count: 5)
+        let stringAfterReplace5 = regex?.replacingMatches(in: "5 3 7", with: "2", count: 2)
 
         XCTAssertEqual(stringAfterReplace1, "2 2 2")
         XCTAssertEqual(stringAfterReplace2, "5 3 7")
@@ -71,24 +70,35 @@ class RegexTests: XCTestCase {
         XCTAssertEqual(stringAfterReplace5, "2 2 7")
     }
 
+    func testReplacingMatchesWithSpecialCharacters() {
+        let testString = "\n<string name=\"nav_menu_sim_info\">Simuliere, wie gut ein \\nE-Fahrzeug zu dir passt</string>\n"
+        let newValue = "Simuliere, wie gut ein \\nE-Fahrzeug zu dir passt2"
+        let expectedResult = "\n<string name=\"nav_menu_sim_info\">Simuliere, wie gut ein \\nE-Fahrzeug zu dir passt2</string>\n"
+
+        let regex = try? Regex("(<string[^>]* name=\"nav_menu_sim_info\"[^>]*>)(.*)(</string>)")
+        let stringAfterReplace1 = regex?.replacingMatches(in: testString, with: "$1\(NSRegularExpression.escapedTemplate(for: newValue))$3")
+
+        XCTAssertEqual(stringAfterReplace1, expectedResult)
+    }
+
     // MARK: - Match
     func testMatchString() {
-        let regex: Regex = "[1-9]+"
-        let firstMatchString = regex.firstMatch(in: "abc5def")?.string
+        let regex = try? Regex("[1-9]+")
+        let firstMatchString = regex?.firstMatch(in: "abc5def")?.string
         XCTAssertEqual(firstMatchString, "5")
     }
 
     func testMatchRange() {
-        let regex: Regex = "[1-9]+"
-        let firstMatchRange = regex.firstMatch(in: "abc5def")?.range
+        let regex = try? Regex("[1-9]+")
+        let firstMatchRange = regex?.firstMatch(in: "abc5def")?.range
         XCTAssertEqual(firstMatchRange?.lowerBound.encodedOffset, 3)
         XCTAssertEqual(firstMatchRange?.upperBound.encodedOffset, 4)
     }
 
     func testMatchCaptures() {
-        let regex: Regex = "([1-9])(Needed)(Optional)?"
-        let match1 = regex.firstMatch(in: "2Needed")
-        let match2 = regex.firstMatch(in: "5NeededOptional")
+        let regex = try? Regex("([1-9])(Needed)(Optional)?")
+        let match1 = regex?.firstMatch(in: "2Needed")
+        let match2 = regex?.firstMatch(in: "5NeededOptional")
 
         enum CapturingError: Error { // swiftlint:disable:this nesting
             case indexTooHigh
@@ -117,23 +127,22 @@ class RegexTests: XCTestCase {
             XCTAssertEqual(match2Capture0, "5")
             XCTAssertEqual(match2Capture1, "Needed")
             XCTAssertEqual(match2Capture2, "Optional")
-        } catch let error {
-            switch error as? CapturingError {
-            case .some(.indexTooHigh):
+        } catch let error as CapturingError {
+            switch error {
+            case .indexTooHigh:
                 XCTFail("Capturing group index is too high.")
 
-            case .some(.noMatch):
+            case .noMatch:
                 XCTFail("The match is nil.")
-
-            case .none:
-                XCTFail("An unexpected error occured.")
             }
+        } catch {
+            XCTFail("An unexpected error occured.")
         }
     }
 
     func testMatchStringApplyingTemplate() {
-        let regex: Regex = "([1-9])(Needed)"
-        let match = regex.firstMatch(in: "1Needed")
+        let regex = try? Regex("([1-9])(Needed)")
+        let match = regex?.firstMatch(in: "1Needed")
         XCTAssertEqual(match?.string(applyingTemplate: "Test$1ThatIs$2"), "Test1ThatIsNeeded")
     }
 
@@ -166,13 +175,13 @@ class RegexTests: XCTestCase {
 
     // MARK: - CustomStringConvertible
     func testRegexCustomStringConvertible() {
-        let regex: Regex = "foo"
-        XCTAssertEqual(regex.description, "Regex<\"foo\">")
+        let regex = try? Regex("foo")
+        XCTAssertEqual(regex?.description, "Regex<\"foo\">")
     }
 
     func testMatchCustomStringConvertible() {
-        let regex: Regex = "bar"
-        let match = regex.firstMatch(in: "bar")!
-        XCTAssertEqual(match.description, "Match<\"bar\">")
+        let regex = try? Regex("bar")
+        let match = regex?.firstMatch(in: "bar")!
+        XCTAssertEqual(match?.description, "Match<\"bar\">")
     }
 }

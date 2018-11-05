@@ -74,6 +74,12 @@ String(randomWithLength: 6, allowedCharactersType: .alphabetic)
 String(randomWithLength: 8, allowedCharactersType: .alphaNumeric)
 String(randomWithLength: 10, allowedCharactersType: .allCharactersIn("?!🐲🍏✈️🎎🍜"))
 
+//: ## Collection Extensions
+//: ### [try:]
+//: Returns an element with the specified index and nil if the array does not have that index.
+let arrayForTry = [0, 1, 2, 3, 20]
+arrayForTry[try: 4]
+arrayForTry[try: 20]
 
 //: ## DictionaryExtension
 //: ### init?(keys:values:)
@@ -239,20 +245,15 @@ randomWords
 
 //: ## Regex
 //: `Regex` is a swifty regex engine built on top of the `NSRegularExpression` api.
-//: ### Regex(_:options:)
-//: Initialize with pattern and options.
+//: ### init(_:options:)
+//: Initialize with pattern and, optionally, options.
 
-do {
-    let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
-    let regex = try Regex("(Phil|John), [d]{4}", options: options)
-    regex
-} catch {
-    // Regex expression was invalid
-}
+let regex = try! Regex("(Phil|John), [\\d]{4}")
+regex
 
-//: ### StringLiteral Init
-//: Crashes on invalid pattern. Provides no interface to specify options.
-let regex = try Regex("(Phil|John), (\\d{4})")
+let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
+let regexWithOptions = try! Regex("(Phil|John), [\\d]{4}", options: options)
+regexWithOptions
 
 //: ### regex.matches(_:)
 //: Checks whether regex matches string
@@ -294,3 +295,32 @@ captures
 let stringWithTemplateApplied = match.string(applyingTemplate: "$1 was born in $2")
 stringWithTemplateApplied
 
+
+//: ## Weak
+//: `Weak` is a wrapper to store weak references to a `Wrapped` instance.
+//: ### Weak(_:)
+//: Initialize with an object reference.
+let text: NSString = "Hello World!"
+var weak = Weak(text)
+print(weak)
+
+//: ### Accessing inner Reference
+//: Access the inner wrapped reference with the `value` property.
+print(weak.value!)
+
+//: ### NilLiteralExpressible Conformance
+//: Create a `Weak` wrapper by assigning nil to the value.
+weak = nil
+print(weak)
+
+
+//: ## Unowned
+//: `Unowned` is a wrapper to store unowned references to a `Wrapped` instance.
+//: ### Unowned(_:)
+//: Initialize with an object reference.
+var unowned = Unowned(text)
+print(unowned)
+
+//: ### Accessing inner Reference
+//: Access the inner wrapped reference with the `value` property.
+print(unowned.value)

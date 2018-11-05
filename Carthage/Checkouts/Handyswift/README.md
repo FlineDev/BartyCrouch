@@ -4,22 +4,22 @@
 </p>
 
 <p align="center">
-    <a href="https://www.bitrise.io/app/810d996d77fb0abf">
-        <img src="https://www.bitrise.io/app/810d996d77fb0abf.svg?token=kr27kfE1r8jE0qdtpXgIzw&branch=stable"
+    <a href="https://app.bitrise.io/app/cbc4cab821708298">
+        <img src="https://app.bitrise.io/app/cbc4cab821708298/status.svg?token=1fWFE7UCuTBoYTGf4StnFQ&branch=stable"
              alt="Build Status">
     </a>
     <a href="https://codebeat.co/projects/github-com-flinesoft-handyswift">
         <img src="https://codebeat.co/badges/283e545d-02e9-4fcf-aabc-40cacfbfe26c"
-             alt="codebeat badge">
+             alt="Codebeat Status">
     </a>
     <a href="https://github.com/Flinesoft/HandySwift/releases">
-        <img src="https://img.shields.io/badge/Version-2.6.0-blue.svg"
-             alt="Version: 2.6.0">
+        <img src="https://img.shields.io/badge/Version-2.7.0-blue.svg"
+             alt="Version: 2.7.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-4.0-FFAC45.svg"
-         alt="Swift: 4.0">
-    <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20tvOS%20%7C%20OS%20X-FF69B4.svg"
-        alt="Platforms: iOS | tvOS | OS X">
+    <img src="https://img.shields.io/badge/Swift-4.2-FFAC45.svg"
+         alt="Swift: 4.2">
+    <img src="https://img.shields.io/badge/Platforms-iOS%20%7C%20tvOS%20%7C%20macOS%20%7C%20Linux-FF69B4.svg"
+        alt="Platforms: iOS | tvOS | macOS | Linux">
     <a href="https://github.com/Flinesoft/HandySwift/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
@@ -45,41 +45,9 @@ If you like this, please also checkout [HandyUIKit](https://github.com/Flinesoft
 
 ## Installation
 
-Currently the recommended way of installing this library is via [Carthage](https://github.com/Carthage/Carthage).
-[Cocoapods](https://github.com/CocoaPods/CocoaPods) is supported, too.
-[Swift Package Manager](https://github.com/apple/swift-package-manager) was targeted but didn't work in my tests.
+Currently the recommended way of installing this library is via [Carthage](https://github.com/Carthage/Carthage) on macOS or [Swift Package Manager](https://github.com/apple/swift-package-manager) on Linux. [Cocoapods](https://github.com/CocoaPods/CocoaPods) might work, too, but is not tested.
 
 You can of course also just include this framework manually into your project by downloading it or by using git submodules.
-
-*Note: This project is ready for Swift 4. Until Xcode 9 is officially released though, you need to use the branch "work/swift4".*
-
-### Carthage
-
-Place the following line to your Cartfile:
-
-``` Swift
-github "Flinesoft/HandySwift" ~> 2.4
-```
-
-Now run `carthage update`. Then drag & drop the HandySwift.framework in the Carthage/build folder to your project. Now you can `import HandySwift` in each class you want to use its features. Refer to the [Carthage README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application) for detailed / updated instructions.
-
-### CocoaPods
-
-Add the line `pod 'HandySwift'` to your target in your `Podfile` and make sure to include `use_frameworks!`
-at the top. The result might look similar to this:
-
-``` Ruby
-platform :ios, '8.0'
-use_frameworks!
-
-target 'MyAppTarget' do
-    pod 'HandySwift', '~> 2.4'
-end
-```
-
-Now close your project and run `pod install` from the command line. Then open the `.xcworkspace` from within your project folder.
-Build your project once (with `Cmd+B`) to update the frameworks known to Xcode. Now you can `import HandySwift` in each class you want to use its features.
-Refer to [CocoaPods.org](https://cocoapods.org) for detailed / updates instructions.
 
 ## Usage
 
@@ -94,6 +62,7 @@ Open the Playground from within the `.xcworkspace` in order for it to work.
   - [IntExtension](#intextension)
   - [IntegerTypeExtension](#integertypeextension)
   - [StringExtension](#stringextension)
+  - [CollectionExtension](#collectionextension)
   - [ArrayExtension](#arrayextension)
   - [DictionaryExtension](#dictionaryextension)
   - [DispatchTimeIntervalExtension](#dispatchtimeintervalextension)
@@ -101,6 +70,8 @@ Open the Playground from within the `.xcworkspace` in order for it to work.
   - [SortedArray](#sortedarray)
   - [FrequencyTable](#frequencytable)
   - [Regex](#regex)
+  - [Weak](#weak)
+  - [Unowned](#unowned)
 
 ---
 
@@ -209,7 +180,6 @@ Combines each element with each element of a given other array.
 [1, 2, 3].combinations(with: ["A", "B"])
 // => [(1, "A"), (1, "B"), (2, "A"), (2, "B"), (3, "A"), (3, "B")]
 ```
-
 
 ### DictionaryExtension
 #### init?(keys:values:)
@@ -366,22 +336,15 @@ let randomWords = frequencyTable.sample(size: 6)!.map{ $0.word }
 
 `Regex` is a swifty regex engine built on top of the `NSRegularExpression` API.
 
-#### Regex(_:options:)
+#### init(_:options:)
 
-Initialize with pattern and options.
+Initialize with pattern and, optionally, options.
 
 ``` swift
+let regex = try Regex("(Phil|John), [\\d]{4}")
+
 let options: Regex.Options = [.ignoreCase, .anchorsMatchLines, .dotMatchesLineSeparators, .ignoreMetacharacters]
-let regex = try Regex("(Phil|John), [d]{4}", options: options)
-```
-
-#### StringLiteral Init
-
-Crashes on invalid pattern. Provides no interface to specify options.
-
-``` swift
-let regex = try Regex("(Phil|John), (\\d{4})")
-// => Regex<"(Phil|John), (\d{4})">
+let regexWithOptions = try Regex("(Phil|John), [\\d]{4}", options: options)
 ```
 
 #### regex.matches(_:)
@@ -449,20 +412,72 @@ Replaces the matched string with a template string
 
 ``` swift
 match.string(applyingTemplate: "$1 was born in $2")
-// => 
+// => "Phil was born in 1991"
 ```
+
+### Weak
+
+`Weak` is a wrapper to store weak references to a `Wrapped` instance.
+
+#### Weak(_:)
+
+Initialize with an object reference.
+
+``` swift
+let text: NSString = "Hello World!"
+var weak = Weak(text)
+```
+
+#### Accessing inner Reference
+
+Access the inner wrapped reference with the `value` property.
+
+``` swift
+print(weak.value!)
+```
+
+#### NilLiteralExpressible Conformance
+
+Create a `Weak` wrapper by assigning nil to the value.
+``` swift
+var weakWrappedValue: Weak<AnyObject> = nil
+```
+
+### Unowned
+
+`Unowned` is a wrapper to store unowned references to a `Wrapped` instance.
+
+#### Unowned(_:)
+
+Initialize with an object reference.
+``` swift
+var unowned = Unowned(text)
+```
+
+#### Accessing inner Reference
+
+Access the inner wrapped reference with the `value` property.
+``` swift
+print(unowned.value)
+```
+
+### CollectionExtension
+
+#### [try:]
+
+Returns an element with the specified index or nil if the element does not exist .
+``` swift
+let testArray = [0, 1, 2, 3, 20]
+testArray[try: 4]  // => Optional(20)
+testArray[try: 20] // => nil
+```
+
 
 ## Contributing
 
-Contributions are welcome. Please just open an Issue on GitHub to discuss a point or request a feature or send a Pull Request with your suggestion. If there's a related discussion on the Swift Evolution mailing list, please also post the thread name with a link.
-
-Pull requests with new features will only be accepted when the following are given:
-- The feature is **handy** but not (yet) part of the Swift standard library.
-- **Tests** for the new feature exist and all tests pass successfully.
-- **Usage examples** of the new feature are given in the Playgrounds.
-
-Please also try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)).
+See the file [CONTRIBUTING.md](https://github.com/Flinesoft/HandySwift/blob/stable/CONTRIBUTING.md).
 
 
 ## License
+
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
