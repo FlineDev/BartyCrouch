@@ -4,6 +4,12 @@ This project follows [Semantic Versioning](http://semver.org).
 
 Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
 
+## Upgrade from 3.x to 4.x
+- All subcommands except `lint` were bundled into the `update` subcommand
+- Choosing specific subcommands and passing options was moved to the configuration file `.bartycrouch.json`
+- The `--override-comments` (`-c`) option on the `code` subcommand is now always turned on, remove it
+- The `--extract-loc-strings` (`-e`) option on the `code` subcommand is now always turned on, remove it
+
 ## Upgrade from 2.x to 3.x
 
 - Change structure `bartycrouch -s "$BASE_PATH"` to `bartycrouch interfaces -p "$BASE_PATH"`
