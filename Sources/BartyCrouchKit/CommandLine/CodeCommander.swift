@@ -2,29 +2,35 @@
 
 import Foundation
 
+enum CodeCommanderError: Error {
+    case missingPath
+    case pathNotADirectory
+    case enumeratorCreationFailed
+}
+
 private enum CodeCommanderConstants {
     static let sourceCodeExtensions: Set<String> = ["h", "m", "mm", "swift"]
 }
 
 protocol CodeCommander {
-    func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) -> Bool
+    func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) throws
 }
 
 extension CodeCommander {
-    func findFiles(in codeDirectoryPath: String) -> Commander.CommandLineResult {
+    func findFiles(in codeDirectoryPath: String) throws -> [String] {
         let fileManager = FileManager.default
 
         var isDirectory: ObjCBool = false
         guard fileManager.fileExists(atPath: codeDirectoryPath, isDirectory: &isDirectory) else {
-            return ([], [codeDirectoryPath + "doesn't exist"], 1)
+            throw CodeCommanderError.missingPath
         }
 
         guard isDirectory.boolValue else {
-            return ([], [codeDirectoryPath + "isn't a directory"], 1)
+            throw CodeCommanderError.pathNotADirectory
         }
 
         guard let enumerator = fileManager.enumerator(at: URL(fileURLWithPath: codeDirectoryPath), includingPropertiesForKeys: []) else {
-            return ([], ["failed to create enumerator for " + codeDirectoryPath], 1)
+            throw CodeCommanderError.enumeratorCreationFailed
         }
 
         var matchedFiles = [String]()
@@ -35,6 +41,6 @@ extension CodeCommander {
             }
         }
 
-        return (matchedFiles, [], 0)
+        return matchedFiles
     }
 }

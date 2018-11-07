@@ -13,11 +13,11 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-3.13.1-blue.svg"
-             alt="Version: 3.13.1">
+        <img src="https://img.shields.io/badge/Version-4.0.0-blue.svg"
+             alt="Version: 4.0.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-4-FFAC45.svg"
-         alt="Swift: 4">
+    <img src="https://img.shields.io/badge/Swift-4.2-FFAC45.svg"
+         alt="Swift: 4.2">
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">

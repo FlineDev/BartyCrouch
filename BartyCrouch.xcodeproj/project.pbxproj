@@ -8,14 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00135F852056CDA700696558 /* PrintLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00135F842056CDA700696558 /* PrintLevel.swift */; };
-		82125E931D0312CF00B9C66B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82125E921D0312CF00B9C66B /* Commander.swift */; };
 		821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */; };
 		821DED3C1C70D04B00B8353B /* StringsFilesSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */; };
-		82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */; };
 		82463E0B1CD9197600D28A2C /* GenStringsCommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */; };
 		824DAA5D1CDB60E00077F93A /* CommandLineActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */; };
 		824DAA611CDB61140077F93A /* CommandLineActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA601CDB61140077F93A /* CommandLineActorTests.swift */; };
-		824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA621CDB6F520077F93A /* SubCommander.swift */; };
 		824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA691CDB80E10077F93A /* CommandLineParser.swift */; };
 		824DAA6D1CDBA55F0077F93A /* CommandLineParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824DAA6C1CDBA55F0077F93A /* CommandLineParserTests.swift */; };
 		825AEBFC21909F8D00A98A4B /* BartyCrouchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82CDE27F1C6ABF3A00055FE6 /* BartyCrouchKit.framework */; };
@@ -30,6 +27,9 @@
 		825AECC92190B68600A98A4B /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC72190B68600A98A4B /* PromiseKit.framework */; };
 		825AECCA2190B68800A98A4B /* HandySwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825AECC22190B61800A98A4B /* HandySwift.framework */; };
 		8278A9001CA129C30041B196 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8278A8FF1CA129960041B196 /* Constants.m */; };
+		82CC3BEB2193157F009DEA31 /* UpdateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC3BEA2193157F009DEA31 /* UpdateCommand.swift */; };
+		82CC3BED2193158D009DEA31 /* LintCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC3BEC2193158D009DEA31 /* LintCommand.swift */; };
+		82CC3BF221932D5A009DEA31 /* SharedOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC3BF121932D5A009DEA31 /* SharedOptions.swift */; };
 		82CDE2761C6ABE5D00055FE6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2751C6ABE5D00055FE6 /* main.swift */; };
 		82CDE2981C6ABFB800055FE6 /* BartyCrouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */; };
@@ -85,14 +85,11 @@
 		000731D12028A53B00C29CAB /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		00135F842056CDA700696558 /* PrintLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLevel.swift; sourceTree = "<group>"; };
 		820649CD1C7CA636009E501E /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		82125E921D0312CF00B9C66B /* Commander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commander.swift; sourceTree = "<group>"; };
 		821DED391C70CFBB00B8353B /* StringsFilesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearch.swift; sourceTree = "<group>"; };
 		821DED3B1C70D04B00B8353B /* StringsFilesSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringsFilesSearchTests.swift; sourceTree = "<group>"; };
-		82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommander.swift; sourceTree = "<group>"; };
 		82463E0A1CD9197600D28A2C /* GenStringsCommanderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenStringsCommanderTests.swift; sourceTree = "<group>"; };
 		824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineActor.swift; sourceTree = "<group>"; };
 		824DAA601CDB61140077F93A /* CommandLineActorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineActorTests.swift; sourceTree = "<group>"; };
-		824DAA621CDB6F520077F93A /* SubCommander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCommander.swift; sourceTree = "<group>"; };
 		824DAA691CDB80E10077F93A /* CommandLineParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineParser.swift; sourceTree = "<group>"; };
 		824DAA6C1CDBA55F0077F93A /* CommandLineParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineParserTests.swift; sourceTree = "<group>"; };
 		825AEB4021904A7B00A98A4B /* SwiftExample2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExample2.swift; sourceTree = "<group>"; };
@@ -168,6 +165,9 @@
 		825AECC72190B68600A98A4B /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
 		8278A8FF1CA129960041B196 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		8278A9011CA129FA0041B196 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		82CC3BEA2193157F009DEA31 /* UpdateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCommand.swift; sourceTree = "<group>"; };
+		82CC3BEC2193158D009DEA31 /* LintCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LintCommand.swift; sourceTree = "<group>"; };
+		82CC3BF121932D5A009DEA31 /* SharedOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedOptions.swift; sourceTree = "<group>"; };
 		82CDE2641C6ABBF500055FE6 /* BartyCrouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BartyCrouch.h; sourceTree = "<group>"; };
 		82CDE2731C6ABE5C00055FE6 /* bartycrouch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = bartycrouch; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CDE2751C6ABE5D00055FE6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -249,10 +249,11 @@
 		825AEB33219047F100A98A4B /* BartyCrouchKit */ = {
 			isa = PBXGroup;
 			children = (
-				A1B528B22191C0DE0000DF58 /* Config */,
-				A1B528B12191B7A30000DF58 /* Commands */,
 				825AEB372190484600A98A4B /* CommandLine */,
+				82CC3BE921931529009DEA31 /* Commands */,
+				A1B528B22191C0DE0000DF58 /* Config */,
 				825AEB382190484B00A98A4B /* FileHandling */,
+				82CC3BEE21931D22009DEA31 /* Globals */,
 			);
 			path = BartyCrouchKit;
 			sourceTree = "<group>";
@@ -268,7 +269,6 @@
 		825AEB352190482500A98A4B /* BartyCrouchKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1B528B02191B7450000DF58 /* Commands */,
 				825AEB3D2190493500A98A4B /* CommandLine */,
 				825AEB3C2190492F00A98A4B /* FileHandling */,
 			);
@@ -279,13 +279,10 @@
 			isa = PBXGroup;
 			children = (
 				E78B1E161DFABA5500C7C290 /* CodeCommander.swift */,
-				82125E921D0312CF00B9C66B /* Commander.swift */,
 				824DAA5C1CDB60E00077F93A /* CommandLineActor.swift */,
 				824DAA691CDB80E10077F93A /* CommandLineParser.swift */,
 				E78B1E131DFAB33200C7C290 /* ExtractLocStringsCommander.swift */,
-				82463DF91CD910FD00D28A2C /* GenStringsCommander.swift */,
 				82CDE2EA1C6BF9D900055FE6 /* IBToolCommander.swift */,
-				825AEB392190485B00A98A4B /* Helpers */,
 			);
 			path = CommandLine;
 			sourceTree = "<group>";
@@ -297,15 +294,6 @@
 				82CDE2DF1C6BF35500055FE6 /* StringsFileUpdater.swift */,
 			);
 			path = FileHandling;
-			sourceTree = "<group>";
-		};
-		825AEB392190485B00A98A4B /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				824DAA621CDB6F520077F93A /* SubCommander.swift */,
-				00135F842056CDA700696558 /* PrintLevel.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		825AEB3C2190492F00A98A4B /* FileHandling */ = {
@@ -673,6 +661,24 @@
 			name = Carthage;
 			sourceTree = "<group>";
 		};
+		82CC3BE921931529009DEA31 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				82CC3BEC2193158D009DEA31 /* LintCommand.swift */,
+				82CC3BEA2193157F009DEA31 /* UpdateCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		82CC3BEE21931D22009DEA31 /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				00135F842056CDA700696558 /* PrintLevel.swift */,
+				82CC3BF121932D5A009DEA31 /* SharedOptions.swift */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
 		82CDE23C1C6ABB3300055FE6 = {
 			isa = PBXGroup;
 			children = (
@@ -749,20 +755,6 @@
 				825AEB7121904A7B00A98A4B /* StringsFiles */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		A1B528B02191B7450000DF58 /* Commands */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Commands;
-			sourceTree = "<group>";
-		};
-		A1B528B12191B7A30000DF58 /* Commands */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Commands;
 			sourceTree = "<group>";
 		};
 		A1B528B22191C0DE0000DF58 /* Config */ = {
@@ -1075,7 +1067,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B528C42191D7AC0000DF58 /* NormalizeOptions.swift in Sources */,
-				82125E931D0312CF00B9C66B /* Commander.swift in Sources */,
 				A1B528BB2191C1B00000DF58 /* InterfaceOptions.swift in Sources */,
 				E78B1E141DFAB33200C7C290 /* ExtractLocStringsCommander.swift in Sources */,
 				A1B528BD2191C1B80000DF58 /* CodeOptions.swift in Sources */,
@@ -1084,12 +1075,13 @@
 				821DED3A1C70CFBB00B8353B /* StringsFilesSearch.swift in Sources */,
 				82CDE2E01C6BF35500055FE6 /* StringsFileUpdater.swift in Sources */,
 				A1B528B42191C0F90000DF58 /* Config.swift in Sources */,
-				82463DFA1CD910FD00D28A2C /* GenStringsCommander.swift in Sources */,
+				82CC3BED2193158D009DEA31 /* LintCommand.swift in Sources */,
 				00135F852056CDA700696558 /* PrintLevel.swift in Sources */,
 				82CDE2EB1C6BF9D900055FE6 /* IBToolCommander.swift in Sources */,
 				824DAA6A1CDB80E10077F93A /* CommandLineParser.swift in Sources */,
 				E78B1E171DFABA5500C7C290 /* CodeCommander.swift in Sources */,
-				824DAA631CDB6F520077F93A /* SubCommander.swift in Sources */,
+				82CC3BF221932D5A009DEA31 /* SharedOptions.swift in Sources */,
+				82CC3BEB2193157F009DEA31 /* UpdateCommand.swift in Sources */,
 				A1B528B62191C1390000DF58 /* UpdateOptions.swift in Sources */,
 				A1B528B82191C1410000DF58 /* LintOptions.swift in Sources */,
 				A1B528C22191D6D80000DF58 /* GlobalOptions.swift in Sources */,

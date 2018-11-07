@@ -3,6 +3,7 @@
 // swiftlint:disable function_body_length type_body_length file_length
 
 import Foundation
+import HandySwift
 
 public class StringsFileUpdater {
     // MARK: - Sub Types
@@ -228,93 +229,93 @@ public class StringsFileUpdater {
         clientId: String,
         clientSecret: String,
         override: Bool = false
-    ) -> Int {
-        guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
-            print("Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-            return 0
-        }
-
-        guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
-            print("Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-            return 0
-        }
-
-        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
-            let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
-            print("Automatic translation from the locale '\(locale)' is not supported.", level: .warning)
-            return 0
-        }
-
-        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
-            let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
-            print("Automatic translation to the locale '\(locale)' is not supported.", level: .warning)
-            return 0
-        }
-
-        do {
-            let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
-
-            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
-
-            translator.fromLanguage = sourceTranslatorLanguage
-            translator.toLanguage = targetTranslatorLanguage
-
-            var translatedValuesCount = 0
-            var awaitingTranslationRequestsCount = 0
-
-            let sourceTranslations = findTranslations(inString: sourceContentString)
-            let existingTargetTranslations = findTranslations(inString: oldContentString)
-            var updatedTargetTranslations: [TranslationEntry] = []
-
-            for sourceTranslation in sourceTranslations {
-                let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
-                var targetTranslationOptional = existingTargetTranslations.first { $0.key == sourceKey }
-
-                if targetTranslationOptional == nil {
-                    targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
-                }
-
-                guard let targetTranslation = targetTranslationOptional else {
-                    print("targetTranslation was nil when not expected", level: .error)
-                    exit(EX_IOERR)
-                }
-
-                let (key, value, comment, line) = targetTranslation
-
-                guard value.isEmpty || override else {
-                    updatedTargetTranslations.append(targetTranslation)
-                    continue // skip already translated values
-                }
-
-                guard !sourceValue.isEmpty else {
-                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
-                    continue
-                }
-
-                awaitingTranslationRequestsCount += 1
-                let updatedTargetTranslationIndex = updatedTargetTranslations.count
-                updatedTargetTranslations.append(targetTranslation)
-
-                translator.translate(sourceValue) { translatedValue in
-                    if !translatedValue.isEmpty {
-                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
-                        translatedValuesCount += 1
-                    }
-
-                    awaitingTranslationRequestsCount -= 1
-                }
-            }
-
-            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
-            while awaitingTranslationRequestsCount > 0 {}
-
-            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
-
-            return translatedValuesCount
-        } catch {
-            print(error.localizedDescription, level: .warning)
-            exit(EX_OK)
-        }
+    ) throws {
+//        guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
+//            print("Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
+//            return 0
+//        }
+//
+//        guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
+//            print("Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
+//            return 0
+//        }
+//
+//        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
+//            let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
+//            print("Automatic translation from the locale '\(locale)' is not supported.", level: .warning)
+//            return 0
+//        }
+//
+//        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
+//            let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
+//            print("Automatic translation to the locale '\(locale)' is not supported.", level: .warning)
+//            return 0
+//        }
+//
+//        do {
+//            let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
+//
+//            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
+//
+//            translator.fromLanguage = sourceTranslatorLanguage
+//            translator.toLanguage = targetTranslatorLanguage
+//
+//            var translatedValuesCount = 0
+//            var awaitingTranslationRequestsCount = 0
+//
+//            let sourceTranslations = findTranslations(inString: sourceContentString)
+//            let existingTargetTranslations = findTranslations(inString: oldContentString)
+//            var updatedTargetTranslations: [TranslationEntry] = []
+//
+//            for sourceTranslation in sourceTranslations {
+//                let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
+//                var targetTranslationOptional = existingTargetTranslations.first { $0.key == sourceKey }
+//
+//                if targetTranslationOptional == nil {
+//                    targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
+//                }
+//
+//                guard let targetTranslation = targetTranslationOptional else {
+//                    print("targetTranslation was nil when not expected", level: .error)
+//                    exit(EX_IOERR)
+//                }
+//
+//                let (key, value, comment, line) = targetTranslation
+//
+//                guard value.isEmpty || override else {
+//                    updatedTargetTranslations.append(targetTranslation)
+//                    continue // skip already translated values
+//                }
+//
+//                guard !sourceValue.isEmpty else {
+//                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
+//                    continue
+//                }
+//
+//                awaitingTranslationRequestsCount += 1
+//                let updatedTargetTranslationIndex = updatedTargetTranslations.count
+//                updatedTargetTranslations.append(targetTranslation)
+//
+//                translator.translate(sourceValue) { translatedValue in
+//                    if !translatedValue.isEmpty {
+//                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
+//                        translatedValuesCount += 1
+//                    }
+//
+//                    awaitingTranslationRequestsCount -= 1
+//                }
+//            }
+//
+//            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
+//            while awaitingTranslationRequestsCount > 0 {}
+//
+//            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
+//
+//            return translatedValuesCount
+//        } catch {
+//            print(error.localizedDescription, level: .warning)
+//            exit(EX_OK)
+//        }
     }
 
     // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.

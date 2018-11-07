@@ -1,6 +1,7 @@
 //  Created by Cihat Gündüz on 12.03.18.
 
 import Cocoa
+import Rainbow
 
 enum PrintLevel {
     case success
