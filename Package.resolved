@@ -2,21 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "CLISpinner",
+        "repositoryURL": "https://github.com/kiliankoe/CLISpinner.git",
+        "state": {
+          "branch": null,
+          "revision": "93ca0c508e2bfcfc65ef068f667b3f20c327158c",
+          "version": "0.3.6"
+        }
+      },
+      {
         "package": "HandySwift",
         "repositoryURL": "https://github.com/Flinesoft/HandySwift.git",
         "state": {
           "branch": null,
-          "revision": "dfa0f27ac41b8f1129581a62d1d65c355cb0b3a3",
-          "version": "2.7.0"
+          "revision": "bbbcebc02bf872d791d0fcddab5bd2eb6712a6eb",
+          "version": "2.7.1"
         }
       },
       {
-        "package": "PromiseKit",
-        "repositoryURL": "https://github.com/mxcl/PromiseKit.git",
+        "package": "MungoHealer",
+        "repositoryURL": "https://github.com/JamitLabs/MungoHealer.git",
         "state": {
           "branch": null,
-          "revision": "66bcc386163121f14ee543aa20b682973cc98dd7",
-          "version": "6.5.2"
+          "revision": "3c60891b8191c9068994a485152a85300ab92ff9",
+          "version": "0.3.1"
         }
       },
       {
@@ -29,12 +38,21 @@
         }
       },
       {
+        "package": "Toml",
+        "repositoryURL": "https://github.com/jdfergason/swift-toml.git",
+        "state": {
+          "branch": null,
+          "revision": "f4a3d9fbd94a855d6f85989c7e4c29e0ad75999c",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "SwiftCLI",
         "repositoryURL": "https://github.com/jakeheis/SwiftCLI.git",
         "state": {
           "branch": null,
-          "revision": "37f4a7f863f6fe76ce44fc0023f331eea0089beb",
-          "version": "5.2.0"
+          "revision": "fb076cba39c679da4e27813518d8860d8815a25b",
+          "version": "5.2.1"
         }
       }
     ]

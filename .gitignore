@@ -62,3 +62,6 @@ fastlane/screenshots
 *.storyboard.strings
 TestExample*.strings
 *.strings.tmp
+
+# Swift Package Manager
+*.xcodeproj/

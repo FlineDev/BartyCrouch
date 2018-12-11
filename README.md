@@ -102,6 +102,8 @@ The update subcommand has the following features:
 - `translate`: Updates missing translations in other languages.
 - `normalize`: Sorts & cleans up `.strings` files.
 
+Note that in order for the `translate` command to work, you need to specify the translator API credentialsvia environment variables named `BING_TRANSLATOR_ID` and `BING_TRANSLATOR_SECRET`.
+
 <details><summary>Options for `interfaces`</summary>
 - `defaultToBase`: Add Base translation as value to new keys.
 - `ignoreEmptyStrings`: Doesn't add views with empty values.
@@ -199,6 +201,8 @@ BartyCrouch comes with sensible defaults that should work for most projects with
 Here's the current default config:
 
 ```json
+{ "version": "4.0", "config": {} }
+// bartycrouch-version:4.0
 {
   "included": [],
   "excluded": ["Carthage/", "Pods/"],
