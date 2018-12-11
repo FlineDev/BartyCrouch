@@ -5,7 +5,14 @@ import MungoHealer
 import Toml
 
 struct UpdateOptions {
-    let tasks: [String]
+    enum Task: String {
+        case interfaces
+        case code
+        case translate
+        case normalize
+    }
+
+    let tasks: [Task]
     let interfaces: InterfacesOptions
     let code: CodeOptions
     let translate: TranslateOptions?
@@ -18,7 +25,7 @@ extension UpdateOptions: TomlCodable {
         let defaultTasks: [String] = translateOptions != nil ? ["interfaces", "code", "translate", "normalize"] : ["interfaces", "code", "normalize"]
 
         return UpdateOptions(
-            tasks: toml.array("update", "tasks") ?? defaultTasks,
+            tasks: (toml.array("update", "tasks") ?? defaultTasks).compactMap { Task(rawValue: $0) },
             interfaces: try InterfacesOptions.make(toml: toml),
             code: try CodeOptions.make(toml: toml),
             translate: translateOptions,

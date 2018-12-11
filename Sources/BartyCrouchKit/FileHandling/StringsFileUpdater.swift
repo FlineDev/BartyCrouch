@@ -4,6 +4,7 @@
 
 import Foundation
 import HandySwift
+import MungoHealer
 
 public class StringsFileUpdater {
     // MARK: - Sub Types
@@ -229,32 +230,28 @@ public class StringsFileUpdater {
         clientId: String,
         clientSecret: String,
         override: Bool = false
-    ) throws {
-//        guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
-//            print("Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-//            return 0
-//        }
-//
-//        guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
-//            print("Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-//            return 0
-//        }
-//
-//        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
-//            let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
-//            print("Automatic translation from the locale '\(locale)' is not supported.", level: .warning)
-//            return 0
-//        }
-//
-//        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
-//            let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
-//            print("Automatic translation to the locale '\(locale)' is not supported.", level: .warning)
-//            return 0
-//        }
-//
-//        do {
-//            let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
-//
+    ) throws -> Int {
+        guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
+            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+        }
+
+        guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
+            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+        }
+
+        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
+            let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
+            throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation from the locale '\(locale)' is not supported.")
+        }
+
+        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
+            let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
+            throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation to the locale '\(locale)' is not supported.")
+        }
+
+        do {
+            let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
+
 //            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
 //
 //            translator.fromLanguage = sourceTranslatorLanguage
@@ -312,10 +309,11 @@ public class StringsFileUpdater {
 //            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
 //
 //            return translatedValuesCount
-//        } catch {
-//            print(error.localizedDescription, level: .warning)
-//            exit(EX_OK)
-//        }
+            return 0
+        } catch {
+            print(error.localizedDescription, level: .warning)
+            exit(EX_OK)
+        }
     }
 
     // - Returns: An array containing all found translations as tuples in the format `(key, value, comment?)`.

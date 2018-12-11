@@ -12,11 +12,5 @@ let cli = CLI(
 )
 
 cli.commands = [UpdateCommand(), LintCommand()]
-cli.globalOptions.append(contentsOf: SharedOptions.all)
+cli.globalOptions.append(contentsOf: GlobalOptions.all)
 cli.goAndExit()
-
-//let config = Config.load()
-//let targetUrl = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(".bartycrouch.json")
-//let data = try JSONEncoder().encode(config)
-//try data.write(to: targetUrl)
-//print("Did write config to \(targetUrl)")
