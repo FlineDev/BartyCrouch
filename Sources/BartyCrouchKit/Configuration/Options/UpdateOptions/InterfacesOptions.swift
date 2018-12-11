@@ -7,6 +7,7 @@ import Toml
 struct InterfacesOptions {
     let defaultToBase: Bool
     let ignoreEmptyString: Bool
+    let unstripped: Bool
 }
 
 extension InterfacesOptions: TomlCodable {
@@ -16,7 +17,8 @@ extension InterfacesOptions: TomlCodable {
 
         return InterfacesOptions(
             defaultToBase: toml.bool(update, interfaces, "defaultToBase") ?? false,
-            ignoreEmptyString: toml.bool(update, interfaces, "ignoreEmptyString") ?? false
+            ignoreEmptyString: toml.bool(update, interfaces, "ignoreEmptyString") ?? false,
+            unstripped: toml.bool(update, interfaces, "unstripped") ?? false
         )
     }
 
@@ -25,6 +27,7 @@ extension InterfacesOptions: TomlCodable {
 
         lines.append("defaultToBase = \(defaultToBase)")
         lines.append("ignoreEmptyString = \(ignoreEmptyString)")
+        lines.append("unstripped = \(unstripped)")
 
         return lines.joined(separator: "\n")
     }

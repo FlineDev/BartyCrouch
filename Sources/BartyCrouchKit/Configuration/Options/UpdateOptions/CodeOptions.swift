@@ -9,6 +9,7 @@ struct CodeOptions {
     let additive: Bool
     let customFunction: String?
     let customLocalizableName: String?
+    let unstripped: Bool
 }
 
 extension CodeOptions: TomlCodable {
@@ -20,7 +21,8 @@ extension CodeOptions: TomlCodable {
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
             customFunction: toml.string(update, code, "customFunction"),
-            customLocalizableName: toml.string(update, code, "customLocalizableName")
+            customLocalizableName: toml.string(update, code, "customLocalizableName"),
+            unstripped: toml.bool(update, code, "unstripped") ?? false
         )
     }
 
@@ -37,6 +39,8 @@ extension CodeOptions: TomlCodable {
         if let customLocalizableName = customLocalizableName {
             lines.append("customLocalizableName = \"\(customLocalizableName)\"")
         }
+
+        lines.append("unstripped = \(unstripped)")
 
         return lines.joined(separator: "\n")
     }

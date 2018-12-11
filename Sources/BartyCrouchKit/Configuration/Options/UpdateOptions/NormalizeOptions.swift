@@ -5,6 +5,7 @@ import MungoHealer
 import Toml
 
 struct NormalizeOptions {
+    let sourceLocale: String
     let harmonizeWithSource: Bool
     let sortByKeys: Bool
 }
@@ -15,6 +16,7 @@ extension NormalizeOptions: TomlCodable {
         let normalize: String = "normalize"
 
         return NormalizeOptions(
+            sourceLocale: toml.string(update, normalize, "sourceLocale") ?? "en",
             harmonizeWithSource: toml.bool(update, normalize, "harmonizeWithSource") ?? true,
             sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true
         )
@@ -23,6 +25,7 @@ extension NormalizeOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.normalize]"]
 
+        lines.append("sourceLocale = \"\(sourceLocale)\"")
         lines.append("harmonizeWithSource = \(harmonizeWithSource)")
         lines.append("sortByKeys = \(sortByKeys)")
 

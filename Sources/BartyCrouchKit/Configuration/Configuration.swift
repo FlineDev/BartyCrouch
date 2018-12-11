@@ -7,7 +7,6 @@ import Toml
 struct Configuration {
     static let fileName: String = ".bartycrouch.toml"
 
-    let globalOptions: GlobalOptions
     let updateOptions: UpdateOptions
     let lintOptions: LintOptions
 
@@ -25,16 +24,14 @@ struct Configuration {
 
 extension Configuration: TomlCodable {
     static func make(toml: Toml) throws -> Configuration {
-        let globalOptions = try GlobalOptions.make(toml: toml)
         let updateOptions = try UpdateOptions.make(toml: toml)
         let lintOptions = try LintOptions.make(toml: toml)
 
-        return Configuration(globalOptions: globalOptions, updateOptions: updateOptions, lintOptions: lintOptions)
+        return Configuration(updateOptions: updateOptions, lintOptions: lintOptions)
     }
 
     func tomlContents() -> String {
         let sections: [String] = [
-            globalOptions.tomlContents(),
             updateOptions.tomlContents(),
             lintOptions.tomlContents()
         ]

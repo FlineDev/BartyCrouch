@@ -13,6 +13,7 @@ public class UpdateCommand: Command {
 
     // MARK: - Instance Methods
     public func execute() throws {
+        let configuration: Configuration = try Configuration.load()
         print("Command '\(name)' is not yet implemented", level: .info)
     }
 }
