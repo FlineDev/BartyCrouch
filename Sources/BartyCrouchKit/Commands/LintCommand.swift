@@ -13,6 +13,8 @@ public class LintCommand: Command {
 
     // MARK: - Instance Methods
     public func execute() throws {
-        print("Command '\(name)' is not yet implemented", level: .info)
+        let lintOptions = try Configuration.load().lintOptions
+        let taskHandler: TaskHandler = LintTaskHandler(options: lintOptions)
+        taskHandler.perform()
     }
 }

@@ -16,9 +16,23 @@ public class UpdateCommand: Command {
         let updateOptions = try Configuration.load().updateOptions
 
         for task in updateOptions.tasks {
-            
-        }
+            let taskHandler: TaskHandler = {
+                switch task {
+                case .interfaces:
+                    return InterfacesTaskHandler(options: updateOptions.interfaces)
 
-        print("Command '\(name)' is not yet implemented", level: .info)
+                case .code:
+                    return CodeTaskHandler(options: updateOptions.code)
+
+                case .translate:
+                    return TranslateTaskHandler(options: updateOptions.translate!)
+
+                case .normalize:
+                    return NormalizeTaskHandler(options: updateOptions.normalize)
+                }
+            }()
+
+            taskHandler.perform()
+        }
     }
 }
