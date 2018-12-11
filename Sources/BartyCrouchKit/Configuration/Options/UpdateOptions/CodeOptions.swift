@@ -5,6 +5,8 @@ import MungoHealer
 import Toml
 
 struct CodeOptions {
+    let codePath: String
+    let localizablePath: String
     let defaultToKeys: Bool
     let additive: Bool
     let customFunction: String?
@@ -18,6 +20,8 @@ extension CodeOptions: TomlCodable {
         let code: String = "code"
 
         return CodeOptions(
+            codePath: toml.string(update, code, "codePath") ?? ".",
+            localizablePath: toml.string(update, code, "localizablePath") ?? ".",
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
             customFunction: toml.string(update, code, "customFunction"),
@@ -29,6 +33,8 @@ extension CodeOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.code]"]
 
+        lines.append("codePath = \"\(codePath)\"")
+        lines.append("localizablePath = \"\(localizablePath)\"")
         lines.append("defaultToKeys = \(defaultToKeys)")
         lines.append("additive = \(additive)")
 
