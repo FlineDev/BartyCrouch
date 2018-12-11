@@ -10,6 +10,13 @@ struct NormalizeTaskHandler {
 
 extension NormalizeTaskHandler: TaskHandler {
     func perform() {
-        // TODO: not yet implemented
+        CommandLineActor().actOnNormalize(
+            path: options.path,
+            override: false,
+            verbose: GlobalOptions.verbose.value,
+            locale: options.sourceLocale,
+            sortByKeys: options.sortByKeys,
+            harmonizeWithSource: options.harmonizeWithSource
+        )
     }
 }

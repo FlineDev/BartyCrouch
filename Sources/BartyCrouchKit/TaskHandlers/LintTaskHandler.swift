@@ -10,6 +10,10 @@ struct LintTaskHandler {
 
 extension LintTaskHandler: TaskHandler {
     func perform() {
-        // TODO: not yet implemented
+        CommandLineActor().actOnLint(
+            path: options.path,
+            duplicateKeys: options.duplicateKeys,
+            emptyValues: options.emptyValues
+        )
     }
 }

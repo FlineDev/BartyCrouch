@@ -10,6 +10,17 @@ struct CodeTaskHandler {
 
 extension CodeTaskHandler: TaskHandler {
     func perform() {
-        // TODO: not yet implemented
+        CommandLineActor().actOnCode(
+            path: options.codePath,
+            override: false,
+            verbose: GlobalOptions.verbose.value,
+            localizable: options.localizablePath,
+            defaultToKeys: options.defaultToKeys,
+            additive: options.additive,
+            overrideComments: false,
+            unstripped: options.unstripped,
+            customFunction: options.customFunction,
+            customLocalizableName: options.customLocalizableName
+        )
     }
 }

@@ -39,7 +39,6 @@ public class StringsFileUpdater {
         updateCommentWithBase: Bool = true,
         keepExistingKeys: Bool = false,
         overrideComments: Bool = false,
-        sortByKeys: Bool = false,
         keepWhitespaceSurroundings: Bool = false,
         ignoreEmptyStrings: Bool = false
     ) {
@@ -127,11 +126,7 @@ public class StringsFileUpdater {
                 }
 
                 let sortingClosure: (TranslationEntry, TranslationEntry) -> Bool = {
-                    if sortByKeys {
-                        return translationEntrySortingClosure(lhs:rhs:)
-                    } else {
-                        return { translation1, translation2 in translation1.line < translation2.line }
-                    }
+                    return { translation1, translation2 in translation1.line < translation2.line }
                 }()
 
                 return translations.sorted(by: sortingClosure)

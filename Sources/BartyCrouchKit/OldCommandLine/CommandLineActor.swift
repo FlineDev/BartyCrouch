@@ -13,7 +13,7 @@ public enum CommandLineAction {
 public class CommandLineActor {
     public init() {}
 
-    private func actOnCode(
+    func actOnCode(
         path: String,
         override: Bool,
         verbose: Bool,
@@ -21,8 +21,6 @@ public class CommandLineActor {
         defaultToKeys: Bool,
         additive: Bool,
         overrideComments: Bool,
-        useExtractLocStrings: Bool,
-        sortByKeys: Bool,
         unstripped: Bool,
         customFunction: String?,
         customLocalizableName: String?
@@ -49,15 +47,13 @@ public class CommandLineActor {
             defaultToKeys: defaultToKeys,
             additive: additive,
             overrideComments: overrideComments,
-            useExtractLocStrings: useExtractLocStrings,
-            sortByKeys: sortByKeys,
             unstripped: unstripped,
             customFunction: customFunction,
             localizableFileName: localizableFileName
         )
     }
 
-    private func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
+    func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
         let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
@@ -87,7 +83,7 @@ public class CommandLineActor {
         }
     }
 
-    private func actOnTranslate(path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
+    func actOnTranslate(path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
         let inputFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
@@ -109,14 +105,12 @@ public class CommandLineActor {
         }
     }
 
-    private func actOnNormalize(
+    func actOnNormalize(
         path: String,
         override: Bool,
         verbose: Bool,
         locale: String,
-        preventDuplicateKeys: Bool,
         sortByKeys: Bool,
-        warnEmptyValues: Bool,
         harmonizeWithSource: Bool
     ) {
         let sourceFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
@@ -148,22 +142,24 @@ public class CommandLineActor {
             allStringsFilePaths.forEach { filePath in
                 let stringsFileUpdater = StringsFileUpdater(path: filePath)
 
-                if preventDuplicateKeys {
-                    stringsFileUpdater?.preventDuplicateEntries()
-                }
+                // TODO: add functionality in actOnLint
+//                if preventDuplicateKeys {
+//                    stringsFileUpdater?.preventDuplicateEntries()
+//                }
 
                 if sortByKeys {
                     stringsFileUpdater?.sortByKeys()
                 }
 
-                if warnEmptyValues {
-                    stringsFileUpdater?.warnEmptyValueEntries()
-                }
+                // TODO: add functionality in actOnLint
+//                if warnEmptyValues {
+//                    stringsFileUpdater?.warnEmptyValueEntries()
+//                }
             }
         }
     }
 
-    private func actOnLint(path: String, duplicateKeys: Bool, emptyValues: Bool) {
+    func actOnLint(path: String, duplicateKeys: Bool, emptyValues: Bool) {
         let stringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path)
         guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); exit(EX_OK) }
 
@@ -231,8 +227,6 @@ public class CommandLineActor {
         defaultToKeys: Bool,
         additive: Bool,
         overrideComments: Bool,
-        useExtractLocStrings: Bool,
-        sortByKeys: Bool,
         unstripped: Bool,
         customFunction: String?,
         localizableFileName: String
@@ -260,20 +254,6 @@ public class CommandLineActor {
         let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
         guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
             print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
-
-            if sortByKeys {
-                // sort file even if no localizations extracted if specified to do so
-                for outputStringsFilePath in outputStringsFilePaths {
-                    guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                        print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
-                        exit(EX_CONFIG)
-                    }
-
-                    stringsFileUpdater.sortByKeys(keepWhitespaceSurroundings: unstripped)
-                    if verbose { print("Sorted keys of file '\(outputStringsFilePath)'.", level: .info) }
-                }
-            }
-
             exit(EX_OK) // NOTE: Expecting to see this only for empty project situations.
         }
 
@@ -289,7 +269,6 @@ public class CommandLineActor {
                 override: override,
                 keepExistingKeys: additive,
                 overrideComments: overrideComments,
-                sortByKeys: sortByKeys,
                 keepWhitespaceSurroundings: unstripped
             )
 

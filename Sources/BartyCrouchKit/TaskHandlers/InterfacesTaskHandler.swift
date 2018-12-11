@@ -10,6 +10,13 @@ struct InterfacesTaskHandler {
 
 extension InterfacesTaskHandler: TaskHandler {
     func perform() {
-        // TODO: not yet implemented
+        CommandLineActor().actOnInterfaces(
+            path: options.path,
+            override: false,
+            verbose: GlobalOptions.verbose.value,
+            defaultToBase: options.defaultToBase,
+            unstripped: options.unstripped,
+            ignoreEmptyStrings: options.ignoreEmptyStrings
+        )
     }
 }

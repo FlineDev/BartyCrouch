@@ -9,11 +9,11 @@ class ConfigurationTests: XCTestCase {
         do {
             let configuration: Configuration = try Configuration.make(toml: toml)
 
-            XCTAssertEqual(configuration.updateOptions.tasks, ["interfaces", "code", "normalize"])
+            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code, .normalize])
 
             XCTAssertEqual(configuration.updateOptions.interfaces.path, ".")
             XCTAssertEqual(configuration.updateOptions.interfaces.defaultToBase, false)
-            XCTAssertEqual(configuration.updateOptions.interfaces.ignoreEmptyString, false)
+            XCTAssertEqual(configuration.updateOptions.interfaces.ignoreEmptyStrings, false)
             XCTAssertEqual(configuration.updateOptions.interfaces.unstripped, false)
 
             XCTAssertEqual(configuration.updateOptions.code.codePath, ".")
@@ -48,7 +48,7 @@ class ConfigurationTests: XCTestCase {
                 [update.interfaces]
                 path = "Sources"
                 defaultToBase = true
-                ignoreEmptyString = true
+                ignoreEmptyStrings = true
                 unstripped = true
 
                 [update.code]
@@ -84,11 +84,11 @@ class ConfigurationTests: XCTestCase {
         do {
             let configuration: Configuration = try Configuration.make(toml: toml)
 
-            XCTAssertEqual(configuration.updateOptions.tasks, ["interfaces", "code"])
+            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code])
 
             XCTAssertEqual(configuration.updateOptions.interfaces.path, "Sources")
             XCTAssertEqual(configuration.updateOptions.interfaces.defaultToBase, true)
-            XCTAssertEqual(configuration.updateOptions.interfaces.ignoreEmptyString, true)
+            XCTAssertEqual(configuration.updateOptions.interfaces.ignoreEmptyStrings, true)
             XCTAssertEqual(configuration.updateOptions.interfaces.unstripped, true)
 
             XCTAssertEqual(configuration.updateOptions.code.codePath, "Sources")
@@ -126,7 +126,7 @@ class ConfigurationTests: XCTestCase {
             [update.interfaces]
             path = "Sources"
             defaultToBase = true
-            ignoreEmptyString = true
+            ignoreEmptyStrings = true
             unstripped = true
 
             [update.code]

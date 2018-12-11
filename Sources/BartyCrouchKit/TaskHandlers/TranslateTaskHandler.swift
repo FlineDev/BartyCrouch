@@ -10,6 +10,15 @@ struct TranslateTaskHandler {
 
 extension TranslateTaskHandler: TaskHandler {
     func perform() {
-        // TODO: not yet implemented
+        // TODO: add support for multiple APIs (currently not in the parameter list of actOnTranslate)
+
+        CommandLineActor().actOnTranslate(
+            path: options.path,
+            override: false,
+            verbose: GlobalOptions.verbose.value,
+            id: options.id,
+            secret: options.secret,
+            locale: options.sourceLocale
+        )
     }
 }

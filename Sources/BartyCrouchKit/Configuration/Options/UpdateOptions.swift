@@ -35,7 +35,7 @@ extension UpdateOptions: TomlCodable {
 
     func tomlContents() -> String {
         let sections: [String?] = [
-            "[update]\ntasks = \(tasks)",
+            "[update]\ntasks = \(tasks.map { $0.rawValue })",
             interfaces.tomlContents(),
             code.tomlContents(),
             translate?.tomlContents(),
