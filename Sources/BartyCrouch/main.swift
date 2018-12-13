@@ -11,6 +11,6 @@ let cli = CLI(
     description: "Incrementally update & translate your Strings files from code or interface files."
 )
 
-cli.commands = [UpdateCommand(), LintCommand()]
+cli.commands = [InitCommand(), UpdateCommand(), LintCommand()]
 cli.globalOptions.append(contentsOf: GlobalOptions.all)
 cli.goAndExit()
