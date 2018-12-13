@@ -4,10 +4,8 @@ import XCTest
 
 class ConfigurationTests: XCTestCase {
     func testConfigurationMakeDefault() {
-        let toml: Toml = try! Toml(withString: "")
-
         do {
-            let configuration: Configuration = try Configuration.make(toml: toml)
+            let configuration: Configuration = try Configuration.makeDefault()
 
             XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code, .normalize])
 
