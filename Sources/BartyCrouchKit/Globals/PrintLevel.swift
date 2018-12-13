@@ -46,9 +46,9 @@ func print(_ message: String, level: PrintLevel) {
 func performWithSpinner(_ message: String, level: PrintLevel = .info, pattern: CLISpinner.Pattern = .dots, _ closure: () throws -> Void) rethrows {
     let spinner = Spinner(pattern: pattern, text: message, color: level.color)
     spinner.start()
+    spinner.unhideCursor()
     try closure()
     spinner.stopAndClear()
-    spinner.unhideCursor()
 }
 
 func measure<ResultType>(task: String, _ closure: () throws -> ResultType) rethrows -> ResultType {
