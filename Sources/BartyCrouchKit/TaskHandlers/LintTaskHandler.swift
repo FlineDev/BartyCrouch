@@ -10,10 +10,14 @@ struct LintTaskHandler {
 
 extension LintTaskHandler: TaskHandler {
     func perform() {
-        CommandLineActor().actOnLint(
-            path: options.path,
-            duplicateKeys: options.duplicateKeys,
-            emptyValues: options.emptyValues
-        )
+        measure(task: "Lint") {
+            mungo.do {
+                CommandLineActor().actOnLint(
+                    path: options.path,
+                    duplicateKeys: options.duplicateKeys,
+                    emptyValues: options.emptyValues
+                )
+            }
+        }
     }
 }

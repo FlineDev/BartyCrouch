@@ -12,13 +12,17 @@ extension TranslateTaskHandler: TaskHandler {
     func perform() {
         // TODO: add support for multiple APIs (currently not in the parameter list of actOnTranslate)
 
-        CommandLineActor().actOnTranslate(
-            path: options.path,
-            override: false,
-            verbose: GlobalOptions.verbose.value,
-            id: options.id,
-            secret: options.secret,
-            locale: options.sourceLocale
-        )
+        measure(task: "Translate") {
+            mungo.do {
+                CommandLineActor().actOnTranslate(
+                    path: options.path,
+                    override: false,
+                    verbose: GlobalOptions.verbose.value,
+                    id: options.id,
+                    secret: options.secret,
+                    locale: options.sourceLocale
+                )
+            }
+        }
     }
 }

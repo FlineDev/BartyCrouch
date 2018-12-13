@@ -10,13 +10,17 @@ struct InterfacesTaskHandler {
 
 extension InterfacesTaskHandler: TaskHandler {
     func perform() {
-        CommandLineActor().actOnInterfaces(
-            path: options.path,
-            override: false,
-            verbose: GlobalOptions.verbose.value,
-            defaultToBase: options.defaultToBase,
-            unstripped: options.unstripped,
-            ignoreEmptyStrings: options.ignoreEmptyStrings
-        )
+        measure(task: "Update Interfaces") {
+            mungo.do {
+                CommandLineActor().actOnInterfaces(
+                    path: options.path,
+                    override: false,
+                    verbose: GlobalOptions.verbose.value,
+                    defaultToBase: options.defaultToBase,
+                    unstripped: options.unstripped,
+                    ignoreEmptyStrings: options.ignoreEmptyStrings
+                )
+            }
+        }
     }
 }
