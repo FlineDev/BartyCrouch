@@ -35,7 +35,7 @@ public class CommandLineActor {
 
         for localizableStringsFilePath in allLocalizableStringsFilePaths {
             guard FileManager.default.fileExists(atPath: localizableStringsFilePath) else {
-                print("No file exists at output path '\(localizableStringsFilePath)'", level: .error); exit(EX_NOINPUT)
+                print("No file exists at output path '\(localizableStringsFilePath)'", level: .warning); continue
             }
         }
 
@@ -67,7 +67,7 @@ public class CommandLineActor {
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error); exit(EX_CONFIG)
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .warning); continue
                 }
             }
 
@@ -97,7 +97,7 @@ public class CommandLineActor {
 
             for outputStringsFilePath in outputStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .error); exit(EX_CONFIG)
+                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .warning); continue
                 }
             }
 
@@ -211,8 +211,8 @@ public class CommandLineActor {
 
         if !failedFilePaths.isEmpty {
             // swiftlint:disable:next line_length
-            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .error)
-            exit(EXIT_FAILURE)
+            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning)
+            exit(EX_OK)
         } else {
             print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success)
             exit(EX_OK)
