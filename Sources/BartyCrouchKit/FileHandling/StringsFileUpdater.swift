@@ -234,12 +234,12 @@ public class StringsFileUpdater {
             throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
         }
 
-        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
+        guard let sourceTranslatorLanguage = Language.with(languageCode: sourceLanguage, region: sourceRegion) else {
             let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
             throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation from the locale '\(locale)' is not supported.")
         }
 
-        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
+        guard let targetTranslatorLanguage = Language.with(languageCode: targetLanguage, region: targetRegion) else {
             let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
             throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation to the locale '\(locale)' is not supported.")
         }
