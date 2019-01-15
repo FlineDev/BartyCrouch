@@ -246,65 +246,61 @@ public class StringsFileUpdater {
 
         do {
             let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
+            var translatedValuesCount = 0
 
-//            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
-//
-//            translator.fromLanguage = sourceTranslatorLanguage
-//            translator.toLanguage = targetTranslatorLanguage
-//
-//            var translatedValuesCount = 0
-//            var awaitingTranslationRequestsCount = 0
-//
-//            let sourceTranslations = findTranslations(inString: sourceContentString)
-//            let existingTargetTranslations = findTranslations(inString: oldContentString)
-//            var updatedTargetTranslations: [TranslationEntry] = []
-//
-//            for sourceTranslation in sourceTranslations {
-//                let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
-//                var targetTranslationOptional = existingTargetTranslations.first { $0.key == sourceKey }
-//
-//                if targetTranslationOptional == nil {
-//                    targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
-//                }
-//
-//                guard let targetTranslation = targetTranslationOptional else {
-//                    print("targetTranslation was nil when not expected", level: .error)
-//                    exit(EX_IOERR)
-//                }
-//
-//                let (key, value, comment, line) = targetTranslation
-//
-//                guard value.isEmpty || override else {
-//                    updatedTargetTranslations.append(targetTranslation)
-//                    continue // skip already translated values
-//                }
-//
-//                guard !sourceValue.isEmpty else {
-//                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
-//                    continue
-//                }
-//
-//                awaitingTranslationRequestsCount += 1
-//                let updatedTargetTranslationIndex = updatedTargetTranslations.count
-//                updatedTargetTranslations.append(targetTranslation)
-//
-//                translator.translate(sourceValue) { translatedValue in
-//                    if !translatedValue.isEmpty {
-//                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
-//                        translatedValuesCount += 1
-//                    }
-//
-//                    awaitingTranslationRequestsCount -= 1
-//                }
-//            }
-//
-//            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
-//            while awaitingTranslationRequestsCount > 0 {}
-//
-//            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
-//
-//            return translatedValuesCount
-            return 0
+            let sourceTranslations = findTranslations(inString: sourceContentString)
+            let existingTargetTranslations = findTranslations(inString: oldContentString)
+            var updatedTargetTranslations: [TranslationEntry] = []
+
+            for sourceTranslation in sourceTranslations {
+                let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
+                var targetTranslationOptional = existingTargetTranslations.first { $0.key == sourceKey }
+
+                if targetTranslationOptional == nil {
+                    targetTranslationOptional = (sourceKey, "", sourceComment, sourceLine)
+                }
+
+                guard let targetTranslation = targetTranslationOptional else {
+                    print("targetTranslation was nil when not expected", level: .error)
+                    exit(EX_IOERR)
+                }
+
+                let (key, value, comment, line) = targetTranslation
+
+                guard value.isEmpty || override else {
+                    updatedTargetTranslations.append(targetTranslation)
+                    continue // skip already translated values
+                }
+
+                guard !sourceValue.isEmpty else {
+                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
+                    continue
+                }
+
+                let updatedTargetTranslationIndex = updatedTargetTranslations.count
+                updatedTargetTranslations.append(targetTranslation)
+
+                let endpoint = MicrosoftTranslatorApi.translate(from: sourceTranslatorLanguage, to: [targetTranslatorLanguage], texts: [sourceValue])
+
+                switch endpoint.request(type: [TranslateResponse].self) {
+                case let .success(translateResponses):
+                    if let translatedValue = translateResponses.first?.translations.first?.text {
+                        if !translatedValue.isEmpty {
+                            updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
+                            translatedValuesCount += 1
+                        }
+                    } else {
+                        throw MungoError(source: .externalSystemBehavedUnexpectedly, message: "Could not fetch translation for '\(sourceValue)'.")
+                    }
+
+                case let .failure(failure):
+                    throw failure
+                }
+            }
+
+            if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
+
+            return translatedValuesCount
         } catch {
             print(error.localizedDescription, level: .warning)
             exit(EX_OK)

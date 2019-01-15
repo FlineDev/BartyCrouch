@@ -14,6 +14,26 @@ enum MicrosoftTranslatorApi {
 
     static let maximumTextsPerRequest: Int = 25
     static let maximumTextsLengthPerRequest: Int = 5_000
+
+    static func textBatches(forTexts texts: [String]) -> [[String]] {
+        var batches: [[String]] = []
+        var currentBatch: [String] = []
+        var currentBatchTotalLength: Int = 0
+
+        for text in texts {
+            if currentBatch.count < maximumTextsPerRequest && text.count + currentBatchTotalLength < maximumTextsLengthPerRequest {
+                currentBatch.append(text)
+                currentBatchTotalLength += text.count
+            } else {
+                batches.append(currentBatch)
+
+                currentBatch = [text]
+                currentBatchTotalLength = text.count
+            }
+        }
+
+        return batches
+    }
 }
 
 extension MicrosoftTranslatorApi: JsonApi {
