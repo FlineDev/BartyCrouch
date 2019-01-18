@@ -1,13 +1,9 @@
-//
-//  Languages.swift
-//  BartyCrouchKit
-//
 //  Created by Cihat Gündüz on 14.01.19.
-//
 
 import Foundation
 
-enum Language: String {
+/// The languages supported.
+public enum Language: String {
     case afrikaans = "af"
     case arabic = "ar"
     case bulgarian = "bg"
@@ -72,8 +68,14 @@ enum Language: String {
     case chineseSimplified = "zh-Hans"
     case chineseTraditional = "zh-Hant"
 
-    static func with(languageCode: String, region: String?) -> Language? {
+    /// Returns the language object matching the given lang code & region.
+    ///
+    /// - Parameters:
+    ///   - languageCode: The 2 or 3-letter language code. See list of languages in `Language` enum to check if yours is supported.
+    ///   - region: The region code further specifying the language. See list of languages in `Language` enum to check if yours is supported.
+    /// - Returns: The language object best matching your specified languageCode and region combination.
+    public static func with(languageCode: String, region: String?) -> Language? {
         guard let region = region else { return Language(rawValue: languageCode) }
-        return Language(rawValue: "\(languageCode)-\(region)")
+        return Language(rawValue: "\(languageCode)-\(region)") ?? Language(rawValue: languageCode)
     }
 }

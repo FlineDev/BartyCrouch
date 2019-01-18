@@ -1,16 +1,11 @@
-//
-//  MicrosoftTranslatorApi.swift
-//  BartyCrouchKit
-//
 //  Created by Cihat Gündüz on 14.01.19.
-//
 
 import Foundation
 
 // Documentation can be found here: https://docs.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-translate
 
 enum MicrosoftTranslatorApi {
-    case translate(from: Language, to: [Language], texts: [String])
+    case translate(texts: [String], from: Language, to: [Language], microsoftSubscriptionKey: String)
 
     static let maximumTextsPerRequest: Int = 25
     static let maximumTextsLengthPerRequest: Int = 5_000
@@ -38,13 +33,11 @@ enum MicrosoftTranslatorApi {
 
 extension MicrosoftTranslatorApi: JsonApi {
     var decoder: JSONDecoder {
-        let jsonDecoder = JSONDecoder()
-        return jsonDecoder
+        return JSONDecoder()
     }
 
     var encoder: JSONEncoder {
-        let jsonEncoder = JSONEncoder()
-        return jsonEncoder
+        return JSONEncoder()
     }
 
     var baseUrl: URL {
@@ -65,11 +58,11 @@ extension MicrosoftTranslatorApi: JsonApi {
         }
     }
 
-    var urlParameters: [(key: String, value: String)] {
+    var queryParameters: [(key: String, value: String)] {
         var urlParameters: [(String, String)] = [(key: "api-version", value: "3.0")]
 
         switch self {
-        case let .translate(sourceLanguage, targetLanguages, _):
+        case let .translate(_, sourceLanguage, targetLanguages, _):
             urlParameters.append((key: "from", value: sourceLanguage.rawValue))
 
             for targetLanguage in targetLanguages {
@@ -82,21 +75,18 @@ extension MicrosoftTranslatorApi: JsonApi {
 
     var bodyData: Data? {
         switch self {
-        case let .translate(_, _, texts):
+        case let .translate(texts, _, _, _):
             return try! encoder.encode(texts.map { TranslateRequest(Text: $0) })
         }
     }
 
     var headers: [String: String] {
-        var headers: [String: String] = [
-            "Ocp-Apim-Subscription-Key": Secrets.microsoftSubscriptionKey,
-            "Content-Type": "application/json"
-        ]
-
-//        if let bodyData = bodyData {
-//            headers["Content-Length"] = String(bodyData.count)
-//        }
-
-        return headers
+        switch self {
+        case let .translate(_, _, _, microsoftSubscriptionKey):
+            return [
+                "Ocp-Apim-Subscription-Key": microsoftSubscriptionKey,
+                "Content-Type": "application/json"
+            ]
+        }
     }
 }

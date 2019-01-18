@@ -1,9 +1,4 @@
-//
-//  JsonApi.swift
-//  BartyCrouchKit
-//
 //  Created by Cihat Gündüz on 14.01.19.
-//
 
 import Foundation
 import HandySwift
@@ -20,12 +15,14 @@ enum Method: String {
 protocol JsonApi {
     var decoder: JSONDecoder { get }
     var encoder: JSONEncoder { get }
+
     var baseUrl: URL { get }
+    var headers: [String: String] { get }
     var path: String { get }
     var method: Method { get }
-    var urlParameters: [(key: String, value: String)] { get }
+    var queryParameters: [(key: String, value: String)] { get }
     var bodyData: Data? { get }
-    var headers: [String: String] { get }
+
 }
 
 extension JsonApi {
@@ -88,7 +85,7 @@ extension JsonApi {
         var urlComponents = URLComponents(url: baseUrl.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
 
         urlComponents.queryItems = []
-        for (key, value) in urlParameters {
+        for (key, value) in queryParameters {
             urlComponents.queryItems?.append(URLQueryItem(name: key, value: value))
         }
 

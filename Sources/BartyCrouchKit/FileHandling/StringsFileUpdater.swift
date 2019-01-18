@@ -5,6 +5,7 @@
 import Foundation
 import HandySwift
 import MungoHealer
+import BartyCrouchTranslator
 
 public class StringsFileUpdater {
     // MARK: - Sub Types
@@ -252,6 +253,8 @@ public class StringsFileUpdater {
             let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
 
+            let translator = BartyCrouchTranslator(translationService: .microsoft(subscriptionKey: Secrets.microsoftSubscriptionKey))
+
             for sourceTranslation in sourceTranslations {
                 let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
                 var targetTranslationOptional = existingTargetTranslations.first { $0.key == sourceKey }
@@ -280,21 +283,21 @@ public class StringsFileUpdater {
                 let updatedTargetTranslationIndex = updatedTargetTranslations.count
                 updatedTargetTranslations.append(targetTranslation)
 
-                let endpoint = MicrosoftTranslatorApi.translate(from: sourceTranslatorLanguage, to: [targetTranslatorLanguage], texts: [sourceValue])
-
-                switch endpoint.request(type: [TranslateResponse].self) {
-                case let .success(translateResponses):
-                    if let translatedValue = translateResponses.first?.translations.first?.text {
+                switch translator.translate(text: sourceValue, from: sourceTranslatorLanguage, to: [targetTranslatorLanguage]) {
+                case let .success(translations):
+                    if let translatedValue = translations.first?.translatedText {
                         if !translatedValue.isEmpty {
                             updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
                             translatedValuesCount += 1
+                        } else {
+                            print("Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.", level: .warning)
                         }
                     } else {
-                        throw MungoError(source: .externalSystemBehavedUnexpectedly, message: "Could not fetch translation for '\(sourceValue)'.")
+                        print("Could not fetch translation for '\(sourceValue)'.", level: .warning)
                     }
 
                 case let .failure(failure):
-                    throw failure
+                    print("Translation request failed with error: \(failure.errorDescription)", level: .warning)
                 }
             }
 
