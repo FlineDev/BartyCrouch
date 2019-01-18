@@ -5,13 +5,13 @@
 //  Created by Cihat Gündüz on 14.01.19.
 //
 
-@testable import BartyCrouchKit
+@testable import BartyCrouchTranslator
 import Foundation
 import XCTest
 
 class MicrosoftTranslatorApiTests: XCTestCase {
     func testTranslate() {
-        let endpoint = MicrosoftTranslatorApi.translate(from: .english, to: [.german, .turkish], texts: ["How old are you?", "Love"])
+        let endpoint = MicrosoftTranslatorApi.translate(texts: ["How old are you?", "Love"], from: .english, to: [.german, .turkish], microsoftSubscriptionKey: "")
 
         switch endpoint.request(type: [TranslateResponse].self) {
         case let .success(translateResponses):

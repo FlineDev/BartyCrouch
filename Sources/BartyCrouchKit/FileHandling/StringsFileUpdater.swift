@@ -221,12 +221,7 @@ public class StringsFileUpdater {
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     ///   - override:                       Specified if values should be overridden.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(
-        usingValuesFromStringsFile sourceStringsFilePath: String,
-        clientId: String,
-        clientSecret: String,
-        override: Bool = false
-    ) throws -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientSecret: String, override: Bool = false) throws -> Int {
         guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
             throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
         }
@@ -253,7 +248,7 @@ public class StringsFileUpdater {
             let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
 
-            let translator = BartyCrouchTranslator(translationService: .microsoft(subscriptionKey: Secrets.microsoftSubscriptionKey))
+            let translator = BartyCrouchTranslator(translationService: .microsoft(subscriptionKey: clientSecret))
 
             for sourceTranslation in sourceTranslations {
                 let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation

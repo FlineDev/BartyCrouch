@@ -18,7 +18,6 @@ extension TranslateTaskHandler: TaskHandler {
                     path: options.path,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
-                    id: options.id,
                     secret: options.secret,
                     locale: options.sourceLocale
                 )

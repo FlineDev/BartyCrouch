@@ -103,8 +103,6 @@ class ConfigurationTests: XCTestCase {
             XCTAssertEqual(configuration.updateOptions.normalize.sortByKeys, false)
 
             XCTAssertEqual(configuration.updateOptions.translate!.path, "Sources")
-            XCTAssertEqual(configuration.updateOptions.translate!.api.rawValue, "bing")
-            XCTAssertEqual(configuration.updateOptions.translate!.id, "bingId")
             XCTAssertEqual(configuration.updateOptions.translate!.secret, "bingSecret")
             XCTAssertEqual(configuration.updateOptions.translate!.sourceLocale, "de")
 
@@ -138,8 +136,6 @@ class ConfigurationTests: XCTestCase {
 
             [update.translate]
             path = "Sources"
-            api = "bing"
-            id = "bingId"
             secret = "bingSecret"
             sourceLocale = "de"
 

@@ -83,7 +83,7 @@ public class CommandLineActor {
         }
     }
 
-    func actOnTranslate(path: String, override: Bool, verbose: Bool, id: String, secret: String, locale: String) {
+    func actOnTranslate(path: String, override: Bool, verbose: Bool, secret: String, locale: String) {
         let inputFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); exit(EX_OK) }
@@ -101,7 +101,7 @@ public class CommandLineActor {
                 }
             }
 
-            self.translate(id: id, secret: secret, inputFilePath, outputStringsFilePaths, override: override, verbose: verbose)
+            self.translate(secret: secret, inputFilePath, outputStringsFilePaths, override: override, verbose: verbose)
         }
     }
 
@@ -332,7 +332,7 @@ public class CommandLineActor {
         print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.", level: .info)
     }
 
-    private func translate(id: String, secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
+    private func translate(secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
         var overallTranslatedValuesCount = 0
         var filesWithTranslatedValuesCount = 0
 
@@ -344,7 +344,7 @@ public class CommandLineActor {
 
             mungo.do {
                 let translationsCount = try stringsFileUpdater.translateEmptyValues(
-                    usingValuesFromStringsFile: inputFilePath, clientId: id, clientSecret: secret, override: override
+                    usingValuesFromStringsFile: inputFilePath, clientSecret: secret, override: override
                 )
 
                 if verbose { print("Translated file '\(outputStringsFilePath)' with \(translationsCount) changes.", level: .info) }
