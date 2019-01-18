@@ -5,7 +5,8 @@ let package = Package(
     name: "BartyCrouch",
     products: [
         .executable(name: "bartycrouch", targets: ["BartyCrouch"]),
-        .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"])
+        .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"]),
+        .library(name: "BartyCrouchTranslator", targets: ["BartyCrouchTranslator"])
     ],
     dependencies: [
         .package(url: "https://github.com/kiliankoe/CLISpinner.git", .upToNextMinor(from: "0.3.5")),

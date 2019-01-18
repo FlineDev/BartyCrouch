@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/JamitLabs/MungoHealer.git",
         "state": {
           "branch": null,
-          "revision": "3c60891b8191c9068994a485152a85300ab92ff9",
-          "version": "0.3.1"
+          "revision": "132e5e454298958f60ca6f1f34c733bc41f299e0",
+          "version": "0.3.2"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/jakeheis/SwiftCLI.git",
         "state": {
           "branch": null,
-          "revision": "fb076cba39c679da4e27813518d8860d8815a25b",
-          "version": "5.2.1"
+          "revision": "5318c37d3cacc8780f50b87a8840a6774320ebdf",
+          "version": "5.2.2"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/tuist/xcodeproj.git",
         "state": {
           "branch": null,
-          "revision": "23da51abd3de3bedaad59a0afbb150b48504b5b0",
-          "version": "6.3.0"
+          "revision": "8e15cc74149ee946b7ae125685177915b4ff7317",
+          "version": "6.4.0"
         }
       }
     ]
