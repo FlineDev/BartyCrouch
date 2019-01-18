@@ -166,7 +166,7 @@ public class CommandLineActor {
         let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
 
         if totalChecks <= 0 {
-            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning)
+            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning, file: path)
         }
 
         var failedFilePaths: [String] = []
@@ -174,7 +174,7 @@ public class CommandLineActor {
 
         for stringsFilePath in stringsFilePaths {
             guard FileManager.default.fileExists(atPath: stringsFilePath) else {
-                print("No file exists at file path '\(stringsFilePath)'.", level: .error); exit(EX_NOINPUT)
+                print("No file exists at file path '\(stringsFilePath)'.", level: .error, file: stringsFilePath); exit(EX_NOINPUT)
             }
 
             let stringsFileUpdater = StringsFileUpdater(path: stringsFilePath)
@@ -183,7 +183,7 @@ public class CommandLineActor {
             if duplicateKeys {
                 let duplicateKeyEntries: [String: [StringsFileUpdater.TranslationEntry]] = stringsFileUpdater!.findDuplicateEntries()
                 for (duplicateKey, translations) in duplicateKeyEntries {
-                    print("Found \(translations.count) translations for key '\(duplicateKey)' in file \(stringsFilePath).", level: .info)
+                    print("Found \(translations.count) translations for key '\(duplicateKey)' in file \(stringsFilePath).", level: .info, file: stringsFilePath, line: translations[0].line)
                 }
 
                 if !duplicateKeyEntries.isEmpty {
@@ -195,7 +195,7 @@ public class CommandLineActor {
             if emptyValues {
                 let emptyValueEntries: [StringsFileUpdater.TranslationEntry] = stringsFileUpdater!.findEmptyValueEntries()
                 for translation in emptyValueEntries {
-                    print("Found empty value for key '\(translation.key)' in file \(stringsFilePath).", level: .info)
+                    print("Found empty value for key '\(translation.key)' in file \(stringsFilePath).", level: .info, file: stringsFilePath, line: translation.line)
                 }
 
                 if !emptyValueEntries.isEmpty {
@@ -211,10 +211,10 @@ public class CommandLineActor {
 
         if !failedFilePaths.isEmpty {
             // swiftlint:disable:next line_length
-            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning)
+            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning, file: path)
             exit(EX_OK)
         } else {
-            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success)
+            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success, file: path)
             exit(EX_OK)
         }
     }

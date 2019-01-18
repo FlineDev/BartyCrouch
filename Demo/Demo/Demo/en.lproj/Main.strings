@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "Label to Ignore\n(see Comment for Localizer)"; ObjectID = "Ibu-xm-woE"; Note = "#bc-ignore!"; */
+"Ibu-xm-woE.text" = "Label to Ignore\n(see Comment for Localizer)";
+
+/* Class = "UILabel"; text = "Label to Translate"; ObjectID = "cGW-hC-L0h"; */
+"cGW-hC-L0h.text" = "Label to Translate";
+
+/* Class = "UILabel"; text = "Label to Ignore #bc-ignore!"; ObjectID = "dgI-jn-hzN"; */
+"dgI-jn-hzN.text" = "Label to Ignore #bc-ignore!";

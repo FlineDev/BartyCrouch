@@ -64,4 +64,4 @@ TestExample*.strings
 *.strings.tmp
 
 # Swift Package Manager
-*.xcodeproj/
+BartyCrouch.xcodeproj/

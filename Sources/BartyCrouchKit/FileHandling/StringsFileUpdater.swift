@@ -25,7 +25,7 @@ public class StringsFileUpdater {
         do {
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription, level: .error)
+            print(error.localizedDescription, level: .error, file: path)
             return nil
         }
     }
@@ -135,7 +135,7 @@ public class StringsFileUpdater {
 
             rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
         } catch {
-            print(error.localizedDescription, level: .error)
+            print(error.localizedDescription, level: .error, file: path)
         }
     }
 
@@ -201,23 +201,18 @@ public class StringsFileUpdater {
 
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription, level: .error)
+            print(error.localizedDescription, level: .error, file: path)
         }
     }
 
     /// Translates all empty values of this instances strings file using the Microsoft Translator API.
-    /// Note that this will only work for languages supported by the Microsoft Translator API and Polyglot.
-    /// See here for a full list: https://www.microsoft.com/en-us/translator/faq.aspx
+    /// Note that this will only work for languages supported by the Microsoft Translator API – see `Language` enum for details.
     ///
     /// Note that you need to register for the Microsoft Translator API here:
-    /// https://datamarket.azure.com/dataset/bing/microsofttranslator
-    ///
-    /// Then you can register your client to retrieve the client id & secret here:
-    /// https://datamarket.azure.com/developer/applications
+    /// https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup
     ///
     /// - Parameters:
     ///   - usingValuesFromStringsFile:     The path to the strings file to use as source language for the translation.
-    ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     ///   - override:                       Specified if values should be overridden.
     /// - Returns: The number of values translated successfully.
@@ -259,7 +254,7 @@ public class StringsFileUpdater {
                 }
 
                 guard let targetTranslation = targetTranslationOptional else {
-                    print("targetTranslation was nil when not expected", level: .error)
+                    print("targetTranslation was nil when not expected", level: .error, file: path)
                     exit(EX_IOERR)
                 }
 
@@ -271,7 +266,7 @@ public class StringsFileUpdater {
                 }
 
                 guard !sourceValue.isEmpty else {
-                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
+                    print("Value for key '\(key)' in source translations is empty.", level: .warning, file: path, line: line)
                     continue
                 }
 
@@ -285,14 +280,14 @@ public class StringsFileUpdater {
                             updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
                             translatedValuesCount += 1
                         } else {
-                            print("Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.", level: .warning)
+                            print("Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.", level: .warning, file: path, line: line)
                         }
                     } else {
-                        print("Could not fetch translation for '\(sourceValue)'.", level: .warning)
+                        print("Could not fetch translation for '\(sourceValue)'.", level: .warning, file: path, line: line)
                     }
 
                 case let .failure(failure):
-                    print("Translation request failed with error: \(failure.errorDescription)", level: .warning)
+                    print("Translation request failed with error: \(failure.errorDescription)", level: .warning, file: path, line: line)
                 }
             }
 
@@ -300,7 +295,7 @@ public class StringsFileUpdater {
 
             return translatedValuesCount
         } catch {
-            print(error.localizedDescription, level: .warning)
+            print(error.localizedDescription, level: .warning, file: path)
             exit(EX_OK)
         }
     }
@@ -393,14 +388,14 @@ public class StringsFileUpdater {
             }
 
             if hasDifferentValuesOrComments {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning)
+                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning, file: path)
 
                 duplicateKeyTranslations.forEach { translation in
                     let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
                     print(xcodeWarning(filePath: path, line: keyValueLine, message: "Duplicate key. Remove all but one."))
                 }
             } else {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info)
+                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info, file: path)
 
                 duplicateKeyTranslations.dropFirst().forEach { translation in
                     fixedTranslations = fixedTranslations.filter { $0.line != translation.line }
@@ -440,7 +435,7 @@ public class StringsFileUpdater {
 
         let translationsToAdd = sourceTranslationsDict.filter { keysToAdd.contains($0.key) }.mapValues { $0.first! }
         if !translationsToAdd.isEmpty {
-            print("Adding missing keys \(translationsToAdd.keys) to Strings file \(path).", level: .info)
+            print("Adding missing keys \(translationsToAdd.keys) to Strings file \(path).", level: .info, file: path)
         }
 
         translationsToAdd.sorted { lhs, rhs in lhs.value.line < rhs.value.line }.forEach { translationTuple in
@@ -448,7 +443,7 @@ public class StringsFileUpdater {
         }
 
         if !keysToRemove.isEmpty {
-            print("Removing unnecessary keys \(keysToRemove) from Strings file \(path).", level: .info)
+            print("Removing unnecessary keys \(keysToRemove) from Strings file \(path).", level: .info, file: path)
         }
 
         keysToRemove.forEach { keyToRemove in
