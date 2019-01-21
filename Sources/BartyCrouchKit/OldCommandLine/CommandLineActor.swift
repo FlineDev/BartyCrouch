@@ -33,12 +33,6 @@ public class CommandLineActor {
             return
         }
 
-        for localizableStringsFilePath in allLocalizableStringsFilePaths {
-            guard FileManager.default.fileExists(atPath: localizableStringsFilePath) else {
-                print("No file exists at output path '\(localizableStringsFilePath)'", level: .warning); continue
-            }
-        }
-
         self.incrementalCodeUpdate(
             inputDirectoryPath: path,
             allLocalizableStringsFilePaths,
@@ -64,13 +58,6 @@ public class CommandLineActor {
             }
 
             let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
-
-            for outputStringsFilePath in outputStringsFilePaths {
-                guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .warning); continue
-                }
-            }
-
             self.incrementalInterfacesUpdate(
                 inputFilePath,
                 outputStringsFilePaths,
@@ -94,13 +81,6 @@ public class CommandLineActor {
             }
 
             let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
-
-            for outputStringsFilePath in outputStringsFilePaths {
-                guard FileManager.default.fileExists(atPath: outputStringsFilePath) else {
-                    print("No file exists at output path '\(outputStringsFilePath)'.", level: .warning); continue
-                }
-            }
-
             self.translate(secret: secret, inputFilePath, outputStringsFilePaths, override: override, verbose: verbose)
         }
     }
@@ -118,7 +98,8 @@ public class CommandLineActor {
 
         for sourceFilePath in sourceFilePaths {
             guard FileManager.default.fileExists(atPath: sourceFilePath) else {
-                print("No file exists at input path '\(sourceFilePath)'.", level: .error); return
+                print("No file exists at input path '\(sourceFilePath)'.", level: .error)
+                continue
             }
 
             let allStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: sourceFilePath)
@@ -126,35 +107,27 @@ public class CommandLineActor {
 
             for targetStringsFilePath in targetStringsFilePaths {
                 guard FileManager.default.fileExists(atPath: targetStringsFilePath) else {
-                    print("No file exists at other language path '\(targetStringsFilePath)'.", level: .error); return
+                    print("No file exists at other language path '\(targetStringsFilePath)'.", level: .error)
+                    continue
                 }
             }
 
-            targetStringsFilePaths.forEach { filePath in
+            for filePath in targetStringsFilePaths {
                 let stringsFileUpdater = StringsFileUpdater(path: filePath)
                 do {
                     try stringsFileUpdater?.harmonizeKeys(withSource: sourceFilePath)
                 } catch {
-                    print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error); return
+                    print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error)
+                    continue
                 }
             }
 
-            allStringsFilePaths.forEach { filePath in
+            for filePath in allStringsFilePaths {
                 let stringsFileUpdater = StringsFileUpdater(path: filePath)
-
-                // TODO: add functionality in actOnLint
-//                if preventDuplicateKeys {
-//                    stringsFileUpdater?.preventDuplicateEntries()
-//                }
 
                 if sortByKeys {
                     stringsFileUpdater?.sortByKeys()
                 }
-
-                // TODO: add functionality in actOnLint
-//                if warnEmptyValues {
-//                    stringsFileUpdater?.warnEmptyValueEntries()
-//                }
             }
         }
     }
@@ -264,10 +237,7 @@ public class CommandLineActor {
         }
 
         for outputStringsFilePath in outputStringsFilePaths {
-            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
-                return
-            }
+            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
 
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedLocalizableStringsFilePath,
@@ -288,7 +258,7 @@ public class CommandLineActor {
             return
         }
 
-        print("BartyCrouch: Successfully updated strings file(s) of Code files.", level: .info)
+        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPath)
     }
 
     private func incrementalInterfacesUpdate(
@@ -310,10 +280,7 @@ public class CommandLineActor {
         }
 
         for outputStringsFilePath in outputStringsFilePaths {
-            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
-                return
-            }
+            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
 
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedStringsFilePath,
@@ -335,7 +302,7 @@ public class CommandLineActor {
             return
         }
 
-        print("BartyCrouch: Successfully updated strings file(s) of Storyboard or XIB file.", level: .info)
+        print("Successfully updated strings file(s) of Storyboard or XIB file.", level: .success, file: inputFilePath)
     }
 
     private func translate(secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
@@ -343,10 +310,7 @@ public class CommandLineActor {
         var filesWithTranslatedValuesCount = 0
 
         for outputStringsFilePath in outputStringsFilePaths {
-            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else {
-                print("Could not read strings file at path '\(outputStringsFilePath)'", level: .error)
-                return
-            }
+            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
 
             mungo.do {
                 let translationsCount = try stringsFileUpdater.translateEmptyValues(
@@ -362,6 +326,6 @@ public class CommandLineActor {
             }
         }
 
-        print("BartyCrouch: Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .info)
+        print("Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .success, file: inputFilePath)
     }
 }

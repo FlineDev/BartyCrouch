@@ -25,7 +25,6 @@ public class StringsFileUpdater {
         do {
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription, level: .error, file: path)
             return nil
         }
     }
@@ -266,7 +265,7 @@ public class StringsFileUpdater {
                 }
 
                 guard !sourceValue.isEmpty else {
-                    print("Value for key '\(key)' in source translations is empty.", level: .warning, file: path, line: line)
+                    print("Value for key '\(key)' in source translations is empty.", level: .warning, file: sourceStringsFilePath, line: line)
                     continue
                 }
 
@@ -376,50 +375,9 @@ public class StringsFileUpdater {
         return translationsDict.filter { $1.count > 1 }.sorted { $0.value[0].line < $1.value[0].line }
     }
 
-    func preventDuplicateEntries() {
-        let translations = findTranslations(inString: oldContentString)
-        let translationsDict = Dictionary(grouping: translations) { $0.key }
-        let duplicateTranslationsDict = translationsDict.filter { $1.count > 1 }
-
-        var fixedTranslations = Array(translations)
-
-        for (duplicateKey, duplicateKeyTranslations) in duplicateTranslationsDict {
-            let firstTranslation = duplicateKeyTranslations.first!
-
-            let hasDifferentValuesOrComments = duplicateKeyTranslations.reduce(false) { result, translation in
-                return result || translation.value != firstTranslation.value || translation.comment != firstTranslation.comment
-            }
-
-            if hasDifferentValuesOrComments {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning, file: path)
-
-                duplicateKeyTranslations.forEach { translation in
-                    let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
-                    print(xcodeWarning(filePath: path, line: keyValueLine, message: "Duplicate key. Remove all but one."))
-                }
-            } else {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info, file: path)
-
-                duplicateKeyTranslations.dropFirst().forEach { translation in
-                    fixedTranslations = fixedTranslations.filter { $0.line != translation.line }
-                }
-            }
-        }
-
-        rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
-    }
-
     func findEmptyValueEntries() -> [TranslationEntry] {
         let translations = findTranslations(inString: oldContentString)
         return translations.filter { $0.value.isEmpty }
-    }
-
-    func warnEmptyValueEntries() {
-        let emptyValueEntries = findEmptyValueEntries()
-        emptyValueEntries.forEach { translation in
-            let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
-            print(xcodeWarning(filePath: path, line: keyValueLine, message: "Empty translation value."))
-        }
     }
 
     func harmonizeKeys(withSource sourceFilePath: String) throws {
@@ -438,7 +396,7 @@ public class StringsFileUpdater {
 
         let translationsToAdd = sourceTranslationsDict.filter { keysToAdd.contains($0.key) }.mapValues { $0.first! }
         if !translationsToAdd.isEmpty {
-            print("Adding missing keys \(translationsToAdd.keys) to Strings file \(path).", level: .info, file: path)
+            print("Adding missing keys \(translationsToAdd.keys.sorted()).", level: .info, file: path)
         }
 
         translationsToAdd.sorted { lhs, rhs in lhs.value.line < rhs.value.line }.forEach { translationTuple in
@@ -446,7 +404,7 @@ public class StringsFileUpdater {
         }
 
         if !keysToRemove.isEmpty {
-            print("Removing unnecessary keys \(keysToRemove) from Strings file \(path).", level: .info, file: path)
+            print("Removing unnecessary keys \(keysToRemove.sorted()).", level: .info, file: path)
         }
 
         keysToRemove.forEach { keyToRemove in
@@ -454,10 +412,6 @@ public class StringsFileUpdater {
         }
 
         rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
-    }
-
-    func xcodeWarning(filePath: String, line: Int, message: String) -> String {
-        return "\(filePath):\(line): warning: BartyCrouch: \(message)"
     }
 }
 

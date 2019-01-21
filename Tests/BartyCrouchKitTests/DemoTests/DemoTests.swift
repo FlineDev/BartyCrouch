@@ -74,4 +74,100 @@ class DemoTests: XCTestCase {
         XCTAssertEqual(TestHelper.shared.printOutputs.last!.level, .warning)
         XCTAssertEqual(TestHelper.shared.printOutputs.last!.message, "6 issue(s) found in 3 file(s). Executed 2 checks in 8 Strings file(s) in total.")
     }
+
+    func testCodeTaskHandlerWithDefaultConfig() {
+        CodeTaskHandler(options: try! CodeOptions.make(toml: Toml())).perform()
+
+        XCTAssertEqual(TestHelper.shared.printOutputs.map { $0.message }, ["Successfully updated strings file(s) of Code files."])
+        XCTAssertEqual(TestHelper.shared.printOutputs.map { $0.level }, [.success])
+
+        // TODO: check if files were actually changed correctly
+    }
+
+    func testInterfacesTaskHandlerWithDefaultConfig() {
+        InterfacesTaskHandler(options: try! InterfacesOptions.make(toml: Toml())).perform()
+
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 2)
+
+        for printOutput in TestHelper.shared.printOutputs {
+            XCTAssertEqual(printOutput.message, "Successfully updated strings file(s) of Storyboard or XIB file.")
+            XCTAssertEqual(printOutput.level, .success)
+        }
+
+        XCTAssertEqual(
+            String(TestHelper.shared.printOutputs[0].file!.suffix(from: "/private".endIndex)),
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/Base.lproj/LaunchScreen.storyboard").path
+        )
+
+        XCTAssertEqual(
+            String(TestHelper.shared.printOutputs[1].file!.suffix(from: "/private".endIndex)),
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/Base.lproj/Main.storyboard").path
+        )
+
+        // TODO: check if files were actually changed correctly
+    }
+
+    func testNormalizeTaskHandlerWithDefaultConfig() {
+        NormalizeTaskHandler(options: try! NormalizeOptions.make(toml: Toml())).perform()
+
+        let expectedMessages: [String] = [
+            "Adding missing keys [\"Ibu-xm-woE.text\", \"cGW-hC-L0h.text\", \"dgI-jn-hzN.text\"].",
+            "Adding missing keys [\"Ibu-xm-woE.text\", \"cGW-hC-L0h.text\", \"dgI-jn-hzN.text\"].",
+            "Adding missing keys [\"Existing Only in English Key\"].",
+            "Adding missing keys [\"Existing Only in English Key\"]."
+        ]
+
+        let expectedPaths: [String] = [
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/de.lproj/Main.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/tr.lproj/Main.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/de.lproj/Localizable.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/tr.lproj/Localizable.strings").path
+        ]
+
+        for (index, printOutput) in TestHelper.shared.printOutputs.enumerated() {
+            XCTAssertEqual(printOutput.message, expectedMessages[index])
+            XCTAssertEqual(String(printOutput.file!.suffix(from: "/private".endIndex)), expectedPaths[index])
+            XCTAssertEqual(printOutput.level, .info)
+        }
+
+        // TODO: check if files were actually changed correctly
+    }
+
+    func testTranslateTaskHandlerWithDefaultConfig() {
+        XCTAssertThrowsError(try TranslateOptions.make(toml: Toml()))
+    }
+
+    func testTranslateTaskHandlerWithConfiguredSecret() {
+        let microsoftSubscriptionKey = "" // TODO: load from environment variable
+        guard !microsoftSubscriptionKey.isEmpty else { return }
+
+        let translateOptions = TranslateOptions(path: ".", secret: microsoftSubscriptionKey, sourceLocale: "en")
+        TranslateTaskHandler(options: translateOptions).perform()
+
+        let expectedMessages: [String] = [
+            "Successfully translated 6 values in 2 files.",
+            "Value for key \'Existing Empty Value Key\' in source translations is empty.",
+            "Value for key \'Existing Empty Value Key\' in source translations is empty.",
+            "Successfully translated 2 values in 2 files."
+        ]
+
+        let expectedPaths: [String] = [
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/en.lproj/Main.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/en.lproj/Localizable.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/en.lproj/Localizable.strings").path,
+            DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/en.lproj/Localizable.strings").path
+        ]
+
+        let expectedLevels: [PrintLevel] = [.success, .warning, .warning, .success]
+        let expectedLines: [Int?] = [nil, 15, 15, nil]
+
+        for (index, printOutput) in TestHelper.shared.printOutputs.enumerated() {
+            XCTAssertEqual(printOutput.message, expectedMessages[index])
+            XCTAssertEqual(String(printOutput.file!.suffix(from: "/private".endIndex)), expectedPaths[index])
+            XCTAssertEqual(printOutput.level, expectedLevels[index])
+            XCTAssertEqual(printOutput.line, expectedLines[index])
+        }
+
+        // TODO: check if files were actually changed correctly
+    }
 }
