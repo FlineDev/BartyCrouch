@@ -20,9 +20,14 @@ class DemoTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        TestHelper.shared.isStartedByUnitTests = true
+        try! FileManager.default.removeContentsOfDirectory(at: DemoTests.testDemoDirectoryUrl)
+
         let jsonData = DemoData.untouchedDemoDirectoryJson.data(using: .utf8)!
         let directory = try! JSONDecoder().decode(Directory.self, from: jsonData)
         directory.files.forEach { try! $0.write(into: DemoTests.testDemoDirectoryUrl) }
+
+        FileManager.default.changeCurrentDirectoryPath(DemoTests.testDemoDirectoryUrl.path)
     }
 
     override func tearDown() {
@@ -32,6 +37,13 @@ class DemoTests: XCTestCase {
     }
 
     func testInit() {
-        // TODO: assert no BartyCrouch config file, run init command, check existence of config file
+        XCTAssertFalse(FileManager.default.fileExists(atPath: Configuration.fileName))
+
+        try! InitCommand().execute()
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: Configuration.fileName))
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 1)
+        XCTAssertEqual(TestHelper.shared.printOutputs[0].level, .success)
+        XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Successfully created file \(Configuration.fileName)")
     }
 }

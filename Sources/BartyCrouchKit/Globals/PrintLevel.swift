@@ -65,6 +65,10 @@ func print(_ message: String, level: PrintLevel, file: String? = nil, line: Int?
     } else {
         humanPrint(message, level: level, file: file, line: line)
     }
+
+    if TestHelper.shared.isStartedByUnitTests {
+        TestHelper.shared.printOutputs.append((message, level, file, line))
+    }
 }
 
 /// Prints a message and shows a spinner to communicate a longer running task processing at the moment.
