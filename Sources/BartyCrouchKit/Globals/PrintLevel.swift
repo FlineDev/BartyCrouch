@@ -60,14 +60,15 @@ enum OutputFormatTarget {
 ///   - file: The file this print statement refers to. Used for showing errors/warnings within Xcode if run as script phase.
 ///   - line: The line within the file this print statement refers to. Used for showing errors/warnings within Xcode if run as script phase.
 func print(_ message: String, level: PrintLevel, file: String? = nil, line: Int? = nil) {
+    if TestHelper.shared.isStartedByUnitTests {
+        TestHelper.shared.printOutputs.append((message, level, file, line))
+        return
+    }
+
     if GlobalOptions.xcodeOutput.value {
         xcodePrint(message, level: level, file: file, line: line)
     } else {
         humanPrint(message, level: level, file: file, line: line)
-    }
-
-    if TestHelper.shared.isStartedByUnitTests {
-        TestHelper.shared.printOutputs.append((message, level, file, line))
     }
 }
 

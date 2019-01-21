@@ -255,7 +255,7 @@ public class StringsFileUpdater {
 
                 guard let targetTranslation = targetTranslationOptional else {
                     print("targetTranslation was nil when not expected", level: .error, file: path)
-                    exit(EX_IOERR)
+                    fatalError()
                 }
 
                 let (key, value, comment, line) = targetTranslation
@@ -296,7 +296,7 @@ public class StringsFileUpdater {
             return translatedValuesCount
         } catch {
             print(error.localizedDescription, level: .warning, file: path)
-            exit(EX_OK)
+            fatalError()
         }
     }
 
@@ -307,12 +307,12 @@ public class StringsFileUpdater {
 
         // swiftlint:disable force_try
         let translationRegex = try! NSRegularExpression(pattern: translationRegexString, options: [.dotMatchesLineSeparators, .anchorsMatchLines])
-        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
+//        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
         // swiftlint:enable force_try
 
-        let positionsOfNewlines = SortedArray(
-            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
-        )
+//        let positionsOfNewlines = SortedArray(
+//            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
+//        )
 
         let matches = translationRegex.matches(in: string, options: .reportCompletion, range: string.fullRange)
         var translations: [TranslationEntry] = []
@@ -327,8 +327,9 @@ public class StringsFileUpdater {
                     if range.location != NSNotFound && range.length > 0 { comment = (string as NSString).substring(with: range) }
                 }
 
-                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
-                return TranslationEntry(key: key, value: value, comment: comment, line: numberOfNewlines - 1)
+                let line: Int = string.prefix(valueRange.location).components(separatedBy: .newlines).count
+//                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
+                return TranslationEntry(key: key, value: value, comment: comment, line: line)
             }
         }
 
@@ -367,10 +368,12 @@ public class StringsFileUpdater {
         return (language, region)
     }
 
-    func findDuplicateEntries() -> [String: [TranslationEntry]] {
+    typealias DuplicateEntry = (String, [TranslationEntry])
+
+    func findDuplicateEntries() -> [DuplicateEntry] {
         let translations = findTranslations(inString: oldContentString)
         let translationsDict = Dictionary(grouping: translations) { $0.key }
-        return translationsDict.filter { $1.count > 1 }
+        return translationsDict.filter { $1.count > 1 }.sorted { $0.value[0].line < $1.value[0].line }
     }
 
     func preventDuplicateEntries() {

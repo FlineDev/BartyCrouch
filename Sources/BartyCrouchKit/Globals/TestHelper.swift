@@ -12,4 +12,9 @@ final class TestHelper {
 
     /// Use only in Unit Tests.
     var printOutputs: [PrintOutput] = []
+
+    /// Deletes all data collected until now.
+    func reset() {
+        printOutputs = []
+    }
 }

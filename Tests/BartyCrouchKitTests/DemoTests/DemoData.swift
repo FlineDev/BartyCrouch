@@ -1,9 +1,4 @@
-//
-//  DemoData.swift
-//  BartyCrouchKitTests
-//
-//  Created by Cihat Gündüz on 18.01.19.
-//
+// Created by Cihat Gündüz on 18.01.19.
 
 import Foundation
 
