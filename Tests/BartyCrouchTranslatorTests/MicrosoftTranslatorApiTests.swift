@@ -11,7 +11,15 @@ import XCTest
 
 class MicrosoftTranslatorApiTests: XCTestCase {
     func testTranslate() {
-        let endpoint = MicrosoftTranslatorApi.translate(texts: ["How old are you?", "Love"], from: .english, to: [.german, .turkish], microsoftSubscriptionKey: "")
+        let microsoftSubscriptionKey = "" // TODO: load from environment variable
+        guard !microsoftSubscriptionKey.isEmpty else { return }
+
+        let endpoint = MicrosoftTranslatorApi.translate(
+            texts: ["How old are you?", "Love"],
+            from: .english,
+            to: [.german, .turkish],
+            microsoftSubscriptionKey: microsoftSubscriptionKey
+        )
 
         switch endpoint.request(type: [TranslateResponse].self) {
         case let .success(translateResponses):

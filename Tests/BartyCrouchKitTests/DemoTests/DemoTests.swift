@@ -2,6 +2,7 @@
 
 @testable import BartyCrouchKit
 import XCTest
+import Toml
 
 @available(OSX 10.12, *)
 class DemoTests: XCTestCase {
@@ -15,6 +16,7 @@ class DemoTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        TestHelper.shared.reset()
         TestHelper.shared.isStartedByUnitTests = true
         try! FileManager.default.removeContentsOfDirectory(at: DemoTests.testDemoDirectoryUrl)
 
@@ -31,10 +33,10 @@ class DemoTests: XCTestCase {
         try! FileManager.default.removeContentsOfDirectory(at: DemoTests.testDemoDirectoryUrl)
     }
 
-    func testInit() {
+    func testInitTaskHandler() {
         XCTAssertFalse(FileManager.default.fileExists(atPath: Configuration.fileName))
 
-        try! InitCommand().execute()
+        InitTaskHandler().perform()
 
         XCTAssertTrue(FileManager.default.fileExists(atPath: Configuration.fileName))
         XCTAssertEqual(TestHelper.shared.printOutputs.count, 1)
@@ -42,12 +44,8 @@ class DemoTests: XCTestCase {
         XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Successfully created file \(Configuration.fileName)")
     }
 
-    func testLint() {
-        try! InitCommand().execute()
-        XCTAssertTrue(FileManager.default.fileExists(atPath: Configuration.fileName))
-
-        TestHelper.shared.reset()
-        try! LintCommand().execute()
+    func testLintTaskHandlerWithDefaultConfig() {
+        LintTaskHandler(options: try! LintOptions.make(toml: Toml())).perform()
 
         XCTAssertEqual(TestHelper.shared.printOutputs.count, 10)
 
