@@ -7,7 +7,7 @@ class ConfigurationTests: XCTestCase {
         do {
             let configuration: Configuration = try Configuration.makeDefault()
 
-            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code, .normalize])
+            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code, .transform, .normalize])
 
             XCTAssertEqual(configuration.updateOptions.interfaces.path, ".")
             XCTAssertEqual(configuration.updateOptions.interfaces.defaultToBase, false)
@@ -21,6 +21,13 @@ class ConfigurationTests: XCTestCase {
             XCTAssertEqual(configuration.updateOptions.code.customLocalizableName, nil)
             XCTAssertEqual(configuration.updateOptions.code.defaultToKeys, false)
             XCTAssertEqual(configuration.updateOptions.code.unstripped, false)
+
+            XCTAssertEqual(configuration.updateOptions.transform.codePath, ".")
+            XCTAssertEqual(configuration.updateOptions.transform.localizablePath, ".")
+            XCTAssertEqual(configuration.updateOptions.transform.transformer, .foundation)
+            XCTAssertEqual(configuration.updateOptions.transform.typeName, "BartyCrouch")
+            XCTAssertEqual(configuration.updateOptions.transform.translateMethodName, "translate")
+            XCTAssertEqual(configuration.updateOptions.transform.customLocalizableName, nil)
 
             XCTAssertEqual(configuration.updateOptions.normalize.path, ".")
             XCTAssertEqual(configuration.updateOptions.normalize.sourceLocale, "en")
@@ -41,7 +48,7 @@ class ConfigurationTests: XCTestCase {
         let toml: Toml = try! Toml(
             withString: """
                 [update]
-                tasks = ["interfaces", "code"]
+                tasks = ["interfaces", "transform", "normalize"]
 
                 [update.interfaces]
                 path = "Sources"
@@ -57,6 +64,14 @@ class ConfigurationTests: XCTestCase {
                 customFunction = "MyOwnLocalizedString"
                 customLocalizableName = "MyOwnLocalizable"
                 unstripped = true
+
+                [update.transform]
+                codePath = "Sources"
+                localizablePath = "Sources/SupportingFiles"
+                transformer = "swiftgenStructured"
+                typeName = "BC"
+                translateMethodName = "t"
+                customLocalizableName = "MyOwnLocalizable"
 
                 [update.normalize]
                 path = "Sources"
@@ -82,7 +97,7 @@ class ConfigurationTests: XCTestCase {
         do {
             let configuration: Configuration = try Configuration.make(toml: toml)
 
-            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .code])
+            XCTAssertEqual(configuration.updateOptions.tasks, [.interfaces, .transform, .normalize])
 
             XCTAssertEqual(configuration.updateOptions.interfaces.path, "Sources")
             XCTAssertEqual(configuration.updateOptions.interfaces.defaultToBase, true)
@@ -96,6 +111,13 @@ class ConfigurationTests: XCTestCase {
             XCTAssertEqual(configuration.updateOptions.code.customLocalizableName, "MyOwnLocalizable")
             XCTAssertEqual(configuration.updateOptions.code.defaultToKeys, true)
             XCTAssertEqual(configuration.updateOptions.code.unstripped, true)
+
+            XCTAssertEqual(configuration.updateOptions.transform.codePath, "Sources")
+            XCTAssertEqual(configuration.updateOptions.transform.localizablePath, "Sources/SupportingFiles")
+            XCTAssertEqual(configuration.updateOptions.transform.transformer, .swiftgenStructured)
+            XCTAssertEqual(configuration.updateOptions.transform.typeName, "BC")
+            XCTAssertEqual(configuration.updateOptions.transform.translateMethodName, "t")
+            XCTAssertEqual(configuration.updateOptions.transform.customLocalizableName, "MyOwnLocalizable")
 
             XCTAssertEqual(configuration.updateOptions.normalize.path, "Sources")
             XCTAssertEqual(configuration.updateOptions.normalize.sourceLocale, "de")
@@ -117,7 +139,7 @@ class ConfigurationTests: XCTestCase {
     func testConfigurationTomlContents() {
         let tomlContents: String = """
             [update]
-            tasks = ["interfaces", "code"]
+            tasks = ["interfaces", "code", "transform"]
 
             [update.interfaces]
             path = "Sources"
@@ -133,6 +155,13 @@ class ConfigurationTests: XCTestCase {
             customFunction = "MyOwnLocalizedString"
             customLocalizableName = "MyOwnLocalizable"
             unstripped = true
+
+            [update.transform]
+            codePath = "."
+            localizablePath = "."
+            transformer = "foundation"
+            typeName = "BartyCrouch"
+            translateMethodName = "translate"
 
             [update.translate]
             path = "Sources"

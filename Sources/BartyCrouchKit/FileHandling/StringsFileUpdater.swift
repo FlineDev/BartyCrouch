@@ -142,6 +142,10 @@ public class StringsFileUpdater {
         }
     }
 
+    func insert(translateEntries: [CodeFileUpdater.TranslateEntry]) {
+        // TODO: not yet implemented
+    }
+
     public func sortByKeys(keepWhitespaceSurroundings: Bool = false) {
         let translations = findTranslations(inString: oldContentString)
         let sortedTranslations = translations.sorted(by: translationEntrySortingClosure(lhs:rhs:), stable: true)

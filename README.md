@@ -99,6 +99,7 @@ The update subcommand has the following features:
 
 - `interfaces`: Updates `.strings` files of Storyboards & XIBs.
 - `code`: Updates `Localizable.strings` file from code.
+- `transform`: A convenience method call to both update `Localizable.strings` & replace code with SwiftGen/Foundation localized string call.
 - `translate`: Updates missing translations in other languages.
 - `normalize`: Sorts & cleans up `.strings` files.
 
@@ -135,6 +136,68 @@ The lint subcommand was designed to analyze a project for typical translation is
 - `emptyValues`: Finds empty values for any language.
 
 Note that the `lint` command can be used both on CI and within Xcode via the build script method. On the CI your builds will fail if any issue is found. In Xcode, warnings will be shown which will point you directly to the found issue.
+
+### `update` commands `transform` option
+
+Copy this code to your project:
+
+```swift
+import Foundation
+
+enum BartyCrouch {
+    enum SupportedLanguage: String {
+        // TODO: remove unsupported languages from the following cases list & add any missing languages
+        case arabic = "ar"
+        case chineseSimplified = "zh-Hans"
+        case chineseTraditional = "zh-Hant"
+        case english = "en"
+        case french = "fr"
+        case german = "de"
+        case hindi = "hi"
+        case italian = "it"
+        case japanese = "ja"
+        case korean = "ko"
+        case malay = "ms"
+        case portuguese = "pt-BR"
+        case russian = "ru"
+        case spanish = "es"
+        case turkish = "tr"
+    }
+
+    static func translate(key: String, translations: [SupportedLanguage: String], comment: String? = nil) -> String {
+        let typeName = String(describing: BartyCrouch.self)
+        let methodName = #function
+
+        print(
+            "Warning: [BartyCrouch]",
+            "Untransformed \(typeName).\(methodName) method call found with key '\(key)' and base translations '\(translations)'.",
+            "Please ensure that BartyCrouch is installed and configured correctly."
+        )
+
+        // fall back in case something goes wrong with BartyCrouch transformation
+        return "BC: TRANSFORMATION FAILED!"
+    }
+}
+```
+
+Now during development, instead of `NSLocalizedString` calls you can use `BartyCrouch.translate` and specify a key, translations (if any) and the comment. If you have configured BartyCrouch to run as a build script during build, BartyCrouch will automatically add the given key & translations to your `Localizable.strings` files and also replace the `BartyCrouch.translate` command with either `NSLocalizedString` (if `transformer` is set to `foundation` – default) or with SwiftGen's `L10n.Key.value` call (if `transformer` is set to `swiftgenStructured`).
+
+So, for example you type this:
+
+```swift
+self.title = BartyCrouch.translate(key: "onboarding.first-page.header-title", translations: [.english: "Welcome!"])
+```
+
+Then you build your project, what will automatically add the key `onboarding.first-page.header-title` to your `Localizable.strings` files with the value in the English Strings file set to `Welcome!`. Additionally it will replace the above line with one of the following (depending on the transformer):
+
+```swift
+self.title = NSLocalizedString("onboarding.first-page.header-title", comment: "") // if transformer is set to `foundation`
+self.title = L10n.Onboarding.FirstPage.headerTitle // if transformer is set to `swiftgenStructured`
+```
+
+This way you can prevent leaving the current code file you're working on just to provide initial translations for new keys you've added. You can simply specify `translations` for all languages you want to provide an initial translation for. Also you can still get the statically typed benefits from SwiftGen without needing to first write `NSLocalizedString` calls for BartyCrouch and then change them up to `L10n` calls after SwiftGen generated the appropriate files. Just write a single line and BartyCrouch will do all the work for you.
+
+NOTE: As of version 4.0.x of BartyCrouch formatted localized Strings are not supported by this automatic feature.
 
 ### Build Script
 
@@ -196,46 +259,51 @@ The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not 
 
 ### Configuration
 
-BartyCrouch comes with sensible defaults that should work for most projects without issues. It is recommended to stick to the default configuration. But where customization is required, you can alter the default config file and save it in a file named `.bartycrouch.json` within the root of your project.
+BartyCrouch comes with sensible defaults that should work for most projects without issues. It is recommended to stick to the default configuration. But where customization is required, you can alter the default config file and save it in a file named `.bartycrouch.toml` within the root of your project. You can run `bartycrouch init` command to generate the default config file and start from there.
 
 Here's the current default config:
 
-```json
-{ "version": "4.0", "config": {} }
-// bartycrouch-version:4.0
-{
-  "included": [],
-  "excluded": ["Carthage/", "Pods/"],
-  "global": {
-    "sourceLocale": "en",
-    "unstripped": false
-  },
-  "update": {
-    "interfaces": {
-      "defaultToBase": false,
-      "ignoreEmptyStrings": true
-    },
-    "code": {
-      "defaultToKeys": false,
-      "additive": true,
-      "customFunction": null,
-      "customLocalizableName": null
-    },
-    "translate": {
-      "api": "bing",
-      "id": null,
-      "secret": null
-    },
-    "normalize": {
-      "harmonizeWithSource": true,
-      "sortByKeys": true
-    }
-  },
-  "lint": {
-    "duplicateKeys": true,
-    "emptyValues": true
-  }
-}
+```toml
+[update]
+tasks = ["interfaces", "code", "transform"]
+
+[update.interfaces]
+path = "Sources"
+defaultToBase = true
+ignoreEmptyStrings = true
+unstripped = true
+
+[update.code]
+codePath = "Sources"
+localizablePath = "Sources/SupportingFiles"
+defaultToKeys = true
+additive = false
+customFunction = "MyOwnLocalizedString"
+customLocalizableName = "MyOwnLocalizable"
+unstripped = true
+
+[update.transform]
+codePath = "."
+localizablePath = "."
+transformer = "foundation"
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.translate]
+path = "Sources"
+secret = "bingSecret"
+sourceLocale = "de"
+
+[update.normalize]
+path = "Sources"
+sourceLocale = "de"
+harmonizeWithSource = false
+sortByKeys = false
+
+[lint]
+path = "Sources"
+duplicateKeys = false
+emptyValues = false
 ```
 
 ## Migration Guides

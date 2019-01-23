@@ -24,6 +24,9 @@ public class UpdateCommand: Command {
                 case .code:
                     return CodeTaskHandler(options: updateOptions.code)
 
+                case .transform:
+                    return TransformTaskHandler(options: updateOptions.transform)
+
                 case .translate:
                     return TranslateTaskHandler(options: updateOptions.translate!)
 
