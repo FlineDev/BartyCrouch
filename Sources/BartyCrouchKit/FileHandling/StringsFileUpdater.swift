@@ -7,6 +7,10 @@ import HandySwift
 import MungoHealer
 import BartyCrouchTranslator
 
+// NOTE:
+// This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.
+// A rewrite after writing extensive tests for the expected behavior could improve readebility, extensibility and performance.
+
 public class StringsFileUpdater {
     // MARK: - Sub Types
     typealias TranslationEntry = (key: String, value: String, comment: String?, line: Int)

@@ -4,6 +4,10 @@
 
 import Foundation
 
+// NOTE:
+// This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.
+// A rewrite after writing extensive tests for the expected behavior could improve readebility, extensibility and performance.
+
 public enum CommandLineAction {
     case interfaces
     case code
