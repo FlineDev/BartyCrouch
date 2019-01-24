@@ -10,7 +10,7 @@ class DemoTests: XCTestCase {
 
     // NOTE: Uncomment and run to update demo directory data – also comment out setUp() and tearDown() to prevent issues
 //    func testSnapshotDemoData() {
-//        DemoData.record(directoryPath: "/absolute/path/to/BartyCrouch/Demo/Untouched")
+//        DemoData.record(directoryPath: "/Users/Arbeit/Code/GitHub/Flinesoft/BartyCrouch/Demo/Untouched")
 //    }
 
     override func setUp() {
@@ -174,7 +174,7 @@ class DemoTests: XCTestCase {
     func testTransformTaskHandlerWithFoundationTransformer() {
         TransformTaskHandler(options: try! TransformOptions.make(toml: Toml())).perform()
 
-        XCTAssertEqual(TestHelper.shared.printOutputs.count, 4)
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 6)
 
         XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
         XCTAssertEqual(
@@ -189,6 +189,25 @@ class DemoTests: XCTestCase {
             TestHelper.shared.printOutputs[3].message,
             """
             Transformed 'BartyCrouch.translate(key: "onboarding.first-page.line", translations: [:], comment: "Line Comment")' to 'NSLocalizedString("onboarding.first-page.line", comment: "Line Comment")'.
+            """
+        )
+
+        XCTAssertEqual(TestHelper.shared.printOutputs[4].message, "Found translate entry with key 'ShortKey' and 1 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[5].message,
+            """
+            Transformed '
+
+                    BartyCrouch
+                        .translate(
+                            key : "ShortKey",
+                            translations : [
+                                BartyCrouch.SupportedLanguage.english :
+                                "Some Translation"
+                            ]
+                    )' to '
+
+                    NSLocalizedString("ShortKey", comment: "")'.
             """
         )
 
@@ -207,7 +226,7 @@ class DemoTests: XCTestCase {
 
         TransformTaskHandler(options: transformOptions).perform()
 
-        XCTAssertEqual(TestHelper.shared.printOutputs.count, 4)
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 6)
 
         XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
         XCTAssertEqual(
@@ -222,6 +241,25 @@ class DemoTests: XCTestCase {
             TestHelper.shared.printOutputs[3].message,
             """
             Transformed 'BartyCrouch.translate(key: "onboarding.first-page.line", translations: [:], comment: "Line Comment")' to 'L10n.Onboarding.FirstPage.line'.
+            """
+        )
+
+        XCTAssertEqual(TestHelper.shared.printOutputs[4].message, "Found translate entry with key 'ShortKey' and 1 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[5].message,
+            """
+            Transformed '
+
+                    BartyCrouch
+                        .translate(
+                            key : "ShortKey",
+                            translations : [
+                                BartyCrouch.SupportedLanguage.english :
+                                "Some Translation"
+                            ]
+                    )' to '
+
+                    L10n.shortkey'.
             """
         )
 

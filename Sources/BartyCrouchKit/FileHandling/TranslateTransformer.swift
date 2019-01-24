@@ -2,6 +2,7 @@
 
 import Foundation
 import SwiftSyntax
+import HandySwift
 
 class TranslateTransformer: SyntaxRewriter {
     let transformer: Transformer
@@ -21,7 +22,8 @@ class TranslateTransformer: SyntaxRewriter {
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
         guard
             let memberAccessExpression = functionCallExpression.child(at: 0) as? MemberAccessExprSyntax,
-            memberAccessExpression.description == "\(typeName).\(translateMethodName)",
+            memberAccessExpression.base.description.stripped() == typeName,
+            memberAccessExpression.name.text == translateMethodName,
             let functionCallArgumentList = functionCallExpression.child(at: 2) as? FunctionCallArgumentListSyntax,
             let keyFunctionCallArgument = functionCallArgumentList.child(at: 0) as? FunctionCallArgumentSyntax,
             keyFunctionCallArgument.label?.text == "key",
@@ -33,6 +35,7 @@ class TranslateTransformer: SyntaxRewriter {
             return super.visit(functionCallExpression)
         }
 
+        let leadingWhitespace: String = String(memberAccessExpression.base.description.prefix(memberAccessExpression.base.description.count - typeName.count))
         let key = keyStringLiteralExpression.text
 
         guard !key.isEmpty else {
@@ -44,15 +47,16 @@ class TranslateTransformer: SyntaxRewriter {
 
         if let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax {
             for dictionaryElement in translationsDictionaryElementList {
-                guard
-                    let keyExpression = dictionaryElement.child(at: 0) as? ImplicitMemberExprSyntax,
-                    let langCaseToken = keyExpression.child(at: 1) as? TokenSyntax,
-                    let translationLiteralExpression = dictionaryElement.child(at: 2) as? StringLiteralExprSyntax
-                else {
+                guard let langCase = dictionaryElement.keyExpression.description.components(separatedBy: ".").last?.stripped() else {
+                    print("LangeCase was not an enum case literal: '\(dictionaryElement.keyExpression)'")
                     return functionCallExpression
                 }
 
-                let langCase = langCaseToken.text
+                guard let translationLiteralExpression = dictionaryElement.valueExpression as? StringLiteralExprSyntax else {
+                    print("Translation for langCase '\(langCase)' was not a String literal: '\(dictionaryElement.valueExpression)'")
+                    return functionCallExpression
+                }
+
                 let translation = translationLiteralExpression.text
 
                 guard !translation.isEmpty else {
@@ -87,10 +91,10 @@ class TranslateTransformer: SyntaxRewriter {
         let transformedExpression: ExprSyntax = {
             switch transformer {
             case .foundation:
-                return buildFoundationExpression(key: key, comment: comment)
+                return buildFoundationExpression(key: key, comment: comment, leadingWhitespace: leadingWhitespace)
 
             case .swiftgenStructured:
-                return buildSwiftgenStructuredExpression(key: key)
+                return buildSwiftgenStructuredExpression(key: key, leadingWhitespace: leadingWhitespace)
             }
         }()
 
@@ -99,7 +103,7 @@ class TranslateTransformer: SyntaxRewriter {
         return transformedExpression
     }
 
-    private func buildSwiftgenStructuredExpression(key: String) -> ExprSyntax {
+    private func buildSwiftgenStructuredExpression(key: String, leadingWhitespace: String) -> ExprSyntax {
         // e.g. the key could be something like 'ONBOARDING.FIRST_PAGE.HEADER_TITLE' or 'onboarding.first-page.header-title'
         let keywordSeparators: CharacterSet = CharacterSet(charactersIn: ".")
         let casingSeparators: CharacterSet = CharacterSet(charactersIn: "-_")
@@ -118,7 +122,7 @@ class TranslateTransformer: SyntaxRewriter {
         swiftgenKeyComponents[lastKeyComponentIndex] = swiftgenKeyComponents[lastKeyComponentIndex].firstCharacterLowercased()
 
         // e.g. ["L10n", "Onboarding", "FirstPage", "headerTitle"]
-        swiftgenKeyComponents.insert("L10n", at: 0)
+        swiftgenKeyComponents.insert("\(leadingWhitespace)L10n", at: 0)
 
         return buildMemberAccessExpression(components: swiftgenKeyComponents)
     }
@@ -135,7 +139,7 @@ class TranslateTransformer: SyntaxRewriter {
         )
     }
 
-    private func buildFoundationExpression(key: String, comment: String?) -> ExprSyntax {
+    private func buildFoundationExpression(key: String, comment: String?, leadingWhitespace: String) -> ExprSyntax {
         let keyArgument = SyntaxFactory.makeFunctionCallArgument(
             label: nil,
             colon: nil,
@@ -151,7 +155,7 @@ class TranslateTransformer: SyntaxRewriter {
         )
 
         return SyntaxFactory.makeFunctionCallExpr(
-            calledExpression: SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("NSLocalizedString"), declNameArguments: nil),
+            calledExpression: SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"), declNameArguments: nil),
             leftParen: SyntaxFactory.makeLeftParenToken(),
             argumentList: SyntaxFactory.makeFunctionCallArgumentList([keyArgument, commentArgument]),
             rightParen: SyntaxFactory.makeRightParenToken(),
