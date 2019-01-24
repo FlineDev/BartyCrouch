@@ -25,13 +25,12 @@ class TranslateTransformer: SyntaxRewriter {
             let functionCallArgumentList = functionCallExpression.child(at: 2) as? FunctionCallArgumentListSyntax,
             let keyFunctionCallArgument = functionCallArgumentList.child(at: 0) as? FunctionCallArgumentSyntax,
             keyFunctionCallArgument.label?.text == "key",
-            let keyStringLiteralExpression = keyFunctionCallArgument.child(at: 2) as? StringLiteralExprSyntax,
+            let keyStringLiteralExpression = keyFunctionCallArgument.expression as? StringLiteralExprSyntax,
             let translationsFunctionCallArgument = functionCallArgumentList.child(at: 1) as? FunctionCallArgumentSyntax,
             translationsFunctionCallArgument.label?.text == "translations",
-            let translationsDictionaryExpression = translationsFunctionCallArgument.child(at: 2) as? DictionaryExprSyntax,
-            let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax
+            let translationsDictionaryExpression = translationsFunctionCallArgument.child(at: 2) as? DictionaryExprSyntax
         else {
-            return functionCallExpression
+            return super.visit(functionCallExpression)
         }
 
         let key = keyStringLiteralExpression.text
@@ -43,32 +42,42 @@ class TranslateTransformer: SyntaxRewriter {
 
         var translations: [CodeFileUpdater.TranslationElement] = []
 
-        for dictionaryElement in translationsDictionaryElementList {
-            guard
-                let keyExpression = dictionaryElement.child(at: 0) as? ImplicitMemberExprSyntax,
-                let langCaseToken = keyExpression.child(at: 1) as? TokenSyntax,
-                let translationLiteralExpression = dictionaryElement.child(at: 2) as? StringLiteralExprSyntax
-            else {
-                return functionCallExpression
+        if let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax {
+            for dictionaryElement in translationsDictionaryElementList {
+                guard
+                    let keyExpression = dictionaryElement.child(at: 0) as? ImplicitMemberExprSyntax,
+                    let langCaseToken = keyExpression.child(at: 1) as? TokenSyntax,
+                    let translationLiteralExpression = dictionaryElement.child(at: 2) as? StringLiteralExprSyntax
+                else {
+                    return functionCallExpression
+                }
+
+                let langCase = langCaseToken.text
+                let translation = translationLiteralExpression.text
+
+                guard !translation.isEmpty else {
+                    print("Translation for langCase '\(langCase)' was empty.", level: .warning)
+                    continue
+                }
+
+                guard let langCode = caseToLangCode[langCase] else {
+                    print("Could not find a langCode for langCase '\(langCase)' when transforming translation.", level: .warning)
+                    continue
+                }
+
+                translations.append((langCode: langCode, translation: translation))
             }
-
-            let langCase = langCaseToken.text
-            let translation = translationLiteralExpression.text
-
-            guard !translation.isEmpty else {
-                print("Translation for langCase '\(langCase)' was empty.", level: .warning)
-                continue
-            }
-
-            guard let langCode = caseToLangCode[langCase] else {
-                print("Could not find a langCode for langCase '\(langCase)' when transforming translation.", level: .warning)
-                continue
-            }
-
-            translations.append((langCode: langCode, translation: translation))
         }
 
-        let comment: String? = nil // TODO: get comment argument if available
+        var comment: String?
+
+        if
+            let commentFunctionCallArgument = functionCallArgumentList.child(at: 2) as? FunctionCallArgumentSyntax,
+            commentFunctionCallArgument.label?.text == "comment",
+            let commentStringLiteralExpression = commentFunctionCallArgument.expression as? StringLiteralExprSyntax
+        {
+            comment = commentStringLiteralExpression.text
+        }
 
         let translateEntry: CodeFileUpdater.TranslateEntry = (key: key, translations: translations, comment: comment)
         translateEntries.append(translateEntry)

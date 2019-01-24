@@ -174,7 +174,8 @@ class DemoTests: XCTestCase {
     func testTransformTaskHandlerWithFoundationTransformer() {
         TransformTaskHandler(options: try! TransformOptions.make(toml: Toml())).perform()
 
-        XCTAssertEqual(TestHelper.shared.printOutputs.count, 2)
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 4)
+
         XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
         XCTAssertEqual(
             TestHelper.shared.printOutputs[1].message,
@@ -183,7 +184,15 @@ class DemoTests: XCTestCase {
             """
         )
 
-        // TODO: update tests to expect also second translate entry
+        XCTAssertEqual(TestHelper.shared.printOutputs[2].message, "Found translate entry with key 'onboarding.first-page.line' and 0 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[3].message,
+            """
+            Transformed 'BartyCrouch.translate(key: "onboarding.first-page.line", translations: [:], comment: "Line Comment")' to 'NSLocalizedString("onboarding.first-page.line", comment: "Line Comment")'.
+            """
+        )
+
+        // TODO: check if files were actually changed correctly
     }
 
     func testTransformTaskHandlerWithSwiftgenStructuredTransformer() {
@@ -198,7 +207,8 @@ class DemoTests: XCTestCase {
 
         TransformTaskHandler(options: transformOptions).perform()
 
-        XCTAssertEqual(TestHelper.shared.printOutputs.count, 2)
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 4)
+
         XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
         XCTAssertEqual(
             TestHelper.shared.printOutputs[1].message,
@@ -207,6 +217,14 @@ class DemoTests: XCTestCase {
             """
         )
 
-        // TODO: update tests to expect also second translate entry
+        XCTAssertEqual(TestHelper.shared.printOutputs[2].message, "Found translate entry with key 'onboarding.first-page.line' and 0 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[3].message,
+            """
+            Transformed 'BartyCrouch.translate(key: "onboarding.first-page.line", translations: [:], comment: "Line Comment")' to 'L10n.Onboarding.FirstPage.line'.
+            """
+        )
+
+        // TODO: check if files were actually changed correctly
     }
 }
