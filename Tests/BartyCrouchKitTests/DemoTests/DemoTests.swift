@@ -170,4 +170,43 @@ class DemoTests: XCTestCase {
 
         // TODO: check if files were actually changed correctly
     }
+
+    func testTransformTaskHandlerWithFoundationTransformer() {
+        TransformTaskHandler(options: try! TransformOptions.make(toml: Toml())).perform()
+
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 2)
+        XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[1].message,
+            """
+            Transformed 'BartyCrouch.translate(key: "onboarding.first-page.header-title", translations: [.english: "Page Title", .german: "Seitentitel"])' to 'NSLocalizedString("onboarding.first-page.header-title", comment: "")'.
+            """
+        )
+
+        // TODO: update tests to expect also second translate entry
+    }
+
+    func testTransformTaskHandlerWithSwiftgenStructuredTransformer() {
+        let transformOptions = TransformOptions(
+            codePath: ".",
+            localizablePath: ".",
+            transformer: .swiftgenStructured,
+            typeName: "BartyCrouch",
+            translateMethodName: "translate",
+            customLocalizableName: nil
+        )
+
+        TransformTaskHandler(options: transformOptions).perform()
+
+        XCTAssertEqual(TestHelper.shared.printOutputs.count, 2)
+        XCTAssertEqual(TestHelper.shared.printOutputs[0].message, "Found translate entry with key 'onboarding.first-page.header-title' and 2 translations.")
+        XCTAssertEqual(
+            TestHelper.shared.printOutputs[1].message,
+            """
+            Transformed 'BartyCrouch.translate(key: "onboarding.first-page.header-title", translations: [.english: "Page Title", .german: "Seitentitel"])' to 'L10n.Onboarding.FirstPage.headerTitle'.
+            """
+        )
+
+        // TODO: update tests to expect also second translate entry
+    }
 }

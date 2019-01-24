@@ -14,7 +14,7 @@ final class CodeFileUpdater {
     }
 
     /// Rewrites the file using the transformer. Returns the translate entries which were found (and transformed).
-    func transform(typeName: String, translateMethodName: String, using transformer: Transformer) throws -> [TranslateEntry] {
+    func transform(typeName: String, translateMethodName: String, using transformer: Transformer, caseToLangCode: [String: String]) throws -> [TranslateEntry] {
         let fileUrl = URL(fileURLWithPath: path)
 
         guard let sourceFile = try? SyntaxTreeParser.parse(fileUrl) else {
@@ -22,7 +22,12 @@ final class CodeFileUpdater {
             return []
         }
 
-        let translateTransformer = TranslateTransformer(transformer: transformer, typeName: typeName, translateMethodName: translateMethodName)
+        let translateTransformer = TranslateTransformer(
+            transformer: transformer,
+            typeName: typeName,
+            translateMethodName: translateMethodName,
+            caseToLangCode: caseToLangCode
+        )
         let transformedFile: SourceFileSyntax = translateTransformer.visit(sourceFile) as! SourceFileSyntax
 
         try transformedFile.description.write(toFile: path, atomically: true, encoding: .utf8)
