@@ -2,14 +2,16 @@
 
 import Foundation
 
-final class CodeFilesSearch {
-    private let directory: String
+final class CodeFilesSearch: FilesSearchable {
+    private let baseDirectoryPath: String
 
-    init(directory: String) {
-        self.directory = directory
+    init(baseDirectoryPath: String) {
+        self.baseDirectoryPath = baseDirectoryPath
     }
 
     func findCodeFiles() -> [String] {
-        return [] // TODO: not yet implemented
+        let codeFileRegex = try! NSRegularExpression(pattern: "\\.swift\\z", options: .caseInsensitive)
+        let codeFiles: [String] = findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: codeFileRegex)
+        return codeFiles
     }
 }

@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "SwiftSyntax",
+        "repositoryURL": "https://github.com/apple/swift-syntax.git",
+        "state": {
+          "branch": null,
+          "revision": "f20c0bcbfb4b07e107c9851350217cb2217f0cb4",
+          "version": "0.40200.0"
+        }
+      },
+      {
         "package": "Toml",
         "repositoryURL": "https://github.com/jdfergason/swift-toml.git",
         "state": {

@@ -12,12 +12,13 @@ extension TransformTaskHandler: TaskHandler {
     func perform() {
         measure(task: "Update Code Transform") {
             mungo.do {
-                for codeFile in CodeFilesSearch(directory: options.codePath).findCodeFiles() {
+                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath).findCodeFiles() {
                     let codeFileUpdater = CodeFileUpdater(path: codeFile)
 
-                    let translationEntries = codeFileUpdater.findTranslateEntries(
+                    let translateEntries = try codeFileUpdater.transform(
                         typeName: options.typeName,
-                        translateMethodName: options.translateMethodName
+                        translateMethodName: options.translateMethodName,
+                        using: options.transformer
                     )
 
                     let stringsFiles: [String] = StringsFilesSearch.shared.findAllStringsFiles(
@@ -26,10 +27,8 @@ extension TransformTaskHandler: TaskHandler {
                     )
 
                     for stringsFile in stringsFiles {
-                        StringsFileUpdater(path: stringsFile)!.insert(translateEntries: translationEntries)
+                        StringsFileUpdater(path: stringsFile)!.insert(translateEntries: translateEntries)
                     }
-
-                    codeFileUpdater.transform(translateEntries: translationEntries, using: options.transformer)
                 }
             }
         }

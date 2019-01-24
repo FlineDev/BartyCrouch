@@ -32,6 +32,7 @@ final class Directory: Codable {
 
         while let nextObject = enumerator.nextObject() as? String {
             guard !nextObject.hasSuffix(".xcuserstate") else { continue }
+            guard !nextObject.hasSuffix(".DS_Store") else { continue }
             guard enumerator.fileAttributes![FileAttributeKey.type] as! String == FileAttributeType.typeRegular.rawValue else { continue }
 
             let file = try File(baseDirectoryUrl: baseDirectoryUrl, relativePath: nextObject)

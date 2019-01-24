@@ -15,7 +15,8 @@ let package = Package(
         .package(url: "https://github.com/onevcat/Rainbow.git", .upToNextMajor(from: "3.1.4")),
         .package(url: "https://github.com/jakeheis/SwiftCLI.git", .upToNextMajor(from: "5.2.0")),
         .package(url: "https://github.com/jdfergason/swift-toml.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.3.0"))
+        .package(url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "6.3.0")),
+        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.40200.0"))
     ],
     targets: [
         .target(
@@ -32,6 +33,7 @@ let package = Package(
                 "MungoHealer",
                 "Rainbow",
                 "SwiftCLI",
+                "SwiftSyntax",
                 "Toml",
                 "xcodeproj"
             ],
