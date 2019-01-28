@@ -69,6 +69,7 @@ class ConfigurationTests: XCTestCase {
                 codePath = "Sources"
                 localizablePath = "Sources/SupportingFiles"
                 transformer = "swiftgenStructured"
+                supportedLanguageEnumPath = "Sources/SupportingFiles"
                 typeName = "BC"
                 translateMethodName = "t"
                 customLocalizableName = "MyOwnLocalizable"
@@ -115,6 +116,7 @@ class ConfigurationTests: XCTestCase {
             XCTAssertEqual(configuration.updateOptions.transform.codePath, "Sources")
             XCTAssertEqual(configuration.updateOptions.transform.localizablePath, "Sources/SupportingFiles")
             XCTAssertEqual(configuration.updateOptions.transform.transformer, .swiftgenStructured)
+            XCTAssertEqual(configuration.updateOptions.transform.supportedLanguageEnumPath, "Sources/SupportingFiles")
             XCTAssertEqual(configuration.updateOptions.transform.typeName, "BC")
             XCTAssertEqual(configuration.updateOptions.transform.translateMethodName, "t")
             XCTAssertEqual(configuration.updateOptions.transform.customLocalizableName, "MyOwnLocalizable")
@@ -160,6 +162,7 @@ class ConfigurationTests: XCTestCase {
             codePath = "."
             localizablePath = "."
             transformer = "foundation"
+            supportedLanguageEnumPath = "."
             typeName = "BartyCrouch"
             translateMethodName = "translate"
 

@@ -8,6 +8,7 @@ struct TransformOptions {
     let codePath: String
     let localizablePath: String
     let transformer: Transformer
+    let supportedLanguageEnumPath: String
     let typeName: String
     let translateMethodName: String
     let customLocalizableName: String?
@@ -26,6 +27,7 @@ extension TransformOptions: TomlCodable {
             codePath: toml.string(update, transform, "codePath") ?? ".",
             localizablePath: toml.string(update, transform, "localizablePath") ?? ".",
             transformer: transformer,
+            supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
             typeName: toml.string(update, transform, "typeName") ?? "BartyCrouch",
             translateMethodName: toml.string(update, transform, "translateMethodName") ?? "translate",
             customLocalizableName: toml.string(update, transform, "customLocalizableName")
@@ -38,6 +40,7 @@ extension TransformOptions: TomlCodable {
         lines.append("codePath = \"\(codePath)\"")
         lines.append("localizablePath = \"\(localizablePath)\"")
         lines.append("transformer = \"\(transformer.rawValue)\"")
+        lines.append("supportedLanguageEnumPath = \"\(supportedLanguageEnumPath)\"")
         lines.append("typeName = \"\(typeName)\"")
         lines.append("translateMethodName = \"\(translateMethodName)\"")
 

@@ -3,7 +3,7 @@
 import Foundation
 import SwiftSyntax
 
-final class CodeFileUpdater {
+final class CodeFileHandler {
     typealias TranslationElement = (langCode: String, translation: String)
     typealias TranslateEntry = (key: String, translations: [TranslationElement], comment: String?)
 
@@ -32,5 +32,20 @@ final class CodeFileUpdater {
 
         try transformedFile.description.write(toFile: path, atomically: true, encoding: .utf8)
         return translateTransformer.translateEntries
+    }
+
+    func findCaseToLangCodeMappings(typeName: String) -> [String: String]? {
+        let fileUrl = URL(fileURLWithPath: path)
+
+        guard let sourceFile = try? SyntaxTreeParser.parse(fileUrl) else {
+            print("Could not parse syntax tree of Swift file.", level: .warning, file: path)
+            return nil
+        }
+
+        let supportedLanguagesReader = SupportedLanguagesReader(typeName: typeName)
+        supportedLanguagesReader.visit(sourceFile)
+
+        guard !supportedLanguagesReader.caseToLangCode.isEmpty else { return nil }
+        return supportedLanguagesReader.caseToLangCode
     }
 }

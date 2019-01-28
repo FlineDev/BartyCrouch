@@ -10,7 +10,7 @@ class TranslateTransformer: SyntaxRewriter {
     let translateMethodName: String
     let caseToLangCode: [String: String]
 
-    var translateEntries: [CodeFileUpdater.TranslateEntry] = []
+    var translateEntries: [CodeFileHandler.TranslateEntry] = []
 
     init(transformer: Transformer, typeName: String, translateMethodName: String, caseToLangCode: [String: String]) {
         self.transformer = transformer
@@ -43,7 +43,7 @@ class TranslateTransformer: SyntaxRewriter {
             return functionCallExpression
         }
 
-        var translations: [CodeFileUpdater.TranslationElement] = []
+        var translations: [CodeFileHandler.TranslationElement] = []
 
         if let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax {
             for dictionaryElement in translationsDictionaryElementList {
@@ -83,7 +83,7 @@ class TranslateTransformer: SyntaxRewriter {
             comment = commentStringLiteralExpression.text
         }
 
-        let translateEntry: CodeFileUpdater.TranslateEntry = (key: key, translations: translations, comment: comment)
+        let translateEntry: CodeFileHandler.TranslateEntry = (key: key, translations: translations, comment: comment)
         translateEntries.append(translateEntry)
 
         print("Found translate entry with key '\(key)' and \(translations.count) translations.", level: .info)

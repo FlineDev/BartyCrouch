@@ -12,11 +12,22 @@ extension TransformTaskHandler: TaskHandler {
     func perform() {
         measure(task: "Update Code Transform") {
             mungo.do {
-                // TODO: read BartyCrouch enum and all it's cases raw values before visiting anything (static method)
-                let caseToLangCode: [String: String] = ["english": "en", "german": "de"]
+                var caseToLangCodeOptional: [String: String]?
+
+                for codeFile in CodeFilesSearch(baseDirectoryPath: options.supportedLanguageEnumPath).findCodeFiles() {
+                    if let foundCaseToLangCode = CodeFileHandler(path: codeFile).findCaseToLangCodeMappings(typeName: options.typeName) {
+                        caseToLangCodeOptional = foundCaseToLangCode
+                        break
+                    }
+                }
+
+                guard let caseToLangCode = caseToLangCodeOptional else {
+                    print("Could not find 'SupportedLanguage' enum within '\(options.typeName)' enum within path.", level: .warning, file: options.supportedLanguageEnumPath)
+                    return
+                }
 
                 for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath).findCodeFiles() {
-                    let codeFileUpdater = CodeFileUpdater(path: codeFile)
+                    let codeFileUpdater = CodeFileHandler(path: codeFile)
 
                     let translateEntries = try codeFileUpdater.transform(
                         typeName: options.typeName,

@@ -219,6 +219,7 @@ class DemoTests: XCTestCase {
             codePath: ".",
             localizablePath: ".",
             transformer: .swiftgenStructured,
+            supportedLanguageEnumPath: ".",
             typeName: "BartyCrouch",
             translateMethodName: "translate",
             customLocalizableName: nil

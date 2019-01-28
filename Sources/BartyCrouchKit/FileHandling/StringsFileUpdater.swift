@@ -142,14 +142,14 @@ public class StringsFileUpdater {
         }
     }
 
-    func insert(translateEntries: [CodeFileUpdater.TranslateEntry]) {
+    func insert(translateEntries: [CodeFileHandler.TranslateEntry]) {
         guard let langCode = extractLangCode(fromPath: path) else {
             print("Could not extract langCode from file.", level: .warning, file: path)
             return
         }
 
         let oldTranslations: [TranslationEntry] = findTranslations(inString: oldContentString)
-        let getTranslation: (CodeFileUpdater.TranslateEntry) -> String = { $0.translations.first { $0.langCode == langCode }?.translation ?? "" }
+        let getTranslation: (CodeFileHandler.TranslateEntry) -> String = { $0.translations.first { $0.langCode == langCode }?.translation ?? "" }
         let newTranslations: [TranslationEntry] = translateEntries.map { ($0.key, getTranslation($0), $0.comment, 0) }
 
         rewriteFile(with: oldTranslations + newTranslations, keepWhitespaceSurroundings: true)
