@@ -143,14 +143,23 @@ public class StringsFileUpdater {
     }
 
     func insert(translateEntries: [CodeFileUpdater.TranslateEntry]) {
-        // TODO: not yet implemented
+        guard let langCode = extractLangCode(fromPath: path) else {
+            print("Could not extract langCode from file.", level: .warning, file: path)
+            return
+        }
+
+        let oldTranslations: [TranslationEntry] = findTranslations(inString: oldContentString)
+        let getTranslation: (CodeFileUpdater.TranslateEntry) -> String = { $0.translations.first { $0.langCode == langCode }?.translation ?? "" }
+        let newTranslations: [TranslationEntry] = translateEntries.map { ($0.key, getTranslation($0), $0.comment, 0) }
+
+        rewriteFile(with: oldTranslations + newTranslations, keepWhitespaceSurroundings: true)
     }
 
     public func sortByKeys(keepWhitespaceSurroundings: Bool = false) {
         let translations = findTranslations(inString: oldContentString)
         let sortedTranslations = translations.sorted(by: translationEntrySortingClosure(lhs:rhs:), stable: true)
 
-        rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
+        rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: false)
     }
 
     private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
@@ -373,6 +382,16 @@ public class StringsFileUpdater {
 
         let region = (path as NSString).substring(with: regionMatch.range(at: 1))
         return (language, region)
+    }
+
+    func extractLangCode(fromPath path: String) -> String? {
+        // Initialize regular expressions -- swiftlint:disable force_try
+        let langCodeRegex = try! NSRegularExpression(pattern: "(\\w{2}-{0,1}\\w*)\\.lproj", options: .caseInsensitive)
+        // swiftlint:enable force_try
+
+        // Get language from path
+        guard let languageMatch = langCodeRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else { return nil }
+        return (path as NSString).substring(with: languageMatch.range(at: 1))
     }
 
     typealias DuplicateEntry = (String, [TranslationEntry])
