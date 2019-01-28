@@ -2,7 +2,6 @@
 
 // swiftlint:disable leveled_print file_types_order
 
-import CLISpinner
 import Foundation
 import Rainbow
 
@@ -70,33 +69,6 @@ func print(_ message: String, level: PrintLevel, file: String? = nil, line: Int?
     } else {
         humanPrint(message, level: level, file: file, line: line)
     }
-}
-
-/// Prints a message and shows a spinner to communicate a longer running task processing at the moment.
-///
-/// - Parameters:
-///   - message: The message to be printed. Don't include `Error!`, `Warning!` or similar information at the beginning.
-///   - level: The level of the print statement.
-///   - pattern: The pattern to be shown for the spinner. Defaults to `.dots`.
-///   - task: Task closure to execute with spinner. Must provide a completion closure to be called when execution completed.
-func performWithSpinner(
-    _ message: String,
-    level: PrintLevel = .info,
-    pattern: CLISpinner.Pattern = .dots,
-    task: @escaping (@escaping (() -> Void) -> Void) -> Void
-) {
-    let spinner = Spinner(pattern: pattern, text: message, color: level.color)
-    spinner.start()
-    spinner.unhideCursor()
-
-    dispatchGroup.enter()
-    task { completion in
-        spinner.stopAndClear()
-        completion()
-        dispatchGroup.leave()
-    }
-
-    dispatchGroup.wait()
 }
 
 private func humanPrint(_ message: String, level: PrintLevel, file: String? = nil, line: Int? = nil) {
