@@ -162,7 +162,9 @@ func measure<ResultType>(task: String, _ closure: () throws -> ResultType) rethr
 
     let passedTimeIntervalNum = NSNumber(value: passedTimeInterval)
     let measureTimeFormatter = NumberFormatter()
+    measureTimeFormatter.minimumIntegerDigits = 1
     measureTimeFormatter.maximumFractionDigits = 3
+    measureTimeFormatter.locale = Locale(identifier: "en")
 
     print("Task '\(task)' took \(measureTimeFormatter.string(from: passedTimeIntervalNum)!) seconds.")
     return result
