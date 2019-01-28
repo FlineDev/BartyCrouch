@@ -16,6 +16,7 @@ final class CodeFileHandler {
     /// Rewrites the file using the transformer. Returns the translate entries which were found (and transformed).
     func transform(typeName: String, translateMethodName: String, using transformer: Transformer, caseToLangCode: [String: String]) throws -> [TranslateEntry] {
         let fileUrl = URL(fileURLWithPath: path)
+        guard try String(contentsOfFile: path).contains("\(typeName).\(translateMethodName)") else { return [] }
 
         guard let sourceFile = try? SyntaxTreeParser.parse(fileUrl) else {
             print("Could not parse syntax tree of Swift file.", level: .warning, file: path)

@@ -413,7 +413,7 @@ public class StringsFileUpdater {
         let sourceTranslations = findTranslations(inString: sourceFileContentString)
         let translations = findTranslations(inString: oldContentString)
 
-        var fixedTranslations = Array(translations)
+        var fixedTranslations: [TranslationEntry] = Array(translations)
 
         let sourceTranslationsDict = Dictionary(grouping: sourceTranslations) { $0.key }
         let translationsDict = Dictionary(grouping: translations) { $0.key }
@@ -427,7 +427,9 @@ public class StringsFileUpdater {
         }
 
         translationsToAdd.sorted { lhs, rhs in lhs.value.line < rhs.value.line }.forEach { translationTuple in
-            fixedTranslations.append(translationTuple.value)
+            let translationEntry = translationTuple.value
+            let translationEntryWithoutTranslation = (key: translationEntry.key, value: "", comment: translationEntry.comment, line: translationEntry.line)
+            fixedTranslations.append(translationEntryWithoutTranslation)
         }
 
         if !keysToRemove.isEmpty {

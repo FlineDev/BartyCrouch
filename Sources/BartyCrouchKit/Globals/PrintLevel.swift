@@ -108,39 +108,39 @@ private func xcodePrint(_ message: String, level: PrintLevel, file: String? = ni
     switch level {
     case .success:
         if let location = location {
-            print(location, "success: sdm: ", message)
+            print(location, "success: BartyCrouch: ", message)
         } else {
-            print("success: sdm: ", message)
+            print("success: BartyCrouch: ", message)
         }
 
     case .verbose:
         if GlobalOptions.verbose.value {
             if let location = location {
-                print(location, "verbose: sdm: ", message)
+                print(location, "verbose: BartyCrouch: ", message)
             } else {
-                print("verbose: sdm: ", message)
+                print("verbose: BartyCrouch: ", message)
             }
         }
 
     case .info:
         if let location = location {
-            print(location, "info: sdm: ", message)
+            print(location, "info: BartyCrouch: ", message)
         } else {
-            print("info: sdm: ", message)
+            print("info: BartyCrouch: ", message)
         }
 
     case .warning:
         if let location = location {
-            print(location, "warning: sdm: ", message)
+            print(location, "warning: BartyCrouch: ", message)
         } else {
-            print("warning: sdm: ", message)
+            print("warning: BartyCrouch: ", message)
         }
 
     case .error:
         if let location = location {
-            print(location, "error: sdm: ", message)
+            print(location, "error: BartyCrouch: ", message)
         } else {
-            print("error: sdm: ", message)
+            print("error: BartyCrouch: ", message)
         }
     }
 }
@@ -155,6 +155,8 @@ private let dispatchGroup = DispatchGroup()
 
 func measure<ResultType>(task: String, _ closure: () throws -> ResultType) rethrows -> ResultType {
     let startDate = Date()
+    print("Starting Task '\(task)' ...")
+
     let result = try closure()
 
     let passedTimeInterval = Date().timeIntervalSince(startDate)

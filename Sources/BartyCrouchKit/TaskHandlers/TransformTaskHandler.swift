@@ -10,7 +10,7 @@ struct TransformTaskHandler {
 
 extension TransformTaskHandler: TaskHandler {
     func perform() {
-        measure(task: "Update Code Transform") {
+        measure(task: "Code Transform") {
             mungo.do {
                 var caseToLangCodeOptional: [String: String]?
 
@@ -26,24 +26,26 @@ extension TransformTaskHandler: TaskHandler {
                     return
                 }
 
-                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath).findCodeFiles() {
-                    let codeFileUpdater = CodeFileHandler(path: codeFile)
+                var translateEntries: [CodeFileHandler.TranslateEntry] = []
 
-                    let translateEntries = try codeFileUpdater.transform(
+                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath).findCodeFiles() {
+                    let codeFileHandler = CodeFileHandler(path: codeFile)
+
+                    translateEntries += try codeFileHandler.transform(
                         typeName: options.typeName,
                         translateMethodName: options.translateMethodName,
                         using: options.transformer,
                         caseToLangCode: caseToLangCode
                     )
+                }
 
-                    let stringsFiles: [String] = StringsFilesSearch.shared.findAllStringsFiles(
-                        within: options.localizablePath,
-                        withFileName: options.customLocalizableName ?? "Localizable"
-                    )
+                let stringsFiles: [String] = StringsFilesSearch.shared.findAllStringsFiles(
+                    within: options.localizablePath,
+                    withFileName: options.customLocalizableName ?? "Localizable"
+                )
 
-                    for stringsFile in stringsFiles {
-                        StringsFileUpdater(path: stringsFile)!.insert(translateEntries: translateEntries)
-                    }
+                for stringsFile in stringsFiles {
+                    StringsFileUpdater(path: stringsFile)!.insert(translateEntries: translateEntries)
                 }
             }
         }
