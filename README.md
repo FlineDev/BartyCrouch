@@ -261,6 +261,8 @@ The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not 
 
 BartyCrouch comes with sensible defaults that should work for most projects without issues. It is recommended to stick to the default configuration. But where customization is required, you can alter the default config file and save it in a file named `.bartycrouch.toml` within the root of your project. You can run `bartycrouch init` command to generate the default config file and start from there.
 
+Note that you can remove all configuration options where you want to stick to the defaults and just keep your changes in the `.bartycrouch.toml`.
+
 Here's the current default config:
 
 ```toml
@@ -286,6 +288,7 @@ unstripped = true
 codePath = "."
 localizablePath = "."
 transformer = "foundation"
+supportedLanguageEnumPath = "."
 typeName = "BartyCrouch"
 translateMethodName = "translate"
 
