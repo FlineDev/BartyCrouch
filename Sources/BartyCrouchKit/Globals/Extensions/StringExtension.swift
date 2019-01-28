@@ -8,4 +8,8 @@ extension String {
         let leftoverString = suffix(from: firstCharacter.endIndex)
         return firstCharacter.lowercased() + leftoverString
     }
+
+    var absolutePath: String {
+        return URL(fileURLWithPath: self).path
+    }
 }

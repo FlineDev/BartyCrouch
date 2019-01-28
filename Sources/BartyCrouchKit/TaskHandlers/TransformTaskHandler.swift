@@ -14,7 +14,7 @@ extension TransformTaskHandler: TaskHandler {
             mungo.do {
                 var caseToLangCodeOptional: [String: String]?
 
-                for codeFile in CodeFilesSearch(baseDirectoryPath: options.supportedLanguageEnumPath).findCodeFiles() {
+                for codeFile in CodeFilesSearch(baseDirectoryPath: options.supportedLanguageEnumPath.absolutePath).findCodeFiles() {
                     if let foundCaseToLangCode = CodeFileHandler(path: codeFile).findCaseToLangCodeMappings(typeName: options.typeName) {
                         caseToLangCodeOptional = foundCaseToLangCode
                         break
@@ -22,13 +22,13 @@ extension TransformTaskHandler: TaskHandler {
                 }
 
                 guard let caseToLangCode = caseToLangCodeOptional else {
-                    print("Could not find 'SupportedLanguage' enum within '\(options.typeName)' enum within path.", level: .warning, file: options.supportedLanguageEnumPath)
+                    print("Could not find 'SupportedLanguage' enum within '\(options.typeName)' enum within path.", level: .warning, file: options.supportedLanguageEnumPath.absolutePath)
                     return
                 }
 
                 var translateEntries: [CodeFileHandler.TranslateEntry] = []
 
-                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath).findCodeFiles() {
+                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath.absolutePath).findCodeFiles() {
                     let codeFileHandler = CodeFileHandler(path: codeFile)
 
                     translateEntries += try codeFileHandler.transform(
@@ -40,7 +40,7 @@ extension TransformTaskHandler: TaskHandler {
                 }
 
                 let stringsFiles: [String] = StringsFilesSearch.shared.findAllStringsFiles(
-                    within: options.localizablePath,
+                    within: options.localizablePath.absolutePath,
                     withFileName: options.customLocalizableName ?? "Localizable"
                 )
 
