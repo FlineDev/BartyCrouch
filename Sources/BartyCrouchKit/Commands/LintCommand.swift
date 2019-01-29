@@ -14,7 +14,7 @@ public class LintCommand: Command {
     // MARK: - Instance Methods
     public func execute() throws {
         let lintOptions = try Configuration.load().lintOptions
-        let taskHandler: TaskHandler = LintTaskHandler(options: lintOptions)
-        taskHandler.perform()
+        LintTaskHandler(options: lintOptions).perform()
+        CommandExecution.current.failIfNeeded()
     }
 }

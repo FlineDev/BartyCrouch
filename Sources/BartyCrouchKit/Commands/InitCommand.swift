@@ -13,7 +13,7 @@ public class InitCommand: Command {
 
     // MARK: - Instance Methods
     public func execute() throws {
-        let taskHandler: TaskHandler = InitTaskHandler()
-        taskHandler.perform()
+        InitTaskHandler().perform()
+        CommandExecution.current.failIfNeeded()
     }
 }

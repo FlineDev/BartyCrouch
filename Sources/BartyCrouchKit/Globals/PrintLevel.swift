@@ -64,6 +64,10 @@ func print(_ message: String, level: PrintLevel, file: String? = nil, line: Int?
         return
     }
 
+    if GlobalOptions.failOnWarnings.value && level == .warning {
+        CommandExecution.current.didPrintWarning = true
+    }
+
     if GlobalOptions.xcodeOutput.value {
         xcodePrint(message, level: level, file: file, line: line)
     } else {

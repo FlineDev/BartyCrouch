@@ -37,5 +37,7 @@ public class UpdateCommand: Command {
 
             taskHandler.perform()
         }
+
+        CommandExecution.current.failIfNeeded()
     }
 }
