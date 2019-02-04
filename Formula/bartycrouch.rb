@@ -1,7 +1,7 @@
-class BartyCrouch < Formula
+class Bartycrouch < Formula
   desc "Localization/I18n: Incrementally update/translate your Strings files from .swift, .h, .m(m), .storyboard or .xib files."
   homepage "https://github.com/Flinesoft/BartyCrouch"
-  url "https://github.com/Flinesoft/BartyCrouch.git", :tag => "4.0.0-alpha.1", :revision => "4c27662f0800bea9263748fe4e62c163ea9de7f6"
+  url "https://github.com/Flinesoft/BartyCrouch.git", :tag => "4.0.0-alpha.2", :revision => "7edc4cfdcdf934a823914b3b0332c007557c9609"
   head "https://github.com/Flinesoft/BartyCrouch.git"
 
   depends_on :xcode => ["10.0", :build]
