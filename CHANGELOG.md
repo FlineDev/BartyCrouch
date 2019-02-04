@@ -3,7 +3,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.0.0]
+### Added
+- Support for [installation](https://github.com/Flinesoft/BartyCrouch#installation) via Mint (SwiftSPM based).
+- Use [configuration file](https://github.com/Flinesoft/BartyCrouch#configuration) instead of thousands of command line options.
+- [Demo project based](https://github.com/Flinesoft/BartyCrouch/tree/stable/Demo/Untouched) integration tests.
+- Sophisticated [SwiftGen](https://github.com/SwiftGen/SwiftGen)-Integration (automatic static NSLocalizedString code replacement) via new `transform` option.
+### Changed
+- All subcommands except `lint` were bundled into the `update` subcommand.
+- [Own client implementation](https://github.com/Flinesoft/BartyCrouch/tree/work/big-refactoring/Sources/BartyCrouchTranslator) of updated Microsowft Translator API.
+### Deprecated
+- None.
+### Removed
+- The `--override-comments` (`-c`) option on the `code` subcommand is now always turned on, no need to configure.
+- The `--extract-loc-strings` (`-e`) option on the `code` subcommand is now always turned on, no need to configure.
+### Fixed
+- More resilient search behavior (to fix issues such as #64, #87, #102, #105).
+### Security
+- None.
+
+
+## [3.13.1]
 ### Added
 - Added ability to ignore empty strings.
   via [#107](https://github.com/Flinesoft/BartyCrouch/pull/107) by [Ludvig Eriksson](https://github.com/ludvigeriksson)
