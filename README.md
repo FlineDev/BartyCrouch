@@ -27,7 +27,7 @@
 <p align="center">
     <a href="#installation">Installation</a>
   • <a href="#usage">Usage</a>
-  • <a href="#build-script">Build Script</a>
+  • <a href="#configuration">Configuration</a>
   • <a href="#migration-guides">Migration Guides</a>
   • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
   • <a href="#contributing">Contributing</a>
@@ -36,7 +36,7 @@
 
 # BartyCrouch
 
-BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 40+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
+BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
 
 ## Requirements
@@ -44,7 +44,9 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 - Xcode 10.1+ & Swift 4.2+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
-## Installation
+## Getting Started
+
+### Installation
 
 <details>
 <summary>Via [Homebrew](https://brew.sh/)</summary>
@@ -65,83 +67,80 @@ brew upgrade bartycrouch
 <details>
 <summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
 
-To **install** the latest version of ProjLint simply run this command:
+To **install** or update to the latest version of BartyCrouch simply run this command:
 
 ```bash
 mint install Flinesoft/BartyCrouch
 ```
 </details>
 
+### Configuration
+
+To configure BartyCrouch for your project, first create a configuration file within your projects root directory. BartyCrouch can do this for you:
+
+```
+bartycrouch init
+```
+
+Now you should have a file named `.bartycrouch.toml` with the following contents:
+
 <details>
-<summary>Via [CocoaPods](https://cocoapods.org/)</summary>
+<summary>`.bartycrouch.toml` Contents</summary>
 
-Simply add the following line to your Podfile:
+```toml
+[update]
+tasks = ["interfaces", "code", "transform", "normalize"]
 
-```ruby
-pod 'BartyCrouch'
+[update.interfaces]
+path = "."
+defaultToBase = false
+ignoreEmptyStrings = false
+unstripped = false
+
+[update.code]
+codePath = "."
+localizablePath = "."
+defaultToKeys = false
+additive = true
+unstripped = false
+
+[update.transform]
+codePath = "."
+localizablePath = "."
+transformer = "foundation"
+supportedLanguageEnumPath = "."
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.normalize]
+path = "."
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+path = "."
+duplicateKeys = true
+emptyValues = true
 ```
 </details>
 
-## Usage
+This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
-Before using BartyCrouch please **make sure you have committed your code**. Also, we highly recommend using the **build script method** described [below](#build-script).
+1. Provide more specific paths for any key containing `path` if possible. (e.g. `"App/Sources"` for `codePath`)
+2. Remove the `code` task if your project is Swift-only and you use the new `transform` update task.
+3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
+4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
 
----
-
-`bartycrouch` accepts one of the following sub commands:
-
-- **`update`:** Updates your `.strings` file contents.
-- **`lint`:** Lints your `.strings` file contents.
-
-### `update` subcommand
-
-The update subcommand has the following features:
-
-- `interfaces`: Updates `.strings` files of Storyboards & XIBs.
-- `code`: Updates `Localizable.strings` file from code.
-- `transform`: A convenience method call to both update `Localizable.strings` & replace code with SwiftGen/Foundation localized string call.
-- `translate`: Updates missing translations in other languages.
-- `normalize`: Sorts & cleans up `.strings` files.
-
-Note that in order for the `translate` command to work, you need to specify the translator API credentialsvia environment variables named `BING_TRANSLATOR_ID` and `BING_TRANSLATOR_SECRET`.
-
-<details><summary>Options for `interfaces`</summary>
-- `defaultToBase`: Add Base translation as value to new keys.
-- `ignoreEmptyStrings`: Doesn't add views with empty values.
-</details>
-
-<details><summary>Options for `code`</summary>
-- `defaultsToKeys`: Add new keys both as key and value.
-- `additive`: Prevents cleaning up keys not found in code.
-- `customFunction`: Use alternative name to `NSLocalizedString`.
-- `customLocalizableName`: Use alternative name for `Localizable.strings`.
-</details>
-
-<details><summary>Options for `translate`</summary>
-- `api`: Choose which translator API to use (Google/Bing).
-- `id`: The API authentication identifier.
-- `secret`: The API authentication secret.
-</details>
-
-<details><summary>Options for `normalize`</summary>
-- `harmonizeWithSource`: Synchronizes keys with source language.
-- `sortByKeys`: Alphabetically sorts translations by their keys.
-</details>
-
-### `lint` subcommand
-
-The lint subcommand was designed to analyze a project for typical translation issues. The current checks include:
-
-- `duplicateKeys`: Finds duplicate keys within the same file.
-- `emptyValues`: Finds empty values for any language.
-
-Note that the `lint` command can be used both on CI and within Xcode via the build script method. On the CI your builds will fail if any issue is found. In Xcode, warnings will be shown which will point you directly to the found issue.
-
-### `update` commands `transform` option
-
-Copy this code to your project:
+<details>
+<summary>`BartyCrouch.swift` Contents</summary>
 
 ```swift
+//
+//  This file is required in order for the `transform` task of the translation helper tool BartyCrouch to work.
+//  See here for more details: https://github.com/Flinesoft/BartyCrouch
+//
+
 import Foundation
 
 enum BartyCrouch {
@@ -180,24 +179,153 @@ enum BartyCrouch {
 }
 ```
 
-Now during development, instead of `NSLocalizedString` calls you can use `BartyCrouch.translate` and specify a key, translations (if any) and the comment. If you have configured BartyCrouch to run as a build script during build, BartyCrouch will automatically add the given key & translations to your `Localizable.strings` files and also replace the `BartyCrouch.translate` command with either `NSLocalizedString` (if `transformer` is set to `foundation` – default) or with SwiftGen's `L10n.Key.value` call (if `transformer` is set to `swiftgenStructured`).
+</details>
 
-So, for example you type this:
+5. If you don't develop in English as the first localized language, you should update the `sourceLocale` of the `normalize` task.
+6. If you want to use the machine translation feature of BartyCrouch, add `translate` to the tasks list at the top and copy the following section into the configuration file with `secret` replaced by your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key):
 
-```swift
-self.title = BartyCrouch.translate(key: "onboarding.first-page.header-title", translations: [.english: "Welcome!"])
+```toml
+[update.translate]
+path = "."
+secret = "<#Subscription Key#>"
+sourceLocale = "en"
 ```
 
-Then you build your project, what will automatically add the key `onboarding.first-page.header-title` to your `Localizable.strings` files with the value in the English Strings file set to `Welcome!`. Additionally it will replace the above line with one of the following (depending on the transformer):
+## Usage
 
-```swift
-self.title = NSLocalizedString("onboarding.first-page.header-title", comment: "") // if transformer is set to `foundation`
-self.title = L10n.Onboarding.FirstPage.headerTitle // if transformer is set to `swiftgenStructured`
+Before using BartyCrouch please **make sure you have committed your code**. Also, we highly recommend using the **build script method** described [below](#build-script).
+
+---
+
+`bartycrouch` accepts one of the following sub commands:
+
+- **`update`:** Updates your `.strings` file contents according to your configuration.
+- **`lint`:** Checks your `.strings` file contents for empty values & duplicate keys.
+
+Also the following command line options can be provided:
+
+- **`-v`, `--verbose`**: Prints more detailed information about the executed command.
+- **`-x`, `--xcode-output`**: Prints warnings & errors in Xcode compatible format.
+- **`-w`, `--fail-on-warnings`**: Returns a failed status code if any warning is encountered.
+
+### `update` subcommand
+
+The update subcommand can be run with one or multiple of the following tasks:
+
+- `interfaces`: Updates `.strings` files of Storyboards & XIBs.
+- `code`: Updates `Localizable.strings` file from `NSLocalizedString` entries in code.
+- `transform`: A mode where BartyCrouch replaces a specific method call to provide translations in multiple languages in a single line. Only supports Swift files.
+- `translate`: Updates missing translations in other languages than the source language.
+- `normalize`: Sorts & cleans up `.strings` files.
+
+In order to configure which tasks are executed, edit this section in the config file:
+
+```toml
+[update]
+tasks = ["interfaces", "code", "transform", "normalize"]
 ```
 
-This way you can prevent leaving the current code file you're working on just to provide initial translations for new keys you've added. You can simply specify `translations` for all languages you want to provide an initial translation for. Also you can still get the statically typed benefits from SwiftGen without needing to first write `NSLocalizedString` calls for BartyCrouch and then change them up to `L10n` calls after SwiftGen generated the appropriate files. Just write a single line and BartyCrouch will do all the work for you.
+<details><summary>Options for `interfaces`</summary>
 
-NOTE: As of version 4.0.x of BartyCrouch formatted localized Strings are not supported by this automatic feature.
+- `path`: The directory to search for Storyboards & XIB files.
+- `defaultToBase`: Add Base translation as value to new keys.
+- `ignoreEmptyStrings`: Doesn't add views with empty values.
+- `unstripped`: Keeps whitespaces at beginning & end of Strings files.
+
+</details>
+
+<details><summary>Options for `code`</summary>
+
+- `codePath`: The directory to search for Swift code files.
+- `localizablePath`: The enclosing path containing the localized `Localizable.strings` files.
+- `defaultsToKeys`: Add new keys both as key and value.
+- `additive`: Prevents cleaning up keys not found in code.
+- `customFunction`: Use alternative name to `NSLocalizedString`.
+- `customLocalizableName`: Use alternative name for `Localizable.strings`.
+- `unstripped`: Keeps whitespaces at beginning & end of Strings files.
+
+</details>
+
+<details><summary>Options for `transform`</summary>
+
+- `codePath`: The directory to search for Swift code files.
+- `localizablePath`:  The enclosing path containing the localized `Localizable.strings` files.
+- `transformer`: Specifies the replacement code. Use `foundation` for `NSLocalizedString` or `swiftgenStructured` for `L10n` entries.
+- `supportedLanguageEnumPath`: The enclosing path containing the `SupportedLanguage` enum.
+- `typeName`: The name of the type enclosing the `SupportedLanguage` enum and translate method.
+- `translateMethodName`: The name of the translate method to be replaced.
+- `customLocalizableName`: Use alternative name for `Localizable.strings`.
+
+</details>
+
+<details><summary>Options for `translate`</summary>
+
+- `path`: The directory to search for Strings files.
+- `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
+- `sourceLocale`: The source language to translate from.
+
+</details>
+
+<details><summary>Options for `normalize`</summary>
+
+- `path`: The directory to search for Strings files.
+- `sourceLocale`: The source language to harmonize keys of other languages with.
+- `harmonizeWithSource`: Synchronizes keys with source language.
+- `sortByKeys`: Alphabetically sorts translations by their keys.
+
+</details>
+
+### `lint` subcommand
+
+The lint subcommand was designed to analyze a project for typical translation issues. The current checks include:
+
+- `duplicateKeys`: Finds duplicate keys within the same file.
+- `emptyValues`: Finds empty values for any language.
+
+Note that the `lint` command can be used both on CI and within Xcode via the build script method:
+
+- In Xcode the `-x` or `--xcode-output` command line argument should be used to get warnings which point you directly to the found issue.
+- When running on the CI you should specify the `-w` or `--fail-on-warnings` argument to make sure BartyCrouch fails if any warnings are encountered.
+
+
+### Localized Coding via `transform`
+
+When the `transform` update task is configured (see recommended step 4 in the [Configuration](#configuration) section above) and you are using the [build script method](#build-script), you can use the following simplified process for writing localized code during development:
+
+1. Instead of `NSLocalizedString` calls you can use `BartyCrouch.translate` and specify a key, translations (if any) and optionally a comment. For example:
+
+```swift
+self.title = BartyCrouch.translate(key: "onboarding.first-page.header-title",  translations: [.english: "Welcome!"])
+```
+
+2. Once you build your app, BartyCrouch will automatically add the new translation key to all your `Localizable.strings` files and add the provided translations as values for the provided languages.
+3. Additionally, during the same build BartyCrouch will automatically replace the above call to `BartyCrouch.translate` with the proper translation call, depending on your `transformer` option setting.
+
+The resulting code depends on your `transformer` option setting:
+
+When set to `foundation`, the above code will transform to:
+
+```swift
+self.title = NSLocalizedString("onboarding.first-page.header-title", comment: "")
+```
+
+When set to `swiftgenStructured` it will transform to:
+
+```swift
+self.title = L10n.Onboarding.FirstPage.headerTitle
+```
+	
+**Advantages of `transform` over the `code` task:**
+* You can provide translations for keys without switching to the Strings files.
+* In case you use SwiftGen, you don't need to replace calls to `NSLocalizedString` with `L10n` calls manually after running BartyCrouch.
+* Can be combined with the machine translation feature to provide a source language translation in code and let BartyCrouch translate it to all supported languages in a single line & without ever leaving the code.
+
+**Disadvantages of `transform` over the `code` task:**
+* Only works for Swift Code. No support for Objective-C. (You can use both methods simultaneously though.)
+* Xcode will mark the freshly transformed code as errors (but build will succeed anyways) until next build.
+* Not as fast as `code` since [SwiftSyntax](https://github.com/apple/swift-syntax) currently isn't [particularly fast](https://www.jpsim.com/evaluating-swiftsyntax-for-use-in-swiftlint/). (But this should improve over time!)
+
+NOTE: As of version 4.0.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
 
 ### Build Script
 
@@ -205,8 +333,8 @@ In order to truly profit from BartyCrouch's ability to update & lint your `.stri
 
 ```shell
 if which bartycrouch > /dev/null; then
-    bartycrouch update
-    bartycrouch lint
+    bartycrouch update -x
+    bartycrouch lint -x
 else
     echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
 fi
@@ -214,22 +342,18 @@ fi
 
 <img src="Images/Build-Script-Example.png">
 
-Now BartyCrouch will be run on each build and you won't need to call it manually ever again. Additionally, all your co-workers who don't have BartyCrouch installed will see a warning with a hint how to install it. This way the entire team profits!
+Next, make sure the BartyCrouch script runs before the steps `Compiling Sources` (and `SwiftGen` if used) by moving it per drag & drop, for example right after `Target Dependencies`. 
+
+Now BartyCrouch will be run on each build and you won't need to call it manually ever (again). Additionally, all your co-workers who don't have BartyCrouch installed will see a warning with a hint on how to install it.
 
 *Note: Please make sure you commit your code using source control regularly when using the build script method.*
-
-Alternatively, if you've installed BartyCrouch via CocoaPods the script should look like this:
-
-```shell
-"${PODS_ROOT}/BartyCrouch/bartycrouch" update
-"${PODS_ROOT}/BartyCrouch/bartycrouch" lint
-```
 
 ---
 
 ### Exclude specific Views / NSLocalizedStrings from Localization
 
 Sometimes you may want to **ignore some specific views** containing localizable texts e.g. because **their values are going to be set programmatically**.
+
 For these cases you can simply include `#bartycrouch-ignore!` or the shorthand `#bc-ignore!` into your value within your base localized Storyboard/XIB file. Alternatively you can add `#bc-ignore!` into the field "Comment For Localizer" box in the utilities pane.
 
 This will tell BartyCrouch to ignore this specific view when updating your `.strings` files.
@@ -255,59 +379,7 @@ func updateTimeLabel(minutes: Int) {
 }
 ```
 
-The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings.
-
-### Configuration
-
-BartyCrouch comes with sensible defaults that should work for most projects without issues. It is recommended to stick to the default configuration. But where customization is required, you can alter the default config file and save it in a file named `.bartycrouch.toml` within the root of your project. You can run `bartycrouch init` command to generate the default config file and start from there.
-
-Note that you can remove all configuration options where you want to stick to the defaults and just keep your changes in the `.bartycrouch.toml`.
-
-Here's the current default config:
-
-```toml
-[update]
-tasks = ["interfaces", "code", "transform"]
-
-[update.interfaces]
-path = "Sources"
-defaultToBase = true
-ignoreEmptyStrings = true
-unstripped = true
-
-[update.code]
-codePath = "Sources"
-localizablePath = "Sources/SupportingFiles"
-defaultToKeys = true
-additive = false
-customFunction = "MyOwnLocalizedString"
-customLocalizableName = "MyOwnLocalizable"
-unstripped = true
-
-[update.transform]
-codePath = "."
-localizablePath = "."
-transformer = "foundation"
-supportedLanguageEnumPath = "."
-typeName = "BartyCrouch"
-translateMethodName = "translate"
-
-[update.translate]
-path = "Sources"
-secret = "bingSecret"
-sourceLocale = "de"
-
-[update.normalize]
-path = "Sources"
-sourceLocale = "de"
-harmonizeWithSource = false
-sortByKeys = false
-
-[lint]
-path = "Sources"
-duplicateKeys = false
-emptyValues = false
-```
+The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
 
 ## Migration Guides
 

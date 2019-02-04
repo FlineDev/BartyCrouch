@@ -1,9 +1,6 @@
 //
-//  BartyCrouch.swift
-//  Demo
-//
-//  Created by Cihat Gündüz on 24.01.19.
-//  Copyright © 2019 Flinesoft. All rights reserved.
+//  This file is required in order for the `transform` task of the translation helper tool BartyCrouch to work.
+//  See here for more details: https://github.com/Flinesoft/BartyCrouch
 //
 
 import Foundation
