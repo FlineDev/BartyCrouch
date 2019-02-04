@@ -84,9 +84,6 @@ bartycrouch init
 
 Now you should have a file named `.bartycrouch.toml` with the following contents:
 
-<details>
-<summary>Show Contents</summary>
-
 ```toml
 [update]
 tasks = ["interfaces", "code", "transform", "normalize"]
@@ -123,18 +120,13 @@ path = "."
 duplicateKeys = true
 emptyValues = true
 ```
-</details>
 
-<br />
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
 1. Provide more specific paths for any key containing `path` if possible. (e.g. `"App/Sources"` for `codePath`)
 2. Remove the `code` task if your project is Swift-only and you use the new [`transform` update task](#localization-workflow-via-transform).
 3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
 4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
-
-<details>
-<summary>Show Code</summary>
 
 ```swift
 //
@@ -180,9 +172,6 @@ enum BartyCrouch {
 }
 ```
 
-</details>
-
-<br />
 5. If you don't develop in English as the first localized language, you should update the `sourceLocale` of the `normalize` task.
 6. If you want to use the machine translation feature of BartyCrouch, add `translate` to the tasks list at the top and copy the following section into the configuration file with `secret` replaced by your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key):
 
