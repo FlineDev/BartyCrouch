@@ -1,23 +1,44 @@
+SHELL = /bin/bash
+
 prefix ?= /usr/local
-bindir = $(prefix)/bin
-libdir = $(prefix)/lib
+bindir ?= $(prefix)/bin
+libdir ?= $(prefix)/lib
+srcdir = Sources
 
-build:
-	swift build -c release --disable-sandbox
+REPODIR = $(shell pwd)
+BUILDDIR = $(REPODIR)/.build
+SOURCES = $(wildcard $(srcdir)/**/*.swift)
 
-install: build
-	install ".build/release/bartycrouch" "$(bindir)"
-	install ".build/release/libSwiftSyntax.dylib" "$(libdir)"
-	install_name_tool -change \
-		".build/x86_64-apple-macosx10.10/release/libSwiftSyntax.dylib" \
+.DEFAULT_GOAL = all
+
+.PHONY: all
+all: bartycrouch
+
+bartycrouch: $(SOURCES)
+	@swift build \
+		-c release \
+		--disable-sandbox \
+		--build-path "$(BUILDDIR)"
+
+.PHONY: install
+install: bartycrouch
+	@install -d "$(bindir)" "$(libdir)"
+	@install "$(BUILDDIR)/release/bartycrouch" "$(bindir)"
+	@install "$(BUILDDIR)/release/libSwiftSyntax.dylib" "$(libdir)"
+	@install_name_tool -change \
+		"$(BUILDDIR)/x86_64-apple-macosx10.10/release/libSwiftSyntax.dylib" \
 		"$(libdir)/libSwiftSyntax.dylib" \
 		"$(bindir)/bartycrouch"
 
+.PHONY: uninstall
 uninstall:
-	rm -rf "$(bindir)/bartycrouch"
-	rm -rf "$(libdir)/libSwiftSyntax.dylib"
+	@rm -rf "$(bindir)/bartycrouch"
+	@rm -rf "$(libdir)/libSwiftSyntax.dylib"
 
-clean:
-	rm -rf .build
+.PHONY: clean
+distclean:
+	@rm -f $(BUILDDIR)/release
 
-.PHONY: build install uninstall clean
+.PHONY: clean
+clean: distclean
+	@rm -rf $(BUILDDIR)
