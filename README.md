@@ -49,7 +49,7 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 ### Installation
 
 <details>
-<summary>Via **Homebrew** (https://brew.sh/)</summary>
+<summary>Via [Homebrew](https://brew.sh/)</summary>
 
 To install Bartycrouch the first time, simply run the command:
 
@@ -65,7 +65,7 @@ brew upgrade bartycrouch
 </details>
 
 <details>
-<summary>Via **Mint** (https://github.com/yonaskolb/Mint)</summary>
+<summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
 
 To **install** or update to the latest version of BartyCrouch simply run this command:
 
