@@ -165,7 +165,7 @@ public class StringsFileUpdater {
     private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
         // ensure keys with empty values are appended to the end
         if lhs.value.isEmpty == rhs.value.isEmpty {
-            return lhs.key.lowercased() < rhs.key.lowercased()
+            return lhs.key.normalized < rhs.key.normalized
         } else {
             return rhs.value.isEmpty
         }
@@ -470,5 +470,9 @@ extension String {
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: utf16.count)
+    }
+
+    var normalized: String {
+        return folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en"))
     }
 }
