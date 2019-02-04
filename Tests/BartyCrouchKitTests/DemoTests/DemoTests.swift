@@ -124,7 +124,7 @@ class DemoTests: XCTestCase {
             DemoTests.testDemoDirectoryUrl.appendingPathComponent("Demo/tr.lproj/Localizable.strings").path
         ]
 
-        for (index, printOutput) in TestHelper.shared.printOutputs.enumerated() {
+        for (index, printOutput) in TestHelper.shared.printOutputs.sorted(by: { $0.message.normalized > $1.message.normalized }, stable: true).enumerated() {
             XCTAssertEqual(printOutput.message, expectedMessages[index])
             XCTAssertEqual(String(printOutput.file!.suffix(from: "/private".endIndex)), expectedPaths[index])
             XCTAssertEqual(printOutput.level, .info)
