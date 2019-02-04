@@ -49,7 +49,7 @@ BartyCrouch **incrementally updates** your Strings files from your Code *and* fr
 ### Installation
 
 <details>
-<summary>Via [Homebrew](https://brew.sh/)</summary>
+<summary>Via **Homebrew** (https://brew.sh/)</summary>
 
 To install Bartycrouch the first time, simply run the command:
 
@@ -65,7 +65,7 @@ brew upgrade bartycrouch
 </details>
 
 <details>
-<summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
+<summary>Via **Mint** (https://github.com/yonaskolb/Mint)</summary>
 
 To **install** or update to the latest version of BartyCrouch simply run this command:
 
@@ -85,7 +85,7 @@ bartycrouch init
 Now you should have a file named `.bartycrouch.toml` with the following contents:
 
 <details>
-<summary>`.bartycrouch.toml` Contents</summary>
+<summary>Show Contents</summary>
 
 ```toml
 [update]
@@ -125,15 +125,16 @@ emptyValues = true
 ```
 </details>
 
+
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
 1. Provide more specific paths for any key containing `path` if possible. (e.g. `"App/Sources"` for `codePath`)
-2. Remove the `code` task if your project is Swift-only and you use the new `transform` update task.
+2. Remove the `code` task if your project is Swift-only and you use the new [`transform` update task](#localization-workflow-via-transform).
 3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
 4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
 
 <details>
-<summary>`BartyCrouch.swift` Contents</summary>
+<summary>Show Code</summary>
 
 ```swift
 //
@@ -180,6 +181,7 @@ enum BartyCrouch {
 ```
 
 </details>
+
 
 5. If you don't develop in English as the first localized language, you should update the `sourceLocale` of the `normalize` task.
 6. If you want to use the machine translation feature of BartyCrouch, add `translate` to the tasks list at the top and copy the following section into the configuration file with `secret` replaced by your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key):
@@ -288,7 +290,7 @@ Note that the `lint` command can be used both on CI and within Xcode via the bui
 - When running on the CI you should specify the `-w` or `--fail-on-warnings` argument to make sure BartyCrouch fails if any warnings are encountered.
 
 
-### Localized Coding via `transform`
+### Localization Workflow via `transform`
 
 When the `transform` update task is configured (see recommended step 4 in the [Configuration](#configuration) section above) and you are using the [build script method](#build-script), you can use the following simplified process for writing localized code during development:
 
@@ -365,8 +367,8 @@ Here's an example of how a base localized view in a XIB file with partly ignored
 Here's an example with the alternative comment variant:
 
 <div style="float:left;">
-	<img src="Images/IB-Comment-Exclusion-Example1.png" width="275px" height="491px">
-	<img src="Images/IB-Comment-Exclusion-Example2.png" width="272px" height="195px">
+	<img src="Images/IB-Comment-Exclusion-Example1.png" width="255px" height="437px">
+	<img src="Images/IB-Comment-Exclusion-Example2.png" width="254px" height="140px">
 </div>
 
 You can also use `#bc-ignore!` in your `NSLocalizedString` macros comment part to ignore them so they are not added to your `Localizable.strings`. This might be helpful when you are using a `.stringsdict` file to handle pluralization (see [docs](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/StringsdictFileFormat/StringsdictFileFormat.html)).
