@@ -1,12 +1,16 @@
 //  Created by Cihat Gündüz on 10.02.16.
 
-import Foundation
 import BartyCrouchKit
+import Foundation
+import SwiftCLI
 
-func run() {
-    CommandLineParser().parse { commonOptions, subCommandOptions in
-        CommandLineActor().act(commonOptions: commonOptions, subCommandOptions: subCommandOptions)
-    }
-}
+// MARK: - CLI
+let cli = CLI(
+    name: "bartycrouch",
+    version: "4.0.0",
+    description: "Incrementally update & translate your Strings files from code or interface files."
+)
 
-run()
+cli.commands = [InitCommand(), UpdateCommand(), LintCommand()]
+cli.globalOptions.append(contentsOf: GlobalOptions.all)
+cli.goAndExit()

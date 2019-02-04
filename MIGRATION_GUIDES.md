@@ -4,6 +4,14 @@ This project follows [Semantic Versioning](http://semver.org).
 
 Please follow the appropriate guide below when **upgrading to a new major version** of BartyCrouch (e.g. 1.5 -> 2.0).
 
+## Upgrade from 3.x to 4.x
+- All subcommands except `lint` were bundled into the `update` subcommand.
+- Choosing specific subcommands and passing options was moved to the configuration file `.bartycrouch.toml`. See the [appropriate section](https://github.com/Flinesoft/BartyCrouch#configuration) in the README.
+- Update your build script to the [new simplified version](https://github.com/Flinesoft/BartyCrouch#build-script). Also make sure it's run as one of the first steps.
+- The `--override-comments` (`-c`) option on the `code` subcommand is now always turned on, no need to configure.
+- The `--extract-loc-strings` (`-e`) option on the `code` subcommand is now always turned on, no need to configure.
+- Consider using the new [`transform` task](https://github.com/Flinesoft/BartyCrouch#localization-workflow-via-transform) instead of – or in addition to – the `code` task.
+
 ## Upgrade from 2.x to 3.x
 
 - Change structure `bartycrouch -s "$BASE_PATH"` to `bartycrouch interfaces -p "$BASE_PATH"`

@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "HandySwift",
+        "repositoryURL": "https://github.com/Flinesoft/HandySwift.git",
+        "state": {
+          "branch": null,
+          "revision": "bbbcebc02bf872d791d0fcddab5bd2eb6712a6eb",
+          "version": "2.7.1"
+        }
+      },
+      {
+        "package": "MungoHealer",
+        "repositoryURL": "https://github.com/JamitLabs/MungoHealer.git",
+        "state": {
+          "branch": null,
+          "revision": "132e5e454298958f60ca6f1f34c733bc41f299e0",
+          "version": "0.3.2"
+        }
+      },
+      {
+        "package": "Rainbow",
+        "repositoryURL": "https://github.com/onevcat/Rainbow.git",
+        "state": {
+          "branch": null,
+          "revision": "797a68d0a642609424b08f11eb56974a54d5f6e2",
+          "version": "3.1.4"
+        }
+      },
+      {
+        "package": "SwiftSyntax",
+        "repositoryURL": "https://github.com/apple/swift-syntax.git",
+        "state": {
+          "branch": null,
+          "revision": "f20c0bcbfb4b07e107c9851350217cb2217f0cb4",
+          "version": "0.40200.0"
+        }
+      },
+      {
+        "package": "Toml",
+        "repositoryURL": "https://github.com/jdfergason/swift-toml.git",
+        "state": {
+          "branch": null,
+          "revision": "f4a3d9fbd94a855d6f85989c7e4c29e0ad75999c",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftCLI",
+        "repositoryURL": "https://github.com/jakeheis/SwiftCLI.git",
+        "state": {
+          "branch": null,
+          "revision": "5318c37d3cacc8780f50b87a8840a6774320ebdf",
+          "version": "5.2.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

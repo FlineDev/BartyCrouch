@@ -3,6 +3,13 @@
 // swiftlint:disable function_body_length type_body_length file_length
 
 import Foundation
+import HandySwift
+import MungoHealer
+import BartyCrouchTranslator
+
+// NOTE:
+// This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.
+// A rewrite after writing extensive tests for the expected behavior could improve readebility, extensibility and performance.
 
 public class StringsFileUpdater {
     // MARK: - Sub Types
@@ -22,7 +29,6 @@ public class StringsFileUpdater {
         do {
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription, level: .error)
             return nil
         }
     }
@@ -37,7 +43,6 @@ public class StringsFileUpdater {
         updateCommentWithBase: Bool = true,
         keepExistingKeys: Bool = false,
         overrideComments: Bool = false,
-        sortByKeys: Bool = false,
         keepWhitespaceSurroundings: Bool = false,
         ignoreEmptyStrings: Bool = false
     ) {
@@ -125,11 +130,7 @@ public class StringsFileUpdater {
                 }
 
                 let sortingClosure: (TranslationEntry, TranslationEntry) -> Bool = {
-                    if sortByKeys {
-                        return translationEntrySortingClosure(lhs:rhs:)
-                    } else {
-                        return { translation1, translation2 in translation1.line < translation2.line }
-                    }
+                    return { translation1, translation2 in translation1.line < translation2.line }
                 }()
 
                 return translations.sorted(by: sortingClosure)
@@ -137,21 +138,34 @@ public class StringsFileUpdater {
 
             rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
         } catch {
-            print(error.localizedDescription, level: .error)
+            print(error.localizedDescription, level: .error, file: path)
         }
+    }
+
+    func insert(translateEntries: [CodeFileHandler.TranslateEntry]) {
+        guard let langCode = extractLangCode(fromPath: path) else {
+            print("Could not extract langCode from file.", level: .warning, file: path)
+            return
+        }
+
+        let oldTranslations: [TranslationEntry] = findTranslations(inString: oldContentString)
+        let getTranslation: (CodeFileHandler.TranslateEntry) -> String = { $0.translations.first { $0.langCode == langCode }?.translation ?? "" }
+        let newTranslations: [TranslationEntry] = translateEntries.map { ($0.key, getTranslation($0), $0.comment, 0) }
+
+        rewriteFile(with: oldTranslations + newTranslations, keepWhitespaceSurroundings: true)
     }
 
     public func sortByKeys(keepWhitespaceSurroundings: Bool = false) {
         let translations = findTranslations(inString: oldContentString)
         let sortedTranslations = translations.sorted(by: translationEntrySortingClosure(lhs:rhs:), stable: true)
 
-        rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
+        rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: false)
     }
 
     private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
         // ensure keys with empty values are appended to the end
         if lhs.value.isEmpty == rhs.value.isEmpty {
-            return lhs.key.lowercased() < rhs.key.lowercased()
+            return lhs.key.normalized < rhs.key.normalized
         } else {
             return rhs.value.isEmpty
         }
@@ -203,68 +217,49 @@ public class StringsFileUpdater {
 
             self.oldContentString = try String(contentsOfFile: path)
         } catch {
-            print(error.localizedDescription, level: .error)
+            print(error.localizedDescription, level: .error, file: path)
         }
     }
 
     /// Translates all empty values of this instances strings file using the Microsoft Translator API.
-    /// Note that this will only work for languages supported by the Microsoft Translator API and Polyglot.
-    /// See here for a full list: https://www.microsoft.com/en-us/translator/faq.aspx
+    /// Note that this will only work for languages supported by the Microsoft Translator API – see `Language` enum for details.
     ///
     /// Note that you need to register for the Microsoft Translator API here:
-    /// https://datamarket.azure.com/dataset/bing/microsofttranslator
-    ///
-    /// Then you can register your client to retrieve the client id & secret here:
-    /// https://datamarket.azure.com/developer/applications
+    /// https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup
     ///
     /// - Parameters:
     ///   - usingValuesFromStringsFile:     The path to the strings file to use as source language for the translation.
-    ///   - clientId:                       The Microsoft Translator API Client ID.
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     ///   - override:                       Specified if values should be overridden.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(
-        usingValuesFromStringsFile sourceStringsFilePath: String,
-        clientId: String,
-        clientSecret: String,
-        override: Bool = false
-    ) -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientSecret: String, override: Bool = false) throws -> Int {
         guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
-            print("Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-            return 0
+            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
         }
 
         guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
-            print("Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.", level: .error)
-            return 0
+            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
         }
 
-        guard let sourceTranslatorLanguage = Language.languageForLocale(languageCode: sourceLanguage, region: sourceRegion) else {
+        guard let sourceTranslatorLanguage = Language.with(languageCode: sourceLanguage, region: sourceRegion) else {
             let locale = sourceRegion != nil ? "\(sourceLanguage)-\(sourceRegion!)" : sourceLanguage
-            print("Automatic translation from the locale '\(locale)' is not supported.", level: .warning)
-            return 0
+            throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation from the locale '\(locale)' is not supported.")
         }
 
-        guard let targetTranslatorLanguage = Language.languageForLocale(languageCode: targetLanguage, region: targetRegion) else {
+        guard let targetTranslatorLanguage = Language.with(languageCode: targetLanguage, region: targetRegion) else {
             let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
-            print("Automatic translation to the locale '\(locale)' is not supported.", level: .warning)
-            return 0
+            throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation to the locale '\(locale)' is not supported.")
         }
 
         do {
             let sourceContentString = try String(contentsOfFile: sourceStringsFilePath)
-
-            let translator = Polyglot(clientId: clientId, clientSecret: clientSecret)
-
-            translator.fromLanguage = sourceTranslatorLanguage
-            translator.toLanguage = targetTranslatorLanguage
-
             var translatedValuesCount = 0
-            var awaitingTranslationRequestsCount = 0
 
             let sourceTranslations = findTranslations(inString: sourceContentString)
             let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
+
+            let translator = BartyCrouchTranslator(translationService: .microsoft(subscriptionKey: clientSecret))
 
             for sourceTranslation in sourceTranslations {
                 let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation
@@ -275,8 +270,8 @@ public class StringsFileUpdater {
                 }
 
                 guard let targetTranslation = targetTranslationOptional else {
-                    print("targetTranslation was nil when not expected", level: .error)
-                    exit(EX_IOERR)
+                    print("targetTranslation was nil when not expected", level: .error, file: path)
+                    fatalError()
                 }
 
                 let (key, value, comment, line) = targetTranslation
@@ -287,33 +282,37 @@ public class StringsFileUpdater {
                 }
 
                 guard !sourceValue.isEmpty else {
-                    print("Value for key '\(key)' in source translations is empty.", level: .warning)
+                    print("Value for key '\(key)' in source translations is empty.", level: .warning, file: sourceStringsFilePath, line: line)
                     continue
                 }
 
-                awaitingTranslationRequestsCount += 1
                 let updatedTargetTranslationIndex = updatedTargetTranslations.count
                 updatedTargetTranslations.append(targetTranslation)
 
-                translator.translate(sourceValue) { translatedValue in
-                    if !translatedValue.isEmpty {
-                        updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
-                        translatedValuesCount += 1
+                switch translator.translate(text: sourceValue, from: sourceTranslatorLanguage, to: [targetTranslatorLanguage]) {
+                case let .success(translations):
+                    if let translatedValue = translations.first?.translatedText {
+                        if !translatedValue.isEmpty {
+                            updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
+                            translatedValuesCount += 1
+                        } else {
+                            print("Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.", level: .warning, file: path, line: line)
+                        }
+                    } else {
+                        print("Could not fetch translation for '\(sourceValue)'.", level: .warning, file: path, line: line)
                     }
 
-                    awaitingTranslationRequestsCount -= 1
+                case let .failure(failure):
+                    print("Translation request failed with error: \(failure.errorDescription)", level: .warning, file: path, line: line)
                 }
             }
-
-            // wait for callbacks of all asynchronous translation calls -- will wait forever if any callback doesn't fire
-            while awaitingTranslationRequestsCount > 0 {}
 
             if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
 
             return translatedValuesCount
         } catch {
-            print(error.localizedDescription, level: .warning)
-            exit(EX_OK)
+            print(error.localizedDescription, level: .warning, file: path)
+            fatalError()
         }
     }
 
@@ -324,12 +323,12 @@ public class StringsFileUpdater {
 
         // swiftlint:disable force_try
         let translationRegex = try! NSRegularExpression(pattern: translationRegexString, options: [.dotMatchesLineSeparators, .anchorsMatchLines])
-        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
+//        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
         // swiftlint:enable force_try
 
-        let positionsOfNewlines = SortedArray(
-            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
-        )
+//        let positionsOfNewlines = SortedArray(
+//            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
+//        )
 
         let matches = translationRegex.matches(in: string, options: .reportCompletion, range: string.fullRange)
         var translations: [TranslationEntry] = []
@@ -344,8 +343,9 @@ public class StringsFileUpdater {
                     if range.location != NSNotFound && range.length > 0 { comment = (string as NSString).substring(with: range) }
                 }
 
-                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
-                return TranslationEntry(key: key, value: value, comment: comment, line: numberOfNewlines - 1)
+                let line: Int = string.prefix(valueRange.location).components(separatedBy: .newlines).count
+//                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
+                return TranslationEntry(key: key, value: value, comment: comment, line: line)
             }
         }
 
@@ -384,56 +384,27 @@ public class StringsFileUpdater {
         return (language, region)
     }
 
-    func findDuplicateEntries() -> [String: [TranslationEntry]] {
-        let translations = findTranslations(inString: oldContentString)
-        let translationsDict = Dictionary(grouping: translations) { $0.key }
-        return translationsDict.filter { $1.count > 1 }
+    func extractLangCode(fromPath path: String) -> String? {
+        // Initialize regular expressions -- swiftlint:disable force_try
+        let langCodeRegex = try! NSRegularExpression(pattern: "(\\w{2}-{0,1}\\w*)\\.lproj", options: .caseInsensitive)
+        // swiftlint:enable force_try
+
+        // Get language from path
+        guard let languageMatch = langCodeRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else { return nil }
+        return (path as NSString).substring(with: languageMatch.range(at: 1))
     }
 
-    func preventDuplicateEntries() {
+    typealias DuplicateEntry = (String, [TranslationEntry])
+
+    func findDuplicateEntries() -> [DuplicateEntry] {
         let translations = findTranslations(inString: oldContentString)
         let translationsDict = Dictionary(grouping: translations) { $0.key }
-        let duplicateTranslationsDict = translationsDict.filter { $1.count > 1 }
-
-        var fixedTranslations = Array(translations)
-
-        for (duplicateKey, duplicateKeyTranslations) in duplicateTranslationsDict {
-            let firstTranslation = duplicateKeyTranslations.first!
-
-            let hasDifferentValuesOrComments = duplicateKeyTranslations.reduce(false) { result, translation in
-                return result || translation.value != firstTranslation.value || translation.comment != firstTranslation.comment
-            }
-
-            if hasDifferentValuesOrComments {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with differnt values or comments.", level: .warning)
-
-                duplicateKeyTranslations.forEach { translation in
-                    let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
-                    print(xcodeWarning(filePath: path, line: keyValueLine, message: "Duplicate key. Remove all but one."))
-                }
-            } else {
-                print("Found \(duplicateKeyTranslations.count) entries for key '\(duplicateKey)' with equal values and comments. Keeping one.", level: .info)
-
-                duplicateKeyTranslations.dropFirst().forEach { translation in
-                    fixedTranslations = fixedTranslations.filter { $0.line != translation.line }
-                }
-            }
-        }
-
-        rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
+        return translationsDict.filter { $1.count > 1 }.sorted { $0.value[0].line < $1.value[0].line }
     }
 
     func findEmptyValueEntries() -> [TranslationEntry] {
         let translations = findTranslations(inString: oldContentString)
         return translations.filter { $0.value.isEmpty }
-    }
-
-    func warnEmptyValueEntries() {
-        let emptyValueEntries = findEmptyValueEntries()
-        emptyValueEntries.forEach { translation in
-            let keyValueLine = translation.line + (translation.comment == nil ? 1 : 2)
-            print(xcodeWarning(filePath: path, line: keyValueLine, message: "Empty translation value."))
-        }
     }
 
     func harmonizeKeys(withSource sourceFilePath: String) throws {
@@ -442,7 +413,7 @@ public class StringsFileUpdater {
         let sourceTranslations = findTranslations(inString: sourceFileContentString)
         let translations = findTranslations(inString: oldContentString)
 
-        var fixedTranslations = Array(translations)
+        var fixedTranslations: [TranslationEntry] = Array(translations)
 
         let sourceTranslationsDict = Dictionary(grouping: sourceTranslations) { $0.key }
         let translationsDict = Dictionary(grouping: translations) { $0.key }
@@ -452,15 +423,17 @@ public class StringsFileUpdater {
 
         let translationsToAdd = sourceTranslationsDict.filter { keysToAdd.contains($0.key) }.mapValues { $0.first! }
         if !translationsToAdd.isEmpty {
-            print("Adding missing keys \(translationsToAdd.keys) to Strings file \(path).", level: .info)
+            print("Adding missing keys \(translationsToAdd.keys.sorted()).", level: .info, file: path)
         }
 
         translationsToAdd.sorted { lhs, rhs in lhs.value.line < rhs.value.line }.forEach { translationTuple in
-            fixedTranslations.append(translationTuple.value)
+            let translationEntry = translationTuple.value
+            let translationEntryWithoutTranslation = (key: translationEntry.key, value: "", comment: translationEntry.comment, line: translationEntry.line)
+            fixedTranslations.append(translationEntryWithoutTranslation)
         }
 
         if !keysToRemove.isEmpty {
-            print("Removing unnecessary keys \(keysToRemove) from Strings file \(path).", level: .info)
+            print("Removing unnecessary keys \(keysToRemove.sorted()).", level: .info, file: path)
         }
 
         keysToRemove.forEach { keyToRemove in
@@ -468,10 +441,6 @@ public class StringsFileUpdater {
         }
 
         rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
-    }
-
-    func xcodeWarning(filePath: String, line: Int, message: String) -> String {
-        return "\(filePath):\(line): warning: BartyCrouch: \(message)"
     }
 }
 
@@ -501,5 +470,9 @@ extension String {
 extension String {
     var fullRange: NSRange {
         return NSRange(location: 0, length: utf16.count)
+    }
+
+    var normalized: String {
+        return folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en"))
     }
 }

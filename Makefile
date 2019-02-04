@@ -1,24 +1,44 @@
-TEMPORARY_FOLDER?=/tmp/BartyCrouch.dst
-BUILD_TOOL?=xcodebuild
+SHELL = /bin/bash
 
-XCODEFLAGS=-project 'BartyCrouch.xcodeproj' \
-	-scheme 'BartyCrouch' \
-	-configuration 'Release' \
-	DSTROOT=$(TEMPORARY_FOLDER) \
-	OTHER_LDFLAGS=-Wl,-headerpad_max_install_names
+prefix ?= /usr/local
+bindir ?= $(prefix)/bin
+libdir ?= $(prefix)/lib
+srcdir = Sources
 
-BINARIES_FOLDER=/usr/local/bin
-LICENSE_PATH="$(shell pwd)/LICENSE"
+REPODIR = $(shell pwd)
+BUILDDIR = $(REPODIR)/.build
+SOURCES = $(wildcard $(srcdir)/**/*.swift)
 
-clean:
-	rm -rf "$(TEMPORARY_FOLDER)"
-	$(BUILD_TOOL) $(XCODEFLAGS) clean
+.DEFAULT_GOAL = all
 
-installables: clean
-	$(BUILD_TOOL) $(XCODEFLAGS) install
+.PHONY: all
+all: bartycrouch
 
-portable_zip: installables
-	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/bartycrouch" "$(TEMPORARY_FOLDER)"
-	rm -f "./portable_bartycrouch.zip"
-	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_FOLDER)"
-	(cd "$(TEMPORARY_FOLDER)"; zip -yr - "bartycrouch" "LICENSE") > "./portable_bartycrouch.zip"
+bartycrouch: $(SOURCES)
+	@swift build \
+		-c release \
+		--disable-sandbox \
+		--build-path "$(BUILDDIR)"
+
+.PHONY: install
+install: bartycrouch
+	@install -d "$(bindir)" "$(libdir)"
+	@install "$(BUILDDIR)/release/bartycrouch" "$(bindir)"
+	@install "$(BUILDDIR)/release/libSwiftSyntax.dylib" "$(libdir)"
+	@install_name_tool -change \
+		"$(BUILDDIR)/x86_64-apple-macosx10.10/release/libSwiftSyntax.dylib" \
+		"$(libdir)/libSwiftSyntax.dylib" \
+		"$(bindir)/bartycrouch"
+
+.PHONY: uninstall
+uninstall:
+	@rm -rf "$(bindir)/bartycrouch"
+	@rm -rf "$(libdir)/libSwiftSyntax.dylib"
+
+.PHONY: clean
+distclean:
+	@rm -f $(BUILDDIR)/release
+
+.PHONY: clean
+clean: distclean
+	@rm -rf $(BUILDDIR)
