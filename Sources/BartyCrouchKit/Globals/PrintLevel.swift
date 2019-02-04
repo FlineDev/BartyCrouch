@@ -76,7 +76,7 @@ func print(_ message: String, level: PrintLevel, file: String? = nil, line: Int?
 }
 
 private func humanPrint(_ message: String, level: PrintLevel, file: String? = nil, line: Int? = nil) {
-    let location = locationInfo(file: file, line: line)
+    let location = locationInfo(file: file, line: line)?.replacingOccurrences(of: FileManager.default.currentDirectoryPath, with: ".")
     let message = location != nil ? [location!, message].joined(separator: " ") : message
 
     switch level {
