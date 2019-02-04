@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Sophisticated [SwiftGen](https://github.com/SwiftGen/SwiftGen)-Integration (automatic static NSLocalizedString code replacement) via new `transform` option.
 ### Changed
 - All subcommands except `lint` were bundled into the `update` subcommand.
-- [Own client implementation](https://github.com/Flinesoft/BartyCrouch/tree/work/big-refactoring/Sources/BartyCrouchTranslator) of updated Microsowft Translator API.
+- [Own client implementation](https://github.com/Flinesoft/BartyCrouch/tree/stable/Sources/BartyCrouchTranslator) of updated Microsowft Translator API.
 ### Deprecated
 - None.
 ### Removed

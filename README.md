@@ -125,7 +125,7 @@ emptyValues = true
 ```
 </details>
 
-
+<br />
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
 1. Provide more specific paths for any key containing `path` if possible. (e.g. `"App/Sources"` for `codePath`)
@@ -182,7 +182,7 @@ enum BartyCrouch {
 
 </details>
 
-
+<br />
 5. If you don't develop in English as the first localized language, you should update the `sourceLocale` of the `normalize` task.
 6. If you want to use the machine translation feature of BartyCrouch, add `translate` to the tasks list at the top and copy the following section into the configuration file with `secret` replaced by your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key):
 
@@ -316,7 +316,7 @@ When set to `swiftgenStructured` it will transform to:
 ```swift
 self.title = L10n.Onboarding.FirstPage.headerTitle
 ```
-	
+
 **Advantages of `transform` over the `code` task:**
 * You can provide translations for keys without switching to the Strings files.
 * In case you use SwiftGen, you don't need to replace calls to `NSLocalizedString` with `L10n` calls manually after running BartyCrouch.
@@ -344,7 +344,7 @@ fi
 
 <img src="Images/Build-Script-Example.png">
 
-Next, make sure the BartyCrouch script runs before the steps `Compiling Sources` (and `SwiftGen` if used) by moving it per drag & drop, for example right after `Target Dependencies`. 
+Next, make sure the BartyCrouch script runs before the steps `Compiling Sources` (and `SwiftGen` if used) by moving it per drag & drop, for example right after `Target Dependencies`.
 
 Now BartyCrouch will be run on each build and you won't need to call it manually ever (again). Additionally, all your co-workers who don't have BartyCrouch installed will see a warning with a hint on how to install it.
 
