@@ -26,8 +26,9 @@
 
 <p align="center">
     <a href="#installation">Installation</a>
-  • <a href="#usage">Usage</a>
   • <a href="#configuration">Configuration</a>
+  • <a href="#usage">Usage</a>
+  • <a href="#build-script">Build Script</a>
   • <a href="#migration-guides">Migration Guides</a>
   • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
   • <a href="#contributing">Contributing</a>
