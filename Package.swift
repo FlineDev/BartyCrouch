@@ -10,6 +10,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Flinesoft/HandySwift.git", .upToNextMajor(from: "2.6.0")),
+        .package(url: "https://github.com/Flinesoft/Microya.git", .upToNextMajor(from: "0.1.1")),
         .package(url: "https://github.com/JamitLabs/MungoHealer.git", .upToNextMajor(from: "0.3.0")),
         .package(url: "https://github.com/onevcat/Rainbow.git", .upToNextMajor(from: "3.1.4")),
         .package(url: "https://github.com/jakeheis/SwiftCLI.git", .upToNextMajor(from: "5.2.0")),
@@ -42,7 +43,7 @@ let package = Package(
         ),
         .target(
             name: "BartyCrouchTranslator",
-            dependencies: ["HandySwift", "MungoHealer"],
+            dependencies: ["HandySwift", "Microya", "MungoHealer"],
             path: "Sources/BartyCrouchTranslator"
         ),
         .testTarget(

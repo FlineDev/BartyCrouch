@@ -6,8 +6,17 @@
         "repositoryURL": "https://github.com/Flinesoft/HandySwift.git",
         "state": {
           "branch": null,
-          "revision": "bbbcebc02bf872d791d0fcddab5bd2eb6712a6eb",
-          "version": "2.7.1"
+          "revision": "f736ec0ab264269cd4df91d6a685b4c78292cd76",
+          "version": "2.8.0"
+        }
+      },
+      {
+        "package": "Microya",
+        "repositoryURL": "https://github.com/Flinesoft/Microya.git",
+        "state": {
+          "branch": null,
+          "revision": "ae7136454bdd36e63e496b0be38ab05270d9510d",
+          "version": "0.1.1"
         }
       },
       {

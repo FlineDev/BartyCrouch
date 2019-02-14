@@ -1,6 +1,7 @@
 //  Created by Cihat Gündüz on 14.01.19.
 
 import Foundation
+import Microya
 
 // Documentation can be found here: https://docs.microsoft.com/en-us/azure/cognitive-services/translator/reference/v3-0-translate
 
@@ -51,7 +52,7 @@ extension MicrosoftTranslatorApi: JsonApi {
         }
     }
 
-    var method: Method {
+    var method: Microya.Method {
         switch self {
         case .translate:
             return .post

@@ -1,6 +1,7 @@
 //  Created by Cihat Gündüz on 18.01.19.
 
 import Foundation
+import Microya
 import MungoHealer
 
 /// Translator service to translate texts from one language to another.
@@ -47,7 +48,7 @@ public final class BartyCrouchTranslator {
                 }
 
             case let .failure(failure):
-                return .failure(failure)
+                return .failure(MungoError(source: .internalInconsistency, message: failure.localizedDescription))
             }
         }
     }
