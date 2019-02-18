@@ -212,10 +212,10 @@ public class StringsFileUpdater {
                 newContentsOfFile = whitespacesOrNewlinesAtBegin + newContentsOfFile.stripped() + whitespacesOrNewlinesAtEnd
             }
 
-            try FileManager.default.removeItem(atPath: path)
-            try newContentsOfFile.write(toFile: path, atomically: true, encoding: .utf8)
-
-            self.oldContentString = try String(contentsOfFile: path)
+            if newContentsOfFile != self.oldContentString {
+                try newContentsOfFile.write(toFile: path, atomically: true, encoding: .utf8)
+                self.oldContentString = newContentsOfFile
+            }
         } catch {
             print(error.localizedDescription, level: .error, file: path)
         }
