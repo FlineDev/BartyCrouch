@@ -27,8 +27,9 @@ public class CodeCommander {
     public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) throws {
         let files = try findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
+        let defaultFunctionArgs = ["-q"]
 
-        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs
+        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs + defaultFunctionArgs
         try run("/usr/bin/xcrun", arguments: arguments)
     }
 
