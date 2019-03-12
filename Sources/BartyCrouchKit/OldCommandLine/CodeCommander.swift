@@ -28,7 +28,7 @@ public class CodeCommander {
         let files = try findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
-        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs
+        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
         try run("/usr/bin/xcrun", arguments: arguments)
     }
 
