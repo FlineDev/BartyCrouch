@@ -22,7 +22,8 @@ class TranslateTransformer: SyntaxRewriter {
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
         guard
             let memberAccessExpression = functionCallExpression.child(at: 0) as? MemberAccessExprSyntax,
-            memberAccessExpression.base.description.stripped() == typeName,
+            let memberAccessExpressionBase = memberAccessExpression.base,
+            memberAccessExpressionBase.description.stripped() == typeName,
             memberAccessExpression.name.text == translateMethodName,
             let functionCallArgumentList = functionCallExpression.child(at: 2) as? FunctionCallArgumentListSyntax,
             let keyFunctionCallArgument = functionCallArgumentList.child(at: 0) as? FunctionCallArgumentSyntax,
@@ -35,7 +36,7 @@ class TranslateTransformer: SyntaxRewriter {
             return super.visit(functionCallExpression)
         }
 
-        let leadingWhitespace: String = String(memberAccessExpression.base.description.prefix(memberAccessExpression.base.description.count - typeName.count))
+        let leadingWhitespace: String = String(memberAccessExpressionBase.description.prefix(memberAccessExpressionBase.description.count - typeName.count))
         let key = keyStringLiteralExpression.text
 
         guard !key.isEmpty else {

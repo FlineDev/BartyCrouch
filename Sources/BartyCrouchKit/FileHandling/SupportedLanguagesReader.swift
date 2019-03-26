@@ -12,18 +12,19 @@ class SupportedLanguagesReader: SyntaxVisitor {
         self.typeName = typeName
     }
 
-    override func visit(_ enumDeclaration: EnumDeclSyntax) {
-        guard enumDeclaration.identifier.text == "SupportedLanguage" else { super.visit(enumDeclaration); return }
-
-        let enumCaseDeclarations: [EnumCaseDeclSyntax] = enumDeclaration.members.members.children.compactMap { $0 as? EnumCaseDeclSyntax }
-        for enumCaseDeclaration in enumCaseDeclarations {
-            let enumCaseElements: [EnumCaseElementSyntax] = enumCaseDeclaration.elements.children.compactMap { $0 as? EnumCaseElementSyntax }
-            for enumCaseElement in enumCaseElements {
-                let caseName = enumCaseElement.identifier.text
-                if let langCodeLiteral = enumCaseElement.rawValue?.value as? StringLiteralExprSyntax {
-                    caseToLangCode[caseName] = langCodeLiteral.text
-                }
-            }
+    override func visit(_ enumDeclaration: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        if enumDeclaration.parent is CodeBlockItemSyntax || enumDeclaration.identifier.text == "SupportedLanguage" {
+            return .visitChildren
+        } else {
+            return .skipChildren
         }
+    }
+
+    override func visit(_ enumCaseElement: EnumCaseElementSyntax) -> SyntaxVisitorContinueKind {
+        if let langCodeLiteral = enumCaseElement.rawValue?.value as? StringLiteralExprSyntax {
+            caseToLangCode[enumCaseElement.identifier.text] = langCodeLiteral.text
+        }
+
+        return .skipChildren
     }
 }
