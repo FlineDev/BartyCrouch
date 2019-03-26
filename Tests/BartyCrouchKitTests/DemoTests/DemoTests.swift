@@ -4,7 +4,6 @@
 import XCTest
 import Toml
 
-@available(OSX 10.12, *)
 class DemoTests: XCTestCase {
     static let testDemoDirectoryUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("Demo")
 

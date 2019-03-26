@@ -12,8 +12,8 @@ class SupportedLanguagesReader: SyntaxVisitor {
         self.typeName = typeName
     }
 
-    override func visit(_ enumDeclaration: EnumDeclSyntax) {
-        guard enumDeclaration.identifier.text == "SupportedLanguage" else { super.visit(enumDeclaration); return }
+    override func visit(_ enumDeclaration: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
+        guard enumDeclaration.identifier.text == "SupportedLanguage" else { return super.visit(enumDeclaration) }
 
         let enumCaseDeclarations: [EnumCaseDeclSyntax] = enumDeclaration.members.members.children.compactMap { $0 as? EnumCaseDeclSyntax }
         for enumCaseDeclaration in enumCaseDeclarations {
@@ -25,5 +25,7 @@ class SupportedLanguagesReader: SyntaxVisitor {
                 }
             }
         }
+
+        return .skipChildren
     }
 }
