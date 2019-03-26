@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 ### Fixed
-- Fixes [#120](https://github.com/Flinesoft/BartyCrouch/issues/120) via [#121](https://github.com/Flinesoft/BartyCrouch/pull/121) by [Robert Baker](https://github.com/magneticrob)
+- Turns off multiple key/value pairs warning by default. Fixes [#120](https://github.com/Flinesoft/BartyCrouch/issues/120) via [#121](https://github.com/Flinesoft/BartyCrouch/pull/121) by [Robert Baker](https://github.com/magneticrob).
 
 ## [4.0.0]
 ### Added
