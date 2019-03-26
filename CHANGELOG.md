@@ -4,10 +4,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- None.
+### Changed
+- None.
+### Deprecated
+- None.
+### Removed
+- None.
+### Fixed
+- None.
+### Security
+- None.
+
+## [4.0.1] - 2019-03-26
+### Added
+- Support for Swift 5.0 and Xcode 10.2 command line tools. By [Cihat Gündüz](https://github.com/Dschee).
+### Changed
+- Don't rewrite files if they didn't change to improve performance. Via [#111](https://github.com/Flinesoft/BartyCrouch/issues/120) by [Keith Bauer](https://github.com/OneSadCookie).
+### Deprecated
+- None.
+### Removed
+- Support for Swift 4.2 and Xcode <=10.1. If you need to run BartyCrouch with older Xcode versions and had a previous version of BartyCrouch installed, then simply switch to it via `brew switch bartycrouch 4.0.0`. By [Cihat Gündüz](https://github.com/Dschee).
 ### Fixed
 - Turns off multiple key/value pairs warning by default. Fixes [#120](https://github.com/Flinesoft/BartyCrouch/issues/120) via [#121](https://github.com/Flinesoft/BartyCrouch/pull/121) by [Robert Baker](https://github.com/magneticrob).
+### Security
+- None.
 
-## [4.0.0]
+## [4.0.0] - 2019-02-04
 ### Added
 - Support for [installation](https://github.com/Flinesoft/BartyCrouch#installation) via Mint (SwiftSPM based).
 - Use [configuration file](https://github.com/Flinesoft/BartyCrouch#configuration) instead of thousands of command line options.
@@ -26,8 +50,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Security
 - None.
 
-
-## [3.13.1]
+## [3.13.1] - 2018-07-26
 ### Added
 - Added ability to ignore empty strings.
   via [#107](https://github.com/Flinesoft/BartyCrouch/pull/107) by [Ludvig Eriksson](https://github.com/ludvigeriksson)
