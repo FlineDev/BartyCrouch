@@ -33,10 +33,12 @@ class CodeFileHandlerTests: XCTestCase {
     }
 
     func testFindCaseToLangCodeMappins() {
-        let supportingLanguagesCodeFilePath: String = CodeFileHandlerTests.testDemoDirectoryUrl.appendingPathComponent("BartyCrouch.swift").path
+        let supportingLanguagesCodeFilePath: String = CodeFileHandlerTests.testDemoDirectoryUrl.appendingPathComponent("Demo/BartyCrouch.swift").path
         let caseToLangMappings: [String: String]? = CodeFileHandler(path: supportingLanguagesCodeFilePath).findCaseToLangCodeMappings(typeName: "BartyCrouch")
 
         XCTAssertNotNil(caseToLangMappings)
-        XCTAssertEqual(caseToLangMappings, [:])
+        XCTAssertEqual(caseToLangMappings?["german"], "de")
+        XCTAssertEqual(caseToLangMappings?["japanese"], "ja")
+        XCTAssertEqual(caseToLangMappings?["chineseTraditional"], "zh-Hant")
     }
 }
