@@ -25,6 +25,12 @@ install: bartycrouch
 	@install -d "$(bindir)" "$(libdir)"
 	@install "$(BUILDDIR)/release/bartycrouch" "$(bindir)"
 
+.PHONY: portable_zip
+portable_zip: bartycrouch
+	rm -f "$(BUILDDIR)/release/portable_bartycrouch.zip"
+	zip -j "$(BUILDDIR)/release/portable_bartycrouch.zip" "$(BUILDDIR)/release/bartycrouch" "$(REPODIR)/LICENSE"
+	echo "Portable ZIP created at: $(BUILDDIR)/release/portable_bartycrouch.zip"
+
 .PHONY: uninstall
 uninstall:
 	@rm -rf "$(bindir)/bartycrouch"
