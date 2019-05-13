@@ -13,8 +13,8 @@
              alt="codebeat badge">
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.0.1-blue.svg"
-             alt="Version: 4.0.1">
+        <img src="https://img.shields.io/badge/Version-4.0.2-blue.svg"
+             alt="Version: 4.0.2">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.0-FFAC45.svg"
          alt="Swift: 5.0">
@@ -39,10 +39,11 @@
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
+Checkout [this blog post](https://medium.com/@Dschee/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
 
 ## Requirements
 
-- Xcode 10.1+ & Swift 4.2+
+- Xcode 10.2+ & Swift 5.0+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started

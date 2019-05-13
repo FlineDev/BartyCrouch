@@ -323,12 +323,12 @@ public class StringsFileUpdater {
 
         // swiftlint:disable force_try
         let translationRegex = try! NSRegularExpression(pattern: translationRegexString, options: [.dotMatchesLineSeparators, .anchorsMatchLines])
-//        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
+        let newlineRegex = try! NSRegularExpression(pattern: "(\\n)", options: .useUnixLineSeparators)
         // swiftlint:enable force_try
 
-//        let positionsOfNewlines = SortedArray(
-//            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
-//        )
+        let positionsOfNewlines = SortedArray(
+            newlineRegex.matches(in: string, options: .reportCompletion, range: string.fullRange).map { $0.range(at: 1).location }
+        )
 
         let matches = translationRegex.matches(in: string, options: .reportCompletion, range: string.fullRange)
         var translations: [TranslationEntry] = []
@@ -343,8 +343,7 @@ public class StringsFileUpdater {
                     if range.location != NSNotFound && range.length > 0 { comment = (string as NSString).substring(with: range) }
                 }
 
-                let line: Int = string.prefix(valueRange.location).components(separatedBy: .newlines).count
-//                let numberOfNewlines = positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count
+                let line = (positionsOfNewlines.index { $0 > valueRange.location + valueRange.length } ?? positionsOfNewlines.array.count) + 1
                 return TranslationEntry(key: key, value: value, comment: comment, line: line)
             }
         }

@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
 
   s.name         = "BartyCrouch"
-  s.version      = "4.0.1"
-  s.summary      = "Localization/I18n: Incrementally update your Strings files from .swift, .h, .m(m), .storyboard or .xib files."
+  s.version      = "4.0.2"
+  s.summary      = "Localization/I18n: Incrementally update/translate your Strings files from .swift, .h, .m(m), .storyboard or .xib files."
 
   s.description  = <<-DESC
     BartyCrouch incrementally updates your Strings files from your Code and from Interface Builder files. "Incrementally" means that
-    BartyCrouch will by default keep both your already translated values and even your altered comments. Additionally you can also
-    use BartyCrouch for machine translating from one language to 40+ other languages. Using BartyCrouch is as easy as running a few
+    BartyCrouch will by default keep both your already translated values and even your altered comments. Additionally you can also use
+    BartyCrouch for machine translating from one language to 60+ other languages. Using BartyCrouch is as easy as running a few
     simple commands from the command line what can even be automated using a build script within your project.
                    DESC
 

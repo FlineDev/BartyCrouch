@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Security
 - None.
 
+## [4.0.2] - 2019-05-13
+### Fixed
+- Make Code Transform, Normalize & Lint fast again (up to 50x faster). Fixes [#128](https://github.com/Flinesoft/BartyCrouch/issues/128) by [Frederick Pietschmann](https://github.com/fredpi).
+
 ## [4.0.1] - 2019-03-26
 ### Added
 - Support for Swift 5.0 and Xcode 10.2 command line tools. By [Cihat Gündüz](https://github.com/Dschee).
