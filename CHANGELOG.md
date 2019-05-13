@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Removed
 - None.
 ### Fixed
-- None.
+- Make Code Transform, Normalize & Lint fast again (up to 50x faster). Fixes [#128](https://github.com/Flinesoft/BartyCrouch/issues/128) by [Frederick Pietschmann](https://github.com/fredpi).
 ### Security
 - None.
 
