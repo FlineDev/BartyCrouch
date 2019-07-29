@@ -15,6 +15,6 @@ public final class IBToolCommander {
     // MARK: - Instance Methods
     public func export(stringsFileToPath stringsFilePath: String, fromIbFileAtPath ibFilePath: String) throws {
         let arguments = ["--export-strings-file", stringsFilePath, ibFilePath]
-        try run("/usr/bin/ibtool", arguments: arguments)
+        try Task.run("/usr/bin/ibtool", arguments: arguments)
     }
 }
