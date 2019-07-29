@@ -8,20 +8,20 @@
 import Foundation
 
 protocol FilesSearchable {
-    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String]
+    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression, ignoreSuffixes: Set<String>) -> [String]
 }
 
 extension FilesSearchable {
-    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression) -> [String] {
+    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression, ignoreSuffixes: Set<String> = []) -> [String] {
         let baseDirectoryURL = URL(fileURLWithPath: baseDirectoryPath)
         guard let enumerator = FileManager.default.enumerator(at: baseDirectoryURL, includingPropertiesForKeys: nil) else { return [] }
 
         var filePaths = [String]()
-        let dirsToIgnore = Set([".git", "Carthage", "Pods", "build", "docs"])
+        let dirsToIgnore = Set([".git", "carthage", "pods", "build", ".build", "docs"])
         let baseDirectoryAbsolutePath = baseDirectoryURL.path
 
         for case let url as URL in enumerator {
-            if dirsToIgnore.contains(url.lastPathComponent) {
+            if dirsToIgnore.contains(url.lastPathComponent.lowercased()) {
                 enumerator.skipDescendants()
                 continue
             }
@@ -33,6 +33,8 @@ extension FilesSearchable {
             }
         }
 
-        return filePaths
+        return filePaths.filter { filePath in
+            !ignoreSuffixes.contains { filePath.hasSuffix($0) }
+        }
     }
 }
