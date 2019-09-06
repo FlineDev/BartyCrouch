@@ -125,7 +125,7 @@ emptyValues = true
 
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
-1. To speed up execution time provide more specific paths for any key containing `path` if possible (especially in the `update.transform` section, e.g. `"App/Sources"` for `codePath` or `"App/Supporting Files"` for `supportedLanguageEnumPath` )
+1. To speed up execution time provide more specific paths for any key containing `path` if possible. (especially in the `update.transform` section, e.g. `"App/Sources"` for `codePath` or `"App/Supporting Files"` for `supportedLanguageEnumPath` )
 2. Remove the `code` task if your project is Swift-only and you use the new [`transform` update task](#localization-workflow-via-transform).
 3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
 4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
