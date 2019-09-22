@@ -27,7 +27,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- None.
+- Fixed crashes in projects with large number of files. Fixes [#92](https://github.com/Flinesoft/BartyCrouch/issues/92) & [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) by [Christos Koninis](https://github.com/csknns).
 ### Security
 - None.
 

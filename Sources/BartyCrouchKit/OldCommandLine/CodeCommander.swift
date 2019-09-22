@@ -26,7 +26,9 @@ public final class CodeCommander {
         let files = try findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
-        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
+        let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
+
+        let arguments = try appendFiles(files, inListOfArguments: argumentsWithoutTheFiles)
         try Task.run("/usr/bin/xcrun", arguments: arguments)
     }
 
@@ -55,5 +57,19 @@ public final class CodeCommander {
         }
 
         return matchedFiles
+    }
+
+    // In the existing list of arguments it appends also the files arguments. Depending on the total length of the argument list we either append them in the
+    // argument list or write them in a file and append that file.
+    func appendFiles(_ files: [String], inListOfArguments existingArguments: [String]) throws -> [String] {
+        let completeArgumentList = existingArguments + files
+
+        if Task.isArgumentListTooLong(completeArgumentList) {
+            // If the argument list gets to long we write the files in a plist and pass that as argument
+            let fileArgumentsPlistFile = try ExtractLocStrings().writeFilesArgumentsInPlist(files)
+            return existingArguments + ["-f", fileArgumentsPlistFile]
+        } else {
+            return completeArgumentList
+        }
     }
 }
