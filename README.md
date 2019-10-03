@@ -22,6 +22,15 @@
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
     </a>
+    <br />
+    <a href="https://paypal.me/Dschee">
+        <img src="https://img.shields.io/badge/PayPal-Donate-orange.svg"
+             alt="PayPal: Donate">
+    </a>
+    <a href="https://patreon.com/Dschee">
+        <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
+             alt="Patreon: Become a patron">
+    </a>	
 </p>
 
 <p align="center">
@@ -29,6 +38,7 @@
   • <a href="#configuration">Configuration</a>
   • <a href="#usage">Usage</a>
   • <a href="#build-script">Build Script</a>
+  • <a href="#donation">Donation</a>
   • <a href="#migration-guides">Migration Guides</a>
   • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
   • <a href="#contributing">Contributing</a>
@@ -373,6 +383,12 @@ func updateTimeLabel(minutes: Int) {
 ```
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
+
+## Donation
+
+BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Dschee) in his free time. If you want to thank me and support the development of this project, please buy me a coffee on [PayPal](https://paypal.me/Dschee). In case you also like my other open source contributions and [articles](https://medium.com/@Dschee), please consider motivating me by becoming a patron on [Patreon](https://www.patreon.com/Dschee).
+
+Thank you very much for any donation, it really helps out a lot! 💯
 
 ## Migration Guides
 
