@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author             = { "Cihat Gündüz" => "cocoapods@cihatguenduez.de" }
-  s.social_media_url   = "https://twitter.com/Dschee"
+  s.social_media_url   = "https://twitter.com/Jeehut"
 
   s.source         = { :http => "#{s.homepage}/releases/download/#{s.version}/portable_bartycrouch.zip" }
   s.preserve_paths = "*"
