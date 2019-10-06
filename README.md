@@ -27,7 +27,7 @@
         <img src="https://img.shields.io/badge/PayPal-Donate-orange.svg"
              alt="PayPal: Donate">
     </a>
-    <a href="https://patreon.com/Dschee">
+    <a href="https://patreon.com/Jeehut">
         <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
              alt="Patreon: Become a patron">
     </a>	
@@ -49,7 +49,7 @@
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
-Checkout [this blog post](https://medium.com/@Dschee/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
+Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
 
 ## Requirements
 
@@ -386,7 +386,7 @@ The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not 
 
 ## Donation
 
-BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Dschee) in his free time. If you want to thank me and support the development of this project, please make a small donation on [PayPal](https://paypal.me/Dschee/5EUR). In case you also like my other [open source contributions](https://github.com/Flinesoft) and [articles](https://medium.com/@Dschee), please consider motivating me by becoming a patron on [Patreon](https://www.patreon.com/Dschee).
+BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Jeehut) in his free time. If you want to thank me and support the development of this project, please make a small donation on [PayPal](https://paypal.me/Dschee/5EUR). In case you also like my other [open source contributions](https://github.com/Flinesoft) and [articles](https://medium.com/@Jeehut), please consider motivating me by becoming a patron on [Patreon](https://www.patreon.com/Jeehut).
 
 Thank you very much for any donation, it really helps out a lot! 💯
 
