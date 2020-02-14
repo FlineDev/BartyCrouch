@@ -32,7 +32,7 @@ extension TransformTaskHandler: TaskHandler {
 
                 var translateEntries: [CodeFileHandler.TranslateEntry] = []
 
-                for codeFile in CodeFilesSearch(baseDirectoryPath: options.codePath.absolutePath).findCodeFiles() {
+                for codeFile in Set(options.codePaths.flatMap { CodeFilesSearch(baseDirectoryPath: $0.absolutePath).findCodeFiles() }) {
                     let codeFileHandler = CodeFileHandler(path: codeFile)
 
                     translateEntries += try codeFileHandler.transform(
@@ -43,9 +43,15 @@ extension TransformTaskHandler: TaskHandler {
                     )
                 }
 
-                let stringsFiles: [String] = StringsFilesSearch.shared.findAllStringsFiles(
-                    within: options.localizablePath.absolutePath,
-                    withFileName: options.customLocalizableName ?? "Localizable"
+                let stringsFiles: [String] = Array(
+                    Set(
+                        options.localizablePaths.flatMap {
+                            StringsFilesSearch.shared.findAllStringsFiles(
+                                within: $0.absolutePath,
+                                withFileName: options.customLocalizableName ?? "Localizable"
+                            )
+                        }
+                    )
                 )
 
                 for stringsFile in stringsFiles {

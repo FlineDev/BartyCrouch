@@ -16,10 +16,10 @@ public class CommandLineActor {
     public init() {}
 
     func actOnCode(
-        path: String,
+        paths: [String],
         override: Bool,
         verbose: Bool,
-        localizable: String,
+        localizables: [String],
         defaultToKeys: Bool,
         additive: Bool,
         overrideComments: Bool,
@@ -28,7 +28,7 @@ public class CommandLineActor {
         customLocalizableName: String?
     ) {
         let localizableFileName = customLocalizableName ??  "Localizable"
-        let allLocalizableStringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: localizable, withFileName: localizableFileName)
+        let allLocalizableStringsFilePaths = Array(Set(localizables.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName) }))
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
             print("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.", level: .error) // swiftlint:disable:this line_length
@@ -36,7 +36,7 @@ public class CommandLineActor {
         }
 
         self.incrementalCodeUpdate(
-            inputDirectoryPath: path,
+            inputDirectoryPaths: paths,
             allLocalizableStringsFilePaths,
             override: override,
             verbose: verbose,
@@ -49,8 +49,8 @@ public class CommandLineActor {
         )
     }
 
-    func actOnInterfaces(path: String, override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
-        let inputFilePaths = StringsFilesSearch.shared.findAllIBFiles(within: path, withLocale: "Base")
+    func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
+        let inputFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") } ))
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -72,8 +72,8 @@ public class CommandLineActor {
         }
     }
 
-    func actOnTranslate(path: String, override: Bool, verbose: Bool, secret: String, locale: String) {
-        let inputFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
+    func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: String, locale: String) {
+        let inputFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) } ))
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -88,14 +88,14 @@ public class CommandLineActor {
     }
 
     func actOnNormalize(
-        path: String,
+        paths: [String],
         override: Bool,
         verbose: Bool,
         locale: String,
         sortByKeys: Bool,
         harmonizeWithSource: Bool
     ) {
-        let sourceFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path, withLocale: locale)
+        let sourceFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }))
         guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .warning); return }
 
         for sourceFilePath in sourceFilePaths {
@@ -134,14 +134,14 @@ public class CommandLineActor {
         }
     }
 
-    func actOnLint(path: String, duplicateKeys: Bool, emptyValues: Bool) {
-        let stringsFilePaths = StringsFilesSearch.shared.findAllStringsFiles(within: path)
+    func actOnLint(paths: [String], duplicateKeys: Bool, emptyValues: Bool) {
+        let stringsFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0) }))
         guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); return }
 
         let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
 
         if totalChecks <= 0 {
-            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning, file: path)
+            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning, file: paths.first)
         }
 
         var failedFilePaths: [String] = []
@@ -194,14 +194,14 @@ public class CommandLineActor {
 
         if !failedFilePaths.isEmpty {
             // swiftlint:disable:next line_length
-            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning, file: path)
+            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning, file: paths.first)
         } else {
-            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success, file: path)
+            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success, file: paths.first)
         }
     }
 
     private func incrementalCodeUpdate(
-        inputDirectoryPath: String,
+        inputDirectoryPaths: [String],
         _ outputStringsFilePaths: [String],
         override: Bool,
         verbose: Bool,
@@ -212,55 +212,57 @@ public class CommandLineActor {
         customFunction: String?,
         localizableFileName: String
     ) {
-        let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
+        for inputDirectoryPath in inputDirectoryPaths {
+            let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
 
-        do {
-            try FileManager.default.createDirectory(atPath: extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            print(error.localizedDescription, level: .error)
-            return
+            do {
+                try FileManager.default.createDirectory(atPath: extractedStringsFileDirectory, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription, level: .error)
+                return
+            }
+
+            do {
+                try CodeCommander.shared.export(
+                    stringsFilesToPath: extractedStringsFileDirectory,
+                    fromCodeInDirectoryPath: inputDirectoryPath,
+                    customFunction: customFunction
+                )
+            } catch {
+                print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)
+                return
+            }
+
+            let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
+            guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
+                print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
+                return // NOTE: Expecting to see this only for empty project situations.
+            }
+
+            for outputStringsFilePath in outputStringsFilePaths {
+                guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
+
+                stringsFileUpdater.incrementallyUpdateKeys(
+                    withStringsFileAtPath: extractedLocalizableStringsFilePath,
+                    addNewValuesAsEmpty: !defaultToKeys,
+                    override: override,
+                    keepExistingKeys: additive,
+                    overrideComments: overrideComments,
+                    keepWhitespaceSurroundings: unstripped
+                )
+
+                if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info) }
+            }
+
+            do {
+                try FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
+            } catch {
+                print("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'", level: .error)
+                return
+            }
         }
 
-        do {
-            try CodeCommander.shared.export(
-                stringsFilesToPath: extractedStringsFileDirectory,
-                fromCodeInDirectoryPath: inputDirectoryPath,
-                customFunction: customFunction
-            )
-        } catch {
-            print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)
-            return
-        }
-
-        let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
-        guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
-            print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
-            return // NOTE: Expecting to see this only for empty project situations.
-        }
-
-        for outputStringsFilePath in outputStringsFilePaths {
-            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
-
-            stringsFileUpdater.incrementallyUpdateKeys(
-                withStringsFileAtPath: extractedLocalizableStringsFilePath,
-                addNewValuesAsEmpty: !defaultToKeys,
-                override: override,
-                keepExistingKeys: additive,
-                overrideComments: overrideComments,
-                keepWhitespaceSurroundings: unstripped
-            )
-
-            if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info) }
-        }
-
-        do {
-            try FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
-        } catch {
-            print("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'", level: .error)
-            return
-        }
-
-        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPath)
+        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPaths.first)
     }
 
     private func incrementalInterfacesUpdate(

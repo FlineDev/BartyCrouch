@@ -13,7 +13,7 @@ extension InterfacesTaskHandler: TaskHandler {
         measure(task: "Update Interfaces") {
             mungo.do {
                 CommandLineActor().actOnInterfaces(
-                    path: options.path,
+                    paths: options.paths,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     defaultToBase: options.defaultToBase,
