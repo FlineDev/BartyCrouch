@@ -2,7 +2,7 @@ import Foundation
 import Toml
 
 struct InterfacesOptions {
-    let path: String
+    let paths: [String]
     let defaultToBase: Bool
     let ignoreEmptyStrings: Bool
     let unstripped: Bool
@@ -14,7 +14,7 @@ extension InterfacesOptions: TomlCodable {
         let interfaces: String = "interfaces"
 
         return InterfacesOptions(
-            path: toml.string(update, interfaces, "path") ?? ".",
+            paths: toml.array(update, interfaces, "paths") ?? [toml.string(update, interfaces, "path") ?? "."],
             defaultToBase: toml.bool(update, interfaces, "defaultToBase") ?? false,
             ignoreEmptyStrings: toml.bool(update, interfaces, "ignoreEmptyStrings") ?? false,
             unstripped: toml.bool(update, interfaces, "unstripped") ?? false
@@ -24,7 +24,7 @@ extension InterfacesOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.interfaces]"]
 
-        lines.append("path = \"\(path)\"")
+        lines.append("paths = \"\(paths)\"")
         lines.append("defaultToBase = \(defaultToBase)")
         lines.append("ignoreEmptyStrings = \(ignoreEmptyStrings)")
         lines.append("unstripped = \(unstripped)")
