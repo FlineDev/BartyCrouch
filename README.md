@@ -103,34 +103,34 @@ Now you should have a file named `.bartycrouch.toml` with the following contents
 tasks = ["interfaces", "code", "transform", "normalize"]
 
 [update.interfaces]
-path = "."
+paths = "."
 defaultToBase = false
 ignoreEmptyStrings = false
 unstripped = false
 
 [update.code]
-codePath = "."
-localizablePath = "."
+codePaths = "."
+localizablePaths = "."
 defaultToKeys = false
 additive = true
 unstripped = false
 
 [update.transform]
-codePath = "."
-localizablePath = "."
+codePaths = "."
+localizablePaths = "."
 transformer = "foundation"
 supportedLanguageEnumPath = "."
 typeName = "BartyCrouch"
 translateMethodName = "translate"
 
 [update.normalize]
-path = "."
+paths = "."
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
 
 [lint]
-path = "."
+paths = "."
 duplicateKeys = true
 emptyValues = true
 ```
@@ -191,7 +191,7 @@ enum BartyCrouch {
 
 ```toml
 [update.translate]
-path = "."
+paths = "."
 secret = "<#Subscription Key#>"
 sourceLocale = "en"
 ```
@@ -232,7 +232,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `interfaces`</summary>
 
-- `path`: The directory to search for Storyboards & XIB files.
+- `paths`: The directory / directories to search for Storyboards & XIB files.
 - `defaultToBase`: Add Base translation as value to new keys.
 - `ignoreEmptyStrings`: Doesn't add views with empty values.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
@@ -241,8 +241,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `code`</summary>
 
-- `codePath`: The directory to search for Swift code files.
-- `localizablePath`: The enclosing path containing the localized `Localizable.strings` files.
+- `codePaths`: The directory / directories to search for Swift code files.
+- `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultsToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
 - `customFunction`: Use alternative name to `NSLocalizedString`.
@@ -253,8 +253,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `transform`</summary>
 
-- `codePath`: The directory to search for Swift code files.
-- `localizablePath`:  The enclosing path containing the localized `Localizable.strings` files.
+- `codePaths`: The directory / directories to search for Swift code files.
+- `localizablePaths`:  The enclosing path(s) containing the localized `Localizable.strings` files.
 - `transformer`: Specifies the replacement code. Use `foundation` for `NSLocalizedString` or `swiftgenStructured` for `L10n` entries.
 - `supportedLanguageEnumPath`: The enclosing path containing the `SupportedLanguage` enum.
 - `typeName`: The name of the type enclosing the `SupportedLanguage` enum and translate method.
@@ -265,7 +265,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `translate`</summary>
 
-- `path`: The directory to search for Strings files.
+- `paths`: The directory / directories to search for Strings files.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
 - `sourceLocale`: The source language to translate from.
 
@@ -273,7 +273,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `normalize`</summary>
 
-- `path`: The directory to search for Strings files.
+- `paths`: The directory / directories to search for Strings files.
 - `sourceLocale`: The source language to harmonize keys of other languages with.
 - `harmonizeWithSource`: Synchronizes keys with source language.
 - `sortByKeys`: Alphabetically sorts translations by their keys.
