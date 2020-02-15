@@ -11,4 +11,8 @@ extension Toml {
 
         return "\(array)"
     }
+
+    public func stringArray(_ path: String...) -> [String]? {
+        return array(path) ?? string(path).map { [$0] }
+    }
 }

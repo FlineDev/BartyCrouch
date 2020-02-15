@@ -14,7 +14,7 @@ extension InterfacesOptions: TomlCodable {
         let interfaces: String = "interfaces"
 
         return InterfacesOptions(
-            paths: toml.array(update, interfaces, "paths") ?? [toml.string(update, interfaces, "path") ?? toml.string(update, interfaces, "paths") ?? "."],
+            paths: toml.stringArray(update, interfaces, "paths") ?? toml.stringArray(update, interfaces, "path") ?? ["."],
             defaultToBase: toml.bool(update, interfaces, "defaultToBase") ?? false,
             ignoreEmptyStrings: toml.bool(update, interfaces, "ignoreEmptyStrings") ?? false,
             unstripped: toml.bool(update, interfaces, "unstripped") ?? false

@@ -13,7 +13,7 @@ extension LintOptions: TomlCodable {
         let lint: String = "lint"
 
         return LintOptions(
-            paths: toml.array(lint, "paths") ?? [toml.string(lint, "path") ?? toml.string(lint, "paths") ?? "."],
+            paths: toml.stringArray(lint, "paths") ?? toml.stringArray(lint, "path") ?? ["."],
             duplicateKeys: toml.bool(lint, "duplicateKeys") ?? true,
             emptyValues: toml.bool(lint, "emptyValues") ?? true
         )

@@ -17,8 +17,8 @@ extension CodeOptions: TomlCodable {
         let code: String = "code"
 
         return CodeOptions(
-            codePaths: toml.array(update, code, "codePaths") ?? [toml.string(update, code, "codePath") ?? toml.string(update, code, "codePaths") ?? "."],
-            localizablePaths: toml.array(update, code, "localizablePaths") ?? [toml.string(update, code, "localizablePath") ?? toml.string(update, code, "localizablePaths") ?? "."],
+            codePaths: toml.stringArray(update, code, "codePaths") ?? toml.stringArray(update, code, "codePath") ?? ["."],
+            localizablePaths: toml.stringArray(update, code, "localizablePaths") ?? toml.stringArray(update, code, "localizablePath") ?? ["."],
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
             customFunction: toml.string(update, code, "customFunction"),

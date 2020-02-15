@@ -14,7 +14,7 @@ extension NormalizeOptions: TomlCodable {
         let normalize: String = "normalize"
 
         return NormalizeOptions(
-            paths: toml.array(update, normalize, "paths") ?? [toml.string(update, normalize, "path") ?? toml.string(update, normalize, "paths") ?? "."],
+            paths: toml.stringArray(update, normalize, "paths") ?? toml.stringArray(update, normalize, "path") ?? ["."],
             sourceLocale: toml.string(update, normalize, "sourceLocale") ?? "en",
             harmonizeWithSource: toml.bool(update, normalize, "harmonizeWithSource") ?? true,
             sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true

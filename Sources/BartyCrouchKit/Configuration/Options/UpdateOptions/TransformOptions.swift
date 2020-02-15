@@ -25,8 +25,8 @@ extension TransformOptions: TomlCodable {
         }
 
         return TransformOptions(
-            codePaths: toml.array(update, transform, "codePaths") ?? [toml.string(update, transform, "codePath") ?? toml.string(update, transform, "codePaths") ?? "."],
-            localizablePaths: toml.array(update, transform, "localizablePaths") ?? [toml.string(update, transform, "localizablePath") ?? toml.string(update, transform, "localizablePaths") ?? "."],
+            codePaths: toml.stringArray(update, transform, "codePaths") ?? toml.stringArray(update, transform, "codePath") ?? ["."],
+            localizablePaths: toml.stringArray(update, transform, "localizablePaths") ?? toml.stringArray(update, transform, "localizablePath") ?? ["."],
             transformer: transformer,
             supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
             typeName: toml.string(update, transform, "typeName") ?? "BartyCrouch",
