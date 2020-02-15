@@ -53,6 +53,7 @@ class DemoTests: XCTestCase {
         }
 
         for (indices, langCode) in [([0, 1, 2], "de"), ([3, 4, 5], "en"), ([6, 7, 8], "tr")] {
+            print(TestHelper.shared.printOutputs)
             XCTAssertEqual(TestHelper.shared.printOutputs[indices[0]].message, "Found 2 translations for key 'Existing Duplicate Key'. Other entries at: [13]")
             XCTAssertEqual(TestHelper.shared.printOutputs[indices[0]].line, 11)
 
@@ -140,7 +141,7 @@ class DemoTests: XCTestCase {
         let microsoftSubscriptionKey = "" // TODO: load from environment variable
         guard !microsoftSubscriptionKey.isEmpty else { return }
 
-        let translateOptions = TranslateOptions(path: ".", secret: microsoftSubscriptionKey, sourceLocale: "en")
+        let translateOptions = TranslateOptions(paths: ["."], secret: microsoftSubscriptionKey, sourceLocale: "en")
         TranslateTaskHandler(options: translateOptions).perform()
 
         let expectedMessages: [String] = [
@@ -215,8 +216,8 @@ class DemoTests: XCTestCase {
 
     func testTransformTaskHandlerWithSwiftgenStructuredTransformer() {
         let transformOptions = TransformOptions(
-            codePath: ".",
-            localizablePath: ".",
+            codePaths: ["."],
+            localizablePaths: ["."],
             transformer: .swiftgenStructured,
             supportedLanguageEnumPath: ".",
             typeName: "BartyCrouch",

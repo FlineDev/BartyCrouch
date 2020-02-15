@@ -25,8 +25,8 @@ extension TransformOptions: TomlCodable {
         }
 
         return TransformOptions(
-            codePaths: toml.array(update, transform, "codePaths") ?? [toml.string(update, transform, "codePath") ?? "."],
-            localizablePaths: toml.array(update, transform, "localizablePaths") ?? [toml.string(update, transform, "localizablePath") ?? "."],
+            codePaths: toml.array(update, transform, "codePaths") ?? [toml.string(update, transform, "codePath") ?? toml.string(update, transform, "codePaths") ?? "."],
+            localizablePaths: toml.array(update, transform, "localizablePaths") ?? [toml.string(update, transform, "localizablePath") ?? toml.string(update, transform, "localizablePaths") ?? "."],
             transformer: transformer,
             supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
             typeName: toml.string(update, transform, "typeName") ?? "BartyCrouch",
@@ -38,8 +38,8 @@ extension TransformOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.transform]"]
 
-        lines.append("codePaths = \"\(codePaths)\"")
-        lines.append("localizablePaths = \"\(localizablePaths)\"")
+        lines.append("codePaths = \"\(Toml.convertToString(codePaths))\"")
+        lines.append("localizablePaths = \"\(Toml.convertToString(localizablePaths))\"")
         lines.append("transformer = \"\(transformer.rawValue)\"")
         lines.append("supportedLanguageEnumPath = \"\(supportedLanguageEnumPath)\"")
         lines.append("typeName = \"\(typeName)\"")

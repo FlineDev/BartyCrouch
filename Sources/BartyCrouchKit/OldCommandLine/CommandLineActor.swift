@@ -28,7 +28,7 @@ public class CommandLineActor {
         customLocalizableName: String?
     ) {
         let localizableFileName = customLocalizableName ??  "Localizable"
-        let allLocalizableStringsFilePaths = Array(Set(localizables.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName) }))
+        let allLocalizableStringsFilePaths = localizables.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName) }.withoutDuplicates()
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
             print("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.", level: .error) // swiftlint:disable:this line_length
@@ -50,7 +50,7 @@ public class CommandLineActor {
     }
 
     func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
-        let inputFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") } ))
+        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -73,7 +73,7 @@ public class CommandLineActor {
     }
 
     func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: String, locale: String) {
-        let inputFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) } ))
+        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -95,7 +95,7 @@ public class CommandLineActor {
         sortByKeys: Bool,
         harmonizeWithSource: Bool
     ) {
-        let sourceFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }))
+        let sourceFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
         guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .warning); return }
 
         for sourceFilePath in sourceFilePaths {
@@ -135,13 +135,13 @@ public class CommandLineActor {
     }
 
     func actOnLint(paths: [String], duplicateKeys: Bool, emptyValues: Bool) {
-        let stringsFilePaths = Array(Set(paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0) }))
+        let stringsFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0) }.withoutDuplicates()
         guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); return }
 
         let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
 
         if totalChecks <= 0 {
-            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning, file: paths.first)
+            print("No checks specified. Run `bartycrouch lint` to see all available linting options.", level: .warning, file: paths.last)
         }
 
         var failedFilePaths: [String] = []
@@ -194,9 +194,9 @@ public class CommandLineActor {
 
         if !failedFilePaths.isEmpty {
             // swiftlint:disable:next line_length
-            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning, file: paths.first)
+            print("\(totalFails) issue(s) found in \(failedFilePaths.count) file(s). Executed \(totalChecks) checks in \(stringsFilePaths.count) Strings file(s) in total.", level: .warning, file: paths.last)
         } else {
-            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success, file: paths.first)
+            print("\(totalChecks) check(s) passed for \(stringsFilePaths.count) Strings file(s).", level: .success, file: paths.last)
         }
     }
 
@@ -262,7 +262,7 @@ public class CommandLineActor {
             }
         }
 
-        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPaths.first)
+        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPaths.last)
     }
 
     private func incrementalInterfacesUpdate(

@@ -14,7 +14,7 @@ extension TranslateOptions: TomlCodable {
         let translate: String = "translate"
 
         if let secret: String = toml.string(update, translate, "secret") {
-            let paths = toml.array(update, translate, "paths") ?? [toml.string(update, translate, "path") ?? "."]
+            let paths = toml.array(update, translate, "paths") ?? [toml.string(update, translate, "path") ?? toml.string(update, translate, "paths") ?? "."]
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
             return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
         } else {
@@ -25,7 +25,7 @@ extension TranslateOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.translate]"]
 
-        lines.append("paths = \"\(paths)\"")
+        lines.append("paths = \"\(Toml.convertToString(paths))\"")
         lines.append("secret = \"\(secret)\"")
         lines.append("sourceLocale = \"\(sourceLocale)\"")
 
