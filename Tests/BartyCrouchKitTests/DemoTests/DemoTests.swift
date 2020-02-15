@@ -53,7 +53,6 @@ class DemoTests: XCTestCase {
         }
 
         for (indices, langCode) in [([0, 1, 2], "de"), ([3, 4, 5], "en"), ([6, 7, 8], "tr")] {
-            print(TestHelper.shared.printOutputs)
             XCTAssertEqual(TestHelper.shared.printOutputs[indices[0]].message, "Found 2 translations for key 'Existing Duplicate Key'. Other entries at: [13]")
             XCTAssertEqual(TestHelper.shared.printOutputs[indices[0]].line, 11)
 
