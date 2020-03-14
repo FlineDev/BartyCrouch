@@ -19,7 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Add support for specifying multiple paths. Fixes [#155](https://github.com/Flinesoft/BartyCrouch/issues/155). By [Frederick Pietschmann](https://github.com/fredpi).
+- Add support for specifying multiple paths. Fixes [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) by [Frederick Pietschmann](https://github.com/fredpi).
 
 ### Changed
 - Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
