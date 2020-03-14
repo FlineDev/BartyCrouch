@@ -17,8 +17,8 @@ extension CodeOptions: TomlCodable {
         let code: String = "code"
 
         return CodeOptions(
-            codePaths: toml.stringArray(update, code, "codePaths") ?? toml.stringArray(update, code, "codePath") ?? ["."],
-            localizablePaths: toml.stringArray(update, code, "localizablePaths") ?? toml.stringArray(update, code, "localizablePath") ?? ["."],
+            codePaths: toml.filePaths(update, code, singularKey: "codePath", pluralKey: "codePaths"),
+            localizablePaths: toml.filePaths(update, code, singularKey: "localizablePath", pluralKey: "localizablePaths"),
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
             customFunction: toml.string(update, code, "customFunction"),
@@ -30,8 +30,8 @@ extension CodeOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.code]"]
 
-        lines.append("codePaths = \"\(Toml.convertToString(codePaths))\"")
-        lines.append("localizablePaths = \"\(Toml.convertToString(localizablePaths))\"")
+        lines.append("codePaths = \(codePaths)")
+        lines.append("localizablePaths = \(localizablePaths)")
         lines.append("defaultToKeys = \(defaultToKeys)")
         lines.append("additive = \(additive)")
 

@@ -4,15 +4,7 @@ import Foundation
 import Toml
 
 extension Toml {
-    static func convertToString(_ array: [String]) -> String {
-        if array.count == 1, let first = array.first {
-            return first
-        }
-
-        return "\(array)"
-    }
-
-    public func stringArray(_ path: String...) -> [String]? {
-        return array(path) ?? string(path).map { [$0] }
+    public func filePaths(_ path: String..., singularKey: String, pluralKey: String) -> [String] {
+        return array(path + [pluralKey]) ?? string(path + [singularKey]).map { [$0] } ?? ["."]
     }
 }

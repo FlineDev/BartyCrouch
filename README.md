@@ -103,34 +103,34 @@ Now you should have a file named `.bartycrouch.toml` with the following contents
 tasks = ["interfaces", "code", "transform", "normalize"]
 
 [update.interfaces]
-paths = "."
+paths = ["."]
 defaultToBase = false
 ignoreEmptyStrings = false
 unstripped = false
 
 [update.code]
-codePaths = "."
-localizablePaths = "."
+codePaths = ["."]
+localizablePaths = ["."]
 defaultToKeys = false
 additive = true
 unstripped = false
 
 [update.transform]
-codePaths = "."
-localizablePaths = "."
+codePaths = ["."]
+localizablePaths = ["."]
 transformer = "foundation"
 supportedLanguageEnumPath = "."
 typeName = "BartyCrouch"
 translateMethodName = "translate"
 
 [update.normalize]
-paths = "."
+paths = ["."]
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
 
 [lint]
-paths = "."
+paths = ["."]
 duplicateKeys = true
 emptyValues = true
 ```

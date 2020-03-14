@@ -14,7 +14,7 @@ extension NormalizeOptions: TomlCodable {
         let normalize: String = "normalize"
 
         return NormalizeOptions(
-            paths: toml.stringArray(update, normalize, "paths") ?? toml.stringArray(update, normalize, "path") ?? ["."],
+            paths: toml.filePaths(update, normalize, singularKey: "path", pluralKey: "paths"),
             sourceLocale: toml.string(update, normalize, "sourceLocale") ?? "en",
             harmonizeWithSource: toml.bool(update, normalize, "harmonizeWithSource") ?? true,
             sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true
@@ -24,7 +24,7 @@ extension NormalizeOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.normalize]"]
 
-        lines.append("paths = \"\(Toml.convertToString(paths))\"")
+        lines.append("paths = \(paths)")
         lines.append("sourceLocale = \"\(sourceLocale)\"")
         lines.append("harmonizeWithSource = \(harmonizeWithSource)")
         lines.append("sortByKeys = \(sortByKeys)")

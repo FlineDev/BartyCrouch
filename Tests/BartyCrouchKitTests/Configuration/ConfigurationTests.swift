@@ -59,8 +59,8 @@ class ConfigurationTests: XCTestCase {
                 unstripped = true
 
                 [update.code]
-                codePaths = "Sources"
-                localizablePaths = "Sources/SupportingFiles"
+                codePaths = ["Sources"]
+                localizablePaths = ["Sources/SupportingFiles"]
                 defaultToKeys = true
                 additive = false
                 customFunction = "MyOwnLocalizedString"
@@ -68,8 +68,8 @@ class ConfigurationTests: XCTestCase {
                 unstripped = true
 
                 [update.transform]
-                codePaths = "Sources"
-                localizablePaths = "Sources/SupportingFiles"
+                codePaths = ["Sources"]
+                localizablePaths = ["Sources/SupportingFiles"]
                 transformer = "swiftgenStructured"
                 supportedLanguageEnumPath = "Sources/SupportingFiles"
                 typeName = "BC"
@@ -77,20 +77,20 @@ class ConfigurationTests: XCTestCase {
                 customLocalizableName = "MyOwnLocalizable"
 
                 [update.normalize]
-                paths = "Sources"
+                paths = ["Sources"]
                 sourceLocale = "de"
                 harmonizeWithSource = false
                 sortByKeys = false
 
                 [update.translate]
-                paths = "Sources"
+                paths = ["Sources"]
                 api = "bing"
                 id = "bingId"
                 secret = "bingSecret"
                 sourceLocale = "de"
 
                 [lint]
-                paths = "Sources"
+                paths = ["Sources"]
                 duplicateKeys = false
                 emptyValues = false
 
@@ -146,14 +146,14 @@ class ConfigurationTests: XCTestCase {
             tasks = ["interfaces", "code", "transform"]
 
             [update.interfaces]
-            paths = "Sources"
+            paths = ["Sources"]
             defaultToBase = true
             ignoreEmptyStrings = true
             unstripped = true
 
             [update.code]
-            codePaths = "Sources"
-            localizablePaths = "Sources/SupportingFiles"
+            codePaths = ["Sources"]
+            localizablePaths = ["Sources/SupportingFiles"]
             defaultToKeys = true
             additive = false
             customFunction = "MyOwnLocalizedString"
@@ -161,26 +161,26 @@ class ConfigurationTests: XCTestCase {
             unstripped = true
 
             [update.transform]
-            codePaths = "."
-            localizablePaths = "."
+            codePaths = ["."]
+            localizablePaths = ["."]
             transformer = "foundation"
             supportedLanguageEnumPath = "."
             typeName = "BartyCrouch"
             translateMethodName = "translate"
 
             [update.translate]
-            paths = "Sources"
+            paths = ["Sources"]
             secret = "bingSecret"
             sourceLocale = "de"
 
             [update.normalize]
-            paths = "Sources"
+            paths = ["Sources"]
             sourceLocale = "de"
             harmonizeWithSource = false
             sortByKeys = false
 
             [lint]
-            paths = "Sources"
+            paths = ["Sources"]
             duplicateKeys = false
             emptyValues = false
 

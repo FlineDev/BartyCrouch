@@ -13,7 +13,7 @@ extension LintOptions: TomlCodable {
         let lint: String = "lint"
 
         return LintOptions(
-            paths: toml.stringArray(lint, "paths") ?? toml.stringArray(lint, "path") ?? ["."],
+            paths: toml.filePaths(lint, singularKey: "path", pluralKey: "paths"),
             duplicateKeys: toml.bool(lint, "duplicateKeys") ?? true,
             emptyValues: toml.bool(lint, "emptyValues") ?? true
         )
@@ -22,7 +22,7 @@ extension LintOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[lint]"]
 
-        lines.append("paths = \"\(Toml.convertToString(paths))\"")
+        lines.append("paths = \(paths)")
         lines.append("duplicateKeys = \(duplicateKeys)")
         lines.append("emptyValues = \(emptyValues)")
 
