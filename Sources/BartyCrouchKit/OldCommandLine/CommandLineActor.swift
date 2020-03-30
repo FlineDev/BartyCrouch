@@ -260,9 +260,9 @@ public class CommandLineActor {
                 print("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'", level: .error)
                 return
             }
-        }
 
-        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPaths.last)
+            print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPath)
+        }
     }
 
     private func incrementalInterfacesUpdate(
