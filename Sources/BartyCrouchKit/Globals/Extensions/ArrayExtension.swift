@@ -3,7 +3,7 @@
 import Foundation
 
 extension Array where Element: Hashable {
-    func withoutDuplicates() -> Self {
+    func withoutDuplicates() -> Array {
         var seen = [Element: Bool]()
         return filter { seen.updateValue(true, forKey: $0) == nil }
     }
