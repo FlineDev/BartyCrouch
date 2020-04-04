@@ -17,8 +17,8 @@ final class CodeFileHandler {
     func transform(typeName: String, translateMethodName: String, using transformer: Transformer, caseToLangCode: [String: String]) throws -> [TranslateEntry] {
         let fileUrl = URL(fileURLWithPath: path)
         guard try String(contentsOfFile: path).contains("\(typeName).\(translateMethodName)") else { return [] }
-
-        guard let sourceFile = try? SyntaxTreeParser.parse(fileUrl) else {
+        
+        guard let sourceFile = try? SyntaxParser.parse(fileUrl) else {
             print("Could not parse syntax tree of Swift file.", level: .warning, file: path)
             return []
         }
@@ -38,13 +38,13 @@ final class CodeFileHandler {
     func findCaseToLangCodeMappings(typeName: String) -> [String: String]? {
         let fileUrl = URL(fileURLWithPath: path)
 
-        guard let sourceFile = try? SyntaxTreeParser.parse(fileUrl) else {
+        guard let sourceFile = try? SyntaxParser.parse(fileUrl) else {
             print("Could not parse syntax tree of Swift file.", level: .warning, file: path)
             return nil
         }
 
         let supportedLanguagesReader = SupportedLanguagesReader(typeName: typeName)
-        sourceFile.walk(supportedLanguagesReader)
+        supportedLanguagesReader.walk(sourceFile)
 
         guard !supportedLanguagesReader.caseToLangCode.isEmpty else { return nil }
         return supportedLanguagesReader.caseToLangCode
