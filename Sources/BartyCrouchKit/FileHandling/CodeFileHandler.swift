@@ -29,7 +29,9 @@ final class CodeFileHandler {
             translateMethodName: translateMethodName,
             caseToLangCode: caseToLangCode
         )
-        let transformedFile: SourceFileSyntax = translateTransformer.visit(sourceFile) as! SourceFileSyntax
+        guard let transformedFile = translateTransformer.visit(sourceFile).as(SourceFileSyntax.self) else {
+            return []
+        }
 
         try transformedFile.description.write(toFile: path, atomically: true, encoding: .utf8)
         return translateTransformer.translateEntries
@@ -46,7 +48,10 @@ final class CodeFileHandler {
         let supportedLanguagesReader = SupportedLanguagesReader(typeName: typeName)
         supportedLanguagesReader.walk(sourceFile)
 
-        guard !supportedLanguagesReader.caseToLangCode.isEmpty else { return nil }
+        guard !supportedLanguagesReader.caseToLangCode.isEmpty else {
+            print(supportedLanguagesReader.caseToLangCode)
+            return nil
+        }
         return supportedLanguagesReader.caseToLangCode
     }
 }

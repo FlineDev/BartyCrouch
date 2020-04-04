@@ -13,7 +13,7 @@ class SupportedLanguagesReader: SyntaxVisitor {
     }
 
     override func visit(_ enumDeclaration: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
-        if enumDeclaration.parent is CodeBlockItemSyntax || enumDeclaration.identifier.text == "SupportedLanguage" {
+        if enumDeclaration.parent?.as(CodeBlockItemSyntax.self) != nil || enumDeclaration.identifier.text == "SupportedLanguage" {
             return .visitChildren
         } else {
             return .skipChildren
@@ -21,7 +21,7 @@ class SupportedLanguagesReader: SyntaxVisitor {
     }
 
     override func visit(_ enumCaseElement: EnumCaseElementSyntax) -> SyntaxVisitorContinueKind {
-        if let langCodeLiteral = enumCaseElement.rawValue?.value as? StringLiteralExprSyntax {
+        if let langCodeLiteral = enumCaseElement.rawValue?.value.as(StringLiteralExprSyntax.self) {
             caseToLangCode[enumCaseElement.identifier.text] = langCodeLiteral.text
         }
 
