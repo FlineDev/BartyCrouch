@@ -20,18 +20,40 @@ class TranslateTransformer: SyntaxRewriter {
     }
 
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
+        var functionCallExpressionIterator = functionCallExpression.children.makeIterator()
+        
         guard
-            let memberAccessExpression = functionCallExpression.child(at: 0) as? MemberAccessExprSyntax,
+            let memberAccessExpression = functionCallExpressionIterator.next()?.as(MemberAccessExprSyntax.self), // 0
             let memberAccessExpressionBase = memberAccessExpression.base,
             memberAccessExpressionBase.description.stripped() == typeName,
-            memberAccessExpression.name.text == translateMethodName,
-            let functionCallArgumentList = functionCallExpression.child(at: 2) as? FunctionCallArgumentListSyntax,
-            let keyFunctionCallArgument = functionCallArgumentList.child(at: 0) as? FunctionCallArgumentSyntax,
+            memberAccessExpression.name.text == translateMethodName
+        else {
+              return super.visit(functionCallExpression)
+        }
+        _ = functionCallExpressionIterator.next() // 1
+        guard
+            let functionCallArgumentList = functionCallExpressionIterator.next()?.as(TupleExprElementListSyntax.self) //2
+        else {
+            return super.visit(functionCallExpression)
+        }
+        var functionCallArgumentListIterator = functionCallArgumentList.children.makeIterator()
+        
+        guard
+            let keyFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            let keyStringLiteralExpression = keyFunctionCallArgument.expression.as(StringLiteralExprSyntax.self),
             keyFunctionCallArgument.label?.text == "key",
-            let keyStringLiteralExpression = keyFunctionCallArgument.expression as? StringLiteralExprSyntax,
-            let translationsFunctionCallArgument = functionCallArgumentList.child(at: 1) as? FunctionCallArgumentSyntax,
-            translationsFunctionCallArgument.label?.text == "translations",
-            let translationsDictionaryExpression = translationsFunctionCallArgument.child(at: 2) as? DictionaryExprSyntax
+            let translationsFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            translationsFunctionCallArgument.label?.text == "translations"
+        else {
+            return super.visit(functionCallExpression)
+        }
+        
+        var translationsFunctionCallArgumentIterator = translationsFunctionCallArgument.children.makeIterator()
+        _ = translationsFunctionCallArgumentIterator.next() // 0
+        _ = translationsFunctionCallArgumentIterator.next() // 1
+        
+        guard
+            let translationsDictionaryExpression = translationsFunctionCallArgumentIterator.next()?.as(DictionaryExprSyntax.self)
         else {
             return super.visit(functionCallExpression)
         }
@@ -41,21 +63,24 @@ class TranslateTransformer: SyntaxRewriter {
 
         guard !key.isEmpty else {
             print("Found empty key in translate entry '\(functionCallExpression)'.", level: .warning)
-            return functionCallExpression
+            return ExprSyntax(functionCallExpression)
         }
 
         var translations: [CodeFileHandler.TranslationElement] = []
 
-        if let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax {
+        var translationsDictionaryExpressionIterator = translationsDictionaryExpression.children.makeIterator()
+        _ = translationsDictionaryExpressionIterator.next() // 0
+        
+        if let translationsDictionaryElementList = translationsDictionaryExpressionIterator.next()?.as(DictionaryElementListSyntax.self) {
             for dictionaryElement in translationsDictionaryElementList {
                 guard let langCase = dictionaryElement.keyExpression.description.components(separatedBy: ".").last?.stripped() else {
                     print("LangeCase was not an enum case literal: '\(dictionaryElement.keyExpression)'")
-                    return functionCallExpression
+                    return ExprSyntax(functionCallExpression)
                 }
 
-                guard let translationLiteralExpression = dictionaryElement.valueExpression as? StringLiteralExprSyntax else {
+                guard let translationLiteralExpression = dictionaryElement.valueExpression.as(StringLiteralExprSyntax.self) else {
                     print("Translation for langCase '\(langCase)' was not a String literal: '\(dictionaryElement.valueExpression)'")
-                    return functionCallExpression
+                    return ExprSyntax(functionCallExpression)
                 }
 
                 let translation = translationLiteralExpression.text
@@ -77,9 +102,9 @@ class TranslateTransformer: SyntaxRewriter {
         var comment: String?
 
         if
-            let commentFunctionCallArgument = functionCallArgumentList.child(at: 2) as? FunctionCallArgumentSyntax,
+            let commentFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
             commentFunctionCallArgument.label?.text == "comment",
-            let commentStringLiteralExpression = commentFunctionCallArgument.expression as? StringLiteralExprSyntax
+            let commentStringLiteralExpression = commentFunctionCallArgument.expression.as(StringLiteralExprSyntax.self)
         {
             comment = commentStringLiteralExpression.text
         }
@@ -130,38 +155,37 @@ class TranslateTransformer: SyntaxRewriter {
 
     private func buildMemberAccessExpression(components: [String]) -> ExprSyntax {
         let identifierToken = SyntaxFactory.makeIdentifier(components.last!)
-        guard components.count > 1 else { return SyntaxFactory.makeIdentifierExpr(identifier: identifierToken, declNameArguments: nil) }
-
-        return SyntaxFactory.makeMemberAccessExpr(
+        guard components.count > 1 else { return ExprSyntax(SyntaxFactory.makeIdentifierExpr(identifier: identifierToken, declNameArguments: nil)) }
+        return ExprSyntax(SyntaxFactory.makeMemberAccessExpr(
             base: buildMemberAccessExpression(components: Array(components.dropLast())),
             dot: SyntaxFactory.makePeriodToken(),
             name: identifierToken,
             declNameArguments: nil
-        )
+        ))
     }
 
     private func buildFoundationExpression(key: String, comment: String?, leadingWhitespace: String) -> ExprSyntax {
-        let keyArgument = SyntaxFactory.makeFunctionCallArgument(
+        let keyArgument = SyntaxFactory.makeTupleExprElement(
             label: nil,
             colon: nil,
-            expression: SyntaxFactory.makeStringLiteralExpr(key),
+            expression: ExprSyntax(SyntaxFactory.makeStringLiteralExpr(key)),
             trailingComma: SyntaxFactory.makeCommaToken(leadingTrivia: .zero, trailingTrivia: .spaces(1))
         )
 
-        let commentArgument = SyntaxFactory.makeFunctionCallArgument(
+        let commentArgument = SyntaxFactory.makeTupleExprElement(
             label: SyntaxFactory.makeIdentifier("comment"),
             colon: SyntaxFactory.makeColonToken(leadingTrivia: .zero, trailingTrivia: .spaces(1)),
-            expression: SyntaxFactory.makeStringLiteralExpr(comment ?? ""),
+            expression: ExprSyntax(SyntaxFactory.makeStringLiteralExpr(comment ?? "")),
             trailingComma: nil
         )
 
-        return SyntaxFactory.makeFunctionCallExpr(
-            calledExpression: SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"), declNameArguments: nil),
+        return ExprSyntax(SyntaxFactory.makeFunctionCallExpr(
+            calledExpression: ExprSyntax(SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"), declNameArguments: nil)),
             leftParen: SyntaxFactory.makeLeftParenToken(),
-            argumentList: SyntaxFactory.makeFunctionCallArgumentList([keyArgument, commentArgument]),
+            argumentList: SyntaxFactory.makeTupleExprElementList([keyArgument, commentArgument]),
             rightParen: SyntaxFactory.makeRightParenToken(),
             trailingClosure: nil
-        )
+        ))
     }
 }
 
