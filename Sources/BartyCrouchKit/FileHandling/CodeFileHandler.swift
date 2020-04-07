@@ -29,9 +29,7 @@ final class CodeFileHandler {
             translateMethodName: translateMethodName,
             caseToLangCode: caseToLangCode
         )
-        guard let transformedFile = translateTransformer.visit(sourceFile).as(SourceFileSyntax.self) else {
-            return []
-        }
+        guard let transformedFile = translateTransformer.visit(sourceFile).as(SourceFileSyntax.self) else { return [] }
 
         try transformedFile.description.write(toFile: path, atomically: true, encoding: .utf8)
         return translateTransformer.translateEntries
