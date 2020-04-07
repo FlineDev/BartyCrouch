@@ -38,7 +38,6 @@ class TranslateTransformer: SyntaxRewriter {
         }
         var functionCallArgumentListIterator = functionCallArgumentList.children.makeIterator()
         
-        
         guard
             let keyFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
             let keyStringLiteralExpression = keyFunctionCallArgument.expression.as(StringLiteralExprSyntax.self),
