@@ -46,10 +46,7 @@ final class CodeFileHandler {
         let supportedLanguagesReader = SupportedLanguagesReader(typeName: typeName)
         supportedLanguagesReader.walk(sourceFile)
 
-        guard !supportedLanguagesReader.caseToLangCode.isEmpty else {
-            print(supportedLanguagesReader.caseToLangCode)
-            return nil
-        }
+        guard !supportedLanguagesReader.caseToLangCode.isEmpty else { return nil }
         return supportedLanguagesReader.caseToLangCode
     }
 }
