@@ -11,8 +11,8 @@
         <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.0.2-blue.svg"
-             alt="Version: 4.0.2">
+        <img src="https://img.shields.io/badge/Version-4.1.0-blue.svg"
+             alt="Version: 4.1.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
          alt="Swift: 5.2">
@@ -330,7 +330,7 @@ self.title = L10n.Onboarding.FirstPage.headerTitle
 * Xcode will mark the freshly transformed code as errors (but build will succeed anyways) until next build.
 * Not as fast as `code` since [SwiftSyntax](https://github.com/apple/swift-syntax) currently isn't [particularly fast](https://www.jpsim.com/evaluating-swiftsyntax-for-use-in-swiftlint/). (But this should improve over time!)
 
-NOTE: As of version 4.0.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
+NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
 
 ### Build Script
 
