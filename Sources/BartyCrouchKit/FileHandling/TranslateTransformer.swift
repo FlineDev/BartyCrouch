@@ -20,40 +20,38 @@ class TranslateTransformer: SyntaxRewriter {
     }
 
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
-        var functionCallExpressionIterator = functionCallExpression.children.makeIterator()
+        let functionCallExpressionMap = Array(functionCallExpression.children.makeIterator().lazy.map({ $0 }).prefix(3))
         
         guard
-            let memberAccessExpression = functionCallExpressionIterator.next()?.as(MemberAccessExprSyntax.self), // 0
+            let memberAccessExpression = functionCallExpressionMap[0].as(MemberAccessExprSyntax.self),
             let memberAccessExpressionBase = memberAccessExpression.base,
             memberAccessExpressionBase.description.stripped() == typeName,
             memberAccessExpression.name.text == translateMethodName
         else {
               return super.visit(functionCallExpression)
         }
-        _ = functionCallExpressionIterator.next() // 1
+        
         guard
-            let functionCallArgumentList = functionCallExpressionIterator.next()?.as(TupleExprElementListSyntax.self) //2
+            let functionCallArgumentList = functionCallExpressionMap[2].as(TupleExprElementListSyntax.self)
         else {
             return super.visit(functionCallExpression)
         }
-        var functionCallArgumentListIterator = functionCallArgumentList.children.makeIterator()
+        let functionCallArgumentListMap = Array(functionCallArgumentList.children.makeIterator().lazy.map({ $0 }).prefix(3))
         
         guard
-            let keyFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            let keyFunctionCallArgument = functionCallArgumentListMap[0].as(TupleExprElementSyntax.self),
             let keyStringLiteralExpression = keyFunctionCallArgument.expression.as(StringLiteralExprSyntax.self),
             keyFunctionCallArgument.label?.text == "key",
-            let translationsFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            let translationsFunctionCallArgument = functionCallArgumentListMap[1].as(TupleExprElementSyntax.self),
             translationsFunctionCallArgument.label?.text == "translations"
         else {
             return super.visit(functionCallExpression)
         }
         
-        var translationsFunctionCallArgumentIterator = translationsFunctionCallArgument.children.makeIterator()
-        _ = translationsFunctionCallArgumentIterator.next() // 0
-        _ = translationsFunctionCallArgumentIterator.next() // 1
+        let translationsFunctionCallArgumentMap = Array(translationsFunctionCallArgument.children.makeIterator().lazy.map({ $0 }).prefix(3))
         
         guard
-            let translationsDictionaryExpression = translationsFunctionCallArgumentIterator.next()?.as(DictionaryExprSyntax.self)
+            let translationsDictionaryExpression = translationsFunctionCallArgumentMap[2].as(DictionaryExprSyntax.self)
         else {
             return super.visit(functionCallExpression)
         }
@@ -68,10 +66,9 @@ class TranslateTransformer: SyntaxRewriter {
 
         var translations: [CodeFileHandler.TranslationElement] = []
 
-        var translationsDictionaryExpressionIterator = translationsDictionaryExpression.children.makeIterator()
-        _ = translationsDictionaryExpressionIterator.next() // 0
+        let translationsDictionaryExpressionMap = Array(translationsDictionaryExpression.children.makeIterator().lazy.map({ $0 }).prefix(3))
         
-        if let translationsDictionaryElementList = translationsDictionaryExpressionIterator.next()?.as(DictionaryElementListSyntax.self) {
+        if let translationsDictionaryElementList = translationsDictionaryExpressionMap[1].as(DictionaryElementListSyntax.self) {
             for dictionaryElement in translationsDictionaryElementList {
                 guard let langCase = dictionaryElement.keyExpression.description.components(separatedBy: ".").last?.stripped() else {
                     print("LangeCase was not an enum case literal: '\(dictionaryElement.keyExpression)'")
@@ -101,8 +98,8 @@ class TranslateTransformer: SyntaxRewriter {
 
         var comment: String?
 
-        if
-            let commentFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+        if  functionCallArgumentListMap.count > 2,
+            let commentFunctionCallArgument = functionCallArgumentListMap[2].as(TupleExprElementSyntax.self),
             commentFunctionCallArgument.label?.text == "comment",
             let commentStringLiteralExpression = commentFunctionCallArgument.expression.as(StringLiteralExprSyntax.self)
         {
