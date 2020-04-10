@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -7,16 +7,16 @@ let package = Package(
     products: [
         .executable(name: "bartycrouch", targets: ["BartyCrouch"]),
         .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"]),
-        .library(name: "BartyCrouchTranslator", targets: ["BartyCrouchTranslator"])
+        .library(name: "BartyCrouchTranslator", targets: ["BartyCrouchTranslator"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Flinesoft/HandySwift.git", from: "3.2.0"),
-        .package(url: "https://github.com/Flinesoft/Microya.git", from: "0.1.1"),
-        .package(url: "https://github.com/JamitLabs/MungoHealer.git", from: "0.3.2"),
-        .package(url: "https://github.com/onevcat/Rainbow.git", from: "3.1.5"),
-        .package(url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.1"),
-        .package(url: "https://github.com/Jeehut/swift-toml.git", .branch("master")),
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0"))
+        .package(name: "HandySwift", url: "https://github.com/Flinesoft/HandySwift.git", from: "3.2.0"),
+        .package(name: "Microya", url: "https://github.com/Flinesoft/Microya.git", from: "0.1.1"),
+        .package(name: "MungoHealer", url: "https://github.com/JamitLabs/MungoHealer.git", from: "0.3.2"),
+        .package(name: "Rainbow", url: "https://github.com/onevcat/Rainbow.git", from: "3.1.5"),
+        .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.1"),
+        .package(name: "Toml", url: "https://github.com/Jeehut/swift-toml.git", .branch("master")),
+        .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
     ],
     targets: [
         .target(
@@ -33,7 +33,7 @@ let package = Package(
                 "Rainbow",
                 "SwiftCLI",
                 "SwiftSyntax",
-                "Toml"
+                "Toml",
             ],
             path: "Sources/BartyCrouchKit"
         ),
