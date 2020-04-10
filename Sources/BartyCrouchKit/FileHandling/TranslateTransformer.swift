@@ -19,7 +19,7 @@ class TranslateTransformer: SyntaxRewriter {
 
     // swiftlint:disable:next function_body_length cyclomatic_complexity
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
-        let functionCallExpressionMap = Array(functionCallExpression.children.lazy.prefix(3))
+        let functionCallExpressionMap = Array(functionCallExpression.children.makeIterator().lazy.prefix(3))
 
         guard
             let memberAccessExpression = functionCallExpressionMap[0].as(MemberAccessExprSyntax.self),
@@ -34,7 +34,7 @@ class TranslateTransformer: SyntaxRewriter {
             return super.visit(functionCallExpression)
         }
 
-        let functionCallArgumentListMap = Array(functionCallArgumentList.children.lazy.prefix(3))
+        let functionCallArgumentListMap = Array(functionCallArgumentList.children.makeIterator().lazy.prefix(3))
 
         guard
             let keyFunctionCallArgument = functionCallArgumentListMap[0].as(TupleExprElementSyntax.self),
@@ -46,7 +46,7 @@ class TranslateTransformer: SyntaxRewriter {
             return super.visit(functionCallExpression)
         }
 
-        let translationsFunctionCallArgumentMap = Array(translationsFunctionCallArgument.children.lazy.prefix(3))
+        let translationsFunctionCallArgumentMap = Array(translationsFunctionCallArgument.children.makeIterator().lazy.prefix(3))
 
         guard
             let translationsDictionaryExpression = translationsFunctionCallArgumentMap[2].as(DictionaryExprSyntax.self)
@@ -64,7 +64,7 @@ class TranslateTransformer: SyntaxRewriter {
 
         var translations: [CodeFileHandler.TranslationElement] = []
 
-        let translationsDictionaryExpressionMap = Array(translationsDictionaryExpression.children.lazy.prefix(3))
+        let translationsDictionaryExpressionMap = Array(translationsDictionaryExpression.children.makeIterator().lazy.prefix(3))
 
         if let translationsDictionaryElementList = translationsDictionaryExpressionMap[1].as(DictionaryElementListSyntax.self) {
             for dictionaryElement in translationsDictionaryElementList {
