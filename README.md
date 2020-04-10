@@ -10,6 +10,9 @@
     <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
         <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
+    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+        <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
+    </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
         <img src="https://img.shields.io/badge/Version-4.1.0-blue.svg"
              alt="Version: 4.1.0">
