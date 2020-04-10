@@ -19,13 +19,9 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Add support for specifying multiple paths for all `path` options.  
-  Issue: [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) | PR: [#167](https://github.com/Flinesoft/HandySwift/pull/167) | Author: [Frederick Pietschmann](https://github.com/fredpi)
+- None.
 ### Changed
-- Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
-  Issue: [#170](https://github.com/Flinesoft/BartyCrouch/issues/170) | PRs: [#171](https://github.com/Flinesoft/BartyCrouch/pull/171), [#172](https://github.com/Flinesoft/BartyCrouch/pull/172), [#173](https://github.com/Flinesoft/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
-- Updated all dependencies to their latest versions to prevent warnings.  
-  PR: [#172](https://github.com/Flinesoft/BartyCrouch/pull/172) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+- None.
 ### Deprecated
 - None.
 ### Removed
@@ -34,6 +30,16 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 - None.
 ### Security
 - None.
+
+## [4.1.0] - 2020-04-10
+### Added
+- Added support for specifying multiple paths for all `path` options.  
+  Issue: [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) | PR: [#167](https://github.com/Flinesoft/HandySwift/pull/167) | Author: [Frederick Pietschmann](https://github.com/fredpi)
+### Changed
+- Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
+  Issue: [#170](https://github.com/Flinesoft/BartyCrouch/issues/170) | PRs: [#171](https://github.com/Flinesoft/BartyCrouch/pull/171), [#172](https://github.com/Flinesoft/BartyCrouch/pull/172), [#173](https://github.com/Flinesoft/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
+- Updated all dependencies to their latest versions to prevent warnings.  
+  PR: [#172](https://github.com/Flinesoft/BartyCrouch/pull/172) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.0.2] - 2019-05-13
 ### Fixed
