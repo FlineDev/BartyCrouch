@@ -1,6 +1,6 @@
 import Foundation
 
-struct InitTaskHandler {}
+struct InitTaskHandler { /* for extension purposes only */ }
 
 extension InitTaskHandler: TaskHandler {
     func perform() {

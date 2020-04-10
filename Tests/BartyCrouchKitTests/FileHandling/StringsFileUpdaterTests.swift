@@ -1,5 +1,3 @@
-////  Created by Cihat Gündüz on 11.02.16.
-//
 //// swiftlint:disable file_length
 //// swiftlint:disable function_body_length
 //// swiftlint:disable type_body_length

@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 23.01.19.
-
 import Foundation
 import SwiftSyntax
 
@@ -17,7 +15,7 @@ final class CodeFileHandler {
     func transform(typeName: String, translateMethodName: String, using transformer: Transformer, caseToLangCode: [String: String]) throws -> [TranslateEntry] {
         let fileUrl = URL(fileURLWithPath: path)
         guard try String(contentsOfFile: path).contains("\(typeName).\(translateMethodName)") else { return [] }
-        
+
         guard let sourceFile = try? SyntaxParser.parse(fileUrl) else {
             print("Could not parse syntax tree of Swift file.", level: .warning, file: path)
             return []

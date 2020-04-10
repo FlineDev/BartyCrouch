@@ -1,5 +1,3 @@
-//  Created by Cihat Gündüz on 10.02.16.
-
 import BartyCrouchKit
 import Foundation
 import SwiftCLI

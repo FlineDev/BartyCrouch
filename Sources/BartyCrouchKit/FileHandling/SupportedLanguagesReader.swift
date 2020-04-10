@@ -1,8 +1,6 @@
-// Created by Cihat Gündüz on 28.01.19.
-
 import Foundation
-import SwiftSyntax
 import HandySwift
+import SwiftSyntax
 
 class SupportedLanguagesReader: SyntaxVisitor {
     let typeName: String

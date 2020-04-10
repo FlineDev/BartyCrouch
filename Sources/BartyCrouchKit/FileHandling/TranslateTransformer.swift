@@ -1,8 +1,6 @@
-// Created by Cihat Gündüz on 24.01.19.
-
 import Foundation
-import SwiftSyntax
 import HandySwift
+import SwiftSyntax
 
 class TranslateTransformer: SyntaxRewriter {
     let transformer: Transformer
@@ -19,46 +17,44 @@ class TranslateTransformer: SyntaxRewriter {
         self.caseToLangCode = caseToLangCode
     }
 
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
-        var functionCallExpressionIterator = functionCallExpression.children.makeIterator()
-        
+        let functionCallExpressionMap = Array(functionCallExpression.children.lazy.prefix(3))
+
         guard
-            let memberAccessExpression = functionCallExpressionIterator.next()?.as(MemberAccessExprSyntax.self), // 0
+            let memberAccessExpression = functionCallExpressionMap[0].as(MemberAccessExprSyntax.self),
             let memberAccessExpressionBase = memberAccessExpression.base,
             memberAccessExpressionBase.description.stripped() == typeName,
             memberAccessExpression.name.text == translateMethodName
         else {
-              return super.visit(functionCallExpression)
-        }
-        _ = functionCallExpressionIterator.next() // 1
-        guard
-            let functionCallArgumentList = functionCallExpressionIterator.next()?.as(TupleExprElementListSyntax.self) //2
-        else {
             return super.visit(functionCallExpression)
         }
-        var functionCallArgumentListIterator = functionCallArgumentList.children.makeIterator()
-        
+
+        guard let functionCallArgumentList = functionCallExpressionMap[2].as(TupleExprElementListSyntax.self) else {
+            return super.visit(functionCallExpression)
+        }
+
+        let functionCallArgumentListMap = Array(functionCallArgumentList.children.lazy.prefix(3))
+
         guard
-            let keyFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            let keyFunctionCallArgument = functionCallArgumentListMap[0].as(TupleExprElementSyntax.self),
             let keyStringLiteralExpression = keyFunctionCallArgument.expression.as(StringLiteralExprSyntax.self),
             keyFunctionCallArgument.label?.text == "key",
-            let translationsFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            let translationsFunctionCallArgument = functionCallArgumentListMap[1].as(TupleExprElementSyntax.self),
             translationsFunctionCallArgument.label?.text == "translations"
         else {
             return super.visit(functionCallExpression)
         }
-        
-        var translationsFunctionCallArgumentIterator = translationsFunctionCallArgument.children.makeIterator()
-        _ = translationsFunctionCallArgumentIterator.next() // 0
-        _ = translationsFunctionCallArgumentIterator.next() // 1
-        
+
+        let translationsFunctionCallArgumentMap = Array(translationsFunctionCallArgument.children.lazy.prefix(3))
+
         guard
-            let translationsDictionaryExpression = translationsFunctionCallArgumentIterator.next()?.as(DictionaryExprSyntax.self)
+            let translationsDictionaryExpression = translationsFunctionCallArgumentMap[2].as(DictionaryExprSyntax.self)
         else {
             return super.visit(functionCallExpression)
         }
 
-        let leadingWhitespace: String = String(memberAccessExpressionBase.description.prefix(memberAccessExpressionBase.description.count - typeName.count))
+        let leadingWhitespace = String(memberAccessExpressionBase.description.prefix(memberAccessExpressionBase.description.count - typeName.count))
         let key = keyStringLiteralExpression.text
 
         guard !key.isEmpty else {
@@ -68,10 +64,9 @@ class TranslateTransformer: SyntaxRewriter {
 
         var translations: [CodeFileHandler.TranslationElement] = []
 
-        var translationsDictionaryExpressionIterator = translationsDictionaryExpression.children.makeIterator()
-        _ = translationsDictionaryExpressionIterator.next() // 0
-        
-        if let translationsDictionaryElementList = translationsDictionaryExpressionIterator.next()?.as(DictionaryElementListSyntax.self) {
+        let translationsDictionaryExpressionMap = Array(translationsDictionaryExpression.children.lazy.prefix(3))
+
+        if let translationsDictionaryElementList = translationsDictionaryExpressionMap[1].as(DictionaryElementListSyntax.self) {
             for dictionaryElement in translationsDictionaryElementList {
                 guard let langCase = dictionaryElement.keyExpression.description.components(separatedBy: ".").last?.stripped() else {
                     print("LangeCase was not an enum case literal: '\(dictionaryElement.keyExpression)'")
@@ -102,7 +97,8 @@ class TranslateTransformer: SyntaxRewriter {
         var comment: String?
 
         if
-            let commentFunctionCallArgument = functionCallArgumentListIterator.next()?.as(TupleExprElementSyntax.self),
+            functionCallArgumentListMap.count > 2,
+            let commentFunctionCallArgument = functionCallArgumentListMap[2].as(TupleExprElementSyntax.self),
             commentFunctionCallArgument.label?.text == "comment",
             let commentStringLiteralExpression = commentFunctionCallArgument.expression.as(StringLiteralExprSyntax.self)
         {
@@ -131,8 +127,8 @@ class TranslateTransformer: SyntaxRewriter {
 
     private func buildSwiftgenStructuredExpression(key: String, leadingWhitespace: String) -> ExprSyntax {
         // e.g. the key could be something like 'ONBOARDING.FIRST_PAGE.HEADER_TITLE' or 'onboarding.first-page.header-title'
-        let keywordSeparators: CharacterSet = CharacterSet(charactersIn: ".")
-        let casingSeparators: CharacterSet = CharacterSet(charactersIn: "-_")
+        let keywordSeparators = CharacterSet(charactersIn: ".")
+        let casingSeparators = CharacterSet(charactersIn: "-_")
 
         // e.g. ["ONBOARDING", "FIRST_PAGE", "HEADER_TITLE"]
         let keywords: [String] = key.components(separatedBy: keywordSeparators)
@@ -156,12 +152,14 @@ class TranslateTransformer: SyntaxRewriter {
     private func buildMemberAccessExpression(components: [String]) -> ExprSyntax {
         let identifierToken = SyntaxFactory.makeIdentifier(components.last!)
         guard components.count > 1 else { return ExprSyntax(SyntaxFactory.makeIdentifierExpr(identifier: identifierToken, declNameArguments: nil)) }
-        return ExprSyntax(SyntaxFactory.makeMemberAccessExpr(
-            base: buildMemberAccessExpression(components: Array(components.dropLast())),
-            dot: SyntaxFactory.makePeriodToken(),
-            name: identifierToken,
-            declNameArguments: nil
-        ))
+        return ExprSyntax(
+            SyntaxFactory.makeMemberAccessExpr(
+                base: buildMemberAccessExpression(components: Array(components.dropLast())),
+                dot: SyntaxFactory.makePeriodToken(),
+                name: identifierToken,
+                declNameArguments: nil
+            )
+        )
     }
 
     private func buildFoundationExpression(key: String, comment: String?, leadingWhitespace: String) -> ExprSyntax {
@@ -179,13 +177,20 @@ class TranslateTransformer: SyntaxRewriter {
             trailingComma: nil
         )
 
-        return ExprSyntax(SyntaxFactory.makeFunctionCallExpr(
-            calledExpression: ExprSyntax(SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"), declNameArguments: nil)),
-            leftParen: SyntaxFactory.makeLeftParenToken(),
-            argumentList: SyntaxFactory.makeTupleExprElementList([keyArgument, commentArgument]),
-            rightParen: SyntaxFactory.makeRightParenToken(),
-            trailingClosure: nil
-        ))
+        return ExprSyntax(
+            SyntaxFactory.makeFunctionCallExpr(
+                calledExpression: ExprSyntax(
+                    SyntaxFactory.makeIdentifierExpr(
+                        identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"),
+                        declNameArguments: nil
+                    )
+                ),
+                leftParen: SyntaxFactory.makeLeftParenToken(),
+                argumentList: SyntaxFactory.makeTupleExprElementList([keyArgument, commentArgument]),
+                rightParen: SyntaxFactory.makeRightParenToken(),
+                trailingClosure: nil
+            )
+        )
     }
 }
 

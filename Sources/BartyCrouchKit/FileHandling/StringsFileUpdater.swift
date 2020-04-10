@@ -1,11 +1,11 @@
-//  Created by Cihat Gündüz on 10.02.16.
-
 // swiftlint:disable function_body_length type_body_length file_length
 
+import BartyCrouchTranslator
 import Foundation
 import HandySwift
 import MungoHealer
-import BartyCrouchTranslator
+
+// swiftlint:disable cyclomatic_complexity
 
 // NOTE:
 // This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.
@@ -15,6 +15,7 @@ public class StringsFileUpdater {
     // MARK: - Sub Types
     typealias TranslationEntry = (key: String, value: String, comment: String?, line: Int)
     typealias LocaleInfo = (language: String, region: String?)
+    typealias DuplicateEntry = (String, [TranslationEntry])
 
     // MARK: - Stored Type Properties
     public static let defaultIgnoreKeys: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
@@ -234,11 +235,17 @@ public class StringsFileUpdater {
     /// - Returns: The number of values translated successfully.
     public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientSecret: String, override: Bool = false) throws -> Int {
         guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
-            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            throw MungoFatalError(
+                source: .invalidUserInput,
+                message: "Could not obtain source locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing."
+            )
         }
 
         guard let (targetLanguage, targetRegion) = extractLocale(fromPath: path) else {
-            throw MungoFatalError(source: .invalidUserInput, message: "Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing.")
+            throw MungoFatalError(
+                source: .invalidUserInput,
+                message: "Could not obtain target locale from path '\(sourceStringsFilePath)' – format '{locale}.lproj' missing."
+            )
         }
 
         guard let sourceTranslatorLanguage = Language.with(languageCode: sourceLanguage, region: sourceRegion) else {
@@ -296,7 +303,12 @@ public class StringsFileUpdater {
                             updatedTargetTranslations[updatedTargetTranslationIndex] = (key, translatedValue.asStringLiteral, comment, line)
                             translatedValuesCount += 1
                         } else {
-                            print("Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.", level: .warning, file: path, line: line)
+                            print(
+                                "Resulting translation of '\(sourceValue)' to '\(targetTranslatorLanguage)' was empty.",
+                                level: .warning,
+                                file: path,
+                                line: line
+                            )
                         }
                     } else {
                         print("Could not fetch translation for '\(sourceValue)'.", level: .warning, file: path, line: line)
@@ -392,8 +404,6 @@ public class StringsFileUpdater {
         guard let languageMatch = langCodeRegex.matches(in: path, options: .reportCompletion, range: path.fullRange).last else { return nil }
         return (path as NSString).substring(with: languageMatch.range(at: 1))
     }
-
-    typealias DuplicateEntry = (String, [TranslationEntry])
 
     func findDuplicateEntries() -> [DuplicateEntry] {
         let translations = findTranslations(inString: oldContentString)

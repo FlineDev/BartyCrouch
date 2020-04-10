@@ -1,8 +1,8 @@
-// Created by Cihat Gündüz on 18.01.19.
-
 @testable import BartyCrouchKit
-import XCTest
 import Toml
+import XCTest
+
+// swiftlint:disable force_try too_much_indentation line_length too_much_unindentation
 
 class DemoTests: XCTestCase {
     static let testDemoDirectoryUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("Demo")
