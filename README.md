@@ -398,7 +398,7 @@ See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob
 
 ## Contributing
 
-See the file [CONTRIBUTING.md](https://github.com/Flinesoft/BartyCrouch/blob/main/CONTRIBUTING.md).
+Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
