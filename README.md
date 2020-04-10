@@ -1,23 +1,22 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/stable/Logo.png" width=600>
+    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/main/Logo.png" width=600>
 </p>
 
 <p align="center">
     <a href="https://app.bitrise.io/app/5310a5d74c63fbaf">
-        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=stable"
+        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=main"
              alt="Build Status">
     </a>
-    <a href="https://codebeat.co/projects/github-com-flinesoft-bartycrouch">
-        <img src="https://codebeat.co/badges/df0cd886-cc59-4312-b476-8932c8179a79"
-             alt="codebeat badge">
+    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+        <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
         <img src="https://img.shields.io/badge/Version-4.0.2-blue.svg"
              alt="Version: 4.0.2">
     </a>
-    <img src="https://img.shields.io/badge/Swift-5.0-FFAC45.svg"
-         alt="Swift: 5.0">
-    <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
+    <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
+         alt="Swift: 5.2">
+    <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
     </a>
@@ -33,7 +32,7 @@
     <a href="https://patreon.com/Jeehut">
         <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
              alt="Patreon: Become a patron">
-    </a>	
+    </a>
 </p>
 
 <p align="center">
@@ -395,11 +394,11 @@ Thank you very much for any donation, it really helps out a lot! 💯
 
 ## Migration Guides
 
-See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/MIGRATION_GUIDES.md).
+See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/main/MIGRATION_GUIDES.md).
 
 ## Contributing
 
-See the file [CONTRIBUTING.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/CONTRIBUTING.md).
+See the file [CONTRIBUTING.md](https://github.com/Flinesoft/BartyCrouch/blob/main/CONTRIBUTING.md).
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
