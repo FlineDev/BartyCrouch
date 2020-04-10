@@ -28,7 +28,9 @@ public class CommandLineActor {
         customLocalizableName: String?
     ) {
         let localizableFileName = customLocalizableName ??  "Localizable"
-        let allLocalizableStringsFilePaths = localizables.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName) }.withoutDuplicates()
+        let allLocalizableStringsFilePaths = localizables.flatMap {
+            StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName)
+        }.withoutDuplicates()
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
             print("No `\(localizableFileName).strings` file found for output.\nTo fix this, please add a `\(localizableFileName).strings` file to your project and click the localize button for the file in Xcode. Alternatively remove the line beginning with `bartycrouch code` in your build script to remove this feature entirely if you don't need it.\nSee https://github.com/Flinesoft/BartyCrouch/issues/11 for further information.", level: .error) // swiftlint:disable:this line_length
