@@ -1,5 +1,3 @@
-//  Created by Cihat Gündüz on 14.01.19.
-
 import Foundation
 import Microya
 
@@ -77,7 +75,7 @@ extension MicrosoftTranslatorApi: JsonApi {
     var bodyData: Data? {
         switch self {
         case let .translate(texts, _, _, _):
-            return try! encoder.encode(texts.map { TranslateRequest(Text: $0) })
+            return try? encoder.encode(texts.map { TranslateRequest(Text: $0) })
         }
     }
 

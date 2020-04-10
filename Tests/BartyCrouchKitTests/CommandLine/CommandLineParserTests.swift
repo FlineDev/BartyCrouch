@@ -1,5 +1,3 @@
-////  Created by Cihat Gündüz on 05.05.16.
-//
 //@testable import BartyCrouchKit
 //import XCTest
 //

@@ -1,5 +1,3 @@
-//  Created by Cihat Gündüz on 18.01.19.
-
 import UIKit
 
 @UIApplicationMain

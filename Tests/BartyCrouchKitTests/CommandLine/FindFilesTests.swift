@@ -1,5 +1,3 @@
-////  Created by Tom Kraina on 28.6.2018.
-//
 //@testable import BartyCrouchKit
 //import XCTest
 //

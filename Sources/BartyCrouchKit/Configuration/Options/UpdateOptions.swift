@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 06.11.18.
-
 import Foundation
 import MungoHealer
 import Toml
@@ -24,7 +22,9 @@ struct UpdateOptions {
 extension UpdateOptions: TomlCodable {
     static func make(toml: Toml) throws -> UpdateOptions {
         let translateOptions: TranslateOptions? = try? TranslateOptions.make(toml: toml)
-        let defaultTasks: [String] = translateOptions != nil ? ["interfaces", "code", "transform", "translate", "normalize"] : ["interfaces", "code", "transform", "normalize"]
+        let defaultTasks: [String] = translateOptions != nil
+            ? ["interfaces", "code", "transform", "translate", "normalize"]
+            : ["interfaces", "code", "transform", "normalize"]
 
         return UpdateOptions(
             tasks: (toml.array("update", "tasks") ?? defaultTasks).compactMap { Task(rawValue: $0) },

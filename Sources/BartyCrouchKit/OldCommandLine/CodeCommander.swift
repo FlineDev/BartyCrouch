@@ -1,5 +1,3 @@
-//  Created by Fyodor Volchyok on 12/9/16.
-
 import Foundation
 import SwiftCLI
 
@@ -19,7 +17,7 @@ private enum CodeCommanderConstants {
 }
 
 /// Sends `xcrun extractLocStrings` commands with specified input/output paths to bash.
-public class CodeCommander {
+public final class CodeCommander {
     // MARK: - Stored Type Properties
     public static let shared = CodeCommander()
 

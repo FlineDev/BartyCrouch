@@ -1,10 +1,3 @@
-//
-//  FilesSearchable.swift
-//  BartyCrouchKit
-//
-//  Created by Cihat Gündüz on 24.01.19.
-//
-
 import Foundation
 
 protocol FilesSearchable {
@@ -12,7 +5,11 @@ protocol FilesSearchable {
 }
 
 extension FilesSearchable {
-    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression, ignoreSuffixes: Set<String> = []) -> [String] {
+    func findAllFilePaths(
+        inDirectoryPath baseDirectoryPath: String,
+        matching regularExpression: NSRegularExpression,
+        ignoreSuffixes: Set<String> = []
+    ) -> [String] {
         let baseDirectoryURL = URL(fileURLWithPath: baseDirectoryPath)
         guard let enumerator = FileManager.default.enumerator(at: baseDirectoryURL, includingPropertiesForKeys: nil) else { return [] }
 

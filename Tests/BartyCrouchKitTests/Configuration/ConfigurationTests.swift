@@ -2,6 +2,8 @@
 import Toml
 import XCTest
 
+// swiftlint:disable force_try function_body_length
+
 class ConfigurationTests: XCTestCase {
     func testConfigurationMakeDefault() {
         do {

@@ -1,13 +1,6 @@
-//
-//  CodeFileHandlerTests.swift
-//  BartyCrouchKitTests
-//
-//  Created by Cihat Gündüz on 26.03.19.
-//
-
 @testable import BartyCrouchKit
-import XCTest
 import SwiftSyntax
+import XCTest
 
 class CodeFileHandlerTests: XCTestCase {
     static let testDemoDirectoryUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("Demo")

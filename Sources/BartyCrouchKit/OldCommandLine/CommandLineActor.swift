@@ -1,6 +1,4 @@
-//  Created by Cihat Gündüz on 05.05.16.
-
-// swiftlint:disable function_parameter_count
+// swiftlint:disable function_parameter_count type_body_length cyclomatic_complexity
 
 import Foundation
 
@@ -330,6 +328,10 @@ public class CommandLineActor {
             }
         }
 
-        print("Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.", level: .success, file: inputFilePath)
+        print(
+            "Successfully translated \(overallTranslatedValuesCount) values in \(filesWithTranslatedValuesCount) files.",
+            level: .success,
+            file: inputFilePath
+        )
     }
 }

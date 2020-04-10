@@ -22,7 +22,11 @@ extension TransformTaskHandler: TaskHandler {
                 }
 
                 guard let caseToLangCode = caseToLangCodeOptional else {
-                    print("Could not find 'SupportedLanguage' enum within '\(options.typeName)' enum within path.", level: .warning, file: options.supportedLanguageEnumPath.absolutePath)
+                    print(
+                        "Could not find 'SupportedLanguage' enum within '\(options.typeName)' enum within path.",
+                        level: .warning,
+                        file: options.supportedLanguageEnumPath.absolutePath
+                    )
                     return
                 }
 

@@ -1,13 +1,30 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+
+<details>
+<summary>Formatting Rules for Entries</summary>
+Each entry should use the following format:
+
+```markdown
+- Summary of what was changed in a single line using past tense & followed by two whitespaces.  
+  Issue: [#0](https://github.com/Flinesoft/HandySwift/issues/0) | PR: [#0](https://github.com/Flinesoft/HandySwift/pull/0) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+```
+
+Note that at the end of the summary line, you need to add two whitespaces (`  `) for correct rendering on GitHub.
+
+If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries separated by `, `. Also, remove entries not needed in the second line.
+</details>
 
 ## [Unreleased]
 ### Added
 - None.
 ### Changed
-- None.
+- Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
+  Issue: [#170](https://github.com/Flinesoft/BartyCrouch/issues/170) | PRs: [#171](https://github.com/Flinesoft/BartyCrouch/pull/171), [#172](https://github.com/Flinesoft/BartyCrouch/pull/172), [#173](https://github.com/Flinesoft/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
+- Updated all dependencies to their latest versions to prevent warnings.  
+  PR: [#172](https://github.com/Flinesoft/BartyCrouch/pull/172) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Deprecated
 - None.
 ### Removed

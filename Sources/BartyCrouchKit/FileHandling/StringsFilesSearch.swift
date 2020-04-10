@@ -1,5 +1,3 @@
-//  Created by Cihat Gündüz on 14.02.16.
-
 import Foundation
 
 // NOTE:

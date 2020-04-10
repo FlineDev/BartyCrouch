@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 08.11.18.
-
 import Foundation
 import MungoHealer
 import Toml

@@ -1,10 +1,3 @@
-//
-//  MicrosoftTranslatorApiTests.swift
-//  BartyCrouchKitTests
-//
-//  Created by Cihat Gündüz on 14.01.19.
-//
-
 @testable import BartyCrouchTranslator
 import Foundation
 import XCTest

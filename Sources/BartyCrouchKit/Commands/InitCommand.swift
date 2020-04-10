@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 13.12.18.
-
 import Foundation
 import SwiftCLI
 

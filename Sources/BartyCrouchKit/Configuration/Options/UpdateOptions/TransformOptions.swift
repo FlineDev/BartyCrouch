@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 23.01.19.
-
 import Foundation
 import MungoHealer
 import Toml
@@ -20,7 +18,10 @@ extension TransformOptions: TomlCodable {
         let transform: String = "transform"
 
         guard let transformer = Transformer(rawValue: toml.string(update, transform, "transformer") ?? Transformer.foundation.rawValue) else {
-            throw MungoError(source: .invalidUserInput, message: "Unknown `transformer` provided in [update.code.transform]. Supported: \(Transformer.allCases)")
+            throw MungoError(
+                source: .invalidUserInput,
+                message: "Unknown `transformer` provided in [update.code.transform]. Supported: \(Transformer.allCases)"
+            )
         }
 
         return TransformOptions(
