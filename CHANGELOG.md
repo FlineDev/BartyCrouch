@@ -9,7 +9,7 @@ Each entry should use the following format:
 
 ```markdown
 - Summary of what was changed in a single line using past tense & followed by two whitespaces.  
-  Issue: [#0](https://github.com/Flinesoft/HandySwift/issues/0) | PR: [#0](https://github.com/Flinesoft/HandySwift/pull/0) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  Issue: [#0](https://github.com/Flinesoft/BartyCrouch/issues/0) | PR: [#0](https://github.com/Flinesoft/BartyCrouch/pull/0) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ```
 
 Note that at the end of the summary line, you need to add two whitespaces (`  `) for correct rendering on GitHub.
@@ -19,8 +19,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Add support for specifying multiple paths. Fixes [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) by [Frederick Pietschmann](https://github.com/fredpi).
-
+- Add support for specifying multiple paths for all `path` options.  
+  Issue: [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) | PR: [#167](https://github.com/Flinesoft/HandySwift/pull/167) | Author: [Frederick Pietschmann](https://github.com/fredpi)
 ### Changed
 - Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
   Issue: [#170](https://github.com/Flinesoft/BartyCrouch/issues/170) | PRs: [#171](https://github.com/Flinesoft/BartyCrouch/pull/171), [#172](https://github.com/Flinesoft/BartyCrouch/pull/172), [#173](https://github.com/Flinesoft/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
