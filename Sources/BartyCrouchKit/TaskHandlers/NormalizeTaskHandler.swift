@@ -13,7 +13,7 @@ extension NormalizeTaskHandler: TaskHandler {
         measure(task: "Normalize") {
             mungo.do {
                 CommandLineActor().actOnNormalize(
-                    path: options.path,
+                    paths: options.paths,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     locale: options.sourceLocale,

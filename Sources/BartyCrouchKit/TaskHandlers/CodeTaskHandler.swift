@@ -13,10 +13,10 @@ extension CodeTaskHandler: TaskHandler {
         measure(task: "Update Code") {
             mungo.do {
                 CommandLineActor().actOnCode(
-                    path: options.codePath,
+                    paths: options.codePaths,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
-                    localizable: options.localizablePath,
+                    localizables: options.localizablePaths,
                     defaultToKeys: options.defaultToKeys,
                     additive: options.additive,
                     overrideComments: false,
