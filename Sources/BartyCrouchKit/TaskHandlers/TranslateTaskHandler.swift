@@ -15,7 +15,7 @@ extension TranslateTaskHandler: TaskHandler {
         measure(task: "Translate") {
             mungo.do {
                 CommandLineActor().actOnTranslate(
-                    path: options.path,
+                    paths: options.paths,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     secret: options.secret,

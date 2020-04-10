@@ -1,12 +1,10 @@
-// Created by Cihat Gündüz on 23.01.19.
-
 import Foundation
 import MungoHealer
 import Toml
 
 struct TransformOptions {
-    let codePath: String
-    let localizablePath: String
+    let codePaths: [String]
+    let localizablePaths: [String]
     let transformer: Transformer
     let supportedLanguageEnumPath: String
     let typeName: String
@@ -20,12 +18,15 @@ extension TransformOptions: TomlCodable {
         let transform: String = "transform"
 
         guard let transformer = Transformer(rawValue: toml.string(update, transform, "transformer") ?? Transformer.foundation.rawValue) else {
-            throw MungoError(source: .invalidUserInput, message: "Unknown `transformer` provided in [update.code.transform]. Supported: \(Transformer.allCases)")
+            throw MungoError(
+                source: .invalidUserInput,
+                message: "Unknown `transformer` provided in [update.code.transform]. Supported: \(Transformer.allCases)"
+            )
         }
 
         return TransformOptions(
-            codePath: toml.string(update, transform, "codePath") ?? ".",
-            localizablePath: toml.string(update, transform, "localizablePath") ?? ".",
+            codePaths: toml.filePaths(update, transform, singularKey: "codePath", pluralKey: "codePaths"),
+            localizablePaths: toml.filePaths(update, transform, singularKey: "localizablePath", pluralKey: "localizablePaths"),
             transformer: transformer,
             supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
             typeName: toml.string(update, transform, "typeName") ?? "BartyCrouch",
@@ -37,8 +38,8 @@ extension TransformOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[update.transform]"]
 
-        lines.append("codePath = \"\(codePath)\"")
-        lines.append("localizablePath = \"\(localizablePath)\"")
+        lines.append("codePaths = \(codePaths)")
+        lines.append("localizablePaths = \(localizablePaths)")
         lines.append("transformer = \"\(transformer.rawValue)\"")
         lines.append("supportedLanguageEnumPath = \"\(supportedLanguageEnumPath)\"")
         lines.append("typeName = \"\(typeName)\"")

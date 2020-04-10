@@ -1,26 +1,37 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/stable/Logo.png"
-      width=600 height=167>
+    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/main/Logo.png" width=600>
 </p>
 
 <p align="center">
     <a href="https://app.bitrise.io/app/5310a5d74c63fbaf">
-        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=stable"
+        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=main"
              alt="Build Status">
     </a>
-    <a href="https://codebeat.co/projects/github-com-flinesoft-bartycrouch">
-        <img src="https://codebeat.co/badges/df0cd886-cc59-4312-b476-8932c8179a79"
-             alt="codebeat badge">
+    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+        <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.0.2-blue.svg"
-             alt="Version: 4.0.2">
+        <img src="https://img.shields.io/badge/Version-4.1.0-blue.svg"
+             alt="Version: 4.1.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-5.0-FFAC45.svg"
-         alt="Swift: 5.0">
-    <a href="https://github.com/Flinesoft/BartyCrouch/blob/stable/LICENSE.md">
+    <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
+         alt="Swift: 5.2">
+    <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
+    </a>
+    <br />
+    <a href="https://paypal.me/Dschee/5EUR">
+        <img src="https://img.shields.io/badge/PayPal-Donate-orange.svg"
+             alt="PayPal: Donate">
+    </a>
+    <a href="https://github.com/sponsors/Jeehut">
+        <img src="https://img.shields.io/badge/GitHub-Become a sponsor-orange.svg"
+             alt="GitHub: Become a sponsor">
+    </a>
+    <a href="https://patreon.com/Jeehut">
+        <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
+             alt="Patreon: Become a patron">
     </a>
 </p>
 
@@ -29,6 +40,7 @@
   • <a href="#configuration">Configuration</a>
   • <a href="#usage">Usage</a>
   • <a href="#build-script">Build Script</a>
+  • <a href="#donation">Donation</a>
   • <a href="#migration-guides">Migration Guides</a>
   • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
   • <a href="#contributing">Contributing</a>
@@ -39,7 +51,7 @@
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
-Checkout [this blog post](https://medium.com/@Dschee/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
+Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
 
 ## Requirements
 
@@ -91,41 +103,41 @@ Now you should have a file named `.bartycrouch.toml` with the following contents
 tasks = ["interfaces", "code", "transform", "normalize"]
 
 [update.interfaces]
-path = "."
+paths = ["."]
 defaultToBase = false
 ignoreEmptyStrings = false
 unstripped = false
 
 [update.code]
-codePath = "."
-localizablePath = "."
+codePaths = ["."]
+localizablePaths = ["."]
 defaultToKeys = false
 additive = true
 unstripped = false
 
 [update.transform]
-codePath = "."
-localizablePath = "."
+codePaths = ["."]
+localizablePaths = ["."]
 transformer = "foundation"
 supportedLanguageEnumPath = "."
 typeName = "BartyCrouch"
 translateMethodName = "translate"
 
 [update.normalize]
-path = "."
+paths = ["."]
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
 
 [lint]
-path = "."
+paths = ["."]
 duplicateKeys = true
 emptyValues = true
 ```
 
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
-1. Provide more specific paths for any key containing `path` if possible. (e.g. `"App/Sources"` for `codePath`)
+1. To speed up execution time provide more specific paths for any key containing `path` if possible. (especially in the `update.transform` section, e.g. `"App/Sources"` for `codePath` or `"App/Supporting Files"` for `supportedLanguageEnumPath` )
 2. Remove the `code` task if your project is Swift-only and you use the new [`transform` update task](#localization-workflow-via-transform).
 3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
 4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
@@ -179,7 +191,7 @@ enum BartyCrouch {
 
 ```toml
 [update.translate]
-path = "."
+paths = "."
 secret = "<#Subscription Key#>"
 sourceLocale = "en"
 ```
@@ -220,7 +232,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `interfaces`</summary>
 
-- `path`: The directory to search for Storyboards & XIB files.
+- `paths`: The directory / directories to search for Storyboards & XIB files.
 - `defaultToBase`: Add Base translation as value to new keys.
 - `ignoreEmptyStrings`: Doesn't add views with empty values.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
@@ -229,8 +241,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `code`</summary>
 
-- `codePath`: The directory to search for Swift code files.
-- `localizablePath`: The enclosing path containing the localized `Localizable.strings` files.
+- `codePaths`: The directory / directories to search for Swift code files.
+- `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultsToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
 - `customFunction`: Use alternative name to `NSLocalizedString`.
@@ -241,8 +253,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `transform`</summary>
 
-- `codePath`: The directory to search for Swift code files.
-- `localizablePath`:  The enclosing path containing the localized `Localizable.strings` files.
+- `codePaths`: The directory / directories to search for Swift code files.
+- `localizablePaths`:  The enclosing path(s) containing the localized `Localizable.strings` files.
 - `transformer`: Specifies the replacement code. Use `foundation` for `NSLocalizedString` or `swiftgenStructured` for `L10n` entries.
 - `supportedLanguageEnumPath`: The enclosing path containing the `SupportedLanguage` enum.
 - `typeName`: The name of the type enclosing the `SupportedLanguage` enum and translate method.
@@ -253,7 +265,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `translate`</summary>
 
-- `path`: The directory to search for Strings files.
+- `paths`: The directory / directories to search for Strings files.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
 - `sourceLocale`: The source language to translate from.
 
@@ -261,7 +273,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 <details><summary>Options for `normalize`</summary>
 
-- `path`: The directory to search for Strings files.
+- `paths`: The directory / directories to search for Strings files.
 - `sourceLocale`: The source language to harmonize keys of other languages with.
 - `harmonizeWithSource`: Synchronizes keys with source language.
 - `sortByKeys`: Alphabetically sorts translations by their keys.
@@ -318,7 +330,7 @@ self.title = L10n.Onboarding.FirstPage.headerTitle
 * Xcode will mark the freshly transformed code as errors (but build will succeed anyways) until next build.
 * Not as fast as `code` since [SwiftSyntax](https://github.com/apple/swift-syntax) currently isn't [particularly fast](https://www.jpsim.com/evaluating-swiftsyntax-for-use-in-swiftlint/). (But this should improve over time!)
 
-NOTE: As of version 4.0.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
+NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
 
 ### Build Script
 
@@ -374,13 +386,19 @@ func updateTimeLabel(minutes: Int) {
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
 
+## Donation
+
+BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Jeehut) in his free time. If you want to thank me and support the development of this project, please **make a small donation on [PayPal](https://paypal.me/Dschee/5EUR)**. In case you also like my other [open source contributions](https://github.com/Flinesoft) and [articles](https://medium.com/@Jeehut), please consider motivating me by **becoming a sponsor on [GitHub](https://github.com/sponsors/Jeehut)** or a **patron on [Patreon](https://www.patreon.com/Jeehut)**.
+
+Thank you very much for any donation, it really helps out a lot! 💯
+
 ## Migration Guides
 
-See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/MIGRATION_GUIDES.md).
+See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/main/MIGRATION_GUIDES.md).
 
 ## Contributing
 
-See the file [CONTRIBUTING.md](https://github.com/Flinesoft/BartyCrouch/blob/stable/CONTRIBUTING.md).
+Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.

@@ -1,10 +1,3 @@
-//
-//  MicrosoftTranslatorApiTests.swift
-//  BartyCrouchKitTests
-//
-//  Created by Cihat Gündüz on 14.01.19.
-//
-
 @testable import BartyCrouchTranslator
 import Foundation
 import XCTest
@@ -30,7 +23,7 @@ class MicrosoftTranslatorApiTests: XCTestCase {
             XCTAssertEqual(translateResponses[0].translations[1].text, "Kaç yaşındasınız?")
 
             XCTAssertEqual(translateResponses[1].translations[0].to, "de")
-            XCTAssertEqual(translateResponses[1].translations[0].text, "Liebe")
+            XCTAssertEqual(translateResponses[1].translations[0].text.lowercased(), "Liebe".lowercased())
 
             XCTAssertEqual(translateResponses[1].translations[1].to, "tr")
             XCTAssertEqual(translateResponses[1].translations[1].text, "Aşk")

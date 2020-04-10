@@ -13,7 +13,7 @@ extension LintTaskHandler: TaskHandler {
         measure(task: "Lint") {
             mungo.do {
                 CommandLineActor().actOnLint(
-                    path: options.path,
+                    paths: options.paths,
                     duplicateKeys: options.duplicateKeys,
                     emptyValues: options.emptyValues
                 )

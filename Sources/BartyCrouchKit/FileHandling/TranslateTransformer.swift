@@ -1,8 +1,6 @@
-// Created by Cihat Gündüz on 24.01.19.
-
 import Foundation
-import SwiftSyntax
 import HandySwift
+import SwiftSyntax
 
 class TranslateTransformer: SyntaxRewriter {
     let transformer: Transformer
@@ -19,43 +17,65 @@ class TranslateTransformer: SyntaxRewriter {
         self.caseToLangCode = caseToLangCode
     }
 
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     override func visit(_ functionCallExpression: FunctionCallExprSyntax) -> ExprSyntax {
+        let functionCallExpressionMap = Array(functionCallExpression.children.makeIterator().lazy.prefix(3))
+
         guard
-            let memberAccessExpression = functionCallExpression.child(at: 0) as? MemberAccessExprSyntax,
+            let memberAccessExpression = functionCallExpressionMap[0].as(MemberAccessExprSyntax.self),
             let memberAccessExpressionBase = memberAccessExpression.base,
             memberAccessExpressionBase.description.stripped() == typeName,
-            memberAccessExpression.name.text == translateMethodName,
-            let functionCallArgumentList = functionCallExpression.child(at: 2) as? FunctionCallArgumentListSyntax,
-            let keyFunctionCallArgument = functionCallArgumentList.child(at: 0) as? FunctionCallArgumentSyntax,
-            keyFunctionCallArgument.label?.text == "key",
-            let keyStringLiteralExpression = keyFunctionCallArgument.expression as? StringLiteralExprSyntax,
-            let translationsFunctionCallArgument = functionCallArgumentList.child(at: 1) as? FunctionCallArgumentSyntax,
-            translationsFunctionCallArgument.label?.text == "translations",
-            let translationsDictionaryExpression = translationsFunctionCallArgument.child(at: 2) as? DictionaryExprSyntax
+            memberAccessExpression.name.text == translateMethodName
         else {
             return super.visit(functionCallExpression)
         }
 
-        let leadingWhitespace: String = String(memberAccessExpressionBase.description.prefix(memberAccessExpressionBase.description.count - typeName.count))
+        guard let functionCallArgumentList = functionCallExpressionMap[2].as(TupleExprElementListSyntax.self) else {
+            return super.visit(functionCallExpression)
+        }
+
+        let functionCallArgumentListMap = Array(functionCallArgumentList.children.makeIterator().lazy.prefix(3))
+
+        guard
+            let keyFunctionCallArgument = functionCallArgumentListMap[0].as(TupleExprElementSyntax.self),
+            let keyStringLiteralExpression = keyFunctionCallArgument.expression.as(StringLiteralExprSyntax.self),
+            keyFunctionCallArgument.label?.text == "key",
+            let translationsFunctionCallArgument = functionCallArgumentListMap[1].as(TupleExprElementSyntax.self),
+            translationsFunctionCallArgument.label?.text == "translations"
+        else {
+            return super.visit(functionCallExpression)
+        }
+
+        let translationsFunctionCallArgumentMap = Array(translationsFunctionCallArgument.children.makeIterator().lazy.prefix(3))
+
+        guard
+            let translationsDictionaryExpression = translationsFunctionCallArgumentMap[2].as(DictionaryExprSyntax.self)
+        else {
+            return super.visit(functionCallExpression)
+        }
+
+        let leadingWhitespace = String(memberAccessExpressionBase.description.prefix(memberAccessExpressionBase.description.count - typeName.count))
         let key = keyStringLiteralExpression.text
 
         guard !key.isEmpty else {
             print("Found empty key in translate entry '\(functionCallExpression)'.", level: .warning)
-            return functionCallExpression
+            return ExprSyntax(functionCallExpression)
         }
 
         var translations: [CodeFileHandler.TranslationElement] = []
 
-        if let translationsDictionaryElementList = translationsDictionaryExpression.child(at: 1) as? DictionaryElementListSyntax {
+        let translationsDictionaryExpressionMap = Array(translationsDictionaryExpression.children.makeIterator().lazy.prefix(3))
+
+        if let translationsDictionaryElementList = translationsDictionaryExpressionMap[1].as(DictionaryElementListSyntax.self) {
             for dictionaryElement in translationsDictionaryElementList {
                 guard let langCase = dictionaryElement.keyExpression.description.components(separatedBy: ".").last?.stripped() else {
                     print("LangeCase was not an enum case literal: '\(dictionaryElement.keyExpression)'")
-                    return functionCallExpression
+                    return ExprSyntax(functionCallExpression)
                 }
 
-                guard let translationLiteralExpression = dictionaryElement.valueExpression as? StringLiteralExprSyntax else {
+                guard let translationLiteralExpression = dictionaryElement.valueExpression.as(StringLiteralExprSyntax.self) else {
                     print("Translation for langCase '\(langCase)' was not a String literal: '\(dictionaryElement.valueExpression)'")
-                    return functionCallExpression
+                    return ExprSyntax(functionCallExpression)
                 }
 
                 let translation = translationLiteralExpression.text
@@ -77,9 +97,10 @@ class TranslateTransformer: SyntaxRewriter {
         var comment: String?
 
         if
-            let commentFunctionCallArgument = functionCallArgumentList.child(at: 2) as? FunctionCallArgumentSyntax,
+            functionCallArgumentListMap.count > 2,
+            let commentFunctionCallArgument = functionCallArgumentListMap[2].as(TupleExprElementSyntax.self),
             commentFunctionCallArgument.label?.text == "comment",
-            let commentStringLiteralExpression = commentFunctionCallArgument.expression as? StringLiteralExprSyntax
+            let commentStringLiteralExpression = commentFunctionCallArgument.expression.as(StringLiteralExprSyntax.self)
         {
             comment = commentStringLiteralExpression.text
         }
@@ -106,8 +127,8 @@ class TranslateTransformer: SyntaxRewriter {
 
     private func buildSwiftgenStructuredExpression(key: String, leadingWhitespace: String) -> ExprSyntax {
         // e.g. the key could be something like 'ONBOARDING.FIRST_PAGE.HEADER_TITLE' or 'onboarding.first-page.header-title'
-        let keywordSeparators: CharacterSet = CharacterSet(charactersIn: ".")
-        let casingSeparators: CharacterSet = CharacterSet(charactersIn: "-_")
+        let keywordSeparators = CharacterSet(charactersIn: ".")
+        let casingSeparators = CharacterSet(charactersIn: "-_")
 
         // e.g. ["ONBOARDING", "FIRST_PAGE", "HEADER_TITLE"]
         let keywords: [String] = key.components(separatedBy: keywordSeparators)
@@ -130,37 +151,45 @@ class TranslateTransformer: SyntaxRewriter {
 
     private func buildMemberAccessExpression(components: [String]) -> ExprSyntax {
         let identifierToken = SyntaxFactory.makeIdentifier(components.last!)
-        guard components.count > 1 else { return SyntaxFactory.makeIdentifierExpr(identifier: identifierToken, declNameArguments: nil) }
-
-        return SyntaxFactory.makeMemberAccessExpr(
-            base: buildMemberAccessExpression(components: Array(components.dropLast())),
-            dot: SyntaxFactory.makePeriodToken(),
-            name: identifierToken,
-            declNameArguments: nil
+        guard components.count > 1 else { return ExprSyntax(SyntaxFactory.makeIdentifierExpr(identifier: identifierToken, declNameArguments: nil)) }
+        return ExprSyntax(
+            SyntaxFactory.makeMemberAccessExpr(
+                base: buildMemberAccessExpression(components: Array(components.dropLast())),
+                dot: SyntaxFactory.makePeriodToken(),
+                name: identifierToken,
+                declNameArguments: nil
+            )
         )
     }
 
     private func buildFoundationExpression(key: String, comment: String?, leadingWhitespace: String) -> ExprSyntax {
-        let keyArgument = SyntaxFactory.makeFunctionCallArgument(
+        let keyArgument = SyntaxFactory.makeTupleExprElement(
             label: nil,
             colon: nil,
-            expression: SyntaxFactory.makeStringLiteralExpr(key),
+            expression: ExprSyntax(SyntaxFactory.makeStringLiteralExpr(key)),
             trailingComma: SyntaxFactory.makeCommaToken(leadingTrivia: .zero, trailingTrivia: .spaces(1))
         )
 
-        let commentArgument = SyntaxFactory.makeFunctionCallArgument(
+        let commentArgument = SyntaxFactory.makeTupleExprElement(
             label: SyntaxFactory.makeIdentifier("comment"),
             colon: SyntaxFactory.makeColonToken(leadingTrivia: .zero, trailingTrivia: .spaces(1)),
-            expression: SyntaxFactory.makeStringLiteralExpr(comment ?? ""),
+            expression: ExprSyntax(SyntaxFactory.makeStringLiteralExpr(comment ?? "")),
             trailingComma: nil
         )
 
-        return SyntaxFactory.makeFunctionCallExpr(
-            calledExpression: SyntaxFactory.makeIdentifierExpr(identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"), declNameArguments: nil),
-            leftParen: SyntaxFactory.makeLeftParenToken(),
-            argumentList: SyntaxFactory.makeFunctionCallArgumentList([keyArgument, commentArgument]),
-            rightParen: SyntaxFactory.makeRightParenToken(),
-            trailingClosure: nil
+        return ExprSyntax(
+            SyntaxFactory.makeFunctionCallExpr(
+                calledExpression: ExprSyntax(
+                    SyntaxFactory.makeIdentifierExpr(
+                        identifier: SyntaxFactory.makeIdentifier("\(leadingWhitespace)NSLocalizedString"),
+                        declNameArguments: nil
+                    )
+                ),
+                leftParen: SyntaxFactory.makeLeftParenToken(),
+                argumentList: SyntaxFactory.makeTupleExprElementList([keyArgument, commentArgument]),
+                rightParen: SyntaxFactory.makeRightParenToken(),
+                trailingClosure: nil
+            )
         )
     }
 }

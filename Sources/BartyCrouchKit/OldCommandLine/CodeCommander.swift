@@ -1,5 +1,3 @@
-//  Created by Fyodor Volchyok on 12/9/16.
-
 import Foundation
 import SwiftCLI
 
@@ -19,7 +17,7 @@ private enum CodeCommanderConstants {
 }
 
 /// Sends `xcrun extractLocStrings` commands with specified input/output paths to bash.
-public class CodeCommander {
+public final class CodeCommander {
     // MARK: - Stored Type Properties
     public static let shared = CodeCommander()
 
@@ -29,7 +27,7 @@ public class CodeCommander {
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
         let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
-        try run("/usr/bin/xcrun", arguments: arguments)
+        try Task.run("/usr/bin/xcrun", arguments: arguments)
     }
 
     func findFiles(in codeDirectoryPath: String) throws -> [String] {

@@ -1,8 +1,6 @@
-// Created by Cihat Gündüz on 08.11.18.
-
 import Foundation
 
-let env = Env()
+let env = Env() // swiftlint:disable:this file_types_order
 
 struct Env {
     fileprivate init() {}

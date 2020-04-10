@@ -1,6 +1,4 @@
-//  Created by Cihat Gündüz on 12.03.18.
-
-// swiftlint:disable leveled_print file_types_order
+// swiftlint:disable cyclomatic_complexity file_types_order
 
 import Foundation
 import Rainbow
@@ -175,4 +173,3 @@ func measure<ResultType>(task: String, _ closure: () throws -> ResultType) rethr
     print("Task '\(task)' took \(measureTimeFormatter.string(from: passedTimeIntervalNum)!) seconds.")
     return result
 }
-

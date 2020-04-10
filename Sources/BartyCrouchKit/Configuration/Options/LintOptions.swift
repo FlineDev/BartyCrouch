@@ -1,11 +1,9 @@
-// Created by Cihat Gündüz on 06.11.18.
-
 import Foundation
 import MungoHealer
 import Toml
 
 struct LintOptions {
-    let path: String
+    let paths: [String]
     let duplicateKeys: Bool
     let emptyValues: Bool
 }
@@ -15,7 +13,7 @@ extension LintOptions: TomlCodable {
         let lint: String = "lint"
 
         return LintOptions(
-            path: toml.string(lint, "path") ?? ".",
+            paths: toml.filePaths(lint, singularKey: "path", pluralKey: "paths"),
             duplicateKeys: toml.bool(lint, "duplicateKeys") ?? true,
             emptyValues: toml.bool(lint, "emptyValues") ?? true
         )
@@ -24,7 +22,7 @@ extension LintOptions: TomlCodable {
     func tomlContents() -> String {
         var lines: [String] = ["[lint]"]
 
-        lines.append("path = \"\(path)\"")
+        lines.append("paths = \(paths)")
         lines.append("duplicateKeys = \(duplicateKeys)")
         lines.append("emptyValues = \(emptyValues)")
 

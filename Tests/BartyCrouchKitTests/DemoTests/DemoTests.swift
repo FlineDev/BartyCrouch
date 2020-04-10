@@ -1,8 +1,8 @@
-// Created by Cihat Gündüz on 18.01.19.
-
 @testable import BartyCrouchKit
-import XCTest
 import Toml
+import XCTest
+
+// swiftlint:disable force_try too_much_indentation line_length too_much_unindentation
 
 class DemoTests: XCTestCase {
     static let testDemoDirectoryUrl: URL = FileManager.default.temporaryDirectory.appendingPathComponent("Demo")
@@ -140,7 +140,7 @@ class DemoTests: XCTestCase {
         let microsoftSubscriptionKey = "" // TODO: load from environment variable
         guard !microsoftSubscriptionKey.isEmpty else { return }
 
-        let translateOptions = TranslateOptions(path: ".", secret: microsoftSubscriptionKey, sourceLocale: "en")
+        let translateOptions = TranslateOptions(paths: ["."], secret: microsoftSubscriptionKey, sourceLocale: "en")
         TranslateTaskHandler(options: translateOptions).perform()
 
         let expectedMessages: [String] = [
@@ -215,8 +215,8 @@ class DemoTests: XCTestCase {
 
     func testTransformTaskHandlerWithSwiftgenStructuredTransformer() {
         let transformOptions = TransformOptions(
-            codePath: ".",
-            localizablePath: ".",
+            codePaths: ["."],
+            localizablePaths: ["."],
             transformer: .swiftgenStructured,
             supportedLanguageEnumPath: ".",
             typeName: "BartyCrouch",

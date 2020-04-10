@@ -1,5 +1,3 @@
-// Created by Cihat Gündüz on 29.01.19.
-
 import Foundation
 
 final class CommandExecution {
