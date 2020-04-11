@@ -58,7 +58,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 
 ## Requirements
 
-- Xcode 10.2+ & Swift 5.0+
+- Xcode 11.4+ & Swift 5.2+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
