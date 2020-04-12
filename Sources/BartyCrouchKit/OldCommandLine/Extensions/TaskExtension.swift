@@ -10,15 +10,16 @@ extension Task {
         // Get maximum length of arguments for a new process (in Bytes) and the maximum count for the list for arguments. See
         // https://www.in-ulm.de/~mascheck/various/argmax/ for more info.
         guard
-            let maxArgumentLength = resultForGetconfCommand("expr `getconf ARG_MAX` - `env|wc -c` - `env|wc -l` \\* 4 - 2048"),
-            let maxArgumentCount = resultForGetconfCommand("expr `getconf _POSIX_ARG_MAX`")
+            let maxArgumentLength = resultForGetconfCommand("expr `getconf ARG_MAX` \\/ 2 - `env|wc -c` - `env|wc -l` \\* 4 - 2048"),
+            let maxArgumentCount = resultForGetconfCommand("expr `getconf _POSIX_ARG_MAX`"),
+            let argumentListData = argumentList.joined(separator: " ").data(using: .utf8)
             else {
-            return false
+            return true
         }
 
-        let argumentListLength = argumentList.joined(separator: " ").utf8.count
+        let argumentListLength = argumentListData.count
         let isArgumentListLengthTooLong = maxArgumentLength < argumentListLength
-        let isArgumentListCountTooLong = maxArgumentCount < argumentList.count + ProcessInfo.processInfo.environment.keys.count
+        let isArgumentListCountTooLong = maxArgumentCount < argumentList.count
 
         return isArgumentListLengthTooLong || isArgumentListCountTooLong
     }
