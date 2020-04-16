@@ -27,10 +27,14 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- Fixed crashes in projects with large number of files by introducing new `plist` file based approach for passing arguments. See the new `--plist-arguments` option. Will be automatically turned on when needed (many files in project).  
-  Issues: [#92](https://github.com/Flinesoft/BartyCrouch/issues/92), [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) | PRs: [#150](https://github.com/Flinesoft/BartyCrouch/pull/150), [#176](https://github.com/Flinesoft/BartyCrouch/pull/176) | Authors: [Christos Koninis](https://github.com/csknns), [Cihat Gündüz](https://github.com/Jeehut)
+- None.
 ### Security
 - None.
+
+## [4.1.1] - 2020-04-16
+### Fixed
+- Fixed crashes in projects with large number of files by introducing new `plist` file based approach for passing arguments. See the new `--plist-arguments` option. Will be automatically turned on when needed (many files in project).  
+  Issues: [#92](https://github.com/Flinesoft/BartyCrouch/issues/92), [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) | PRs: [#150](https://github.com/Flinesoft/BartyCrouch/pull/150), [#176](https://github.com/Flinesoft/BartyCrouch/pull/176) | Authors: [Christos Koninis](https://github.com/csknns), [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.1.0] - 2020-04-10
 ### Added
