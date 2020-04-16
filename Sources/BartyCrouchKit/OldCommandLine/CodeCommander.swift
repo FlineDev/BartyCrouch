@@ -22,11 +22,18 @@ public final class CodeCommander {
     public static let shared = CodeCommander()
 
     // MARK: - Instance Methods
-    public func export(stringsFilesToPath stringsFilePath: String, fromCodeInDirectoryPath codeDirectoryPath: String, customFunction: String?) throws {
+    public func export(
+        stringsFilesToPath stringsFilePath: String,
+        fromCodeInDirectoryPath codeDirectoryPath: String,
+        customFunction: String?,
+        usePlistArguments: Bool
+    ) throws {
         let files = try findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
-        let arguments = ["extractLocStrings"] + files + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
+        let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
+
+        let arguments = try appendFiles(files, inListOfArguments: argumentsWithoutTheFiles, usePlistArguments: usePlistArguments)
         try Task.run("/usr/bin/xcrun", arguments: arguments)
     }
 
@@ -55,5 +62,16 @@ public final class CodeCommander {
         }
 
         return matchedFiles
+    }
+
+    // In the existing list of arguments it appends also the files arguments.
+    func appendFiles(_ files: [String], inListOfArguments existingArguments: [String], usePlistArguments: Bool) throws -> [String] {
+        if usePlistArguments {
+            let fileArgumentsPlistFile = try ExtractLocStrings().writeFilesArgumentsInPlist(files)
+            return existingArguments + ["-f", fileArgumentsPlistFile]
+        } else {
+            let completeArgumentList = existingArguments + files
+            return completeArgumentList
+        }
     }
 }

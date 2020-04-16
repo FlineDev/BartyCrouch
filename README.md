@@ -10,9 +10,12 @@
     <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
         <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
+    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+        <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
+    </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.1.0-blue.svg"
-             alt="Version: 4.1.0">
+        <img src="https://img.shields.io/badge/Version-4.1.1-blue.svg"
+             alt="Version: 4.1.1">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
          alt="Swift: 5.2">
@@ -55,7 +58,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 
 ## Requirements
 
-- Xcode 10.2+ & Swift 5.0+
+- Xcode 11.4+ & Swift 5.2+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
@@ -248,6 +251,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `customFunction`: Use alternative name to `NSLocalizedString`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
+- `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 
 </details>
 
