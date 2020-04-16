@@ -25,7 +25,8 @@ public class CommandLineActor {
         overrideComments: Bool,
         unstripped: Bool,
         customFunction: String?,
-        customLocalizableName: String?
+        customLocalizableName: String?,
+        usePlistArguments: Bool
     ) {
         let localizableFileName = customLocalizableName ??  "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
@@ -47,7 +48,8 @@ public class CommandLineActor {
             overrideComments: overrideComments,
             unstripped: unstripped,
             customFunction: customFunction,
-            localizableFileName: localizableFileName
+            localizableFileName: localizableFileName,
+            usePlistArguments: usePlistArguments
         )
     }
 
@@ -212,7 +214,8 @@ public class CommandLineActor {
         overrideComments: Bool,
         unstripped: Bool,
         customFunction: String?,
-        localizableFileName: String
+        localizableFileName: String,
+        usePlistArguments: Bool
     ) {
         for inputDirectoryPath in inputDirectoryPaths {
             let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
@@ -228,7 +231,8 @@ public class CommandLineActor {
                 try CodeCommander.shared.export(
                     stringsFilesToPath: extractedStringsFileDirectory,
                     fromCodeInDirectoryPath: inputDirectoryPath,
-                    customFunction: customFunction
+                    customFunction: customFunction,
+                    usePlistArguments: usePlistArguments
                 )
             } catch {
                 print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)

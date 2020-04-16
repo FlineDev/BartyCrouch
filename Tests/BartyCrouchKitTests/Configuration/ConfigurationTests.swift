@@ -159,6 +159,7 @@ class ConfigurationTests: XCTestCase {
             customFunction = "MyOwnLocalizedString"
             customLocalizableName = "MyOwnLocalizable"
             unstripped = true
+            plistArguments = true
 
             [update.transform]
             codePaths = ["."]

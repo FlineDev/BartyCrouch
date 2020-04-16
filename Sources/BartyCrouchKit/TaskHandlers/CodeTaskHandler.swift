@@ -22,7 +22,8 @@ extension CodeTaskHandler: TaskHandler {
                     overrideComments: false,
                     unstripped: options.unstripped,
                     customFunction: options.customFunction,
-                    customLocalizableName: options.customLocalizableName
+                    customLocalizableName: options.customLocalizableName,
+                    usePlistArguments: options.plistArguments
                 )
             }
         }

@@ -251,6 +251,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `customFunction`: Use alternative name to `NSLocalizedString`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
+- `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 
 </details>
 
