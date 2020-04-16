@@ -26,7 +26,7 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         customLocalizableName: String?,
-        usesPlistForExtractLocStringsArguments: Bool?
+        usePlistArguments: Bool
     ) {
         let localizableFileName = customLocalizableName ??  "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
@@ -49,7 +49,7 @@ public class CommandLineActor {
             unstripped: unstripped,
             customFunction: customFunction,
             localizableFileName: localizableFileName,
-            usesPlistForExtractLocStringsArguments: usesPlistForExtractLocStringsArguments
+            usePlistArguments: usePlistArguments
         )
     }
 
@@ -215,7 +215,7 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         localizableFileName: String,
-        usesPlistForExtractLocStringsArguments: Bool?
+        usePlistArguments: Bool
     ) {
         for inputDirectoryPath in inputDirectoryPaths {
             let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
@@ -232,7 +232,7 @@ public class CommandLineActor {
                     stringsFilesToPath: extractedStringsFileDirectory,
                     fromCodeInDirectoryPath: inputDirectoryPath,
                     customFunction: customFunction,
-                    usesPlistForExtractLocStringsArguments: usesPlistForExtractLocStringsArguments
+                    usePlistArguments: usePlistArguments
                 )
             } catch {
                 print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)

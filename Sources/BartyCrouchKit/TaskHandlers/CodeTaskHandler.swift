@@ -23,7 +23,7 @@ extension CodeTaskHandler: TaskHandler {
                     unstripped: options.unstripped,
                     customFunction: options.customFunction,
                     customLocalizableName: options.customLocalizableName,
-                    usesPlistForExtractLocStringsArguments: options.usesPlistForExtractLocStringsArguments
+                    usePlistArguments: options.plistArguments
                 )
             }
         }

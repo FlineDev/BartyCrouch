@@ -26,14 +26,14 @@ public final class CodeCommander {
         stringsFilesToPath stringsFilePath: String,
         fromCodeInDirectoryPath codeDirectoryPath: String,
         customFunction: String?,
-        usesPlistForExtractLocStringsArguments: Bool?
+        usePlistArguments: Bool
     ) throws {
         let files = try findFiles(in: codeDirectoryPath)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
         let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
 
-        let arguments = try appendFiles(files, inListOfArguments: argumentsWithoutTheFiles, usesPlistForExtractLocStringsArguments)
+        let arguments = try appendFiles(files, inListOfArguments: argumentsWithoutTheFiles, usePlistArguments: usePlistArguments)
         try Task.run("/usr/bin/xcrun", arguments: arguments)
     }
 
@@ -64,19 +64,13 @@ public final class CodeCommander {
         return matchedFiles
     }
 
-    // In the existing list of arguments it appends also the files arguments. Depending on the total length of the argument list we either append them in the
-    // argument list or write them in a file and append that file.
-    func appendFiles(_ files: [String], inListOfArguments existingArguments: [String], _ usesPlistForExtractLocStringsArguments: Bool?) throws -> [String] {
-        let completeArgumentList = existingArguments + files
-        let disableUsageOfPlistForArgumentList = !(usesPlistForExtractLocStringsArguments ?? true)
-        let forceUsageOfPlistForArgumentList = usesPlistForExtractLocStringsArguments ?? false
-
-        // If the flag is not set we will autodetect if we need to use a plist file
-        if forceUsageOfPlistForArgumentList || ( !disableUsageOfPlistForArgumentList && Task.isArgumentListTooLong(completeArgumentList)) {
-            // If the argument list gets to long we write the files in a plist and pass that as argument
+    // In the existing list of arguments it appends also the files arguments.
+    func appendFiles(_ files: [String], inListOfArguments existingArguments: [String], usePlistArguments: Bool) throws -> [String] {
+        if usePlistArguments {
             let fileArgumentsPlistFile = try ExtractLocStrings().writeFilesArgumentsInPlist(files)
             return existingArguments + ["-f", fileArgumentsPlistFile]
         } else {
+            let completeArgumentList = existingArguments + files
             return completeArgumentList
         }
     }

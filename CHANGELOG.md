@@ -27,7 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- Fixed crashes in projects with large number of files. Fixes [#92](https://github.com/Flinesoft/BartyCrouch/issues/92) & [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) by [Christos Koninis](https://github.com/csknns).
+- Fixed crashes in projects with large number of files by introducing new `plist` file based approach for passing arguments. See the new `--plist-arguments` option. Will be automatically turned on when needed (many files in project).  
+  Issues: [#92](https://github.com/Flinesoft/BartyCrouch/issues/92), [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) | PR: [#150](https://github.com/Flinesoft/BartyCrouch/pull/150) | Author: [Christos Koninis](https://github.com/csknns)
 ### Security
 - None.
 
