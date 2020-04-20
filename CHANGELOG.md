@@ -27,8 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- Normalize sortByKeys no longer adds empty line to begining of .strings file.
-Issues: [#178](https://github.com/Flinesoft/BartyCrouch/issues/178)
+- Normalize sortByKeys no longer adds empty line to begining of .strings file.  
+  Issue: [#178](https://github.com/Flinesoft/BartyCrouch/issues/178) | PR: [#180](https://github.com/Flinesoft/BartyCrouch/pull/180) | Author: [Patrick Wolowicz](https://github.com/hactar)
 ### Security
 - None.
 
