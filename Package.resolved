@@ -48,10 +48,10 @@
       },
       {
         "package": "Toml",
-        "repositoryURL": "https://github.com/Jeehut/swift-toml.git",
+        "repositoryURL": "https://github.com/jdfergason/swift-toml.git",
         "state": {
           "branch": "master",
-          "revision": "e0f7f568de4a9ae760a3b2d495616e180fafa5ac",
+          "revision": "921c047a89bcc26fac4e8ead5a280bf0f69939f9",
           "version": null
         }
       },

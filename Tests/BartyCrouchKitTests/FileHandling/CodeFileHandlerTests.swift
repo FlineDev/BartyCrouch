@@ -1,5 +1,4 @@
 @testable import BartyCrouchKit
-import SwiftSyntax
 import XCTest
 
 class CodeFileHandlerTests: XCTestCase {
