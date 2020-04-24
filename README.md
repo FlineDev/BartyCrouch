@@ -14,8 +14,8 @@
         <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.1.1-blue.svg"
-             alt="Version: 4.1.1">
+        <img src="https://img.shields.io/badge/Version-4.2.0-blue.svg"
+             alt="Version: 4.2.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
          alt="Swift: 5.2">
@@ -215,6 +215,7 @@ Also the following command line options can be provided:
 - **`-v`, `--verbose`**: Prints more detailed information about the executed command.
 - **`-x`, `--xcode-output`**: Prints warnings & errors in Xcode compatible format.
 - **`-w`, `--fail-on-warnings`**: Returns a failed status code if any warning is encountered.
+- **`-p`, `--path`: Specifies a different path than current to run BartyCrouch from there.
 
 ### `update` subcommand
 

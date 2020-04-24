@@ -31,6 +31,17 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.2.0] - 2020-04-24
+### Added
+- Added new `-p` / `--path` option to run BartyCrouch from a different path than current.  
+  Issues: [#166](https://github.com/Flinesoft/BartyCrouch/issues/166), [#177](https://github.com/Flinesoft/BartyCrouch/issues/177) | PR: [#181](https://github.com/Flinesoft/BartyCrouch/pull/181) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+### Removed
+- Removed code magic that used the localization comment from Interface Builder files as a source for new translation values.  
+  Issue: [#140](https://github.com/Flinesoft/BartyCrouch/issues/140) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/182) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+### Fixed
+- Normalize sortByKeys no longer adds empty line to begining of .strings file.  
+  Issue: [#178](https://github.com/Flinesoft/BartyCrouch/issues/178) | PR: [#180](https://github.com/Flinesoft/BartyCrouch/pull/180) | Author: [Patrick Wolowicz](https://github.com/hactar)
+
 ## [4.1.1] - 2020-04-16
 ### Fixed
 - Fixed crashes in projects with large number of files by introducing new `plist` file based approach for passing arguments. See the new `--plist-arguments` option. Will be automatically turned on when needed (many files in project).  
