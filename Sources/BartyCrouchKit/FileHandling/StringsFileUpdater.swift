@@ -76,15 +76,6 @@ public class StringsFileUpdater {
 
                     let oldTranslation = oldTranslations.first { oldKey, _, _, _ in oldKey == newTranslation.key }
 
-                    // get value from default comment structure if possible
-                    let oldBaseValue: String? = {
-                        guard let oldComment = oldTranslation?.comment, let foundMatch = defaultCommentStructureMatches(inString: oldComment) else {
-                            return nil
-                        }
-
-                        return (oldComment as NSString).substring(with: foundMatch.range(at: 1))
-                    }()
-
                     let updatedComment: String? = {
                         // add new comment if none existed before
                         guard let oldComment = oldTranslation?.comment else { return newTranslation.comment }
@@ -117,8 +108,6 @@ public class StringsFileUpdater {
                         }
 
                         if override { return newTranslationValue } // override with new value in force update mode
-
-                        if let oldBaseValue = oldBaseValue, oldBaseValue == oldValue { return newTranslationValue } // update base value
 
                         // keep existing translation
                         return oldValue
