@@ -405,5 +405,12 @@ See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob
 
 Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
 
+After Release Checklist:
+
+1. Run `make portable_zip` to generate `.build/release/portable_bartycrouch.zip`
+2. Create new release with text from new `CHANGELOG.md` section & attach `portable_bartycrouch.zip` as binary
+2. Update `tag` and `revision` in `Formula/bartycrouch.rb`, commit & push change
+3. Run `brew bump-formula-pr bartycrouch --tag=<tag> --revision=<revision>`
+
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
