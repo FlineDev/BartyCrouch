@@ -11,6 +11,7 @@ public class UpdateCommand: Command {
 
     // MARK: - Instance Methods
     public func execute() throws {
+        GlobalOptions.setup()
         let updateOptions = try Configuration.load().updateOptions
 
         for task in updateOptions.tasks {

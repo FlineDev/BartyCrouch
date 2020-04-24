@@ -15,7 +15,7 @@ let package = Package(
         .package(name: "MungoHealer", url: "https://github.com/JamitLabs/MungoHealer.git", from: "0.3.2"),
         .package(name: "Rainbow", url: "https://github.com/onevcat/Rainbow.git", from: "3.1.5"),
         .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.1"),
-        .package(name: "Toml", url: "https://github.com/Jeehut/swift-toml.git", .branch("master")),
+        .package(name: "Toml", url: "https://github.com/jdfergason/swift-toml.git", .branch("master")),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50200.0")),
     ],
     targets: [
@@ -39,7 +39,7 @@ let package = Package(
         ),
         .testTarget(
             name: "BartyCrouchKitTests",
-            dependencies: ["BartyCrouchKit", "Toml", "SwiftSyntax"],
+            dependencies: ["BartyCrouchKit", "Toml"],
             path: "Tests/BartyCrouchKitTests"
         ),
         .target(

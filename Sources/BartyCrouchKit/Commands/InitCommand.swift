@@ -11,6 +11,7 @@ public class InitCommand: Command {
 
     // MARK: - Instance Methods
     public func execute() throws {
+        GlobalOptions.setup()
         InitTaskHandler().perform()
         CommandExecution.current.failIfNeeded()
     }
