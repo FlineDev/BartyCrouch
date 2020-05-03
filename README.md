@@ -247,7 +247,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 - `codePaths`: The directory / directories to search for Swift code files.
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
-- `defaultsToKeys`: Add new keys both as key and value.
+- `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
 - `customFunction`: Use alternative name to `NSLocalizedString`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
