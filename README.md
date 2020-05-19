@@ -66,7 +66,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 ### Installation
 
 <details>
-<summary>Via [Homebrew](https://brew.sh/)</summary>
+<summary>Via <a href="https://brew.sh/">Homebrew</a></summary>
 
 To install Bartycrouch the first time, simply run the command:
 
@@ -82,7 +82,7 @@ brew upgrade bartycrouch
 </details>
 
 <details>
-<summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
+<summary>Via <a href="https://github.com/yonaskolb/Mint">Mint</a></summary>
 
 To **install** or update to the latest version of BartyCrouch simply run this command:
 
@@ -232,7 +232,7 @@ In order to configure which tasks are executed, edit this section in the config 
 tasks = ["interfaces", "code", "transform", "normalize"]
 ```
 
-<details><summary>Options for `interfaces`</summary>
+<details><summary>Options for <code>interfaces</code></summary>
 
 - `paths`: The directory / directories to search for Storyboards & XIB files.
 - `defaultToBase`: Add Base translation as value to new keys.
@@ -241,7 +241,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `code`</summary>
+<details><summary>Options for <code>code</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
@@ -254,7 +254,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `transform`</summary>
+<details><summary>Options for <code>transform</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
 - `localizablePaths`:  The enclosing path(s) containing the localized `Localizable.strings` files.
@@ -266,7 +266,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `translate`</summary>
+<details><summary>Options for <code>translate</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
@@ -274,7 +274,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `normalize`</summary>
+<details><summary>Options for <code>normalize</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
 - `sourceLocale`: The source language to harmonize keys of other languages with.
