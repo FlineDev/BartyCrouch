@@ -213,7 +213,7 @@ Also the following command line options can be provided:
 - **`-v`, `--verbose`**: Prints more detailed information about the executed command.
 - **`-x`, `--xcode-output`**: Prints warnings & errors in Xcode compatible format.
 - **`-w`, `--fail-on-warnings`**: Returns a failed status code if any warning is encountered.
-- **`-p`, `--path`: Specifies a different path than current to run BartyCrouch from there.
+- **`-p`, `--path`**: Specifies a different path than current to run BartyCrouch from there.
 
 ### `update` subcommand
 
