@@ -188,7 +188,8 @@ class TranslateTransformer: SyntaxRewriter {
                 leftParen: SyntaxFactory.makeLeftParenToken(),
                 argumentList: SyntaxFactory.makeTupleExprElementList([keyArgument, commentArgument]),
                 rightParen: SyntaxFactory.makeRightParenToken(),
-                trailingClosure: nil
+                trailingClosure: nil,
+                additionalTrailingClosures: nil
             )
         )
     }
