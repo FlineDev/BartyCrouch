@@ -14,11 +14,11 @@
         <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.2.0-blue.svg"
-             alt="Version: 4.2.0">
+        <img src="https://img.shields.io/badge/Version-4.3.0-blue.svg"
+             alt="Version: 4.3.0">
     </a>
-    <img src="https://img.shields.io/badge/Swift-5.2-FFAC45.svg"
-         alt="Swift: 5.2">
+    <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
+         alt="Swift: 5.3">
     <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
         <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
               alt="License: MIT">
@@ -66,7 +66,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 ### Installation
 
 <details>
-<summary>Via [Homebrew](https://brew.sh/)</summary>
+<summary>Via <a href="https://brew.sh/">Homebrew</a></summary>
 
 To install Bartycrouch the first time, simply run the command:
 
@@ -82,7 +82,7 @@ brew upgrade bartycrouch
 </details>
 
 <details>
-<summary>Via [Mint](https://github.com/yonaskolb/Mint)</summary>
+<summary>Via <a href="https://github.com/yonaskolb/Mint">Mint</a></summary>
 
 To **install** or update to the latest version of BartyCrouch simply run this command:
 
@@ -140,16 +140,14 @@ emptyValues = true
 
 This is the default configuration of BartyCrouch and should work for most projects as is. In order to use BartyCrouch to its extent, it is recommended though to consider making the following changes:
 
-1. To speed up execution time provide more specific paths for any key containing `path` if possible. (especially in the `update.transform` section, e.g. `"App/Sources"` for `codePath` or `"App/Supporting Files"` for `supportedLanguageEnumPath` )
+1. To speed it up significantly, provide more specific paths for any key containing `path` if possible (especially in the `update.transform` section, e.g. `["App/Sources"]` for `codePaths` or `["App/Supporting Files"]` for `supportedLanguageEnumPaths`).
 2. Remove the `code` task if your project is Swift-only and you use the new [`transform` update task](#localization-workflow-via-transform).
-3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to user the `transform` task and change its `transformer` option to `swiftgenStructured`.
+3. If you are using [SwiftGen](https://github.com/SwiftGen/SwiftGen#strings) with the `structured-swift4` template, you will probably want to use the `transform` task and change its `transformer` option to `swiftgenStructured`.
 4. If you decided to use the `transform` task, create a new file in your project (e.g. under `SupportingFiles`) named `BartyCrouch.swift` and copy the following code:
 
 ```swift
-//
 //  This file is required in order for the `transform` task of the translation helper tool BartyCrouch to work.
 //  See here for more details: https://github.com/Flinesoft/BartyCrouch
-//
 
 import Foundation
 
@@ -215,7 +213,7 @@ Also the following command line options can be provided:
 - **`-v`, `--verbose`**: Prints more detailed information about the executed command.
 - **`-x`, `--xcode-output`**: Prints warnings & errors in Xcode compatible format.
 - **`-w`, `--fail-on-warnings`**: Returns a failed status code if any warning is encountered.
-- **`-p`, `--path`: Specifies a different path than current to run BartyCrouch from there.
+- **`-p`, `--path`**: Specifies a different path than current to run BartyCrouch from there.
 
 ### `update` subcommand
 
@@ -234,7 +232,7 @@ In order to configure which tasks are executed, edit this section in the config 
 tasks = ["interfaces", "code", "transform", "normalize"]
 ```
 
-<details><summary>Options for `interfaces`</summary>
+<details><summary>Options for <code>interfaces</code></summary>
 
 - `paths`: The directory / directories to search for Storyboards & XIB files.
 - `defaultToBase`: Add Base translation as value to new keys.
@@ -243,11 +241,11 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `code`</summary>
+<details><summary>Options for <code>code</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
-- `defaultsToKeys`: Add new keys both as key and value.
+- `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
 - `customFunction`: Use alternative name to `NSLocalizedString`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
@@ -256,7 +254,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `transform`</summary>
+<details><summary>Options for <code>transform</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
 - `localizablePaths`:  The enclosing path(s) containing the localized `Localizable.strings` files.
@@ -268,7 +266,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `translate`</summary>
+<details><summary>Options for <code>translate</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
@@ -276,7 +274,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 </details>
 
-<details><summary>Options for `normalize`</summary>
+<details><summary>Options for <code>normalize</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
 - `sourceLocale`: The source language to harmonize keys of other languages with.
@@ -404,6 +402,13 @@ See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob
 ## Contributing
 
 Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
+
+After Release Checklist:
+
+1. Run `make portable_zip` to generate `.build/release/portable_bartycrouch.zip`
+2. Create new release with text from new `CHANGELOG.md` section & attach `portable_bartycrouch.zip` as binary
+2. Update `tag` and `revision` in `Formula/bartycrouch.rb`, commit & push change
+3. Run `brew bump-formula-pr bartycrouch --tag=<tag> --revision=<revision>`
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.

@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.3.0] - 2020-09-28
+### Changed
+- Updated swift-syntax to match Swift 5.3.  
+  Issues: [#199](https://github.com/Flinesoft/BartyCrouch/issues/199), [#201](https://github.com/Flinesoft/BartyCrouch/issues/201) | PR: [#204](https://github.com/Flinesoft/BartyCrouch/pull/204) | Author: [w8wjb](https://github.com/w8wjb)
+
 ## [4.2.0] - 2020-04-24
 ### Added
 - Added new `-p` / `--path` option to run BartyCrouch from a different path than current.  
