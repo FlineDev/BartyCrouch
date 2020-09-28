@@ -14,8 +14,8 @@
         <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
     </a>
     <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.2.0-blue.svg"
-             alt="Version: 4.2.0">
+        <img src="https://img.shields.io/badge/Version-4.3.0-blue.svg"
+             alt="Version: 4.3.0">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
          alt="Swift: 5.3">
