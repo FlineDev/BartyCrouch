@@ -4,7 +4,7 @@ class Bartycrouch < Formula
   url "https://github.com/Flinesoft/BartyCrouch.git", :tag => "4.2.0", :revision => "49b4cf27d5b521abf615d4ccb7754d642205f802"
   head "https://github.com/Flinesoft/BartyCrouch.git"
 
-  depends_on :xcode => ["11.4", :build]
+  depends_on :xcode => ["12.0", :build]
 
   def install
     system "make", "install", "prefix=#{prefix}"

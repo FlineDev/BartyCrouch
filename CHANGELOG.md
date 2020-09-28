@@ -21,7 +21,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Added
 - None.
 ### Changed
-- None.
+- Updated swift-syntax to match Swift 5.3.  
+  Issues: [#199](https://github.com/Flinesoft/BartyCrouch/issues/199), [#201](https://github.com/Flinesoft/BartyCrouch/issues/201) | PR: [#204](https://github.com/Flinesoft/BartyCrouch/pull/204) | Author: [w8wjb](https://github.com/w8wjb)
 ### Deprecated
 - None.
 ### Removed
