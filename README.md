@@ -407,8 +407,9 @@ After Release Checklist:
 
 1. Run `make portable_zip` to generate `.build/release/portable_bartycrouch.zip`
 2. Create new release with text from new `CHANGELOG.md` section & attach `portable_bartycrouch.zip` as binary
-2. Update `tag` and `revision` in `Formula/bartycrouch.rb`, commit & push change
-3. Run `brew bump-formula-pr bartycrouch --tag=<tag> --revision=<revision>`
+3. Run `pod trunk push` to make a new release known to CocoaPods
+4. Update `tag` and `revision` in `Formula/bartycrouch.rb`, commit & push change
+5. Run `brew bump-formula-pr bartycrouch --tag=<tag> --revision=<revision>`
 
 ## License
 This library is released under the [MIT License](http://opensource.org/licenses/MIT). See LICENSE for details.
