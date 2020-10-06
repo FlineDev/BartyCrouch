@@ -27,10 +27,14 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- Fix missing usage of `harmonizeWithSource` parameter for `normalize` task.  
-  Issue: [#196](https://github.com/Flinesoft/BartyCrouch/issues/196) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/197) | Author: [Marco Pagliari](https://github.com/lechuckcaptain)
+- None.
 ### Security
 - None.
+
+## [4.3.1] - 2020-10-06
+### Fixed
+- Fix missing usage of `harmonizeWithSource` parameter for `normalize` task.  
+  Issue: [#196](https://github.com/Flinesoft/BartyCrouch/issues/196) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/197) | Author: [Marco Pagliari](https://github.com/lechuckcaptain)
 
 ## [4.3.0] - 2020-09-28
 ### Changed
