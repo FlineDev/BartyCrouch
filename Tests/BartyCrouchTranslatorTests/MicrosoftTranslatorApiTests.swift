@@ -17,7 +17,7 @@ class MicrosoftTranslatorApiTests: XCTestCase {
         switch endpoint.request(type: [TranslateResponse].self) {
         case let .success(translateResponses):
             XCTAssertEqual(translateResponses[0].translations[0].to, "de")
-            XCTAssertEqual(translateResponses[0].translations[0].text, "Wie alt sind Sie?")
+            XCTAssertEqual(translateResponses[0].translations[0].text, "Wie alt bist du?")
 
             XCTAssertEqual(translateResponses[0].translations[1].to, "tr")
             XCTAssertEqual(translateResponses[0].translations[1].text, "Kaç yaşındasınız?")

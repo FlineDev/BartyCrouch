@@ -118,20 +118,21 @@ public class CommandLineActor {
                 }
             }
 
-            for filePath in targetStringsFilePaths {
-                let stringsFileUpdater = StringsFileUpdater(path: filePath)
-                do {
-                    try stringsFileUpdater?.harmonizeKeys(withSource: sourceFilePath)
-                } catch {
-                    print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error)
-                    continue
+            if harmonizeWithSource {
+                for filePath in targetStringsFilePaths {
+                    let stringsFileUpdater = StringsFileUpdater(path: filePath)
+                    do {
+                        try stringsFileUpdater?.harmonizeKeys(withSource: sourceFilePath)
+                    } catch {
+                        print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error)
+                        continue
+                    }
                 }
             }
 
-            for filePath in allStringsFilePaths {
-                let stringsFileUpdater = StringsFileUpdater(path: filePath)
-
-                if sortByKeys {
+            if sortByKeys {
+                for filePath in allStringsFilePaths {
+                    let stringsFileUpdater = StringsFileUpdater(path: filePath)
                     stringsFileUpdater?.sortByKeys()
                 }
             }
