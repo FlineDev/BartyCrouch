@@ -27,7 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- None.
+- Fix missing usage of `harmonizeWithSource` parameter for `normalize` task.  
+  Issue: [#196](https://github.com/Flinesoft/BartyCrouch/issues/196) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/197) | Author: [Marco Pagliari](https://github.com/lechuckcaptain)
 ### Security
 - None.
 
