@@ -17,6 +17,7 @@ let package = Package(
         .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.1"),
         .package(name: "Toml", url: "https://github.com/jdfergason/swift-toml.git", .branch("master")),
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50300.0")),
+        .package(name: "SwiftyXML", url: "https://github.com/chenyunguiMilook/SwiftyXML.git", from: "3.0.2")
     ],
     targets: [
         .target(
@@ -34,6 +35,7 @@ let package = Package(
                 "SwiftCLI",
                 "SwiftSyntax",
                 "Toml",
+                "SwiftyXML"
             ],
             path: "Sources/BartyCrouchKit"
         ),

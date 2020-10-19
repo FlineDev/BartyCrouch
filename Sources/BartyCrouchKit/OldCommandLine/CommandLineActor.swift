@@ -1,6 +1,7 @@
 // swiftlint:disable function_parameter_count type_body_length cyclomatic_complexity
 
 import Foundation
+import SwiftyXML
 
 // NOTE:
 // This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.
@@ -65,6 +66,29 @@ public class CommandLineActor {
 
             let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
             self.incrementalInterfacesUpdate(
+                inputFilePath,
+                outputStringsFilePaths,
+                override: override,
+                verbose: verbose,
+                defaultToBase: defaultToBase,
+                unstripped: unstripped,
+                ignoreEmptyStrings: ignoreEmptyStrings
+            )
+        }
+    }
+    
+    func actOnIntentDefinitions(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
+        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIntentDefinitionFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
+
+        guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
+
+        for inputFilePath in inputFilePaths {
+            guard FileManager.default.fileExists(atPath: inputFilePath) else {
+                print("No file exists at input path '\(inputFilePath)'", level: .error); return
+            }
+
+            let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath).filter { $0 != inputFilePath }
+            self.incrementalIntentDefinitionUpdate(
                 inputFilePath,
                 outputStringsFilePaths,
                 override: override,
@@ -314,6 +338,94 @@ public class CommandLineActor {
         }
 
         print("Successfully updated strings file(s) of Storyboard or XIB file.", level: .success, file: inputFilePath)
+    }
+    
+    private func incrementalIntentDefinitionUpdate(
+        _ inputFilePath: String,
+        _ outputStringsFilePaths: [String],
+        override: Bool,
+        verbose: Bool,
+        defaultToBase: Bool,
+        unstripped: Bool,
+        ignoreEmptyStrings: Bool
+    ) {
+        let extractedStringsFilePath = inputFilePath + ".tmpstrings"
+
+        // Extract translations
+        var xmlString = ""
+        do {
+            xmlString = try String(contentsOfFile: inputFilePath)
+        } catch {
+            print("Could not extract string for file at path '\(inputFilePath)'.", level: .error)
+            return
+        }
+
+        let xml = XML(string: xmlString)
+        var translationDict = [String: String]()
+
+        // Traverse the xml structure and search for translatable values
+        // To check if a value is translatable, it is sufficient to check if the parent dictionary
+        // contains a key with the same name and the suffix "ID".
+        func traverse(xml: XML) {
+            for child in xml.xmlChildren {
+                traverse(xml: child)
+            }
+
+            guard xml.xmlName == "dict" else {
+                return
+            }
+
+            var xmlDict = [String: String]()
+            var currentKey = ""
+            for child in xml.xmlChildren {
+                if child.xmlName == "key" {
+                    currentKey = child.stringValue
+                } else if child.xmlName == "string" {
+                    xmlDict[currentKey] = child.stringValue
+                }
+            }
+
+            for (key, value) in xmlDict {
+                guard key.hasSuffix("ID") else {
+                    continue
+                }
+
+                guard let baseTranslation = xmlDict[String(key.prefix(key.count - 2))] else {
+                    continue
+                }
+
+                translationDict[value] = baseTranslation.replacingOccurrences(of: "/\\\n", with: "\\n") // Convert linebreaks
+            }
+        }
+        traverse(xml: xml)
+        
+        let translationString = translationDict.map({ (key, value) in "\"\(key)\" = \"\(value)\";" }).joined(separator: "\n\n")
+        try? translationString.write(toFile: extractedStringsFilePath, atomically: true, encoding: .utf8)
+
+        for outputStringsFilePath in outputStringsFilePaths {
+            guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
+
+            stringsFileUpdater.incrementallyUpdateKeys(
+                withStringsFileAtPath: extractedStringsFilePath,
+                addNewValuesAsEmpty: !defaultToBase,
+                override: override,
+                keepWhitespaceSurroundings: unstripped,
+                ignoreEmptyStrings: ignoreEmptyStrings
+            )
+
+            if verbose {
+                print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info)
+            }
+        }
+
+        do {
+            try FileManager.default.removeItem(atPath: extractedStringsFilePath)
+        } catch {
+            print("Temporary strings file couldn't be deleted at path '\(extractedStringsFilePath)'", level: .error)
+            return
+        }
+
+        print("Successfully updated strings file(s) of Intent definition file.", level: .success, file: inputFilePath)
     }
 
     private func translate(secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
