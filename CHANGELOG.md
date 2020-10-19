@@ -19,7 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- None.
+- Adds support for Intent Definition files.
 ### Changed
 - None.
 ### Deprecated

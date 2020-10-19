@@ -18,6 +18,12 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
     }
 
+    public func findAllIntentDefinitionFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
+        // swiftlint:disable:next force_try
+        let intentsFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.intentdefinition\\z", options: .caseInsensitive)
+        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: intentsFileRegex)
+    }
+
     public func findAllStringsFiles(within baseDirectoryPath: String, withLocale locale: String) -> [String] {
         // swiftlint:disable:next force_try
         let stringsFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
