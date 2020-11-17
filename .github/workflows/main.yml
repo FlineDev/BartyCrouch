@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main, versions]
+
+  pull_request:
+    branches: [main]
+
+jobs:
+  cancel-previous-runs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel previous runs of this workflow on same branch
+        uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  swiftlint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run SwiftLint
+        uses: norio-nomura/action-swiftlint@3.1.0
+        with:
+          args: --strict
+
+  test-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: swift test -v
+
+  test-macos:
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: swift test -v
