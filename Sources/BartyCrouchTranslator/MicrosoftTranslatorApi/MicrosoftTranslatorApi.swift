@@ -30,7 +30,9 @@ enum MicrosoftTranslatorApi {
     }
 }
 
-extension MicrosoftTranslatorApi: JsonApi {
+extension MicrosoftTranslatorApi: Endpoint {
+    typealias ClientErrorType = EmptyBodyResponse
+
     var decoder: JSONDecoder {
         return JSONDecoder()
     }
@@ -43,40 +45,30 @@ extension MicrosoftTranslatorApi: JsonApi {
         return URL(string: "https://api.cognitive.microsofttranslator.com")!
     }
 
-    var path: String {
+    var subpath: String {
         switch self {
         case .translate:
             return "/translate"
         }
     }
 
-    var method: Microya.Method {
+    var method: HttpMethod {
         switch self {
-        case .translate:
-            return .post
+        case let .translate(texts, _, _, _):
+            return .post(body: try! encoder.encode(texts.map { TranslateRequest(Text: $0) }))
         }
     }
 
-    var queryParameters: [(key: String, value: String)] {
-        var urlParameters: [(String, String)] = [(key: "api-version", value: "3.0")]
+    var queryParameters: [String: QueryParameterValue] {
+        var urlParameters: [String: QueryParameterValue] = ["api-version": "3.0"]
 
         switch self {
         case let .translate(_, sourceLanguage, targetLanguages, _):
-            urlParameters.append((key: "from", value: sourceLanguage.rawValue))
-
-            for targetLanguage in targetLanguages {
-                urlParameters.append((key: "to", value: targetLanguage.rawValue))
-            }
+            urlParameters["from"] = .string(sourceLanguage.rawValue)
+            urlParameters["to"] = .array(targetLanguages.map { $0.rawValue })
         }
 
         return urlParameters
-    }
-
-    var bodyData: Data? {
-        switch self {
-        case let .translate(texts, _, _, _):
-            return try? encoder.encode(texts.map { TranslateRequest(Text: $0) })
-        }
     }
 
     var headers: [String: String] {

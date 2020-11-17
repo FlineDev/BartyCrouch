@@ -1,5 +1,6 @@
 @testable import BartyCrouchTranslator
 import Foundation
+import Microya
 import XCTest
 
 class MicrosoftTranslatorApiTests: XCTestCase {
@@ -14,7 +15,9 @@ class MicrosoftTranslatorApiTests: XCTestCase {
             microsoftSubscriptionKey: microsoftSubscriptionKey
         )
 
-        switch endpoint.request(type: [TranslateResponse].self) {
+        let apiProvider = ApiProvider<MicrosoftTranslatorApi>()
+
+        switch apiProvider.performRequestAndWait(on: endpoint, decodeBodyTo: [TranslateResponse].self) {
         case let .success(translateResponses):
             XCTAssertEqual(translateResponses[0].translations[0].to, "de")
             XCTAssertEqual(translateResponses[0].translations[0].text, "Wie alt bist du?")
