@@ -54,7 +54,7 @@ extension MicrosoftTranslatorApi: Endpoint {
 
     var method: HttpMethod {
         switch self {
-        case let .translate(texts, _, _, _):
+        case let .translate(texts, _, _, _): // swiftlint:disable:next force_try
             return .post(body: try! encoder.encode(texts.map { TranslateRequest(Text: $0) }))
         }
     }
