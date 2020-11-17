@@ -28,15 +28,6 @@ jobs:
         with:
           args: --strict
 
-  test-linux:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Run tests
-        run: swift test -v
-
   test-macos:
     runs-on: macOS-latest
 
