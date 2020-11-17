@@ -9,7 +9,7 @@ public final class StringsFilesSearch: FilesSearchable {
     // MARK: - Stored Type Properties
     public static let shared = StringsFilesSearch()
 
-    private static let blacklistedStringFileNames: Set<String> = ["InfoPlist.strings"]
+    private static let denyListedStringFileNames: Set<String> = ["InfoPlist.strings"]
 
     // MARK: - Instance Methods
     public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
@@ -24,7 +24,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.blacklistedStringFileNames
+            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )
     }
 
@@ -34,7 +34,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.blacklistedStringFileNames
+            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )
     }
 
@@ -44,7 +44,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.blacklistedStringFileNames
+            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )
     }
 
