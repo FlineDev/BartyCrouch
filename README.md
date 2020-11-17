@@ -3,39 +3,39 @@
 </p>
 
 <p align="center">
-    <a href="https://app.bitrise.io/app/5310a5d74c63fbaf">
-        <img src="https://app.bitrise.io/app/5310a5d74c63fbaf/status.svg?token=zT-LdiY1CDj1XTdzJTS5Ng&branch=main"
-             alt="Build Status">
-    </a>
-    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
-        <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
-    </a>
-    <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
-        <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
-    </a>
-    <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-        <img src="https://img.shields.io/badge/Version-4.3.1-blue.svg"
-             alt="Version: 4.3.1">
-    </a>
-    <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
-         alt="Swift: 5.3">
-    <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
-        <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
-              alt="License: MIT">
-    </a>
-    <br />
-    <a href="https://paypal.me/Dschee/5EUR">
-        <img src="https://img.shields.io/badge/PayPal-Donate-orange.svg"
-             alt="PayPal: Donate">
-    </a>
-    <a href="https://github.com/sponsors/Jeehut">
-        <img src="https://img.shields.io/badge/GitHub-Become a sponsor-orange.svg"
-             alt="GitHub: Become a sponsor">
-    </a>
-    <a href="https://patreon.com/Jeehut">
-        <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
-             alt="Patreon: Become a patron">
-    </a>
+  <a href="https://github.com/Flinesoft/BartyCrouch/actions?query=workflow%3ACI+branch%3Amain">
+    <img src="https://github.com/Flinesoft/BartyCrouch/workflows/CI/badge.svg?branch=main"
+         alt="CI Status">
+  </a>
+  <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+    <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
+  </a>
+  <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+    <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
+  </a>
+  <a href="https://github.com/Flinesoft/BartyCrouch/releases">
+    <img src="https://img.shields.io/badge/Version-4.3.1-blue.svg"
+         alt="Version: 4.3.1">
+  </a>
+  <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
+     alt="Swift: 5.3">
+  <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
+    <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
+         alt="License: MIT">
+  </a>
+  <br />
+  <a href="https://paypal.me/Dschee/5EUR">
+    <img src="https://img.shields.io/badge/PayPal-Donate-orange.svg"
+         alt="PayPal: Donate">
+  </a>
+  <a href="https://github.com/sponsors/Jeehut">
+    <img src="https://img.shields.io/badge/GitHub-Become a sponsor-orange.svg"
+         alt="GitHub: Become a sponsor">
+  </a>
+  <a href="https://patreon.com/Jeehut">
+    <img src="https://img.shields.io/badge/Patreon-Become a patron-orange.svg"
+         alt="Patreon: Become a patron">
+  </a>
 </p>
 
 <p align="center">
