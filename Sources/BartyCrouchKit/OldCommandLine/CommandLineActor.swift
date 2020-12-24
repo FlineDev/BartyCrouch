@@ -28,7 +28,7 @@ public class CommandLineActor {
         customLocalizableName: String?,
         usePlistArguments: Bool
     ) {
-        let localizableFileName = customLocalizableName ??  "Localizable"
+        let localizableFileName = customLocalizableName ?? "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
             StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName)
         }.withoutDuplicates()

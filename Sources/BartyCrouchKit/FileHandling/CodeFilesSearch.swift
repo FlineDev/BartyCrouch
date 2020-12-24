@@ -7,6 +7,13 @@ final class CodeFilesSearch: FilesSearchable {
         self.baseDirectoryPath = baseDirectoryPath
     }
 
+    static func shouldSkipFile(at url: URL) -> Bool {
+        let dirsToIgnore = Set([".git", "carthage", "pods", "build", ".build", "docs"])
+        return url.pathComponents.contains { component in
+            dirsToIgnore.contains(component.lowercased())
+        }
+    }
+
     func findCodeFiles() -> [String] {
         guard FileManager.default.fileExists(atPath: baseDirectoryPath) else { return [] }
         guard !baseDirectoryPath.hasSuffix(".string") else { return [baseDirectoryPath] }

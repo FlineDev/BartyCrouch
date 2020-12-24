@@ -18,6 +18,8 @@ public final class BartyCrouchTranslator {
         case microsoft(subscriptionKey: String)
     }
 
+    private let microsoftProvider = ApiProvider<MicrosoftTranslatorApi>()
+
     private let translationService: TranslationService
 
     /// Creates a new translator object configured to use the specified translation service.
@@ -37,7 +39,7 @@ public final class BartyCrouchTranslator {
         case let .microsoft(subscriptionKey):
             let endpoint = MicrosoftTranslatorApi.translate(texts: [text], from: sourceLanguage, to: targetLanguages, microsoftSubscriptionKey: subscriptionKey)
 
-            switch endpoint.request(type: [TranslateResponse].self) {
+            switch microsoftProvider.performRequestAndWait(on: endpoint, decodeBodyTo: [TranslateResponse].self) {
             case let .success(translateResponses):
                 if let translations: [Translation] = translateResponses.first?.translations.map({ (Language(rawValue: $0.to)!, $0.text) }) {
                     return .success(translations)

@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.3.2] - 2020-12-24
+### Fixed
+- Fixed an issue where BartyCrouch did not skip the directories ".git", "Carthage", "Pods", "build", ".build", "docs" anymore.  
+  Issues: [#213](https://github.com/Flinesoft/BartyCrouch/issues/213), [#2](https://github.com/Flinesoft/BartyCrouch/issues/177) | PR: [#214](https://github.com/Flinesoft/BartyCrouch/pull/214) | Author: [Bill Panagiotopoulos](https://github.com/billp)
+
 ## [4.3.1] - 2020-10-06
 ### Fixed
 - Fix missing usage of `harmonizeWithSource` parameter for `normalize` task.  
