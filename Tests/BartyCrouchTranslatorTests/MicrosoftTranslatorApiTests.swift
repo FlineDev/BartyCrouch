@@ -11,7 +11,13 @@ class MicrosoftTranslatorApiTests: XCTestCase {
         let endpoint = MicrosoftTranslatorApi.translate(
             texts: ["How old are you?", "Love"],
             from: .english,
-            to: [.german, .turkish],
+            to: [
+              .german,
+              .turkish,
+              Language.with(languageCode: "pt", region: "BR")!,
+              Language.with(languageCode: "pt", region: "PT")!,
+              Language.with(languageCode: "fr", region: "CA")!,
+            ],
             microsoftSubscriptionKey: microsoftSubscriptionKey
         )
 
@@ -25,11 +31,29 @@ class MicrosoftTranslatorApiTests: XCTestCase {
             XCTAssertEqual(translateResponses[0].translations[1].to, "tr")
             XCTAssertEqual(translateResponses[0].translations[1].text, "Kaç yaşındasınız?")
 
+            XCTAssertEqual(translateResponses[0].translations[2].to, "pt")
+            XCTAssertEqual(translateResponses[0].translations[2].text, "Quantos anos tem?")
+
+            XCTAssertEqual(translateResponses[0].translations[3].to, "pt-PT")
+            XCTAssertEqual(translateResponses[0].translations[3].text, "Quantos anos tens?")
+
+            XCTAssertEqual(translateResponses[0].translations[4].to, "fr-CA")
+            XCTAssertEqual(translateResponses[0].translations[4].text, "Quel âge as-tu?")
+
             XCTAssertEqual(translateResponses[1].translations[0].to, "de")
             XCTAssertEqual(translateResponses[1].translations[0].text.lowercased(), "Liebe".lowercased())
 
             XCTAssertEqual(translateResponses[1].translations[1].to, "tr")
             XCTAssertEqual(translateResponses[1].translations[1].text, "Aşk")
+
+            XCTAssertEqual(translateResponses[1].translations[2].to, "pt")
+            XCTAssertEqual(translateResponses[1].translations[2].text, "Amor")
+
+            XCTAssertEqual(translateResponses[1].translations[3].to, "pt-PT")
+            XCTAssertEqual(translateResponses[1].translations[3].text, "O amor")
+
+            XCTAssertEqual(translateResponses[1].translations[4].to, "fr-CA")
+            XCTAssertEqual(translateResponses[1].translations[4].text, "L’amour")
 
         case let .failure(failure):
             XCTFail(failure.localizedDescription)

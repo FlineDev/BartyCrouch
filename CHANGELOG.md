@@ -27,7 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- None.
+- Fixed an issue with unmatching country code casing for Portuguese and Canadian French.  
+  Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Security
 - None.
 
