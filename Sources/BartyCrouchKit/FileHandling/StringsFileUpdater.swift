@@ -244,7 +244,8 @@ public class StringsFileUpdater {
 
         guard let targetTranslatorLanguage = Language.with(languageCode: targetLanguage, region: targetRegion) else {
             let locale = targetRegion != nil ? "\(targetLanguage)-\(targetRegion!)" : targetLanguage
-            throw MungoFatalError(source: .invalidUserInput, message: "Automatic translation to the locale '\(locale)' is not supported.")
+            print("Automatic translation to the locale '\(locale)' is not supported by Microsoft Translator.", level: .warning)
+            return 0
         }
 
         do {
