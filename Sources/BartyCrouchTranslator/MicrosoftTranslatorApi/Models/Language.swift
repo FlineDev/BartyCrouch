@@ -57,7 +57,7 @@ public enum Language: String {
     case pashto = "ps"
     case persian = "fa"
     case polish = "pl"
-    case portugueseBrazil = "pt-br"
+    case portugueseBrazil = "pt"
     case portuguesePortugal = "pt-pt"
     case punjabi = "pa"
     case queretaroOtomi = "otq"
@@ -91,6 +91,25 @@ public enum Language: String {
     /// - Returns: The language object best matching your specified languageCode and region combination.
     public static func with(languageCode: String, region: String?) -> Language? {
         guard let region = region else { return Language(rawValue: languageCode) }
-        return Language(rawValue: "\(languageCode)-\(region)") ?? Language(rawValue: languageCode)
+        return Language(rawValue: "\(languageCode)-\(region)")
+          ?? Language(rawValue: "\(languageCode)-\(region.lowercased())")
+          ?? Language(rawValue: "\(languageCode)-\(region.capitalized)")
+          ?? Language(rawValue: languageCode)
+    }
+
+    /// Returns the language object matching the given lang code & region.
+    ///
+    /// - Parameters:
+    ///   - languageCode: The 2 or 3-letter language code. See list of languages in `Language` enum to check if yours is supported.
+    ///   - region: The region code further specifying the language. See list of languages in `Language` enum to check if yours is supported.
+    /// - Returns: The language object best matching your specified languageCode and region combination.
+    public static func with(locale: String) -> Language? {
+      let separator: Character = "-"
+      let components = locale.split(separator: separator)
+      if components.count > 1 {
+        return with(languageCode: String(components[0]), region: String(components[1]))
+      } else {
+        return with(languageCode: String(components[0]), region: nil)
+      }
     }
 }

@@ -41,7 +41,7 @@ public final class BartyCrouchTranslator {
 
             switch microsoftProvider.performRequestAndWait(on: endpoint, decodeBodyTo: [TranslateResponse].self) {
             case let .success(translateResponses):
-                if let translations: [Translation] = translateResponses.first?.translations.map({ (Language(rawValue: $0.to)!, $0.text) }) {
+                if let translations: [Translation] = translateResponses.first?.translations.map({ (Language.with(locale: $0.to)!, $0.text) }) {
                     return .success(translations)
                 } else {
                     return .failure(MungoError(source: .internalInconsistency, message: "Could not fetch translation(s) for '\(text)'."))

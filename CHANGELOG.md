@@ -31,6 +31,10 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.4.1] - 2021-01-16
+### Fixed
+- Fixed an issue with unmatching country code casing for Portuguese and Canadian French.  
+  Author: [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.4.0] - 2021-01-16
 ### Changed
