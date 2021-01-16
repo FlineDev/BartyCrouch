@@ -21,7 +21,10 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Added
 - None.
 ### Changed
-- None.
+- Updated languages supported by Microsoft Translator – 17 more languages available now!  
+  Issue: [#216](https://github.com/Flinesoft/BartyCrouch/issues/216) | PR: [#219](https://github.com/Flinesoft/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
+- BartyCrouch doesn't fail anymore when there's a language not supported by Microsoft Translator (yet) – it prints a warning instead.  
+  Issue: [#215](https://github.com/Flinesoft/BartyCrouch/issues/215) | PR: [#219](https://github.com/Flinesoft/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
 ### Deprecated
 - None.
 ### Removed
