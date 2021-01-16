@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BartyCrouch"
-  s.version      = "4.4.0"
+  s.version      = "4.4.1"
   s.summary      = "Localization/I18n: Incrementally update/translate your Strings files from .swift, .h, .m(m), .storyboard or .xib files."
 
   s.description  = <<-DESC
