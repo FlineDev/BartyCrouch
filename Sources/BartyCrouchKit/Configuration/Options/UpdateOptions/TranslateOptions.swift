@@ -19,7 +19,7 @@ extension TranslateOptions: TomlCodable {
         let translate: String = "translate"
 
         if let secretString: String = toml.string(update, translate, "secret") {
-            let translator = toml.string(update, translate, "translator") ?? Translator.microsoftTranslator.rawValue
+            let translator = toml.string(update, translate, "translator") ?? ""
             let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
             let secret: Secret
@@ -39,7 +39,13 @@ extension TranslateOptions: TomlCodable {
         var lines: [String] = ["[update.translate]"]
 
         lines.append("paths = \(paths)")
-        lines.append("secret = \"\(secret)\"")
+        switch secret {
+        case let .deepl(secret):
+            lines.append("secret = \"\(secret)\"")
+        case let .microsoftTranslator(secret):
+            lines.append("secret = \"\(secret)\"")
+        }
+        
         lines.append("sourceLocale = \"\(sourceLocale)\"")
 
         return lines.joined(separator: "\n")
