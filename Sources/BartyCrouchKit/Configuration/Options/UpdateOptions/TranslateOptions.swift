@@ -2,15 +2,15 @@ import Foundation
 import MungoHealer
 import Toml
 
+enum Translator: String {
+    case microsoftTranslator
+    case deepl
+}
+
 struct TranslateOptions {
     let paths: [String]
     let secret: Secret
     let sourceLocale: String
-}
-
-enum Translator: String {
-    case microsoftTranslator
-    case deepl
 }
 
 extension TranslateOptions: TomlCodable {
@@ -26,9 +26,11 @@ extension TranslateOptions: TomlCodable {
             switch Translator(rawValue: translator) {
             case .microsoftTranslator, .none:
                 secret = .microsoftTranslator(secret: secretString)
+
             case .deepl:
                 secret = .deepl(secret: secretString)
             }
+
             return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
         } else {
             throw MungoError(source: .invalidUserInput, message: "Incomplete [update.translate] options provided, ignoring them all.")
@@ -42,10 +44,11 @@ extension TranslateOptions: TomlCodable {
         switch secret {
         case let .deepl(secret):
             lines.append("secret = \"\(secret)\"")
+
         case let .microsoftTranslator(secret):
             lines.append("secret = \"\(secret)\"")
         }
-        
+
         lines.append("sourceLocale = \"\(sourceLocale)\"")
 
         return lines.joined(separator: "\n")
