@@ -4,7 +4,7 @@ import Toml
 
 struct TranslateOptions {
     let paths: [String]
-    let secret: String
+    let secret: Secret
     let sourceLocale: String
 }
 
@@ -16,7 +16,11 @@ extension TranslateOptions: TomlCodable {
         if let secret: String = toml.string(update, translate, "secret") {
             let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
-            return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
+            return TranslateOptions(paths: paths, secret: .microsoftTranslator(secret: secret), sourceLocale: sourceLocale)
+        } else if let secret: String = toml.string(update, translate, "deeplSecret") {
+            let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
+            let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
+            return TranslateOptions(paths: paths, secret: .deepl(secret: secret), sourceLocale: sourceLocale)
         } else {
             throw MungoError(source: .invalidUserInput, message: "Incomplete [update.translate] options provided, ignoring them all.")
         }
