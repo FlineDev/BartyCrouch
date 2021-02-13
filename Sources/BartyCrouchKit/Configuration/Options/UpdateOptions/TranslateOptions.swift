@@ -8,19 +8,28 @@ struct TranslateOptions {
     let sourceLocale: String
 }
 
+enum Translator: String {
+    case microsoftTranslator
+    case deepl
+}
+
 extension TranslateOptions: TomlCodable {
     static func make(toml: Toml) throws -> TranslateOptions {
         let update: String = "update"
         let translate: String = "translate"
 
-        if let secret: String = toml.string(update, translate, "secret") {
+        if let secretString: String = toml.string(update, translate, "secret") {
+            let translator = toml.string(update, translate, "translator") ?? Translator.microsoftTranslator.rawValue
             let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
-            return TranslateOptions(paths: paths, secret: .microsoftTranslator(secret: secret), sourceLocale: sourceLocale)
-        } else if let secret: String = toml.string(update, translate, "deeplSecret") {
-            let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
-            let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
-            return TranslateOptions(paths: paths, secret: .deepl(secret: secret), sourceLocale: sourceLocale)
+            let secret: Secret
+            switch Translator(rawValue: translator) {
+            case .microsoftTranslator, .none:
+                secret = .microsoftTranslator(secret: secretString)
+            case .deepl:
+                secret = .deepl(secret: secretString)
+            }
+            return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
         } else {
             throw MungoError(source: .invalidUserInput, message: "Incomplete [update.translate] options provided, ignoring them all.")
         }
