@@ -140,7 +140,7 @@ class DemoTests: XCTestCase {
         let microsoftSubscriptionKey = "" // TODO: load from environment variable
         guard !microsoftSubscriptionKey.isEmpty else { return }
 
-        let translateOptions = TranslateOptions(paths: ["."], secret: microsoftSubscriptionKey, sourceLocale: "en")
+        let translateOptions = TranslateOptions(paths: ["."], secret: .microsoftTranslator(secret: microsoftSubscriptionKey), sourceLocale: "en")
         TranslateTaskHandler(options: translateOptions).perform()
 
         let expectedMessages: [String] = [
