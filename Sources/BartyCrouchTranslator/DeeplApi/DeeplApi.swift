@@ -68,7 +68,7 @@ extension DeeplApi: Endpoint {
             urlParameters["target_lang"] = .string(targetLanguage.rawValue.capitalized)
             urlParameters["auth_key"] = .string(apiKey)
         }
-        
+
         return urlParameters
     }
 

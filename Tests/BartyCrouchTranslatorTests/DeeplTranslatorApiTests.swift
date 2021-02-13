@@ -20,9 +20,9 @@ class DeeplTranslatorApiTests: XCTestCase {
         switch apiProvider.performRequestAndWait(on: endpoint, decodeBodyTo: DeeplTranslateResponse.self) {
         case let .success(translateResponses):
             XCTAssertEqual(translateResponses.translations[0].text, "Wie alt sind Sie?")
+
         case let .failure(failure):
             XCTFail(failure.localizedDescription)
         }
     }
 }
-

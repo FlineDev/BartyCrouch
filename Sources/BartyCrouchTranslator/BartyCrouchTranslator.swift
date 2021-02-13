@@ -52,6 +52,7 @@ public final class BartyCrouchTranslator {
             case let .failure(failure):
                 return .failure(MungoError(source: .internalInconsistency, message: failure.localizedDescription))
             }
+
         case let .deepl(apiKey):
             var allTranslations: [Translation] = []
             for targetLanguage in targetLanguages {
@@ -60,10 +61,12 @@ public final class BartyCrouchTranslator {
                 case let .success(translateResponse):
                     let translations: [Translation] = translateResponse.translations.map({ (targetLanguage, $0.text) })
                     allTranslations.append(contentsOf: translations)
+
                 case let .failure(failure):
                     return .failure(MungoError(source: .internalInconsistency, message: failure.localizedDescription))
                 }
             }
+
             return .success(allTranslations)
         }
     }

@@ -255,11 +255,12 @@ public class StringsFileUpdater {
             let sourceTranslations = findTranslations(inString: sourceContentString)
             let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
-            
+
             let translator: BartyCrouchTranslator
             switch clientSecret {
             case let .microsoftTranslator(secret):
                 translator = .init(translationService: .microsoft(subscriptionKey: secret))
+
             case let .deepl(secret):
                 translator = .init(translationService: .deepl(apiKey: secret))
             }
