@@ -269,7 +269,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 <details><summary>Options for <code>translate</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
-- `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
+- `translator`: Specifies the translation api. Use `microsoftTranslator` or `deepl`.
+- `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key) or [Authentication Key for DeepL API](https://www.deepl.com/pro-account/plan).
 - `sourceLocale`: The source language to translate from.
 
 </details>
