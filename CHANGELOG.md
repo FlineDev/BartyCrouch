@@ -19,7 +19,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- None.
+- Add support deepl api.
+  PR: [#220](https://github.com/Flinesoft/BartyCrouch/pull/220) | Author: [noppe](https://github.com/noppefoxwolf)
 ### Changed
 - None.
 ### Deprecated
