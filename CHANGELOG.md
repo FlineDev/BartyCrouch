@@ -19,7 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Add support deepl api.
+- Add support for DeepL API as an alternative for Microsoft Translator API.  
   PR: [#220](https://github.com/Flinesoft/BartyCrouch/pull/220) | Author: [noppe](https://github.com/noppefoxwolf)
 ### Changed
 - None.

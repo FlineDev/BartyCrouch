@@ -3,7 +3,7 @@ import Microya
 
 // Documentation can be found here: https://www.deepl.com/ja/docs-api/
 
-enum DeeplApi {
+enum DeepLApi {
     case translate(texts: [String], from: Language, to: Language, apiKey: String)
 
     static let maximumTextsPerRequest: Int = 25
@@ -30,8 +30,8 @@ enum DeeplApi {
     }
 }
 
-extension DeeplApi: Endpoint {
-    typealias ClientErrorType = DeeplTranslateErrorResponse
+extension DeepLApi: Endpoint {
+    typealias ClientErrorType = DeepLTranslateErrorResponse
 
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()

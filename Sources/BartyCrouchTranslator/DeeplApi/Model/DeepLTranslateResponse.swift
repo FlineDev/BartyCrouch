@@ -1,6 +1,6 @@
 import Foundation
 
-struct DeeplTranslateResponse: Decodable {
+struct DeepLTranslateResponse: Decodable {
     struct Translation: Decodable {
         let detectedSourceLanguage: String
         let text: String

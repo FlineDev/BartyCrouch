@@ -4,7 +4,7 @@ import Toml
 
 enum Translator: String {
     case microsoftTranslator
-    case deepl
+    case deepL
 }
 
 struct TranslateOptions {
@@ -27,8 +27,8 @@ extension TranslateOptions: TomlCodable {
             case .microsoftTranslator, .none:
                 secret = .microsoftTranslator(secret: secretString)
 
-            case .deepl:
-                secret = .deepl(secret: secretString)
+            case .deepL:
+                secret = .deepL(secret: secretString)
             }
 
             return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
@@ -42,7 +42,7 @@ extension TranslateOptions: TomlCodable {
 
         lines.append("paths = \(paths)")
         switch secret {
-        case let .deepl(secret):
+        case let .deepL(secret):
             lines.append("secret = \"\(secret)\"")
 
         case let .microsoftTranslator(secret):

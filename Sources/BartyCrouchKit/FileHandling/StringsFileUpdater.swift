@@ -261,8 +261,8 @@ public class StringsFileUpdater {
             case let .microsoftTranslator(secret):
                 translator = .init(translationService: .microsoft(subscriptionKey: secret))
 
-            case let .deepl(secret):
-                translator = .init(translationService: .deepl(apiKey: secret))
+            case let .deepL(secret):
+                translator = .init(translationService: .deepL(apiKey: secret))
             }
 
             for sourceTranslation in sourceTranslations {

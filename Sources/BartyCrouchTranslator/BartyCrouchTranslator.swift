@@ -16,11 +16,11 @@ public final class BartyCrouchTranslator {
         /// - Parameters:
         ///   - subscriptionKey: The `Ocp-Apim-Subscription-Key`, also called "Azure secret key" in the docs.
         case microsoft(subscriptionKey: String)
-        case deepl(apiKey: String)
+        case deepL(apiKey: String)
     }
 
     private let microsoftProvider = ApiProvider<MicrosoftTranslatorApi>()
-    private let deeplProvider = ApiProvider<DeeplApi>()
+    private let deepLProvider = ApiProvider<DeepLApi>()
 
     private let translationService: TranslationService
 
@@ -53,11 +53,11 @@ public final class BartyCrouchTranslator {
                 return .failure(MungoError(source: .internalInconsistency, message: failure.localizedDescription))
             }
 
-        case let .deepl(apiKey):
+        case let .deepL(apiKey):
             var allTranslations: [Translation] = []
             for targetLanguage in targetLanguages {
-                let endpoint = DeeplApi.translate(texts: [text], from: sourceLanguage, to: targetLanguage, apiKey: apiKey)
-                switch deeplProvider.performRequestAndWait(on: endpoint, decodeBodyTo: DeeplTranslateResponse.self) {
+                let endpoint = DeepLApi.translate(texts: [text], from: sourceLanguage, to: targetLanguage, apiKey: apiKey)
+                switch deepLProvider.performRequestAndWait(on: endpoint, decodeBodyTo: DeepLTranslateResponse.self) {
                 case let .success(translateResponse):
                     let translations: [Translation] = translateResponse.translations.map({ (targetLanguage, $0.text) })
                     allTranslations.append(contentsOf: translations)
