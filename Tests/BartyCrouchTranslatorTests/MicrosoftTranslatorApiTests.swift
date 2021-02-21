@@ -16,7 +16,7 @@ class MicrosoftTranslatorApiTests: XCTestCase {
               .turkish,
               Language.with(languageCode: "pt", region: "BR")!,
               Language.with(languageCode: "pt", region: "PT")!,
-              Language.with(languageCode: "fr", region: "CA")!,
+              Language.with(languageCode: "fr", region: "CA")!
             ],
             microsoftSubscriptionKey: microsoftSubscriptionKey
         )

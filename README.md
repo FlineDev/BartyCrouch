@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.4.1-blue.svg"
-         alt="Version: 4.4.1">
+    <img src="https://img.shields.io/badge/Version-4.5.0-blue.svg"
+         alt="Version: 4.5.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
      alt="Swift: 5.3">
@@ -269,7 +269,8 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 <details><summary>Options for <code>translate</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
-- `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key).
+- `translator`: Specifies the translation API. Use `microsoftTranslator` or `deepL`.
+- `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key) or [Authentication Key for DeepL API](https://www.deepl.com/pro-account/plan).
 - `sourceLocale`: The source language to translate from.
 
 </details>

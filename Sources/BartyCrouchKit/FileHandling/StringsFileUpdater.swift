@@ -222,7 +222,7 @@ public class StringsFileUpdater {
     ///   - clientSecret:                   The Microsoft Translator API Client Secret.
     ///   - override:                       Specified if values should be overridden.
     /// - Returns: The number of values translated successfully.
-    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientSecret: String, override: Bool = false) throws -> Int {
+    public func translateEmptyValues(usingValuesFromStringsFile sourceStringsFilePath: String, clientSecret: Secret, override: Bool = false) throws -> Int {
         guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
             throw MungoFatalError(
                 source: .invalidUserInput,
@@ -256,7 +256,14 @@ public class StringsFileUpdater {
             let existingTargetTranslations = findTranslations(inString: oldContentString)
             var updatedTargetTranslations: [TranslationEntry] = []
 
-            let translator = BartyCrouchTranslator(translationService: .microsoft(subscriptionKey: clientSecret))
+            let translator: BartyCrouchTranslator
+            switch clientSecret {
+            case let .microsoftTranslator(secret):
+                translator = .init(translationService: .microsoft(subscriptionKey: secret))
+
+            case let .deepL(secret):
+                translator = .init(translationService: .deepL(apiKey: secret))
+            }
 
             for sourceTranslation in sourceTranslations {
                 let (sourceKey, sourceValue, sourceComment, sourceLine) = sourceTranslation

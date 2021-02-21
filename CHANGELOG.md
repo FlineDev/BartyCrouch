@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.5.0] - 2021-02-21
+### Added
+- Add support for DeepL API as an alternative for Microsoft Translator API.  
+  PR: [#220](https://github.com/Flinesoft/BartyCrouch/pull/220) | Author: [noppe](https://github.com/noppefoxwolf)
+
 ## [4.4.1] - 2021-01-16
 ### Fixed
 - Fixed an issue with unmatching country code casing for Portuguese and Canadian French.  

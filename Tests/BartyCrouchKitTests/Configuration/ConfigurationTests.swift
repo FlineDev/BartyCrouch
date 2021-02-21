@@ -129,7 +129,7 @@ class ConfigurationTests: XCTestCase {
             XCTAssertEqual(configuration.updateOptions.normalize.sortByKeys, false)
 
             XCTAssertEqual(configuration.updateOptions.translate!.paths, ["Sources"])
-            XCTAssertEqual(configuration.updateOptions.translate!.secret, "bingSecret")
+            XCTAssertEqual(configuration.updateOptions.translate!.secret, Secret.microsoftTranslator(secret: "bingSecret"))
             XCTAssertEqual(configuration.updateOptions.translate!.sourceLocale, "de")
 
             XCTAssertEqual(configuration.lintOptions.paths, ["Sources"])

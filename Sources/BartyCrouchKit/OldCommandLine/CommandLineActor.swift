@@ -76,7 +76,7 @@ public class CommandLineActor {
         }
     }
 
-    func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: String, locale: String) {
+    func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: Secret, locale: String) {
         let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
@@ -316,7 +316,7 @@ public class CommandLineActor {
         print("Successfully updated strings file(s) of Storyboard or XIB file.", level: .success, file: inputFilePath)
     }
 
-    private func translate(secret: String, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
+    private func translate(secret: Secret, _ inputFilePath: String, _ outputStringsFilePaths: [String], override: Bool, verbose: Bool) {
         var overallTranslatedValuesCount = 0
         var filesWithTranslatedValuesCount = 0
 
