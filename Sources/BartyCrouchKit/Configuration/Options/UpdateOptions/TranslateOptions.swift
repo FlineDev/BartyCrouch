@@ -2,9 +2,14 @@ import Foundation
 import MungoHealer
 import Toml
 
+enum Translator: String {
+    case microsoftTranslator
+    case deepL
+}
+
 struct TranslateOptions {
     let paths: [String]
-    let secret: String
+    let secret: Secret
     let sourceLocale: String
 }
 
@@ -13,9 +18,19 @@ extension TranslateOptions: TomlCodable {
         let update: String = "update"
         let translate: String = "translate"
 
-        if let secret: String = toml.string(update, translate, "secret") {
+        if let secretString: String = toml.string(update, translate, "secret") {
+            let translator = toml.string(update, translate, "translator") ?? ""
             let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
+            let secret: Secret
+            switch Translator(rawValue: translator) {
+            case .microsoftTranslator, .none:
+                secret = .microsoftTranslator(secret: secretString)
+
+            case .deepL:
+                secret = .deepL(secret: secretString)
+            }
+
             return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
         } else {
             throw MungoError(source: .invalidUserInput, message: "Incomplete [update.translate] options provided, ignoring them all.")
@@ -26,7 +41,14 @@ extension TranslateOptions: TomlCodable {
         var lines: [String] = ["[update.translate]"]
 
         lines.append("paths = \(paths)")
-        lines.append("secret = \"\(secret)\"")
+        switch secret {
+        case let .deepL(secret):
+            lines.append("secret = \"\(secret)\"")
+
+        case let .microsoftTranslator(secret):
+            lines.append("secret = \"\(secret)\"")
+        }
+
         lines.append("sourceLocale = \"\(sourceLocale)\"")
 
         return lines.joined(separator: "\n")
