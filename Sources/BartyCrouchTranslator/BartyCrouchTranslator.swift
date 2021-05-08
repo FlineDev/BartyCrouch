@@ -19,8 +19,8 @@ public final class BartyCrouchTranslator {
         case deepL(apiKey: String)
     }
 
-    private let microsoftProvider = ApiProvider<MicrosoftTranslatorApi>()
-    private let deepLProvider = ApiProvider<DeepLApi>()
+    private let microsoftProvider = ApiProvider<MicrosoftTranslatorApi>(baseUrl: MicrosoftTranslatorApi.baseUrl)
+    private let deepLProvider = ApiProvider<DeepLApi>(baseUrl: DeepLApi.baseUrl)
 
     private let translationService: TranslationService
 

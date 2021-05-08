@@ -17,8 +17,8 @@
     <img src="https://img.shields.io/badge/Version-4.5.0-blue.svg"
          alt="Version: 4.5.0">
   </a>
-  <img src="https://img.shields.io/badge/Swift-5.3-FFAC45.svg"
-     alt="Swift: 5.3">
+  <img src="https://img.shields.io/badge/Swift-5.4-FFAC45.svg"
+     alt="Swift: 5.4">
   <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
          alt="License: MIT">
@@ -58,7 +58,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 
 ## Requirements
 
-- Xcode 11.4+ & Swift 5.2+
+- Xcode 12.5+ & Swift 5.4+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started

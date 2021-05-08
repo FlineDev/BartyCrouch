@@ -21,7 +21,7 @@ class MicrosoftTranslatorApiTests: XCTestCase {
             microsoftSubscriptionKey: microsoftSubscriptionKey
         )
 
-        let apiProvider = ApiProvider<MicrosoftTranslatorApi>()
+        let apiProvider = ApiProvider<MicrosoftTranslatorApi>(baseUrl: MicrosoftTranslatorApi.baseUrl)
 
         switch apiProvider.performRequestAndWait(on: endpoint, decodeBodyTo: [TranslateResponse].self) {
         case let .success(translateResponses):

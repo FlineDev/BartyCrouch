@@ -21,7 +21,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Added
 - None.
 ### Changed
-- None.
+- Updated swift-syntax to match Swift 5.4 to support Xcode 12.5.  
+  Issues: [#222](https://github.com/Flinesoft/BartyCrouch/issues/222) | PR: [#223](https://github.com/Flinesoft/BartyCrouch/pull/223) | Author: [Matt Sanford](https://github.com/mzsanford)
 ### Deprecated
 - None.
 ### Removed
