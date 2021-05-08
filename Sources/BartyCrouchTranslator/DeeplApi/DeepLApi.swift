@@ -33,6 +33,10 @@ enum DeepLApi {
 extension DeepLApi: Endpoint {
     typealias ClientErrorType = DeepLTranslateErrorResponse
 
+    static var baseUrl: URL {
+        URL(string: "https://api.deepl.com")!
+    }
+
     var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -41,10 +45,6 @@ extension DeepLApi: Endpoint {
 
     var encoder: JSONEncoder {
         JSONEncoder()
-    }
-
-    var baseUrl: URL {
-        URL(string: "https://api.deepl.com")!
     }
 
     var subpath: String {

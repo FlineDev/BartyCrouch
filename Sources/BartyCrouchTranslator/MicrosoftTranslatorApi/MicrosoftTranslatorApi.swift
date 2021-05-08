@@ -33,16 +33,16 @@ enum MicrosoftTranslatorApi {
 extension MicrosoftTranslatorApi: Endpoint {
     typealias ClientErrorType = EmptyBodyResponse
 
+    static var baseUrl: URL {
+        return URL(string: "https://api.cognitive.microsofttranslator.com")!
+    }
+
     var decoder: JSONDecoder {
         return JSONDecoder()
     }
 
     var encoder: JSONEncoder {
         return JSONEncoder()
-    }
-
-    var baseUrl: URL {
-        return URL(string: "https://api.cognitive.microsofttranslator.com")!
     }
 
     var subpath: String {
