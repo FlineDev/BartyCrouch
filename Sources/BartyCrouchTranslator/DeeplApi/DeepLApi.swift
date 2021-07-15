@@ -31,10 +31,20 @@ enum DeepLApi {
 }
 
 extension DeepLApi: Endpoint {
+    enum ApiType {
+        case free
+        case pro
+    }
+
     typealias ClientErrorType = DeepLTranslateErrorResponse
 
-    static var baseUrl: URL {
-        URL(string: "https://api.deepl.com")!
+    static func baseUrl(for apiType: ApiType) -> URL {
+        switch apiType {
+        case .free:
+            return URL(string: "https://api-free.deepl.com")!
+        case .pro:
+            return URL(string: "https://api.deepl.com")!
+        }
     }
 
     var decoder: JSONDecoder {
