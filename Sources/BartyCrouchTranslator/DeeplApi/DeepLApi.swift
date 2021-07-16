@@ -31,20 +31,11 @@ enum DeepLApi {
 }
 
 extension DeepLApi: Endpoint {
+    typealias ClientErrorType = DeepLTranslateErrorResponse
+
     enum ApiType {
         case free
         case pro
-    }
-
-    typealias ClientErrorType = DeepLTranslateErrorResponse
-
-    static func baseUrl(for apiType: ApiType) -> URL {
-        switch apiType {
-        case .free:
-            return URL(string: "https://api-free.deepl.com")!
-        case .pro:
-            return URL(string: "https://api.deepl.com")!
-        }
     }
 
     var decoder: JSONDecoder {
@@ -84,5 +75,15 @@ extension DeepLApi: Endpoint {
 
     var headers: [String: String] {
         ["Content-Type": "application/json"]
+    }
+
+    static func baseUrl(for apiType: ApiType) -> URL {
+        switch apiType {
+        case .free:
+            return URL(string: "https://api-free.deepl.com")!
+
+        case .pro:
+            return URL(string: "https://api.deepl.com")!
+        }
     }
 }

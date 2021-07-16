@@ -27,13 +27,14 @@ public final class BartyCrouchTranslator {
     /// Creates a new translator object configured to use the specified translation service.
     public init(translationService: TranslationService) {
         self.translationService = translationService
-        
+
         let deepLApiType: DeepLApi.ApiType
         if case let .deepL(apiKey) = translationService {
             deepLApiType = apiKey.hasSuffix(":fx") ? .free : .pro
         } else {
             deepLApiType = .pro
         }
+
         deepLProvider = ApiProvider<DeepLApi>(baseUrl: DeepLApi.baseUrl(for: deepLApiType))
     }
 
