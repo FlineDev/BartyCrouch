@@ -19,7 +19,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- None.
+- Add support for DeepL API Free  
+  PR: [#230](https://github.com/Flinesoft/BartyCrouch/pull/230) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
 ### Changed
 - None.
 ### Deprecated
