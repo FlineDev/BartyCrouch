@@ -19,8 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Add support for DeepL API Free  
-  PR: [#230](https://github.com/Flinesoft/BartyCrouch/pull/230) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
+- None.
 ### Changed
 - None.
 ### Deprecated
@@ -31,6 +30,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 - None.
 ### Security
 - None.
+
+## [4.7.0] - 2021-07-31
+### Added
+- Add support for DeepL API Free  
+  PR: [#230](https://github.com/Flinesoft/BartyCrouch/pull/230) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
 
 ## [4.6.0] - 2021-05-08
 ### Changed
