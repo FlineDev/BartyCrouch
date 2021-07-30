@@ -15,7 +15,7 @@ class DeepLTranslatorApiTests: XCTestCase {
             apiKey: apiKey
         )
 
-        let apiProvider = ApiProvider<DeepLApi>(baseUrl: DeepLApi.baseUrl)
+        let apiProvider = ApiProvider<DeepLApi>(baseUrl: DeepLApi.baseUrl(for: .pro))
 
         switch apiProvider.performRequestAndWait(on: endpoint, decodeBodyTo: DeepLTranslateResponse.self) {
         case let .success(translateResponses):
