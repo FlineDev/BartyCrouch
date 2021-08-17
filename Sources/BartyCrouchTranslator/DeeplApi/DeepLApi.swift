@@ -93,6 +93,7 @@ private extension Language {
         switch self {
         case .chineseSimplified:
             return .string("ZH")
+
         default:
             return .string(rawValue.uppercased())
         }
