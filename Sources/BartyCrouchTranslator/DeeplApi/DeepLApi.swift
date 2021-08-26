@@ -65,8 +65,8 @@ extension DeepLApi: Endpoint {
         switch self {
         case let .translate(texts, sourceLanguage, targetLanguage, apiKey):
             urlParameters["text"] = .array(texts)
-            urlParameters["source_lang"] = .string(sourceLanguage.rawValue.capitalized)
-            urlParameters["target_lang"] = .string(targetLanguage.rawValue.capitalized)
+            urlParameters["source_lang"] = sourceLanguage.deepLParameterValue
+            urlParameters["target_lang"] = targetLanguage.deepLParameterValue
             urlParameters["auth_key"] = .string(apiKey)
         }
 
@@ -84,6 +84,18 @@ extension DeepLApi: Endpoint {
 
         case .pro:
             return URL(string: "https://api.deepl.com")!
+        }
+    }
+}
+
+private extension Language {
+    var deepLParameterValue: QueryParameterValue {
+        switch self {
+        case .chineseSimplified:
+            return .string("ZH")
+
+        default:
+            return .string(rawValue.uppercased())
         }
     }
 }

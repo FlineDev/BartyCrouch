@@ -27,7 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- None.
+- Fixed that DeepL translation doesn't work for Simplified Chinese  
+  PR: [#232](https://github.com/Flinesoft/BartyCrouch/pull/232) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
 ### Security
 - None.
 
