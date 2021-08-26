@@ -1,7 +1,7 @@
 class Bartycrouch < Formula
   desc "Incrementally update/translate your Strings files"
   homepage "https://github.com/Flinesoft/BartyCrouch"
-  url "https://github.com/Flinesoft/BartyCrouch.git", :tag => "4.6.0", :revision => "771a4aeaab1cf262f0af51811379aaeea675e3cc"
+  url "https://github.com/Flinesoft/BartyCrouch.git", :tag => "4.7.0", :revision => "c16b219d28ce27e57744dcf67adfde7a2912d78a"
   head "https://github.com/Flinesoft/BartyCrouch.git"
 
   depends_on :xcode => ["12.0", :build]

@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.7.1] - 2021-08-26
+### Fixed
+- Fixed that DeepL translation doesn't work for Simplified Chinese.  
+  PR: [#232](https://github.com/Flinesoft/BartyCrouch/pull/232) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
+
 ## [4.7.0] - 2021-07-31
 ### Added
 - Add support for DeepL API Free  
