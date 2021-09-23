@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "combine-schedulers",
+        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers.git",
+        "state": {
+          "branch": null,
+          "revision": "4cf088c29a20f52be0f2ca54992b492c54e0076b",
+          "version": "0.5.3"
+        }
+      },
+      {
         "package": "HandySwift",
         "repositoryURL": "https://github.com/Flinesoft/HandySwift.git",
         "state": {
@@ -15,7 +24,7 @@
         "repositoryURL": "https://github.com/Flinesoft/Microya.git",
         "state": {
           "branch": "main",
-          "revision": "fa994e12c0c0a383c66cb7fd644b9ec6ee534bf9",
+          "revision": "ab94fc312b67268e3e8902f54913001dea630753",
           "version": null
         }
       },
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
           "branch": null,
-          "revision": "2fff9fc25cdc059379b6bd309377cfab45d8520c",
-          "version": "0.50400.0"
+          "revision": "75e60475d9d8fd5bbc16a12e0eaa2cb01b0c322e",
+          "version": "0.50500.0"
         }
       },
       {
@@ -60,8 +69,17 @@
         "repositoryURL": "https://github.com/jakeheis/SwiftCLI.git",
         "state": {
           "branch": null,
-          "revision": "2816678bcc37f4833d32abeddbdf5e757fa891d8",
-          "version": "6.0.2"
+          "revision": "2e949055d9797c1a6bddcda0e58dada16cc8e970",
+          "version": "6.0.3"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
         }
       }
     ]
