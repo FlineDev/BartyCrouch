@@ -3,7 +3,6 @@ name: CI
 on:
   push:
     branches: [main, versions]
-
   pull_request:
     branches: [main]
 
@@ -28,11 +27,28 @@ jobs:
         with:
           args: --strict
 
-  test-macos:
-    runs-on: macOS-latest
+  build-macos:
+    runs-on: macos-11
 
     steps:
       - uses: actions/checkout@v2
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Run tests
+        run: swift build -v -c release
+
+  test-macos:
+    runs-on: macos-11
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
 
       - name: Run tests
         run: swift test -v
