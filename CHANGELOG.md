@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.8.0] - 2021-10-10
+### Changed
+- Update SwiftSyntax dependency to Swift 5.5 to support Xcode 13.  
+  Author: [Kevin](https://github.com/moogle19)
+
 ## [4.7.1] - 2021-08-26
 ### Fixed
 - Fixed that DeepL translation doesn't work for Simplified Chinese.  
