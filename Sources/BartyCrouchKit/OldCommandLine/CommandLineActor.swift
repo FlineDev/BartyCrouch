@@ -243,6 +243,10 @@ public class CommandLineActor {
             let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
             guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
                 print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
+                
+                // BUGFIX: Remove empty /tmpstrings/ folder again.
+                try? FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
+                
                 return // NOTE: Expecting to see this only for empty project situations.
             }
 
