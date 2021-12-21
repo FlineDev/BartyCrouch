@@ -390,6 +390,12 @@ func updateTimeLabel(minutes: Int) {
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
 
+### Things to Know:
+
+- Files named or files in folders named ".git", "carthage", "pods", "build", 
+  ".build" and "docs" (case insensitive) will always be ignored.
+
+
 ## Donation
 
 BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Jeehut) in his free time. If you want to thank me and support the development of this project, please **make a small donation on [PayPal](https://paypal.me/Dschee/5EUR)**. In case you also like my other [open source contributions](https://github.com/Flinesoft) and [articles](https://medium.com/@Jeehut), please consider motivating me by **becoming a sponsor on [GitHub](https://github.com/sponsors/Jeehut)** or a **patron on [Patreon](https://www.patreon.com/Jeehut)**.
