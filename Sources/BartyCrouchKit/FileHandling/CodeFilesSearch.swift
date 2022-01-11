@@ -1,7 +1,6 @@
 import Foundation
 
 final class CodeFilesSearch: FilesSearchable {
-
     static let dirsToIgnore = Set([".git", "carthage", "pods", "build", ".build", "docs"])
 
     private let baseDirectoryPath: String
