@@ -15,9 +15,10 @@ extension FilesSearchable {
 
         var filePaths = [String]()
         let baseDirectoryAbsolutePath = baseDirectoryURL.path
+        let cfs = CodeFilesSearch(baseDirectoryPath: baseDirectoryAbsolutePath)
 
         for case let url as URL in enumerator {
-            if CodeFilesSearch.shouldSkipFile(at: url) {
+            if cfs.shouldSkipFile(at: url) {
                 enumerator.skipDescendants()
                 continue
             }

@@ -1,16 +1,21 @@
 import Foundation
 
 final class CodeFilesSearch: FilesSearchable {
+
+    static let dirsToIgnore = Set([".git", "carthage", "pods", "build", ".build", "docs"])
+
     private let baseDirectoryPath: String
+    private let basePathComponents: [String]
 
     init(baseDirectoryPath: String) {
         self.baseDirectoryPath = baseDirectoryPath
+
+        basePathComponents = URL(fileURLWithPath: baseDirectoryPath).pathComponents
     }
 
-    static func shouldSkipFile(at url: URL) -> Bool {
-        let dirsToIgnore = Set([".git", "carthage", "pods", "build", ".build", "docs"])
-        return url.pathComponents.contains { component in
-            dirsToIgnore.contains(component.lowercased())
+    func shouldSkipFile(at url: URL) -> Bool {
+        return Set(url.pathComponents).subtracting(basePathComponents).contains { component in
+            Self.dirsToIgnore.contains(component.lowercased())
         }
     }
 
