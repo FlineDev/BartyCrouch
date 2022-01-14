@@ -14,6 +14,7 @@ extension InterfacesTaskHandler: TaskHandler {
             mungo.do {
                 CommandLineActor().actOnInterfaces(
                     paths: options.paths,
+                    subpathsToIgnore: options.subpathsToIgnore,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     defaultToBase: options.defaultToBase,

@@ -3,6 +3,7 @@ import Toml
 
 struct CodeOptions {
     let codePaths: [String]
+    let subpathsToIgnore: [String]
     let localizablePaths: [String]
     let defaultToKeys: Bool
     let additive: Bool
@@ -20,6 +21,7 @@ extension CodeOptions: TomlCodable {
 
         return CodeOptions(
             codePaths: toml.filePaths(update, code, singularKey: "codePath", pluralKey: "codePaths"),
+            subpathsToIgnore: toml.array(update, code, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore,
             localizablePaths: toml.filePaths(update, code, singularKey: "localizablePath", pluralKey: "localizablePaths"),
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
@@ -35,6 +37,7 @@ extension CodeOptions: TomlCodable {
         var lines: [String] = ["[update.code]"]
 
         lines.append("codePaths = \(codePaths)")
+        lines.append("subpathsToIgnore = \(subpathsToIgnore)")
         lines.append("localizablePaths = \(localizablePaths)")
         lines.append("defaultToKeys = \(defaultToKeys)")
         lines.append("additive = \(additive)")

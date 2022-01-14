@@ -17,6 +17,7 @@ public class CommandLineActor {
 
     func actOnCode(
         paths: [String],
+        subpathsToIgnore: [String],
         override: Bool,
         verbose: Bool,
         localizables: [String],
@@ -31,7 +32,7 @@ public class CommandLineActor {
     ) {
         let localizableFileName = customLocalizableName ?? "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
-            StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName)
+            StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName, subpathsToIgnore: subpathsToIgnore)
         }.withoutDuplicates()
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
@@ -41,6 +42,7 @@ public class CommandLineActor {
 
         self.incrementalCodeUpdate(
             inputDirectoryPaths: paths,
+            subpathsToIgnore: subpathsToIgnore,
             allLocalizableStringsFilePaths,
             override: override,
             verbose: verbose,
@@ -55,8 +57,19 @@ public class CommandLineActor {
         )
     }
 
-    func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool, ignoreKeys: [String]) {
-        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
+    func actOnInterfaces(
+      paths: [String],
+      subpathsToIgnore: [String],
+      override: Bool,
+      verbose: Bool,
+      defaultToBase: Bool,
+      unstripped: Bool,
+      ignoreEmptyStrings: Bool,
+      ignoreKeys: [String]
+    ) {
+        let inputFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllIBFiles(within: $0, subpathsToIgnore: subpathsToIgnore, withLocale: "Base")
+        }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -79,8 +92,21 @@ public class CommandLineActor {
         }
     }
 
-    func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: Secret, locale: String) {
-        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
+    func actOnTranslate(
+      paths: [String],
+      subpathsToIgnore: [String],
+      override: Bool,
+      verbose: Bool,
+      secret: Secret,
+      locale: String
+    ) {
+        let inputFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(
+            within: $0,
+            withLocale: locale,
+            subpathsToIgnore: subpathsToIgnore
+          )
+        }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -96,13 +122,20 @@ public class CommandLineActor {
 
     func actOnNormalize(
         paths: [String],
+        subpathsToIgnore: [String],
         override: Bool,
         verbose: Bool,
         locale: String,
         sortByKeys: Bool,
         harmonizeWithSource: Bool
     ) {
-        let sourceFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
+        let sourceFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(
+            within: $0,
+            withLocale: locale,
+            subpathsToIgnore: subpathsToIgnore
+          )
+        }.withoutDuplicates()
         guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .warning); return }
 
         for sourceFilePath in sourceFilePaths {
@@ -142,8 +175,10 @@ public class CommandLineActor {
         }
     }
 
-    func actOnLint(paths: [String], duplicateKeys: Bool, emptyValues: Bool) {
-        let stringsFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0) }.withoutDuplicates()
+    func actOnLint(paths: [String], subpathsToIgnore: [String], duplicateKeys: Bool, emptyValues: Bool) {
+        let stringsFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(within: $0, subpathsToIgnore: subpathsToIgnore)
+        }.withoutDuplicates()
         guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); return }
 
         let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
@@ -210,6 +245,7 @@ public class CommandLineActor {
 
     private func incrementalCodeUpdate(
         inputDirectoryPaths: [String],
+        subpathsToIgnore: [String],
         _ outputStringsFilePaths: [String],
         override: Bool,
         verbose: Bool,
@@ -237,7 +273,8 @@ public class CommandLineActor {
                     stringsFilesToPath: extractedStringsFileDirectory,
                     fromCodeInDirectoryPath: inputDirectoryPath,
                     customFunction: customFunction,
-                    usePlistArguments: usePlistArguments
+                    usePlistArguments: usePlistArguments,
+                    subpathsToIgnore: subpathsToIgnore
                 )
             } catch {
                 print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)

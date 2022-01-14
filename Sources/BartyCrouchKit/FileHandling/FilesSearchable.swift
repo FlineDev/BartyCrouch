@@ -1,12 +1,18 @@
 import Foundation
 
 protocol FilesSearchable {
-    func findAllFilePaths(inDirectoryPath baseDirectoryPath: String, matching regularExpression: NSRegularExpression, ignoreSuffixes: Set<String>) -> [String]
+    func findAllFilePaths(
+      inDirectoryPath baseDirectoryPath: String,
+      subpathsToIgnore: [String],
+      matching regularExpression: NSRegularExpression,
+      ignoreSuffixes: Set<String>
+    ) -> [String]
 }
 
 extension FilesSearchable {
     func findAllFilePaths(
         inDirectoryPath baseDirectoryPath: String,
+        subpathsToIgnore: [String],
         matching regularExpression: NSRegularExpression,
         ignoreSuffixes: Set<String> = []
     ) -> [String] {
@@ -18,7 +24,7 @@ extension FilesSearchable {
         let codeFilesSearch = CodeFilesSearch(baseDirectoryPath: baseDirectoryAbsolutePath)
 
         for case let url as URL in enumerator {
-            if codeFilesSearch.shouldSkipFile(at: url) {
+            if codeFilesSearch.shouldSkipFile(at: url, subpathsToIgnore: subpathsToIgnore) {
                 enumerator.skipDescendants()
                 continue
             }

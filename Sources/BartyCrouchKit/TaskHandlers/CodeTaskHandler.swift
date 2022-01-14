@@ -14,6 +14,7 @@ extension CodeTaskHandler: TaskHandler {
             mungo.do {
                 CommandLineActor().actOnCode(
                     paths: options.codePaths,
+                    subpathsToIgnore: options.subpathsToIgnore,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     localizables: options.localizablePaths,

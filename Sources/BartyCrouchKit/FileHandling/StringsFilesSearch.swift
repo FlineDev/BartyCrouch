@@ -13,37 +13,44 @@ public final class StringsFilesSearch: FilesSearchable {
     private static let denyListedStringFileNames: Set<String> = ["InfoPlist.strings"]
 
     // MARK: - Instance Methods
-    public func findAllIBFiles(within baseDirectoryPath: String, withLocale locale: String = "Base") -> [String] {
+    public func findAllIBFiles(within baseDirectoryPath: String, subpathsToIgnore: [String], withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try
         let ibFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.(storyboard|xib)\\z", options: .caseInsensitive)
-        return self.findAllFilePaths(inDirectoryPath: baseDirectoryPath, matching: ibFileRegex)
+        return self.findAllFilePaths(
+          inDirectoryPath: baseDirectoryPath,
+          subpathsToIgnore: subpathsToIgnore,
+          matching: ibFileRegex
+        )
     }
 
-    public func findAllStringsFiles(within baseDirectoryPath: String, withLocale locale: String) -> [String] {
+    public func findAllStringsFiles(within baseDirectoryPath: String, withLocale locale: String, subpathsToIgnore: [String]) -> [String] {
         // swiftlint:disable:next force_try
         let stringsFileRegex = try! NSRegularExpression(pattern: "^(.*\\/)?\(locale).lproj.*\\.strings\\z", options: .caseInsensitive)
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
+            subpathsToIgnore: subpathsToIgnore,
             matching: stringsFileRegex,
             ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )
     }
 
-    public func findAllStringsFiles(within baseDirectoryPath: String, withFileName fileName: String) -> [String] {
+    public func findAllStringsFiles(within baseDirectoryPath: String, withFileName fileName: String, subpathsToIgnore: [String]) -> [String] {
         // swiftlint:disable:next force_try
         let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\.lproj/\(fileName)\\.strings\\z", options: .caseInsensitive)
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
+            subpathsToIgnore: subpathsToIgnore,
             matching: stringsFileRegex,
             ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )
     }
 
-    public func findAllStringsFiles(within baseDirectoryPath: String) -> [String] {
+    public func findAllStringsFiles(within baseDirectoryPath: String, subpathsToIgnore: [String]) -> [String] {
         // swiftlint:disable:next force_try
         let stringsFileRegex = try! NSRegularExpression(pattern: ".*\\.lproj/.+\\.strings\\z", options: .caseInsensitive)
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
+            subpathsToIgnore: subpathsToIgnore,
             matching: stringsFileRegex,
             ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
         )

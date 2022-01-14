@@ -14,6 +14,7 @@ extension NormalizeTaskHandler: TaskHandler {
             mungo.do {
                 CommandLineActor().actOnNormalize(
                     paths: options.paths,
+                    subpathsToIgnore: options.subpathsToIgnore,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     locale: options.sourceLocale,

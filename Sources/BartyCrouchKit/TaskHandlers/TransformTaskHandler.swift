@@ -14,7 +14,10 @@ extension TransformTaskHandler: TaskHandler {
             mungo.do {
                 var caseToLangCodeOptional: [String: String]?
 
-                for codeFile in CodeFilesSearch(baseDirectoryPath: options.supportedLanguageEnumPath.absolutePath).findCodeFiles() {
+                let codeFilesArray = CodeFilesSearch(baseDirectoryPath: options.supportedLanguageEnumPath.absolutePath)
+                  .findCodeFiles(subpathsToIgnore: options.subpathsToIgnore)
+
+                for codeFile in codeFilesArray {
                     if let foundCaseToLangCode = CodeFileHandler(path: codeFile).findCaseToLangCodeMappings(typeName: options.typeName) {
                         caseToLangCodeOptional = foundCaseToLangCode
                         break
@@ -32,7 +35,14 @@ extension TransformTaskHandler: TaskHandler {
 
                 var translateEntries: [CodeFileHandler.TranslateEntry] = []
 
-                for codeFile in Set(options.codePaths.flatMap { CodeFilesSearch(baseDirectoryPath: $0.absolutePath).findCodeFiles() }) {
+                let codeFilesSet = Set(
+                  options.codePaths.flatMap {
+                    CodeFilesSearch(baseDirectoryPath: $0.absolutePath)
+                      .findCodeFiles(subpathsToIgnore: options.subpathsToIgnore)
+                  }
+                )
+
+                for codeFile in codeFilesSet {
                     let codeFileHandler = CodeFileHandler(path: codeFile)
 
                     translateEntries += try codeFileHandler.transform(
@@ -48,7 +58,8 @@ extension TransformTaskHandler: TaskHandler {
                         options.localizablePaths.flatMap {
                             StringsFilesSearch.shared.findAllStringsFiles(
                                 within: $0.absolutePath,
-                                withFileName: options.customLocalizableName ?? "Localizable"
+                                withFileName: options.customLocalizableName ?? "Localizable",
+                                subpathsToIgnore: options.subpathsToIgnore
                             )
                         }
                     )
