@@ -20,7 +20,7 @@ extension InterfacesTaskHandler: TaskHandler {
                     unstripped: options.unstripped,
                     ignoreEmptyStrings: options.ignoreEmptyStrings
                 )
-                
+
                 CommandLineActor().actOnIntentDefinitions(
                     paths: options.paths,
                     override: false,

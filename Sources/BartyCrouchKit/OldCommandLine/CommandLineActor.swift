@@ -1,4 +1,4 @@
-// swiftlint:disable function_parameter_count type_body_length cyclomatic_complexity
+// swiftlint:disable function_parameter_count type_body_length cyclomatic_complexity file_length
 
 import Foundation
 import SwiftyXML
@@ -76,7 +76,7 @@ public class CommandLineActor {
             )
         }
     }
-    
+
     func actOnIntentDefinitions(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
         let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIntentDefinitionFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
 
@@ -343,7 +343,8 @@ public class CommandLineActor {
 
         print("Successfully updated strings file(s) of Storyboard or XIB file.", level: .success, file: inputFilePath)
     }
-    
+
+    // swiftlint:disable:next function_body_length
     private func incrementalIntentDefinitionUpdate(
         _ inputFilePath: String,
         _ outputStringsFilePaths: [String],
@@ -375,9 +376,7 @@ public class CommandLineActor {
                 traverse(xml: child)
             }
 
-            guard xml.xmlName == "dict" else {
-                return
-            }
+            guard xml.xmlName == "dict" else { return }
 
             var xmlDict = [String: String]()
             var currentKey = ""
@@ -390,20 +389,19 @@ public class CommandLineActor {
             }
 
             for (key, value) in xmlDict {
-                guard key.hasSuffix("ID") else {
-                    continue
-                }
+                guard key.hasSuffix("ID") else { continue }
+                guard let baseTranslation = xmlDict[String(key.prefix(key.count - 2))] else { continue }
 
-                guard let baseTranslation = xmlDict[String(key.prefix(key.count - 2))] else {
-                    continue
-                }
-
-                translationDict[value] = baseTranslation.replacingOccurrences(of: "/\\\n", with: "\\n") // Convert linebreaks
+                // Convert linebreaks
+                translationDict[value] = baseTranslation.replacingOccurrences(of: "/\\\n", with: "\\n")
             }
         }
+
         traverse(xml: xml)
-        
-        let translationString = translationDict.map({ (key, value) in "\"\(key)\" = \"\(value)\";" }).joined(separator: "\n\n")
+
+        let translationString = translationDict.map { key, value in "\"\(key)\" = \"\(value)\";" }
+            .joined(separator: "\n\n")
+
         try? translationString.write(toFile: extractedStringsFilePath, atomically: true, encoding: .utf8)
 
         for outputStringsFilePath in outputStringsFilePaths {
