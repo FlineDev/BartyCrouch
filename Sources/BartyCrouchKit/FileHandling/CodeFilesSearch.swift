@@ -8,12 +8,11 @@ final class CodeFilesSearch: FilesSearchable {
 
     init(baseDirectoryPath: String) {
         self.baseDirectoryPath = baseDirectoryPath
-
-        basePathComponents = URL(fileURLWithPath: baseDirectoryPath).pathComponents
+        self.basePathComponents = URL(fileURLWithPath: baseDirectoryPath).pathComponents
     }
 
     func shouldSkipFile(at url: URL) -> Bool {
-        return Set(url.pathComponents).subtracting(basePathComponents).contains { component in
+        Set(url.pathComponents).subtracting(basePathComponents).contains { component in
             Self.dirsToIgnore.contains(component.lowercased())
         }
     }

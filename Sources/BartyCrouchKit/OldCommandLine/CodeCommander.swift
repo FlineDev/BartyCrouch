@@ -54,11 +54,11 @@ public final class CodeCommander {
         }
 
         var matchedFiles = [String]()
-        let cfs = CodeFilesSearch(baseDirectoryPath: codeDirectoryPath)
+        let codeFilesSearch = CodeFilesSearch(baseDirectoryPath: codeDirectoryPath)
 
         while let anURL = enumerator.nextObject() as? URL {
             if CodeCommanderConstants.sourceCodeExtensions.contains(anURL.pathExtension) &&
-                !cfs.shouldSkipFile(at: anURL) {
+                !codeFilesSearch.shouldSkipFile(at: anURL) {
                 matchedFiles.append(anURL.path)
             }
         }
