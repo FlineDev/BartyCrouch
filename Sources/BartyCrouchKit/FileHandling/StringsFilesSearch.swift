@@ -9,6 +9,7 @@ public final class StringsFilesSearch: FilesSearchable {
     // MARK: - Stored Type Properties
     public static let shared = StringsFilesSearch()
 
+    #warning("InfoPlist static string needs to be turned into a configuration option")
     private static let denyListedStringFileNames: Set<String> = ["InfoPlist.strings"]
 
     // MARK: - Instance Methods

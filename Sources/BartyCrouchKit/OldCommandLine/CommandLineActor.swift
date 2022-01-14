@@ -26,7 +26,8 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         customLocalizableName: String?,
-        usePlistArguments: Bool
+        usePlistArguments: Bool,
+        ignoreKeys: [String]
     ) {
         let localizableFileName = customLocalizableName ?? "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
@@ -49,11 +50,12 @@ public class CommandLineActor {
             unstripped: unstripped,
             customFunction: customFunction,
             localizableFileName: localizableFileName,
-            usePlistArguments: usePlistArguments
+            usePlistArguments: usePlistArguments,
+            ignoreKeys: ignoreKeys
         )
     }
 
-    func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
+    func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool, ignoreKeys: [String]) {
         let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
@@ -71,7 +73,8 @@ public class CommandLineActor {
                 verbose: verbose,
                 defaultToBase: defaultToBase,
                 unstripped: unstripped,
-                ignoreEmptyStrings: ignoreEmptyStrings
+                ignoreEmptyStrings: ignoreEmptyStrings,
+                ignoreKeys: ignoreKeys
             )
         }
     }
@@ -216,7 +219,8 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         localizableFileName: String,
-        usePlistArguments: Bool
+        usePlistArguments: Bool,
+        ignoreKeys: [String]
     ) {
         for inputDirectoryPath in inputDirectoryPaths {
             let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
@@ -256,6 +260,7 @@ public class CommandLineActor {
                 stringsFileUpdater.incrementallyUpdateKeys(
                     withStringsFileAtPath: extractedLocalizableStringsFilePath,
                     addNewValuesAsEmpty: !defaultToKeys,
+                    ignoreBaseKeysAndComment: ignoreKeys,
                     override: override,
                     keepExistingKeys: additive,
                     overrideComments: overrideComments,
@@ -283,7 +288,8 @@ public class CommandLineActor {
         verbose: Bool,
         defaultToBase: Bool,
         unstripped: Bool,
-        ignoreEmptyStrings: Bool
+        ignoreEmptyStrings: Bool,
+        ignoreKeys: [String]
     ) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
@@ -300,6 +306,7 @@ public class CommandLineActor {
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedStringsFilePath,
                 addNewValuesAsEmpty: !defaultToBase,
+                ignoreBaseKeysAndComment: ignoreKeys,
                 override: override,
                 keepWhitespaceSurroundings: unstripped,
                 ignoreEmptyStrings: ignoreEmptyStrings

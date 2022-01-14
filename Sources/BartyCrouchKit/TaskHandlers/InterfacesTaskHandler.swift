@@ -18,7 +18,8 @@ extension InterfacesTaskHandler: TaskHandler {
                     verbose: GlobalOptions.verbose.value,
                     defaultToBase: options.defaultToBase,
                     unstripped: options.unstripped,
-                    ignoreEmptyStrings: options.ignoreEmptyStrings
+                    ignoreEmptyStrings: options.ignoreEmptyStrings,
+                    ignoreKeys: options.ignoreKeys
                 )
             }
         }

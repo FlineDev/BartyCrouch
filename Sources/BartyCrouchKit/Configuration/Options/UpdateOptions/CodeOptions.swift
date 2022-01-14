@@ -10,6 +10,7 @@ struct CodeOptions {
     let customLocalizableName: String?
     let unstripped: Bool
     let plistArguments: Bool
+    let ignoreKeys: [String]
 }
 
 extension CodeOptions: TomlCodable {
@@ -25,7 +26,8 @@ extension CodeOptions: TomlCodable {
             customFunction: toml.string(update, code, "customFunction"),
             customLocalizableName: toml.string(update, code, "customLocalizableName"),
             unstripped: toml.bool(update, code, "unstripped") ?? false,
-            plistArguments: toml.bool(update, code, "plistArguments") ?? true
+            plistArguments: toml.bool(update, code, "plistArguments") ?? true,
+            ignoreKeys: toml.array(update, code, "ignoreKeys") ?? Constants.defaultIgnoreKeys
         )
     }
 
@@ -47,6 +49,7 @@ extension CodeOptions: TomlCodable {
 
         lines.append("unstripped = \(unstripped)")
         lines.append("plistArguments = \(plistArguments)")
+        lines.append("ignoreKeys = \(Constants.defaultIgnoreKeys)")
 
         return lines.joined(separator: "\n")
     }

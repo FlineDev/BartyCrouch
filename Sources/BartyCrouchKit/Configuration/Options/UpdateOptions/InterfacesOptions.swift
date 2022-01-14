@@ -6,6 +6,7 @@ struct InterfacesOptions {
     let defaultToBase: Bool
     let ignoreEmptyStrings: Bool
     let unstripped: Bool
+    let ignoreKeys: [String]
 }
 
 extension InterfacesOptions: TomlCodable {
@@ -17,7 +18,8 @@ extension InterfacesOptions: TomlCodable {
             paths: toml.filePaths(update, interfaces, singularKey: "path", pluralKey: "paths"),
             defaultToBase: toml.bool(update, interfaces, "defaultToBase") ?? false,
             ignoreEmptyStrings: toml.bool(update, interfaces, "ignoreEmptyStrings") ?? false,
-            unstripped: toml.bool(update, interfaces, "unstripped") ?? false
+            unstripped: toml.bool(update, interfaces, "unstripped") ?? false,
+            ignoreKeys: toml.array(update, interfaces, "ignoreKeys") ?? Constants.defaultIgnoreKeys
         )
     }
 
@@ -28,6 +30,7 @@ extension InterfacesOptions: TomlCodable {
         lines.append("defaultToBase = \(defaultToBase)")
         lines.append("ignoreEmptyStrings = \(ignoreEmptyStrings)")
         lines.append("unstripped = \(unstripped)")
+        lines.append("ignoreKeys = \(Constants.defaultIgnoreKeys)")
 
         return lines.joined(separator: "\n")
     }

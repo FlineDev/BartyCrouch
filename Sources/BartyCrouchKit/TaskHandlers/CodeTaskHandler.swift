@@ -23,7 +23,8 @@ extension CodeTaskHandler: TaskHandler {
                     unstripped: options.unstripped,
                     customFunction: options.customFunction,
                     customLocalizableName: options.customLocalizableName,
-                    usePlistArguments: options.plistArguments
+                    usePlistArguments: options.plistArguments,
+                    ignoreKeys: options.ignoreKeys
                 )
             }
         }
