@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.8.0-blue.svg"
-         alt="Version: 4.8.0">
+    <img src="https://img.shields.io/badge/Version-4.9.0-blue.svg"
+         alt="Version: 4.9.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.5-FFAC45.svg"
      alt="Swift: 5.5">
@@ -406,7 +406,7 @@ The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not 
 
 ### Things to Know:
 
-- Files named or files in folders named ".git", "carthage", "pods", "build", 
+- Files named or files in folders named ".git", "carthage", "pods", "build",
   ".build" and "docs" (case insensitive) will always be ignored.
 
 

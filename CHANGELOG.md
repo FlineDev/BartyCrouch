@@ -19,10 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Added a new option `ignoreKeys` to provide custom alternatives to the default `bc-ignore` kind of keys if needed. New option defaults to `["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]` if not specified otherwise.  
-  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
-- Added a new option `subpathsToIgnore` to provide subpaths to be ignored (with case-insensitive comparison) inside of the provided `paths`. New option defaults to `[".git", "carthage", "pods", "build", ".build", "docs"]` if not specified otherwise.  
-  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+- None.
 ### Changed
 - None.
 ### Deprecated
@@ -30,14 +27,23 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
+- None.
+### Security
+- None.
+
+## [4.9.0] - 2022-01-21
+### Added
+- Added a new option `ignoreKeys` to provide custom alternatives to the default `bc-ignore` kind of keys if needed. New option defaults to `["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]` if not specified otherwise.  
+  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+- Added a new option `subpathsToIgnore` to provide subpaths to be ignored (with case-insensitive comparison) inside of the provided `paths`. New option defaults to `[".git", "carthage", "pods", "build", ".build", "docs"]` if not specified otherwise.  
+  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+### Fixed
 - Removed ignoring all `InfoPlist.strings` files by default. If you want this to actually be the case, just add `InfoPlist.strings` to the array in the new `subpathsToIgnore` option, e.g.: `subPathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs", "InfoPlist.strings"]`  
   PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 - Less situations where the empty `tmpstring` folder continues to exist.  
   PR: [#238](https://github.com/Flinesoft/BartyCrouch/pull/238) | Author: [Benjamin Erhart](https://github.com/tladesignz)
 - Only apply ignores on subpaths of explicitly mentioned folders in `path` options, don't ignore any paths that are explicitly mentioned.  
   PR: [#240](https://github.com/Flinesoft/BartyCrouch/pull/240) | Author: [Benjamin Erhart](https://github.com/tladesignz)
-### Security
-- None.
 
 ## [4.8.0] - 2021-10-10
 ### Changed
