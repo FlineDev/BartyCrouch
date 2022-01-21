@@ -9,9 +9,6 @@ public final class StringsFilesSearch: FilesSearchable {
     // MARK: - Stored Type Properties
     public static let shared = StringsFilesSearch()
 
-    #warning("InfoPlist static string needs to be turned into a configuration option")
-    private static let denyListedStringFileNames: Set<String> = ["InfoPlist.strings"]
-
     // MARK: - Instance Methods
     public func findAllIBFiles(within baseDirectoryPath: String, subpathsToIgnore: [String], withLocale locale: String = "Base") -> [String] {
         // swiftlint:disable:next force_try
@@ -29,8 +26,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             subpathsToIgnore: subpathsToIgnore,
-            matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
+            matching: stringsFileRegex
         )
     }
 
@@ -40,8 +36,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             subpathsToIgnore: subpathsToIgnore,
-            matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
+            matching: stringsFileRegex
         )
     }
 
@@ -51,8 +46,7 @@ public final class StringsFilesSearch: FilesSearchable {
         return self.findAllFilePaths(
             inDirectoryPath: baseDirectoryPath,
             subpathsToIgnore: subpathsToIgnore,
-            matching: stringsFileRegex,
-            ignoreSuffixes: StringsFilesSearch.denyListedStringFileNames
+            matching: stringsFileRegex
         )
     }
 

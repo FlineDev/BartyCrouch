@@ -4,8 +4,7 @@ protocol FilesSearchable {
     func findAllFilePaths(
       inDirectoryPath baseDirectoryPath: String,
       subpathsToIgnore: [String],
-      matching regularExpression: NSRegularExpression,
-      ignoreSuffixes: Set<String>
+      matching regularExpression: NSRegularExpression
     ) -> [String]
 }
 
@@ -13,8 +12,7 @@ extension FilesSearchable {
     func findAllFilePaths(
         inDirectoryPath baseDirectoryPath: String,
         subpathsToIgnore: [String],
-        matching regularExpression: NSRegularExpression,
-        ignoreSuffixes: Set<String> = []
+        matching regularExpression: NSRegularExpression
     ) -> [String] {
         let baseDirectoryURL = URL(fileURLWithPath: baseDirectoryPath)
         guard let enumerator = FileManager.default.enumerator(at: baseDirectoryURL, includingPropertiesForKeys: nil) else { return [] }
@@ -36,8 +34,6 @@ extension FilesSearchable {
             }
         }
 
-        return filePaths.filter { filePath in
-            !ignoreSuffixes.contains { filePath.hasSuffix($0) }
-        }
+        return filePaths
     }
 }
