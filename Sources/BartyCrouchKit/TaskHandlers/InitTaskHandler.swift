@@ -5,8 +5,6 @@ struct InitTaskHandler { /* for extension purposes only */ }
 extension InitTaskHandler: TaskHandler {
     func perform() {
         createDefaultConfigFile()
-        createBuildScript()
-        createSupportFile()
     }
 
     func createDefaultConfigFile() {
@@ -26,15 +24,5 @@ extension InitTaskHandler: TaskHandler {
                 print("Successfully created file \(Configuration.fileName)", level: .success)
             }
         }
-    }
-
-    func createBuildScript() {
-        // TODO: find xcode project, ask user if multiple are found
-        // TODO: search for a build script entry that executes the previously recommended build scripts, replace it with the shorter one
-        // TODO: if none is found, add a build script with the new bartycrouch commands (`bartycrouch update` and `bartycrouch lint`)
-    }
-
-    func createSupportFile() {
-        // TODO: create BartyCrouch.swift and add to project at an intelligent place (SupportingFiles if available, else in Sources/Globals or Sources)
     }
 }

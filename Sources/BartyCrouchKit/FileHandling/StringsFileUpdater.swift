@@ -17,9 +17,6 @@ public class StringsFileUpdater {
     typealias LocaleInfo = (language: String, region: String?)
     typealias DuplicateEntry = (String, [TranslationEntry])
 
-    // MARK: - Stored Type Properties
-    public static let defaultIgnoreKeys: [String] = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
-
     // MARK: - Stored Instance Properties
     let path: String
     var oldContentString: String = ""
@@ -39,7 +36,7 @@ public class StringsFileUpdater {
     public func incrementallyUpdateKeys(
         withStringsFileAtPath otherStringFilePath: String,
         addNewValuesAsEmpty: Bool,
-        ignoreBaseKeysAndComment ignores: [String] = defaultIgnoreKeys,
+        ignoreBaseKeysAndComment ignores: [String],
         override: Bool = false,
         updateCommentWithBase: Bool = true,
         keepExistingKeys: Bool = false,
