@@ -32,6 +32,10 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Fixed
 - Removed ignoring all `InfoPlist.strings` files by default. If you want this to actually be the case, just add `InfoPlist.strings` to the array in the new `subpathsToIgnore` option, e.g.: `subPathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs", "InfoPlist.strings"]`  
   PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+- Less situations where the empty `tmpstring` folder continues to exist.  
+  PR: [#238](https://github.com/Flinesoft/BartyCrouch/pull/238) | Author: [Benjamin Erhart](https://github.com/tladesignz)
+- Only apply ignores on subpaths of explicitly mentioned folders in `path` options, don't ignore any paths that are explicitly mentioned.  
+  PR: [#240](https://github.com/Flinesoft/BartyCrouch/pull/240) | Author: [Benjamin Erhart](https://github.com/tladesignz)
 ### Security
 - None.
 
