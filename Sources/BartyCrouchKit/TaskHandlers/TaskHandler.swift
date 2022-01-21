@@ -1,5 +1,5 @@
 import Foundation
 
 protocol TaskHandler {
-    func perform()
+  func perform()
 }

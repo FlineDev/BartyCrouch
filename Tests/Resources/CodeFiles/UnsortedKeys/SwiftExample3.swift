@@ -9,7 +9,7 @@
 import Foundation
 
 class SwiftExample3 {
-    func exampleFunction1() {
-        NSLocalizedString("ccc", comment: "")
-    }
+  func exampleFunction1() {
+    NSLocalizedString("ccc", comment: "")
+  }
 }

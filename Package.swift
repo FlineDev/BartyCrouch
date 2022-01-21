@@ -43,7 +43,7 @@ let package = Package(
       dependencies: [
         "BartyCrouchKit",
         .product(name: "CustomDump", package: "swift-custom-dump"),
-        "Toml"
+        "Toml",
       ]
     ),
     .target(
@@ -53,6 +53,6 @@ let package = Package(
     .testTarget(
       name: "BartyCrouchTranslatorTests",
       dependencies: ["BartyCrouchTranslator"]
-    )
+    ),
   ]
 )

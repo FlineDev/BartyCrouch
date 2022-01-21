@@ -9,5 +9,5 @@
 import Foundation
 
 func swiftExample3Arguments() {
-    _ = BCLocalizedString("test", value: "test value", comment: "test comment")
+  _ = BCLocalizedString("test", value: "test value", comment: "test comment")
 }
