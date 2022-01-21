@@ -1,5 +1,5 @@
 import Foundation
 
 struct DeepLTranslateErrorResponse: Decodable {
-    let message: String
+  let message: String
 }
