@@ -264,12 +264,6 @@ custom_rules:
     name: "Quick Temporary Focus"
     message: "Temporary focused Quick examples or groups shouldn't be commited."
     severity: warning
-  remove_where_for_negative_filtering:
-    included: ".*.swift"
-    regex: '\.filter *\{ *!\$0\.[^\}&|]+\}'
-    name: "Remove Where for Negative Filtering"
-    message: "Use `remove(where:)` instead of `filter(where not ...)` for performance."
-    severity: warning
   single_line_enum_cases:
     included: ".*.swift"
     regex: 'enum [^\{]+\{\s*(?:\s*\/\/[^\n]*)*\s*case\s+[^,(\n]+,'

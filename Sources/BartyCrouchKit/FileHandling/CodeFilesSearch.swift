@@ -10,10 +10,23 @@ final class CodeFilesSearch: FilesSearchable {
     }
 
     func shouldSkipFile(at url: URL, subpathsToIgnore: [String]) -> Bool {
-        #warning("TODO: write tests to make sure this works even when user provides ignore path 'Hello/World'")
-        return Set(url.pathComponents).subtracting(basePathComponents).contains { component in
-            subpathsToIgnore.contains(component.lowercased())
+        var subpath = url.path
+
+        if let potentialBaseDirSubstringRange = subpath.range(of: baseDirectoryPath) {
+            if potentialBaseDirSubstringRange.lowerBound == subpath.startIndex {
+                subpath.removeSubrange(potentialBaseDirSubstringRange)
+            }
         }
+
+        let subpathComponents = subpath.components(separatedBy: "/").filter { !$0.isBlank }
+        for subpathToIgnore in subpathsToIgnore {
+            let subpathToIgnoreComponents = subpathToIgnore.components(separatedBy: "/")
+            if subpathComponents.containsCaseInsensitive(subarray: subpathToIgnoreComponents) {
+                return true
+            }
+        }
+
+        return false
     }
 
     func findCodeFiles(subpathsToIgnore: [String]) -> [String] {
@@ -27,5 +40,22 @@ final class CodeFilesSearch: FilesSearchable {
           matching: codeFileRegex
         )
         return codeFiles
+    }
+}
+
+extension Array where Element == String {
+    func containsCaseInsensitive(subarray: [Element]) -> Bool {
+        guard let firstSubArrayElement = subarray.first else { return false }
+
+        for (index, element) in enumerated() {
+            // sample: this = [a, b, c], subarray = [b, c], firstIndex = 1, subRange = 1 ..< 3
+            if element.lowercased() == firstSubArrayElement.lowercased() {
+                let subRange = index ..< index + subarray.count
+                let subRangeElements = self[subRange]
+                return subRangeElements.map { $0.lowercased() } == subarray.map { $0.lowercased() }
+            }
+        }
+
+        return false
     }
 }
