@@ -17,6 +17,7 @@ let package = Package(
     .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.3"),
     .package(name: "Toml", url: "https://github.com/jdfergason/swift-toml.git", .branch("master")),
     .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50500.0"),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump.git", from: "0.3.0"),
   ],
   targets: [
     .executableTarget(
@@ -37,7 +38,7 @@ let package = Package(
     ),
     .testTarget(
       name: "BartyCrouchKitTests",
-      dependencies: ["BartyCrouchKit", "Toml"]
+      dependencies: ["BartyCrouchKit", .product(name: "CustomDump", package: "swift-custom-dump"), "Toml"]
     ),
     .target(
       name: "BartyCrouchTranslator",

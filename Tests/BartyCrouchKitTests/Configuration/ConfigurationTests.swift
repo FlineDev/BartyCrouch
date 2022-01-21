@@ -1,4 +1,5 @@
 @testable import BartyCrouchKit
+import CustomDump
 import Toml
 import XCTest
 
@@ -147,12 +148,15 @@ class ConfigurationTests: XCTestCase {
 
             [update.interfaces]
             paths = ["Sources"]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             defaultToBase = true
             ignoreEmptyStrings = true
             unstripped = true
+            ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
             [update.code]
             codePaths = ["Sources"]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             localizablePaths = ["Sources/SupportingFiles"]
             defaultToKeys = true
             additive = false
@@ -160,9 +164,11 @@ class ConfigurationTests: XCTestCase {
             customLocalizableName = "MyOwnLocalizable"
             unstripped = true
             plistArguments = true
+            ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
             [update.transform]
             codePaths = ["."]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             localizablePaths = ["."]
             transformer = "foundation"
             supportedLanguageEnumPath = "."
@@ -171,17 +177,20 @@ class ConfigurationTests: XCTestCase {
 
             [update.translate]
             paths = ["Sources"]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             secret = "bingSecret"
             sourceLocale = "de"
 
             [update.normalize]
             paths = ["Sources"]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             sourceLocale = "de"
             harmonizeWithSource = false
             sortByKeys = false
 
             [lint]
             paths = ["Sources"]
+            subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
             duplicateKeys = false
             emptyValues = false
 
@@ -189,6 +198,6 @@ class ConfigurationTests: XCTestCase {
         let toml: Toml = try! Toml(withString: tomlContents)
         let configuration: Configuration = try! Configuration.make(toml: toml)
 
-        XCTAssertEqual(configuration.tomlContents(), tomlContents)
+        XCTAssertNoDifference(configuration.tomlContents(), tomlContents)
     }
 }
