@@ -3,6 +3,7 @@ import Toml
 
 struct CodeOptions {
     let codePaths: [String]
+    let subpathsToIgnore: [String]
     let localizablePaths: [String]
     let defaultToKeys: Bool
     let additive: Bool
@@ -10,6 +11,7 @@ struct CodeOptions {
     let customLocalizableName: String?
     let unstripped: Bool
     let plistArguments: Bool
+    let ignoreKeys: [String]
 }
 
 extension CodeOptions: TomlCodable {
@@ -19,13 +21,15 @@ extension CodeOptions: TomlCodable {
 
         return CodeOptions(
             codePaths: toml.filePaths(update, code, singularKey: "codePath", pluralKey: "codePaths"),
+            subpathsToIgnore: toml.array(update, code, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore,
             localizablePaths: toml.filePaths(update, code, singularKey: "localizablePath", pluralKey: "localizablePaths"),
             defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
             additive: toml.bool(update, code, "additive") ?? true,
             customFunction: toml.string(update, code, "customFunction"),
             customLocalizableName: toml.string(update, code, "customLocalizableName"),
             unstripped: toml.bool(update, code, "unstripped") ?? false,
-            plistArguments: toml.bool(update, code, "plistArguments") ?? true
+            plistArguments: toml.bool(update, code, "plistArguments") ?? true,
+            ignoreKeys: toml.array(update, code, "ignoreKeys") ?? Constants.defaultIgnoreKeys
         )
     }
 
@@ -33,6 +37,7 @@ extension CodeOptions: TomlCodable {
         var lines: [String] = ["[update.code]"]
 
         lines.append("codePaths = \(codePaths)")
+        lines.append("subpathsToIgnore = \(subpathsToIgnore)")
         lines.append("localizablePaths = \(localizablePaths)")
         lines.append("defaultToKeys = \(defaultToKeys)")
         lines.append("additive = \(additive)")
@@ -47,6 +52,7 @@ extension CodeOptions: TomlCodable {
 
         lines.append("unstripped = \(unstripped)")
         lines.append("plistArguments = \(plistArguments)")
+        lines.append("ignoreKeys = \(Constants.defaultIgnoreKeys)")
 
         return lines.joined(separator: "\n")
     }

@@ -4,6 +4,7 @@ import Toml
 
 struct TransformOptions {
     let codePaths: [String]
+    let subpathsToIgnore: [String]
     let localizablePaths: [String]
     let transformer: Transformer
     let supportedLanguageEnumPath: String
@@ -26,6 +27,7 @@ extension TransformOptions: TomlCodable {
 
         return TransformOptions(
             codePaths: toml.filePaths(update, transform, singularKey: "codePath", pluralKey: "codePaths"),
+            subpathsToIgnore: toml.array(update, transform, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore,
             localizablePaths: toml.filePaths(update, transform, singularKey: "localizablePath", pluralKey: "localizablePaths"),
             transformer: transformer,
             supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
@@ -39,6 +41,7 @@ extension TransformOptions: TomlCodable {
         var lines: [String] = ["[update.transform]"]
 
         lines.append("codePaths = \(codePaths)")
+        lines.append("subpathsToIgnore = \(subpathsToIgnore)")
         lines.append("localizablePaths = \(localizablePaths)")
         lines.append("transformer = \"\(transformer.rawValue)\"")
         lines.append("supportedLanguageEnumPath = \"\(supportedLanguageEnumPath)\"")

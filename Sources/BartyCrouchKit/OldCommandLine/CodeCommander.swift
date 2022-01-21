@@ -26,9 +26,10 @@ public final class CodeCommander {
         stringsFilesToPath stringsFilePath: String,
         fromCodeInDirectoryPath codeDirectoryPath: String,
         customFunction: String?,
-        usePlistArguments: Bool
+        usePlistArguments: Bool,
+        subpathsToIgnore: [String]
     ) throws {
-        let files = try findFiles(in: codeDirectoryPath)
+        let files = try findFiles(in: codeDirectoryPath, subpathsToIgnore: subpathsToIgnore)
         let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
         let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
@@ -37,7 +38,7 @@ public final class CodeCommander {
         try Task.run("/usr/bin/xcrun", arguments: arguments)
     }
 
-    func findFiles(in codeDirectoryPath: String) throws -> [String] {
+    func findFiles(in codeDirectoryPath: String, subpathsToIgnore: [String]) throws -> [String] {
         let fileManager = FileManager.default
 
         var isDirectory: ObjCBool = false
@@ -54,10 +55,11 @@ public final class CodeCommander {
         }
 
         var matchedFiles = [String]()
+        let codeFilesSearch = CodeFilesSearch(baseDirectoryPath: codeDirectoryPath)
 
         while let anURL = enumerator.nextObject() as? URL {
             if CodeCommanderConstants.sourceCodeExtensions.contains(anURL.pathExtension) &&
-                !CodeFilesSearch.shouldSkipFile(at: anURL) {
+                !codeFilesSearch.shouldSkipFile(at: anURL, subpathsToIgnore: subpathsToIgnore) {
                 matchedFiles.append(anURL.path)
             }
         }

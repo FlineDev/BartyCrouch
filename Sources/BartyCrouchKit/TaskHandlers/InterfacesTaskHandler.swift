@@ -14,11 +14,13 @@ extension InterfacesTaskHandler: TaskHandler {
             mungo.do {
                 CommandLineActor().actOnInterfaces(
                     paths: options.paths,
+                    subpathsToIgnore: options.subpathsToIgnore,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     defaultToBase: options.defaultToBase,
                     unstripped: options.unstripped,
-                    ignoreEmptyStrings: options.ignoreEmptyStrings
+                    ignoreEmptyStrings: options.ignoreEmptyStrings,
+                    ignoreKeys: options.ignoreKeys
                 )
             }
         }

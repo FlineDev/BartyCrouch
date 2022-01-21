@@ -9,6 +9,7 @@ enum Translator: String {
 
 struct TranslateOptions {
     let paths: [String]
+    let subpathsToIgnore: [String]
     let secret: Secret
     let sourceLocale: String
 }
@@ -21,6 +22,7 @@ extension TranslateOptions: TomlCodable {
         if let secretString: String = toml.string(update, translate, "secret") {
             let translator = toml.string(update, translate, "translator") ?? ""
             let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
+            let subpathsToIgnore = toml.array(update, translate, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore
             let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"
             let secret: Secret
             switch Translator(rawValue: translator) {
@@ -31,7 +33,12 @@ extension TranslateOptions: TomlCodable {
                 secret = .deepL(secret: secretString)
             }
 
-            return TranslateOptions(paths: paths, secret: secret, sourceLocale: sourceLocale)
+          return TranslateOptions(
+            paths: paths,
+            subpathsToIgnore: subpathsToIgnore,
+            secret: secret,
+            sourceLocale: sourceLocale
+          )
         } else {
             throw MungoError(source: .invalidUserInput, message: "Incomplete [update.translate] options provided, ignoring them all.")
         }
@@ -41,6 +48,7 @@ extension TranslateOptions: TomlCodable {
         var lines: [String] = ["[update.translate]"]
 
         lines.append("paths = \(paths)")
+        lines.append("subpathsToIgnore = \(subpathsToIgnore)")
         switch secret {
         case let .deepL(secret):
             lines.append("secret = \"\(secret)\"")

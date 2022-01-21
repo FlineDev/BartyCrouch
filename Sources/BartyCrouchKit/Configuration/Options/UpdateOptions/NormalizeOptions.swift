@@ -3,6 +3,7 @@ import Toml
 
 struct NormalizeOptions {
     let paths: [String]
+    let subpathsToIgnore: [String]
     let sourceLocale: String
     let harmonizeWithSource: Bool
     let sortByKeys: Bool
@@ -15,6 +16,7 @@ extension NormalizeOptions: TomlCodable {
 
         return NormalizeOptions(
             paths: toml.filePaths(update, normalize, singularKey: "path", pluralKey: "paths"),
+            subpathsToIgnore: toml.array(update, normalize, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore,
             sourceLocale: toml.string(update, normalize, "sourceLocale") ?? "en",
             harmonizeWithSource: toml.bool(update, normalize, "harmonizeWithSource") ?? true,
             sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true
@@ -25,6 +27,7 @@ extension NormalizeOptions: TomlCodable {
         var lines: [String] = ["[update.normalize]"]
 
         lines.append("paths = \(paths)")
+        lines.append("subpathsToIgnore = \(subpathsToIgnore)")
         lines.append("sourceLocale = \"\(sourceLocale)\"")
         lines.append("harmonizeWithSource = \(harmonizeWithSource)")
         lines.append("sortByKeys = \(sortByKeys)")

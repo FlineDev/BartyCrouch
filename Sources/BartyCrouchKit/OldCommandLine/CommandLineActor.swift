@@ -17,6 +17,7 @@ public class CommandLineActor {
 
     func actOnCode(
         paths: [String],
+        subpathsToIgnore: [String],
         override: Bool,
         verbose: Bool,
         localizables: [String],
@@ -26,11 +27,12 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         customLocalizableName: String?,
-        usePlistArguments: Bool
+        usePlistArguments: Bool,
+        ignoreKeys: [String]
     ) {
         let localizableFileName = customLocalizableName ?? "Localizable"
         let allLocalizableStringsFilePaths = localizables.flatMap {
-            StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName)
+            StringsFilesSearch.shared.findAllStringsFiles(within: $0, withFileName: localizableFileName, subpathsToIgnore: subpathsToIgnore)
         }.withoutDuplicates()
 
         guard !allLocalizableStringsFilePaths.isEmpty else {
@@ -40,6 +42,7 @@ public class CommandLineActor {
 
         self.incrementalCodeUpdate(
             inputDirectoryPaths: paths,
+            subpathsToIgnore: subpathsToIgnore,
             allLocalizableStringsFilePaths,
             override: override,
             verbose: verbose,
@@ -49,12 +52,24 @@ public class CommandLineActor {
             unstripped: unstripped,
             customFunction: customFunction,
             localizableFileName: localizableFileName,
-            usePlistArguments: usePlistArguments
+            usePlistArguments: usePlistArguments,
+            ignoreKeys: ignoreKeys
         )
     }
 
-    func actOnInterfaces(paths: [String], override: Bool, verbose: Bool, defaultToBase: Bool, unstripped: Bool, ignoreEmptyStrings: Bool) {
-        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllIBFiles(within: $0, withLocale: "Base") }.withoutDuplicates()
+    func actOnInterfaces(
+      paths: [String],
+      subpathsToIgnore: [String],
+      override: Bool,
+      verbose: Bool,
+      defaultToBase: Bool,
+      unstripped: Bool,
+      ignoreEmptyStrings: Bool,
+      ignoreKeys: [String]
+    ) {
+        let inputFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllIBFiles(within: $0, subpathsToIgnore: subpathsToIgnore, withLocale: "Base")
+        }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -71,13 +86,27 @@ public class CommandLineActor {
                 verbose: verbose,
                 defaultToBase: defaultToBase,
                 unstripped: unstripped,
-                ignoreEmptyStrings: ignoreEmptyStrings
+                ignoreEmptyStrings: ignoreEmptyStrings,
+                ignoreKeys: ignoreKeys
             )
         }
     }
 
-    func actOnTranslate(paths: [String], override: Bool, verbose: Bool, secret: Secret, locale: String) {
-        let inputFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
+    func actOnTranslate(
+      paths: [String],
+      subpathsToIgnore: [String],
+      override: Bool,
+      verbose: Bool,
+      secret: Secret,
+      locale: String
+    ) {
+        let inputFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(
+            within: $0,
+            withLocale: locale,
+            subpathsToIgnore: subpathsToIgnore
+          )
+        }.withoutDuplicates()
 
         guard !inputFilePaths.isEmpty else { print("No input files found.", level: .warning); return }
 
@@ -93,13 +122,20 @@ public class CommandLineActor {
 
     func actOnNormalize(
         paths: [String],
+        subpathsToIgnore: [String],
         override: Bool,
         verbose: Bool,
         locale: String,
         sortByKeys: Bool,
         harmonizeWithSource: Bool
     ) {
-        let sourceFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0, withLocale: locale) }.withoutDuplicates()
+        let sourceFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(
+            within: $0,
+            withLocale: locale,
+            subpathsToIgnore: subpathsToIgnore
+          )
+        }.withoutDuplicates()
         guard !sourceFilePaths.isEmpty else { print("No source language files found.", level: .warning); return }
 
         for sourceFilePath in sourceFilePaths {
@@ -139,8 +175,10 @@ public class CommandLineActor {
         }
     }
 
-    func actOnLint(paths: [String], duplicateKeys: Bool, emptyValues: Bool) {
-        let stringsFilePaths = paths.flatMap { StringsFilesSearch.shared.findAllStringsFiles(within: $0) }.withoutDuplicates()
+    func actOnLint(paths: [String], subpathsToIgnore: [String], duplicateKeys: Bool, emptyValues: Bool) {
+        let stringsFilePaths = paths.flatMap {
+          StringsFilesSearch.shared.findAllStringsFiles(within: $0, subpathsToIgnore: subpathsToIgnore)
+        }.withoutDuplicates()
         guard !stringsFilePaths.isEmpty else { print("No Strings files found.", level: .warning); return }
 
         let totalChecks: Int = [duplicateKeys, emptyValues].filter { $0 }.count
@@ -207,6 +245,7 @@ public class CommandLineActor {
 
     private func incrementalCodeUpdate(
         inputDirectoryPaths: [String],
+        subpathsToIgnore: [String],
         _ outputStringsFilePaths: [String],
         override: Bool,
         verbose: Bool,
@@ -216,7 +255,8 @@ public class CommandLineActor {
         unstripped: Bool,
         customFunction: String?,
         localizableFileName: String,
-        usePlistArguments: Bool
+        usePlistArguments: Bool,
+        ignoreKeys: [String]
     ) {
         for inputDirectoryPath in inputDirectoryPaths {
             let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
@@ -233,7 +273,8 @@ public class CommandLineActor {
                     stringsFilesToPath: extractedStringsFileDirectory,
                     fromCodeInDirectoryPath: inputDirectoryPath,
                     customFunction: customFunction,
-                    usePlistArguments: usePlistArguments
+                    usePlistArguments: usePlistArguments,
+                    subpathsToIgnore: subpathsToIgnore
                 )
             } catch {
                 print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)
@@ -243,6 +284,10 @@ public class CommandLineActor {
             let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
             guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
                 print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
+
+                // BUGFIX: Remove empty /tmpstrings/ folder again.
+                try? FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
+
                 return // NOTE: Expecting to see this only for empty project situations.
             }
 
@@ -252,6 +297,7 @@ public class CommandLineActor {
                 stringsFileUpdater.incrementallyUpdateKeys(
                     withStringsFileAtPath: extractedLocalizableStringsFilePath,
                     addNewValuesAsEmpty: !defaultToKeys,
+                    ignoreBaseKeysAndComment: ignoreKeys,
                     override: override,
                     keepExistingKeys: additive,
                     overrideComments: overrideComments,
@@ -279,7 +325,8 @@ public class CommandLineActor {
         verbose: Bool,
         defaultToBase: Bool,
         unstripped: Bool,
-        ignoreEmptyStrings: Bool
+        ignoreEmptyStrings: Bool,
+        ignoreKeys: [String]
     ) {
         let extractedStringsFilePath = inputFilePath + ".tmpstrings"
 
@@ -296,6 +343,7 @@ public class CommandLineActor {
             stringsFileUpdater.incrementallyUpdateKeys(
                 withStringsFileAtPath: extractedStringsFilePath,
                 addNewValuesAsEmpty: !defaultToBase,
+                ignoreBaseKeysAndComment: ignoreKeys,
                 override: override,
                 keepWhitespaceSurroundings: unstripped,
                 ignoreEmptyStrings: ignoreEmptyStrings

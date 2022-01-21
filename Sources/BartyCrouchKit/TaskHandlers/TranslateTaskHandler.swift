@@ -16,6 +16,7 @@ extension TranslateTaskHandler: TaskHandler {
             mungo.do {
                 CommandLineActor().actOnTranslate(
                     paths: options.paths,
+                    subpathsToIgnore: options.subpathsToIgnore,
                     override: false,
                     verbose: GlobalOptions.verbose.value,
                     secret: options.secret,

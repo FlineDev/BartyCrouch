@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.8.0-blue.svg"
-         alt="Version: 4.8.0">
+    <img src="https://img.shields.io/badge/Version-4.9.0-blue.svg"
+         alt="Version: 4.9.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.5-FFAC45.svg"
      alt="Swift: 5.5">
@@ -58,7 +58,7 @@ Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-
 
 ## Requirements
 
-- Xcode 12.5+ & Swift 5.4+
+- Xcode 13.0+ & Swift 5.5+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
@@ -107,19 +107,24 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 
 [update.interfaces]
 paths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
 defaultToBase = false
 ignoreEmptyStrings = false
 unstripped = false
+ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
 [update.code]
 codePaths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
 localizablePaths = ["."]
 defaultToKeys = false
 additive = true
 unstripped = false
+ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
 
 [update.transform]
 codePaths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
 localizablePaths = ["."]
 transformer = "foundation"
 supportedLanguageEnumPath = "."
@@ -128,12 +133,14 @@ translateMethodName = "translate"
 
 [update.normalize]
 paths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
 sourceLocale = "en"
 harmonizeWithSource = true
 sortByKeys = true
 
 [lint]
 paths = ["."]
+subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
 duplicateKeys = true
 emptyValues = true
 ```
@@ -235,15 +242,18 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 <details><summary>Options for <code>interfaces</code></summary>
 
 - `paths`: The directory / directories to search for Storyboards & XIB files.
+- `subpathsToIgnore`: The subpaths to be ignored inside the directories found via the `paths` option.
 - `defaultToBase`: Add Base translation as value to new keys.
 - `ignoreEmptyStrings`: Doesn't add views with empty values.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
+- `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files. Useful to ignore strings that are gonna be translated in code.
 
 </details>
 
 <details><summary>Options for <code>code</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
+- `subpathsToIgnore`: The subpaths to be ignored inside the directories found via the `paths` option.
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
@@ -251,12 +261,14 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
+- `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files.
 
 </details>
 
 <details><summary>Options for <code>transform</code></summary>
 
 - `codePaths`: The directory / directories to search for Swift code files.
+- `subpathsToIgnore`: The subpaths to be ignored inside the directories found via the `paths` option.
 - `localizablePaths`:  The enclosing path(s) containing the localized `Localizable.strings` files.
 - `transformer`: Specifies the replacement code. Use `foundation` for `NSLocalizedString` or `swiftgenStructured` for `L10n` entries.
 - `supportedLanguageEnumPath`: The enclosing path containing the `SupportedLanguage` enum.
@@ -269,6 +281,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 <details><summary>Options for <code>translate</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
+- `subpathsToIgnore`: The subpaths to be ignored inside the directories found via the `paths` option.
 - `translator`: Specifies the translation API. Use `microsoftTranslator` or `deepL`.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key) or [Authentication Key for DeepL API](https://www.deepl.com/pro-account/plan).
 - `sourceLocale`: The source language to translate from.
@@ -278,6 +291,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 <details><summary>Options for <code>normalize</code></summary>
 
 - `paths`: The directory / directories to search for Strings files.
+- `subpathsToIgnore`: The subpaths to be ignored inside the directories found via the `paths` option.
 - `sourceLocale`: The source language to harmonize keys of other languages with.
 - `harmonizeWithSource`: Synchronizes keys with source language.
 - `sortByKeys`: Alphabetically sorts translations by their keys.
@@ -389,6 +403,12 @@ func updateTimeLabel(minutes: Int) {
 ```
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
+
+### Things to Know:
+
+- Files named or files in folders named ".git", "carthage", "pods", "build",
+  ".build" and "docs" (case insensitive) will always be ignored.
+
 
 ## Donation
 
