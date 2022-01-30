@@ -17,6 +17,7 @@ all: bartycrouch
 bartycrouch: $(SOURCES)
 	@swift build \
 		-c release \
+		--arch arm64 --arch x86_64 \
 		--disable-sandbox \
 		--build-path "$(BUILDDIR)"
 
