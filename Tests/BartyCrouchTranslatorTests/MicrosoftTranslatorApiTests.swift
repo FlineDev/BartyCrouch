@@ -5,7 +5,7 @@ import XCTest
 
 class MicrosoftTranslatorApiTests: XCTestCase {
   func testTranslate() {
-    let microsoftSubscriptionKey = ""  // TODO: load from environment variable
+    let microsoftSubscriptionKey = try! Secrets.load().microsoftSubscriptionKey
     guard !microsoftSubscriptionKey.isEmpty else { return }
 
     let endpoint = MicrosoftTranslatorApi.translate(

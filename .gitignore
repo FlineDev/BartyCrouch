@@ -48,3 +48,6 @@ Package.resolved
 *.xcodeproj
 .swiftpm
 .build/
+
+# Project-specific
+secrets.json

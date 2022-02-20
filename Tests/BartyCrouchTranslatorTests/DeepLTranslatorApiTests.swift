@@ -5,7 +5,7 @@ import XCTest
 
 class DeepLTranslatorApiTests: XCTestCase {
   func testTranslate() {
-    let apiKey = ""  // TODO: load from environment variable
+    let apiKey = try! Secrets.load().deepLApiKey
     guard !apiKey.isEmpty else { return }
 
     let endpoint = DeepLApi.translate(

@@ -52,7 +52,11 @@ let package = Package(
     ),
     .testTarget(
       name: "BartyCrouchTranslatorTests",
-      dependencies: ["BartyCrouchTranslator"]
+      dependencies: ["BartyCrouchTranslator"],
+      exclude: ["Secrets/secrets.json.sample"],
+      resources: [
+        .copy("Secrets/secrets.json")
+      ]
     ),
   ]
 )
