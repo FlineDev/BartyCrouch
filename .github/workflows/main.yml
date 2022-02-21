@@ -52,12 +52,12 @@ jobs:
 
       - name: Setup secrets.json
         run: |
-          echo "
+          echo '
           {
             "deepLApiKey": "${{ secrets.DEEP_L_API_KEY }}",
             "microsoftSubscriptionKey": "${{ secrets.MICROSOFT_SUBSCRIPTION_KEY }}"
           }
-          " >> Tests/BartyCrouchTranslatorTests/Secrets/secrets.json
+          ' >> Tests/BartyCrouchTranslatorTests/Secrets/secrets.json
 
       - name: Run tests
         run: swift test -v

@@ -5,7 +5,7 @@ import XCTest
 
 class MicrosoftTranslatorApiTests: XCTestCase {
   func testTranslate() {
-    let microsoftSubscriptionKey = try! Secrets.load().microsoftSubscriptionKey
+    let microsoftSubscriptionKey = try! Secrets.load().microsoftSubscriptionKey  // swiftlint:disable:this force_try
     guard !microsoftSubscriptionKey.isEmpty else { return }
 
     let endpoint = MicrosoftTranslatorApi.translate(
@@ -38,7 +38,7 @@ class MicrosoftTranslatorApiTests: XCTestCase {
       XCTAssertEqual(translateResponses[0].translations[3].text, "Quantos anos tens?")
 
       XCTAssertEqual(translateResponses[0].translations[4].to, "fr-CA")
-      XCTAssertEqual(translateResponses[0].translations[4].text, "Quel âge as-tu?")
+      XCTAssertEqual(translateResponses[0].translations[4].text, "Quel âge avez-vous?")
 
       XCTAssertEqual(translateResponses[1].translations[0].to, "de")
       XCTAssertEqual(translateResponses[1].translations[0].text.lowercased(), "Liebe".lowercased())
