@@ -1,5 +1,6 @@
 import Foundation
 import SwiftCLI
+import BartyCrouchConfiguration
 
 public class LintCommand: Command {
   // MARK: - Command

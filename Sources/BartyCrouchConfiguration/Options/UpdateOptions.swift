@@ -2,8 +2,8 @@ import Foundation
 import MungoHealer
 import Toml
 
-struct UpdateOptions {
-  enum Task: String {
+public struct UpdateOptions {
+  public enum Task: String {
     case interfaces
     case code
     case transform
@@ -11,12 +11,12 @@ struct UpdateOptions {
     case normalize
   }
 
-  let tasks: [Task]
-  let interfaces: InterfacesOptions
-  let code: CodeOptions
-  let transform: TransformOptions
-  let translate: TranslateOptions?
-  let normalize: NormalizeOptions
+  public let tasks: [Task]
+  public let interfaces: InterfacesOptions
+  public let code: CodeOptions
+  public let transform: TransformOptions
+  public let translate: TranslateOptions?
+  public let normalize: NormalizeOptions
 }
 
 extension UpdateOptions: TomlCodable {

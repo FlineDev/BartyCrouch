@@ -1,12 +1,13 @@
 import Foundation
 import Toml
+import Utility
 
-struct NormalizeOptions {
-  let paths: [String]
-  let subpathsToIgnore: [String]
-  let sourceLocale: String
-  let harmonizeWithSource: Bool
-  let sortByKeys: Bool
+public struct NormalizeOptions {
+  public let paths: [String]
+  public let subpathsToIgnore: [String]
+  public let sourceLocale: String
+  public let harmonizeWithSource: Bool
+  public let sortByKeys: Bool
 }
 
 extension NormalizeOptions: TomlCodable {

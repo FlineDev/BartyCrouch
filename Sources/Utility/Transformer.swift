@@ -1,6 +1,6 @@
 import Foundation
 
-enum Transformer: String, CaseIterable {
+public enum Transformer: String, CaseIterable {
   case foundation
   case swiftgenStructured
 }

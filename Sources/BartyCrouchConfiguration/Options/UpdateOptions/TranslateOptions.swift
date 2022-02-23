@@ -1,17 +1,18 @@
 import Foundation
 import MungoHealer
 import Toml
+import Utility
 
-enum Translator: String {
+public enum Translator: String {
   case microsoftTranslator
   case deepL
 }
 
-struct TranslateOptions {
-  let paths: [String]
-  let subpathsToIgnore: [String]
-  let secret: Secret
-  let sourceLocale: String
+public struct TranslateOptions {
+  public let paths: [String]
+  public let subpathsToIgnore: [String]
+  public let secret: Secret
+  public let sourceLocale: String
 }
 
 extension TranslateOptions: TomlCodable {

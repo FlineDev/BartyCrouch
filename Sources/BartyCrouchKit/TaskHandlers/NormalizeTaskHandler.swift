@@ -1,4 +1,5 @@
 import Foundation
+import BartyCrouchConfiguration
 
 struct NormalizeTaskHandler {
   let options: NormalizeOptions

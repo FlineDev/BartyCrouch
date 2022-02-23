@@ -1,13 +1,14 @@
 import Foundation
 import Toml
+import Utility
 
-struct InterfacesOptions {
-  let paths: [String]
-  let subpathsToIgnore: [String]
-  let defaultToBase: Bool
-  let ignoreEmptyStrings: Bool
-  let unstripped: Bool
-  let ignoreKeys: [String]
+public struct InterfacesOptions {
+  public let paths: [String]
+  public let subpathsToIgnore: [String]
+  public let defaultToBase: Bool
+  public let ignoreEmptyStrings: Bool
+  public let unstripped: Bool
+  public let ignoreKeys: [String]
 }
 
 extension InterfacesOptions: TomlCodable {

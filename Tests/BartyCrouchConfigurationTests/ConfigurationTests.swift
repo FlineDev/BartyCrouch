@@ -1,7 +1,8 @@
-@testable import BartyCrouchKit
+@testable import BartyCrouchConfiguration
 import CustomDump
 import Toml
 import XCTest
+import Utility
 
 // swiftlint:disable force_try function_body_length
 

@@ -1,12 +1,13 @@
 import Foundation
 import MungoHealer
 import Toml
+import Utility
 
-struct LintOptions {
-  let paths: [String]
-  let subpathsToIgnore: [String]
-  let duplicateKeys: Bool
-  let emptyValues: Bool
+public struct LintOptions {
+  public let paths: [String]
+  public let subpathsToIgnore: [String]
+  public let duplicateKeys: Bool
+  public let emptyValues: Bool
 }
 
 extension LintOptions: TomlCodable {

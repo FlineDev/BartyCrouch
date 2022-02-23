@@ -1,4 +1,5 @@
 import Foundation
+import BartyCrouchConfiguration
 
 struct InitTaskHandler {
   /* for extension purposes only */

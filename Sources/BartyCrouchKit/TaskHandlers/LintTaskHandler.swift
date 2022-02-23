@@ -1,4 +1,5 @@
 import Foundation
+import BartyCrouchConfiguration
 
 struct LintTaskHandler {
   let options: LintOptions

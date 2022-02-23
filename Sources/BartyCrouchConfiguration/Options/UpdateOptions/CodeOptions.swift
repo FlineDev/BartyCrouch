@@ -1,17 +1,18 @@
 import Foundation
 import Toml
+import Utility
 
-struct CodeOptions {
-  let codePaths: [String]
-  let subpathsToIgnore: [String]
-  let localizablePaths: [String]
-  let defaultToKeys: Bool
-  let additive: Bool
-  let customFunction: String?
-  let customLocalizableName: String?
-  let unstripped: Bool
-  let plistArguments: Bool
-  let ignoreKeys: [String]
+public struct CodeOptions {
+  public let codePaths: [String]
+  public let subpathsToIgnore: [String]
+  public let localizablePaths: [String]
+  public let defaultToKeys: Bool
+  public let additive: Bool
+  public let customFunction: String?
+  public let customLocalizableName: String?
+  public let unstripped: Bool
+  public let plistArguments: Bool
+  public let ignoreKeys: [String]
 }
 
 extension CodeOptions: TomlCodable {

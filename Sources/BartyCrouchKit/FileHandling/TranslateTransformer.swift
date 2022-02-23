@@ -1,6 +1,7 @@
 import Foundation
 import HandySwift
 import SwiftSyntax
+import Utility
 
 class TranslateTransformer: SyntaxRewriter {
   let transformer: Transformer

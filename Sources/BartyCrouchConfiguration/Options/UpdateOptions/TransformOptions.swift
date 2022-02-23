@@ -1,16 +1,17 @@
 import Foundation
 import MungoHealer
 import Toml
+import Utility
 
-struct TransformOptions {
-  let codePaths: [String]
-  let subpathsToIgnore: [String]
-  let localizablePaths: [String]
-  let transformer: Transformer
-  let supportedLanguageEnumPath: String
-  let typeName: String
-  let translateMethodName: String
-  let customLocalizableName: String?
+public struct TransformOptions {
+  public let codePaths: [String]
+  public let subpathsToIgnore: [String]
+  public let localizablePaths: [String]
+  public let transformer: Transformer
+  public let supportedLanguageEnumPath: String
+  public let typeName: String
+  public let translateMethodName: String
+  public let customLocalizableName: String?
 }
 
 extension TransformOptions: TomlCodable {

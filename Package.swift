@@ -6,6 +6,7 @@ let package = Package(
   platforms: [.macOS(.v10_15)],
   products: [
     .executable(name: "bartycrouch", targets: ["BartyCrouch"]),
+    .library(name: "BartyCrouchConfiguration", targets: ["BartyCrouchConfiguration"]),
     .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"]),
     .library(name: "BartyCrouchTranslator", targets: ["BartyCrouchTranslator"]),
   ],
@@ -29,19 +30,32 @@ let package = Package(
     .target(
       name: "BartyCrouchKit",
       dependencies: [
+        "BartyCrouchConfiguration",
         "BartyCrouchTranslator",
         "HandySwift",
         "MungoHealer",
         "Rainbow",
         "SwiftCLI",
         "SwiftSyntax",
-        "Toml",
+        "Utility",
       ]
     ),
     .testTarget(
       name: "BartyCrouchKitTests",
+      dependencies: ["BartyCrouchKit"]
+    ),
+    .target(
+      name: "BartyCrouchConfiguration",
       dependencies: [
-        "BartyCrouchKit",
+        "MungoHealer",
+        "Toml",
+        "Utility",
+      ]
+    ),
+    .testTarget(
+      name: "BartyCrouchConfigurationTests",
+      dependencies: [
+        "BartyCrouchConfiguration",
         .product(name: "CustomDump", package: "swift-custom-dump"),
         "Toml",
       ]
@@ -58,5 +72,6 @@ let package = Package(
         .copy("Secrets/secrets.json")
       ]
     ),
+    .target(name: "Utility"),
   ]
 )
