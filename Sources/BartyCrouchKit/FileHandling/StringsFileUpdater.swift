@@ -4,7 +4,7 @@ import BartyCrouchTranslator
 import Foundation
 import HandySwift
 import MungoHealer
-import Utility
+import BartyCrouchUtility
 
 // swiftlint:disable cyclomatic_complexity
 

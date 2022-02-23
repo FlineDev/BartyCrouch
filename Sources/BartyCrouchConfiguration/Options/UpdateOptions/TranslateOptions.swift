@@ -1,7 +1,7 @@
 import Foundation
 import MungoHealer
 import Toml
-import Utility
+import BartyCrouchUtility
 
 public enum Translator: String {
   case microsoftTranslator

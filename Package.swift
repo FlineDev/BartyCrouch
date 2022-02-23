@@ -37,7 +37,7 @@ let package = Package(
         "Rainbow",
         "SwiftCLI",
         "SwiftSyntax",
-        "Utility",
+        "BartyCrouchUtility",
       ]
     ),
     .testTarget(
@@ -49,7 +49,7 @@ let package = Package(
       dependencies: [
         "MungoHealer",
         "Toml",
-        "Utility",
+        "BartyCrouchUtility",
       ]
     ),
     .testTarget(
@@ -72,6 +72,6 @@ let package = Package(
         .copy("Secrets/secrets.json")
       ]
     ),
-    .target(name: "Utility"),
+    .target(name: "BartyCrouchUtility"),
   ]
 )

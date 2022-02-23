@@ -1,6 +1,6 @@
 import Foundation
 import Toml
-import Utility
+import BartyCrouchUtility
 
 public struct InterfacesOptions {
   public let paths: [String]
