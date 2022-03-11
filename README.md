@@ -54,7 +54,7 @@
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
 
-Checkout [this blog post](https://medium.com/@Jeehut/localization-in-swift-like-a-pro-48164203afe2) to learn how you can effectively use BartyCrouch in your projects.
+Checkout [this blog post](https://jeehut.medium.com/localization-in-swift-like-a-pro-48164203afe2?sk=da26d918390db21261b7ead4837286fc) to learn how you can effectively use BartyCrouch in your projects.
 
 ## Requirements
 
