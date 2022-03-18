@@ -14,11 +14,11 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.9.0-blue.svg"
-         alt="Version: 4.9.0">
+    <img src="https://img.shields.io/badge/Version-4.10.0-blue.svg"
+         alt="Version: 4.10.0">
   </a>
-  <img src="https://img.shields.io/badge/Swift-5.5-FFAC45.svg"
-     alt="Swift: 5.5">
+  <img src="https://img.shields.io/badge/Swift-5.6-FFAC45.svg"
+     alt="Swift: 5.6">
   <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
          alt="License: MIT">
@@ -58,7 +58,7 @@ Checkout [this blog post](https://jeehut.medium.com/localization-in-swift-like-a
 
 ## Requirements
 
-- Xcode 13.0+ & Swift 5.5+
+- Xcode 13.3+ & Swift 5.6+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
