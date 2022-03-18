@@ -6,6 +6,7 @@ let package = Package(
   platforms: [.macOS(.v10_15)],
   products: [
     .executable(name: "bartycrouch", targets: ["BartyCrouch"]),
+    .library(name: "BartyCrouchConfiguration", targets: ["BartyCrouchConfiguration"]),
     .library(name: "BartyCrouchKit", targets: ["BartyCrouchKit"]),
     .library(name: "BartyCrouchTranslator", targets: ["BartyCrouchTranslator"]),
   ],
@@ -16,7 +17,7 @@ let package = Package(
     .package(name: "Rainbow", url: "https://github.com/onevcat/Rainbow.git", from: "3.1.5"),
     .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.3"),
     .package(name: "Toml", url: "https://github.com/jdfergason/swift-toml.git", .branch("master")),
-    .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", from: "0.50500.0"),
+    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50600.1")),
 
     // A collection of tools for debugging, diffing, and testing your application's data structures.
     .package(url: "https://github.com/pointfreeco/swift-custom-dump.git", from: "0.3.0"),
@@ -29,21 +30,35 @@ let package = Package(
     .target(
       name: "BartyCrouchKit",
       dependencies: [
+        "BartyCrouchConfiguration",
         "BartyCrouchTranslator",
         "HandySwift",
         "MungoHealer",
         "Rainbow",
         "SwiftCLI",
-        "SwiftSyntax",
-        "Toml",
+        .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+        .product(name: "SwiftSyntax", package: "swift-syntax"),
+        "BartyCrouchUtility",
       ]
     ),
     .testTarget(
       name: "BartyCrouchKitTests",
+      dependencies: ["BartyCrouchKit"]
+    ),
+    .target(
+      name: "BartyCrouchConfiguration",
       dependencies: [
-        "BartyCrouchKit",
+        "MungoHealer",
+        "Toml",
+        "BartyCrouchUtility",
+      ]
+    ),
+    .testTarget(
+      name: "BartyCrouchConfigurationTests",
+      dependencies: [
+        "BartyCrouchConfiguration",
         .product(name: "CustomDump", package: "swift-custom-dump"),
-        "Toml"
+        "Toml",
       ]
     ),
     .target(
@@ -52,7 +67,12 @@ let package = Package(
     ),
     .testTarget(
       name: "BartyCrouchTranslatorTests",
-      dependencies: ["BartyCrouchTranslator"]
-    )
+      dependencies: ["BartyCrouchTranslator"],
+      exclude: ["Secrets/secrets.json.sample"],
+      resources: [
+        .copy("Secrets/secrets.json")
+      ]
+    ),
+    .target(name: "BartyCrouchUtility"),
   ]
 )

@@ -1,27 +1,31 @@
+import BartyCrouchConfiguration
 import Foundation
 
 struct NormalizeTaskHandler {
-    let options: NormalizeOptions
+  let options: NormalizeOptions
 
-    init(options: NormalizeOptions) {
-        self.options = options
-    }
+  init(
+    options: NormalizeOptions
+  ) {
+    self.options = options
+  }
 }
 
 extension NormalizeTaskHandler: TaskHandler {
-    func perform() {
-        measure(task: "Normalize") {
-            mungo.do {
-                CommandLineActor().actOnNormalize(
-                    paths: options.paths,
-                    subpathsToIgnore: options.subpathsToIgnore,
-                    override: false,
-                    verbose: GlobalOptions.verbose.value,
-                    locale: options.sourceLocale,
-                    sortByKeys: options.sortByKeys,
-                    harmonizeWithSource: options.harmonizeWithSource
-                )
-            }
-        }
+  func perform() {
+    measure(task: "Normalize") {
+      mungo.do {
+        CommandLineActor()
+          .actOnNormalize(
+            paths: options.paths,
+            subpathsToIgnore: options.subpathsToIgnore,
+            override: false,
+            verbose: GlobalOptions.verbose.value,
+            locale: options.sourceLocale,
+            sortByKeys: options.sortByKeys,
+            harmonizeWithSource: options.harmonizeWithSource
+          )
+      }
     }
+  }
 }

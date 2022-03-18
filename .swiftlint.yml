@@ -59,8 +59,14 @@ opt_in_rules:
 - yoda_condition
 
 disabled_rules:
+- file_length
 - force_cast
+- function_body_length
+- line_length
+- opening_brace
+- statement_position
 - todo
+- trailing_comma
 - type_name
 
 included:
@@ -93,8 +99,6 @@ identifier_name:
     - id
     - db
     - to
-
-line_length: 160
 
 type_contents_order:
   order:
@@ -131,12 +135,6 @@ custom_rules:
     regex: 'class +\w+(?<!ViewController) *(?:<[^>]+>)? *: +\w+ViewController'
     name: "Class Name Suffix View Controller"
     message: "All `ViewController` subclasses should end on `ViewController`."
-    severity: warning
-  closing_brace_whitespace:
-    included: ".*.swift"
-    regex: '(?:\n| {2,})\}\)? *\n *[^ \n\})\]s#"]'
-    name: "Closing Brace Whitespace"
-    message: "Empty line required after closing curly braces if code with same indentation follows."
     severity: warning
   closure_params_parantheses:
     included: ".*.swift"
@@ -324,12 +322,6 @@ custom_rules:
     name: "Too Much Unindentation"
     message: "Don't unindent code by more than 4 whitespaces."
     severity: warning
-  tuple_index:
-    included: ".*.swift"
-    regex: '(\$\d|\w*[^\d \(\[\{])\.\d'
-    name: "Tuple Index"
-    message: "Prevent unwraping tuples by their index – define a typealias with named components instead."
-    severity: warning
   unnecessary_case_break:
     included: ".*.swift"
     regex: '(case |default)(?:[^\n\}]+\n){2,}\s*break *\n|\n *\n *break(?:\n *\n|\n *\})'
@@ -353,12 +345,6 @@ custom_rules:
     regex: '(?:let|var) +\w*(?:vc|VC|Vc|viewC|viewController|ViewController) *='
     name: "View Controller Variable Naming"
     message: "Always name your view controller variables with the suffix `ViewCtrl`."
-    severity: warning
-  whitespace_around_range_operators:
-    included: ".*.swift"
-    regex: '\w\.\.[<\.]\w'
-    name: "Whitespace around Range Operators"
-    message: "A range operator should be surrounded by a single whitespace."
     severity: warning
   whitespace_comment_start:
     included: ".*.swift"
