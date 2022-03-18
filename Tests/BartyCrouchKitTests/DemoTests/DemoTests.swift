@@ -1,5 +1,5 @@
-@testable import BartyCrouchKit
 @testable import BartyCrouchConfiguration
+@testable import BartyCrouchKit
 import Toml
 import XCTest
 

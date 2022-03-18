@@ -1,7 +1,7 @@
 // swiftlint:disable function_parameter_count type_body_length cyclomatic_complexity
 
-import Foundation
 import BartyCrouchUtility
+import Foundation
 
 // NOTE:
 // This file was not refactored as port of the work/big-refactoring branch for version 4.0 to prevent unexpected behavior changes.

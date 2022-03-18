@@ -1,7 +1,7 @@
+import BartyCrouchUtility
 import Foundation
 import MungoHealer
 import Toml
-import BartyCrouchUtility
 
 public struct LintOptions {
   public let paths: [String]

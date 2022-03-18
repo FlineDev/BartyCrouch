@@ -1,7 +1,7 @@
+import BartyCrouchUtility
 import Foundation
 import SwiftSyntax
 import SwiftSyntaxParser
-import BartyCrouchUtility
 
 final class CodeFileHandler {
   typealias TranslationElement = (langCode: String, translation: String)

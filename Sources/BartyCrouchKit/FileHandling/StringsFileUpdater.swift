@@ -1,10 +1,10 @@
 // swiftlint:disable function_body_length type_body_length file_length
 
 import BartyCrouchTranslator
+import BartyCrouchUtility
 import Foundation
 import HandySwift
 import MungoHealer
-import BartyCrouchUtility
 
 // swiftlint:disable cyclomatic_complexity
 

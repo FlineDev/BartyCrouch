@@ -1,6 +1,6 @@
+import BartyCrouchUtility
 import Foundation
 import Toml
-import BartyCrouchUtility
 
 public struct NormalizeOptions {
   public let paths: [String]

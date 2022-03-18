@@ -1,6 +1,6 @@
+import BartyCrouchUtility
 import Foundation
 import Toml
-import BartyCrouchUtility
 
 public struct CodeOptions {
   public let codePaths: [String]

@@ -1,7 +1,7 @@
+import BartyCrouchUtility
 import Foundation
 import HandySwift
 import SwiftSyntax
-import BartyCrouchUtility
 
 class TranslateTransformer: SyntaxRewriter {
   let transformer: Transformer
