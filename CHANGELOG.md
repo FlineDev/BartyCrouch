@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.10.0] - 2022-03-18
+### Changed
+- Update SwiftSyntax dependency to Swift 5.5 to support Xcode 13.  
+  Issues: [#201](https://github.com/Flinesoft/BartyCrouch/issues/201), [#249](https://github.com/Flinesoft/BartyCrouch/issues/249) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+
 ## [4.9.0] - 2022-01-21
 ### Added
 - Added a new option `ignoreKeys` to provide custom alternatives to the default `bc-ignore` kind of keys if needed. New option defaults to `["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]` if not specified otherwise.  
