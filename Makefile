@@ -30,7 +30,7 @@ bartycrouch_universal: $(SOURCES)
 .PHONY: install
 install: bartycrouch
 	@install -d "$(bindir)" "$(libdir)"
-	@install "$(BUILDDIR)/Apple/Products/Release/bartycrouch" "$(bindir)"
+	@install "$(BUILDDIR)/release/bartycrouch" "$(bindir)"
 
 .PHONY: portable_zip
 portable_zip: bartycrouch_universal
