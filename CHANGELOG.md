@@ -31,7 +31,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
-## [4.10.0] - 2022-03-18
+## [4.10.2] - 2022-03-26
 ### Changed
 - Update SwiftSyntax dependency to Swift 5.5 to support Xcode 13.  
   Issues: [#201](https://github.com/Flinesoft/BartyCrouch/issues/201), [#249](https://github.com/Flinesoft/BartyCrouch/issues/249) | Author: [Cihat Gündüz](https://github.com/Jeehut)
