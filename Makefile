@@ -17,6 +17,12 @@ all: bartycrouch
 bartycrouch: $(SOURCES)
 	@swift build \
 		-c release \
+		--disable-sandbox \
+		--build-path "$(BUILDDIR)"
+
+bartycrouch_universal: $(SOURCES)
+	@swift build \
+		-c release \
 		--arch arm64 --arch x86_64 \
 		--disable-sandbox \
 		--build-path "$(BUILDDIR)"
@@ -27,7 +33,7 @@ install: bartycrouch
 	@install "$(BUILDDIR)/Apple/Products/Release/bartycrouch" "$(bindir)"
 
 .PHONY: portable_zip
-portable_zip: bartycrouch
+portable_zip: bartycrouch_universal
 	rm -f "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
 	zip -j "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip" "$(BUILDDIR)/Apple/Products/Release/bartycrouch" "$(REPODIR)/LICENSE"
 	echo "Portable ZIP created at: $(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"

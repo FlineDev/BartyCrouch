@@ -31,6 +31,10 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.10.1] - 2022-03-26
+### Fixed
+- Fixed an issue with universal binaries in [Homebrew-Core](https://github.com/Homebrew/homebrew-core/pull/97188).
+
 ## [4.10.0] - 2022-03-18
 ### Changed
 - Update SwiftSyntax dependency to Swift 5.5 to support Xcode 13.  
