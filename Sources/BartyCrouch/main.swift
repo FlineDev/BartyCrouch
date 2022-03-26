@@ -5,7 +5,7 @@ import SwiftCLI
 // MARK: - CLI
 let cli = CLI(
   name: "bartycrouch",
-  version: "4.10.0",
+  version: "4.10.2",
   description: "Incrementally update & translate your Strings files from code or interface files."
 )
 
