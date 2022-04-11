@@ -355,6 +355,8 @@ NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not sup
 In order to truly profit from BartyCrouch's ability to update & lint your `.strings` files you can make it a natural part of your development workflow within Xcode. In order to do this select your target, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
 
 ```shell
+export PATH="$PATH:/opt/homebrew/bin"
+
 if which bartycrouch > /dev/null; then
     bartycrouch update -x
     bartycrouch lint -x
