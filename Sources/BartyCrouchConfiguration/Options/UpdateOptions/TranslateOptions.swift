@@ -21,7 +21,7 @@ extension TranslateOptions: TomlCodable {
     let translate: String = "translate"
 
     if let secretString: String = toml.string(update, translate, "secret") {
-      let translator = toml.string(update, translate, "translator") ?? ""
+      let translator = toml.string(update, translate, "translator") ?? "microsoftTranslator"
       let paths = toml.filePaths(update, translate, singularKey: "path", pluralKey: "paths")
       let subpathsToIgnore = toml.array(update, translate, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore
       let sourceLocale: String = toml.string(update, translate, "sourceLocale") ?? "en"

@@ -27,7 +27,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- None.
+- Fixed an issue where defaulting to Microsoft Translator no longer worked after starting to support DeepL as a translator, too.    
+  Author: [Cihat Gündüz](https://github.com/Jeehut)  
 ### Security
 - None.
 

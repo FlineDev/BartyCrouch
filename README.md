@@ -200,6 +200,7 @@ enum BartyCrouch {
 ```toml
 [update.translate]
 paths = "."
+translator = "microsoftTranslator"
 secret = "<#Subscription Key#>"
 sourceLocale = "en"
 ```
@@ -405,11 +406,6 @@ func updateTimeLabel(minutes: Int) {
 ```
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
-
-### Things to Know:
-
-- Files named or files in folders named ".git", "carthage", "pods", "build",
-  ".build" and "docs" (case insensitive) will always be ignored.
 
 
 ## Donation
