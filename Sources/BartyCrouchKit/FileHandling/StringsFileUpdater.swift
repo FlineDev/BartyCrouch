@@ -46,7 +46,8 @@ public class StringsFileUpdater {
     keepExistingKeys: Bool = false,
     overrideComments: Bool = false,
     keepWhitespaceSurroundings: Bool = false,
-    ignoreEmptyStrings: Bool = false
+    ignoreEmptyStrings: Bool = false,
+    separateWithEmptyLine: Bool = true
   ) {
     do {
       let newContentString = try String(contentsOfFile: otherStringFilePath)
@@ -132,14 +133,18 @@ public class StringsFileUpdater {
         return translations.sorted(by: sortingClosure)
       }()
 
-      rewriteFile(with: updatedTranslations, keepWhitespaceSurroundings: keepWhitespaceSurroundings)
+      rewriteFile(
+        with: updatedTranslations,
+        keepWhitespaceSurroundings: keepWhitespaceSurroundings,
+        separateWithEmptyLine: separateWithEmptyLine
+      )
     }
     catch {
       print(error.localizedDescription, level: .error, file: path)
     }
   }
 
-  func insert(translateEntries: [CodeFileHandler.TranslateEntry]) {
+  func insert(translateEntries: [CodeFileHandler.TranslateEntry], separateWithEmptyLine: Bool) {
     guard let langCode = extractLangCode(fromPath: path) else {
       print("Could not extract langCode from file.", level: .warning, file: path)
       return
@@ -151,14 +156,22 @@ public class StringsFileUpdater {
     }
     let newTranslations: [TranslationEntry] = translateEntries.map { ($0.key, getTranslation($0), $0.comment, 0) }
 
-    rewriteFile(with: oldTranslations + newTranslations, keepWhitespaceSurroundings: true)
+    rewriteFile(
+      with: oldTranslations + newTranslations,
+      keepWhitespaceSurroundings: true,
+      separateWithEmptyLine: separateWithEmptyLine
+    )
   }
 
-  public func sortByKeys(keepWhitespaceSurroundings: Bool = false) {
+  public func sortByKeys(separateWithEmptyLine: Bool, keepWhitespaceSurroundings: Bool = false) {
     let translations = findTranslations(inString: oldContentString)
     let sortedTranslations = translations.sorted(by: translationEntrySortingClosure(lhs:rhs:), stable: true)
 
-    rewriteFile(with: sortedTranslations, keepWhitespaceSurroundings: false)
+    rewriteFile(
+      with: sortedTranslations,
+      keepWhitespaceSurroundings: false,
+      separateWithEmptyLine: separateWithEmptyLine
+    )
   }
 
   private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
@@ -181,9 +194,13 @@ public class StringsFileUpdater {
   }
 
   // Rewrites file with specified translations and reloads lines from new file.
-  func rewriteFile(with translations: [TranslationEntry], keepWhitespaceSurroundings: Bool) {
+  func rewriteFile(with translations: [TranslationEntry], keepWhitespaceSurroundings: Bool, separateWithEmptyLine: Bool)
+  {
     do {
-      var newContentsOfFile = stringFromTranslations(translations: translations)
+      var newContentsOfFile = stringFromTranslations(
+        translations: translations,
+        separateWithEmptyLine: separateWithEmptyLine
+      )
 
       if keepWhitespaceSurroundings {
         var whitespacesOrNewlinesAtEnd = ""
@@ -239,6 +256,7 @@ public class StringsFileUpdater {
   public func translateEmptyValues(
     usingValuesFromStringsFile sourceStringsFilePath: String,
     clientSecret: Secret,
+    separateWithEmptyLine: Bool,
     override: Bool = false
   ) throws -> Int {
     guard let (sourceLanguage, sourceRegion) = extractLocale(fromPath: sourceStringsFilePath) else {
@@ -356,7 +374,13 @@ public class StringsFileUpdater {
         }
       }
 
-      if translatedValuesCount > 0 { rewriteFile(with: updatedTargetTranslations, keepWhitespaceSurroundings: false) }
+      if translatedValuesCount > 0 {
+        rewriteFile(
+          with: updatedTargetTranslations,
+          keepWhitespaceSurroundings: false,
+          separateWithEmptyLine: separateWithEmptyLine
+        )
+      }
 
       return translatedValuesCount
     }
@@ -408,14 +432,14 @@ public class StringsFileUpdater {
     return translations
   }
 
-  func stringFromTranslations(translations: [TranslationEntry]) -> String {
+  func stringFromTranslations(translations: [TranslationEntry], separateWithEmptyLine: Bool) -> String {
     return
       translations.map { key, value, comment, _ -> String in
         let translationLine = "\"\(key)\" = \"\(value)\";"
         if let comment = comment { return "/*\(comment)*/\n" + translationLine }
         return translationLine
       }
-      .joined(separator: "\n\n") + "\n"
+      .joined(separator: separateWithEmptyLine ? "\n\n" : "\n") + "\n"
   }
 
   /// Extracts locale from a path containing substring `{language}-{region}.lproj` or `{language}.lproj`.
@@ -465,7 +489,7 @@ public class StringsFileUpdater {
     return translations.filter { $0.value.isEmpty }
   }
 
-  func harmonizeKeys(withSource sourceFilePath: String) throws {
+  func harmonizeKeys(withSource sourceFilePath: String, separateWithEmptyLine: Bool) throws {
     let sourceFileContentString = try String(contentsOfFile: sourceFilePath)
 
     let sourceTranslations = findTranslations(inString: sourceFileContentString)
@@ -501,7 +525,7 @@ public class StringsFileUpdater {
       fixedTranslations = fixedTranslations.filter { $0.key != keyToRemove }
     }
 
-    rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true)
+    rewriteFile(with: fixedTranslations, keepWhitespaceSurroundings: true, separateWithEmptyLine: separateWithEmptyLine)
   }
 }
 
