@@ -8,6 +8,7 @@ public struct NormalizeOptions {
   public let sourceLocale: String
   public let harmonizeWithSource: Bool
   public let sortByKeys: Bool
+  public let separateWithEmptyLine: Bool
 }
 
 extension NormalizeOptions: TomlCodable {
@@ -20,18 +21,20 @@ extension NormalizeOptions: TomlCodable {
       subpathsToIgnore: toml.array(update, normalize, "subpathsToIgnore") ?? Constants.defaultSubpathsToIgnore,
       sourceLocale: toml.string(update, normalize, "sourceLocale") ?? "en",
       harmonizeWithSource: toml.bool(update, normalize, "harmonizeWithSource") ?? true,
-      sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true
+      sortByKeys: toml.bool(update, normalize, "sortByKeys") ?? true,
+      separateWithEmptyLine: toml.bool(update, normalize, "separateWithEmptyLine") ?? true
     )
   }
 
   func tomlContents() -> String {
     var lines: [String] = ["[update.normalize]"]
 
-    lines.append("paths = \(paths)")
-    lines.append("subpathsToIgnore = \(subpathsToIgnore)")
-    lines.append("sourceLocale = \"\(sourceLocale)\"")
-    lines.append("harmonizeWithSource = \(harmonizeWithSource)")
-    lines.append("sortByKeys = \(sortByKeys)")
+    lines.append("paths = \(self.paths)")
+    lines.append("subpathsToIgnore = \(self.subpathsToIgnore)")
+    lines.append("sourceLocale = \"\(self.sourceLocale)\"")
+    lines.append("harmonizeWithSource = \(self.harmonizeWithSource)")
+    lines.append("sortByKeys = \(self.sortByKeys)")
+    lines.append("separateWithEmptyLine = \(self.separateWithEmptyLine)")
 
     return lines.joined(separator: "\n")
   }

@@ -3,12 +3,6 @@ import Foundation
 
 struct TranslateTaskHandler {
   let options: TranslateOptions
-
-  init(
-    options: TranslateOptions
-  ) {
-    self.options = options
-  }
 }
 
 extension TranslateTaskHandler: TaskHandler {
@@ -24,7 +18,8 @@ extension TranslateTaskHandler: TaskHandler {
             override: false,
             verbose: GlobalOptions.verbose.value,
             secret: options.secret,
-            locale: options.sourceLocale
+            locale: options.sourceLocale,
+            separateWithEmptyLine: self.options.separateWithEmptyLine
           )
       }
     }

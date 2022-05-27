@@ -1,25 +1,25 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/Flinesoft/BartyCrouch/main/Logo.png" width=600>
+    <img src="https://raw.githubusercontent.com/FlineDev/BartyCrouch/main/Logo.png" width=600>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Flinesoft/BartyCrouch/actions?query=workflow%3ACI+branch%3Amain">
-    <img src="https://github.com/Flinesoft/BartyCrouch/workflows/CI/badge.svg?branch=main"
+  <a href="https://github.com/FlineDev/BartyCrouch/actions?query=workflow%3ACI+branch%3Amain">
+    <img src="https://github.com/FlineDev/BartyCrouch/workflows/CI/badge.svg?branch=main"
          alt="CI Status">
   </a>
-  <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+  <a href="https://www.codacy.com/gh/FlineDev/BartyCrouch">
     <img src="https://api.codacy.com/project/badge/Grade/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
-  <a href="https://www.codacy.com/gh/Flinesoft/BartyCrouch">
+  <a href="https://www.codacy.com/gh/FlineDev/BartyCrouch">
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
-  <a href="https://github.com/Flinesoft/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.10.2-blue.svg"
-         alt="Version: 4.10.2">
+  <a href="https://github.com/FlineDev/BartyCrouch/releases">
+    <img src="https://img.shields.io/badge/Version-4.11.0-blue.svg"
+         alt="Version: 4.11.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.6-FFAC45.svg"
      alt="Swift: 5.6">
-  <a href="https://github.com/Flinesoft/BartyCrouch/blob/main/LICENSE.md">
+  <a href="https://github.com/FlineDev/BartyCrouch/blob/main/LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
          alt="License: MIT">
   </a>
@@ -45,7 +45,7 @@
   • <a href="#build-script">Build Script</a>
   • <a href="#donation">Donation</a>
   • <a href="#migration-guides">Migration Guides</a>
-  • <a href="https://github.com/Flinesoft/BartyCrouch/issues">Issues</a>
+  • <a href="https://github.com/FlineDev/BartyCrouch/issues">Issues</a>
   • <a href="#contributing">Contributing</a>
   • <a href="#license">License</a>
 </p>
@@ -87,7 +87,7 @@ brew upgrade bartycrouch
 To **install** or update to the latest version of BartyCrouch simply run this command:
 
 ```bash
-mint install Flinesoft/BartyCrouch
+mint install FlineDev/BartyCrouch
 ```
 </details>
 
@@ -154,7 +154,7 @@ This is the default configuration of BartyCrouch and should work for most projec
 
 ```swift
 //  This file is required in order for the `transform` task of the translation helper tool BartyCrouch to work.
-//  See here for more details: https://github.com/Flinesoft/BartyCrouch
+//  See here for more details: https://github.com/FlineDev/BartyCrouch
 
 import Foundation
 
@@ -200,6 +200,7 @@ enum BartyCrouch {
 ```toml
 [update.translate]
 paths = "."
+translator = "microsoftTranslator"
 secret = "<#Subscription Key#>"
 sourceLocale = "en"
 ```
@@ -275,6 +276,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `typeName`: The name of the type enclosing the `SupportedLanguage` enum and translate method.
 - `translateMethodName`: The name of the translate method to be replaced.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
@@ -285,6 +287,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `translator`: Specifies the translation API. Use `microsoftTranslator` or `deepL`.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key) or [Authentication Key for DeepL API](https://www.deepl.com/pro-account/plan).
 - `sourceLocale`: The source language to translate from.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
@@ -295,6 +298,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `sourceLocale`: The source language to harmonize keys of other languages with.
 - `harmonizeWithSource`: Synchronizes keys with source language.
 - `sortByKeys`: Alphabetically sorts translations by their keys.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
@@ -355,11 +359,13 @@ NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not sup
 In order to truly profit from BartyCrouch's ability to update & lint your `.strings` files you can make it a natural part of your development workflow within Xcode. In order to do this select your target, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
 
 ```shell
+export PATH="$PATH:/opt/homebrew/bin"
+
 if which bartycrouch > /dev/null; then
     bartycrouch update -x
     bartycrouch lint -x
 else
-    echo "warning: BartyCrouch not installed, download it from https://github.com/Flinesoft/BartyCrouch"
+    echo "warning: BartyCrouch not installed, download it from https://github.com/FlineDev/BartyCrouch"
 fi
 ```
 
@@ -404,21 +410,16 @@ func updateTimeLabel(minutes: Int) {
 
 The `%d minute(s) ago` key will be taken from Localizable.stringsdict file, not from Localizable.strings, that's why it should be ignored by BartyCrouch.
 
-### Things to Know:
-
-- Files named or files in folders named ".git", "carthage", "pods", "build",
-  ".build" and "docs" (case insensitive) will always be ignored.
-
 
 ## Donation
 
-BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Jeehut) in his free time. If you want to thank me and support the development of this project, please **make a small donation on [PayPal](https://paypal.me/Dschee/5EUR)**. In case you also like my other [open source contributions](https://github.com/Flinesoft) and [articles](https://medium.com/@Jeehut), please consider motivating me by **becoming a sponsor on [GitHub](https://github.com/sponsors/Jeehut)** or a **patron on [Patreon](https://www.patreon.com/Jeehut)**.
+BartyCrouch was brought to you by [Cihat Gündüz](https://github.com/Jeehut) in his free time. If you want to thank me and support the development of this project, please **make a small donation on [PayPal](https://paypal.me/Dschee/5EUR)**. In case you also like my other [open source contributions](https://github.com/FlineDev) and [articles](https://medium.com/@Jeehut), please consider motivating me by **becoming a sponsor on [GitHub](https://github.com/sponsors/Jeehut)** or a **patron on [Patreon](https://www.patreon.com/Jeehut)**.
 
 Thank you very much for any donation, it really helps out a lot! 💯
 
 ## Migration Guides
 
-See the file [MIGRATION_GUIDES.md](https://github.com/Flinesoft/BartyCrouch/blob/main/MIGRATION_GUIDES.md).
+See the file [MIGRATION_GUIDES.md](https://github.com/FlineDev/BartyCrouch/blob/main/MIGRATION_GUIDES.md).
 
 ## Contributing
 

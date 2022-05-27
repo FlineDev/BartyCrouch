@@ -177,12 +177,14 @@ class ConfigurationTests: XCTestCase {
       supportedLanguageEnumPath = "."
       typeName = "BartyCrouch"
       translateMethodName = "translate"
+      separateWithEmptyLine = true
 
       [update.translate]
       paths = ["Sources"]
       subpathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs"]
       secret = "bingSecret"
       sourceLocale = "de"
+      separateWithEmptyLine = true
 
       [update.normalize]
       paths = ["Sources"]
@@ -190,6 +192,7 @@ class ConfigurationTests: XCTestCase {
       sourceLocale = "de"
       harmonizeWithSource = false
       sortByKeys = false
+      separateWithEmptyLine = true
 
       [lint]
       paths = ["Sources"]
@@ -201,6 +204,6 @@ class ConfigurationTests: XCTestCase {
     let toml: Toml = try! Toml(withString: tomlContents)
     let configuration: Configuration = try! Configuration.make(toml: toml)
 
-    XCTAssertNoDifference(configuration.tomlContents(), tomlContents)
+    XCTAssertNoDifference(tomlContents, configuration.tomlContents())
   }
 }
