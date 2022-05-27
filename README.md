@@ -276,6 +276,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `typeName`: The name of the type enclosing the `SupportedLanguage` enum and translate method.
 - `translateMethodName`: The name of the translate method to be replaced.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
@@ -286,6 +287,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `translator`: Specifies the translation API. Use `microsoftTranslator` or `deepL`.
 - `secret`: Your [Microsoft Translator Text API Subscription Key](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/translator-text-how-to-signup#authentication-key) or [Authentication Key for DeepL API](https://www.deepl.com/pro-account/plan).
 - `sourceLocale`: The source language to translate from.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
@@ -296,6 +298,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `sourceLocale`: The source language to harmonize keys of other languages with.
 - `harmonizeWithSource`: Synchronizes keys with source language.
 - `sortByKeys`: Alphabetically sorts translations by their keys.
+- `separateWithEmptyLine`: Set to `false` if you don't want to have empty lines between Strings entries. Defaults to `true.
 
 </details>
 
