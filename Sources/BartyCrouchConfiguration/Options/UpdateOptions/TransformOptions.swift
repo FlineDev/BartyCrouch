@@ -12,6 +12,7 @@ public struct TransformOptions {
   public let typeName: String
   public let translateMethodName: String
   public let customLocalizableName: String?
+  public let separateWithEmptyLine: Bool
 }
 
 extension TransformOptions: TomlCodable {
@@ -43,24 +44,27 @@ extension TransformOptions: TomlCodable {
       supportedLanguageEnumPath: toml.string(update, transform, "supportedLanguageEnumPath") ?? ".",
       typeName: toml.string(update, transform, "typeName") ?? "BartyCrouch",
       translateMethodName: toml.string(update, transform, "translateMethodName") ?? "translate",
-      customLocalizableName: toml.string(update, transform, "customLocalizableName")
+      customLocalizableName: toml.string(update, transform, "customLocalizableName"),
+      separateWithEmptyLine: toml.bool(update, transform, "separateWithEmptyLine") ?? true
     )
   }
 
   func tomlContents() -> String {
     var lines: [String] = ["[update.transform]"]
 
-    lines.append("codePaths = \(codePaths)")
-    lines.append("subpathsToIgnore = \(subpathsToIgnore)")
-    lines.append("localizablePaths = \(localizablePaths)")
-    lines.append("transformer = \"\(transformer.rawValue)\"")
-    lines.append("supportedLanguageEnumPath = \"\(supportedLanguageEnumPath)\"")
-    lines.append("typeName = \"\(typeName)\"")
-    lines.append("translateMethodName = \"\(translateMethodName)\"")
+    lines.append("codePaths = \(self.codePaths)")
+    lines.append("subpathsToIgnore = \(self.subpathsToIgnore)")
+    lines.append("localizablePaths = \(self.localizablePaths)")
+    lines.append(#"transformer = "\#(self.transformer.rawValue)""#)
+    lines.append(#"supportedLanguageEnumPath = "\#(self.supportedLanguageEnumPath)""#)
+    lines.append(#"typeName = "\#(self.typeName)""#)
+    lines.append(#"translateMethodName = "\#(self.translateMethodName)""#)
 
     if let customLocalizableName = customLocalizableName {
-      lines.append("customLocalizableName = \"\(customLocalizableName)\"")
+      lines.append(#"customLocalizableName = "\#(customLocalizableName)""#)
     }
+
+    lines.append("separateWithEmptyLine = \(self.separateWithEmptyLine)")
 
     return lines.joined(separator: "\n")
   }

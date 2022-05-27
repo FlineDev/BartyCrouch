@@ -3,12 +3,6 @@ import Foundation
 
 struct TransformTaskHandler {
   let options: TransformOptions
-
-  init(
-    options: TransformOptions
-  ) {
-    self.options = options
-  }
 }
 
 extension TransformTaskHandler: TaskHandler {
@@ -71,7 +65,11 @@ extension TransformTaskHandler: TaskHandler {
         )
 
         for stringsFile in stringsFiles {
-          StringsFileUpdater(path: stringsFile)!.insert(translateEntries: translateEntries)
+          StringsFileUpdater(path: stringsFile)!
+            .insert(
+              translateEntries: translateEntries,
+              separateWithEmptyLine: self.options.separateWithEmptyLine
+            )
         }
       }
     }

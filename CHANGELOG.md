@@ -9,7 +9,7 @@ Each entry should use the following format:
 
 ```markdown
 - Summary of what was changed in a single line using past tense & followed by two whitespaces.  
-  Issue: [#0](https://github.com/Flinesoft/BartyCrouch/issues/0) | PR: [#0](https://github.com/Flinesoft/BartyCrouch/pull/0) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  Issue: [#0](https://github.com/FlineDev/BartyCrouch/issues/0) | PR: [#0](https://github.com/FlineDev/BartyCrouch/pull/0) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ```
 
 Note that at the end of the summary line, you need to add two whitespaces (`  `) for correct rendering on GitHub.
@@ -19,7 +19,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- None.
+- Adds new `separateWithEmptyLine` options to allow removing the empty line between Strings entries.  
+  Issues: [#251](https://github.com/FlineDev/BartyCrouch/issues/251) | PR: [#254](https://github.com/FlineDev/BartyCrouch/pull/254) | Author: [Cihat Gündüz](https://github.com/Jeehut)  
 ### Changed
 - None.
 ### Deprecated
@@ -35,21 +36,21 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ## [4.10.2] - 2022-03-26
 ### Changed
 - Update SwiftSyntax dependency to Swift 5.5 to support Xcode 13.  
-  Issues: [#201](https://github.com/Flinesoft/BartyCrouch/issues/201), [#249](https://github.com/Flinesoft/BartyCrouch/issues/249) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  Issues: [#201](https://github.com/FlineDev/BartyCrouch/issues/201), [#249](https://github.com/FlineDev/BartyCrouch/issues/249) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.9.0] - 2022-01-21
 ### Added
 - Added a new option `ignoreKeys` to provide custom alternatives to the default `bc-ignore` kind of keys if needed. New option defaults to `["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]` if not specified otherwise.  
-  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  PR: [#242](https://github.com/FlineDev/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 - Added a new option `subpathsToIgnore` to provide subpaths to be ignored (with case-insensitive comparison) inside of the provided `paths`. New option defaults to `[".git", "carthage", "pods", "build", ".build", "docs"]` if not specified otherwise.  
-  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  PR: [#242](https://github.com/FlineDev/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Fixed
 - Removed ignoring all `InfoPlist.strings` files by default. If you want this to actually be the case, just add `InfoPlist.strings` to the array in the new `subpathsToIgnore` option, e.g.: `subPathsToIgnore = [".git", "carthage", "pods", "build", ".build", "docs", "InfoPlist.strings"]`  
-  PR: [#242](https://github.com/Flinesoft/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  PR: [#242](https://github.com/FlineDev/BartyCrouch/pull/242) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 - Less situations where the empty `tmpstring` folder continues to exist.  
-  PR: [#238](https://github.com/Flinesoft/BartyCrouch/pull/238) | Author: [Benjamin Erhart](https://github.com/tladesignz)
+  PR: [#238](https://github.com/FlineDev/BartyCrouch/pull/238) | Author: [Benjamin Erhart](https://github.com/tladesignz)
 - Only apply ignores on subpaths of explicitly mentioned folders in `path` options, don't ignore any paths that are explicitly mentioned.  
-  PR: [#240](https://github.com/Flinesoft/BartyCrouch/pull/240) | Author: [Benjamin Erhart](https://github.com/tladesignz)
+  PR: [#240](https://github.com/FlineDev/BartyCrouch/pull/240) | Author: [Benjamin Erhart](https://github.com/tladesignz)
 
 ## [4.8.0] - 2021-10-10
 ### Changed
@@ -59,22 +60,22 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ## [4.7.1] - 2021-08-26
 ### Fixed
 - Fixed that DeepL translation doesn't work for Simplified Chinese.  
-  PR: [#232](https://github.com/Flinesoft/BartyCrouch/pull/232) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
+  PR: [#232](https://github.com/FlineDev/BartyCrouch/pull/232) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
 
 ## [4.7.0] - 2021-07-31
 ### Added
 - Add support for DeepL API Free  
-  PR: [#230](https://github.com/Flinesoft/BartyCrouch/pull/230) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
+  PR: [#230](https://github.com/FlineDev/BartyCrouch/pull/230) | Author: [Manabu Nakazawa](https://github.com/mshibanami)
 
 ## [4.6.0] - 2021-05-08
 ### Changed
 - Updated swift-syntax to match Swift 5.4 to support Xcode 12.5.  
-  Issues: [#222](https://github.com/Flinesoft/BartyCrouch/issues/222) | PR: [#223](https://github.com/Flinesoft/BartyCrouch/pull/223) | Author: [Matt Sanford](https://github.com/mzsanford)
+  Issues: [#222](https://github.com/FlineDev/BartyCrouch/issues/222) | PR: [#223](https://github.com/FlineDev/BartyCrouch/pull/223) | Author: [Matt Sanford](https://github.com/mzsanford)
 
 ## [4.5.0] - 2021-02-21
 ### Added
 - Add support for DeepL API as an alternative for Microsoft Translator API.  
-  PR: [#220](https://github.com/Flinesoft/BartyCrouch/pull/220) | Author: [noppe](https://github.com/noppefoxwolf)
+  PR: [#220](https://github.com/FlineDev/BartyCrouch/pull/220) | Author: [noppe](https://github.com/noppefoxwolf)
 
 ## [4.4.1] - 2021-01-16
 ### Fixed
@@ -84,78 +85,78 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ## [4.4.0] - 2021-01-16
 ### Changed
 - Updated languages supported by Microsoft Translator – 17 more languages available now!  
-  Issue: [#216](https://github.com/Flinesoft/BartyCrouch/issues/216) | PR: [#219](https://github.com/Flinesoft/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
+  Issue: [#216](https://github.com/FlineDev/BartyCrouch/issues/216) | PR: [#219](https://github.com/FlineDev/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
 - BartyCrouch doesn't fail anymore when there's a language not supported by Microsoft Translator (yet) – it prints a warning instead.  
-  Issue: [#215](https://github.com/Flinesoft/BartyCrouch/issues/215) | PR: [#219](https://github.com/Flinesoft/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
+  Issue: [#215](https://github.com/FlineDev/BartyCrouch/issues/215) | PR: [#219](https://github.com/FlineDev/BartyCrouch/pull/219) | Author: [Jamie Gough](https://github.com/jamiegough)
 
 ## [4.3.2] - 2020-12-24
 ### Fixed
 - Fixed an issue where BartyCrouch did not skip the directories ".git", "Carthage", "Pods", "build", ".build", "docs" anymore.  
-  Issues: [#213](https://github.com/Flinesoft/BartyCrouch/issues/213), [#2](https://github.com/Flinesoft/BartyCrouch/issues/177) | PR: [#214](https://github.com/Flinesoft/BartyCrouch/pull/214) | Author: [Bill Panagiotopoulos](https://github.com/billp)
+  Issues: [#213](https://github.com/FlineDev/BartyCrouch/issues/213), [#2](https://github.com/FlineDev/BartyCrouch/issues/177) | PR: [#214](https://github.com/FlineDev/BartyCrouch/pull/214) | Author: [Bill Panagiotopoulos](https://github.com/billp)
 
 ## [4.3.1] - 2020-10-06
 ### Fixed
 - Fix missing usage of `harmonizeWithSource` parameter for `normalize` task.  
-  Issue: [#196](https://github.com/Flinesoft/BartyCrouch/issues/196) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/197) | Author: [Marco Pagliari](https://github.com/lechuckcaptain)
+  Issue: [#196](https://github.com/FlineDev/BartyCrouch/issues/196) | PR: [#182](https://github.com/FlineDev/BartyCrouch/pull/197) | Author: [Marco Pagliari](https://github.com/lechuckcaptain)
 
 ## [4.3.0] - 2020-09-28
 ### Changed
 - Updated swift-syntax to match Swift 5.3.  
-  Issues: [#199](https://github.com/Flinesoft/BartyCrouch/issues/199), [#201](https://github.com/Flinesoft/BartyCrouch/issues/201) | PR: [#204](https://github.com/Flinesoft/BartyCrouch/pull/204) | Author: [w8wjb](https://github.com/w8wjb)
+  Issues: [#199](https://github.com/FlineDev/BartyCrouch/issues/199), [#201](https://github.com/FlineDev/BartyCrouch/issues/201) | PR: [#204](https://github.com/FlineDev/BartyCrouch/pull/204) | Author: [w8wjb](https://github.com/w8wjb)
 
 ## [4.2.0] - 2020-04-24
 ### Added
 - Added new `-p` / `--path` option to run BartyCrouch from a different path than current.  
-  Issues: [#166](https://github.com/Flinesoft/BartyCrouch/issues/166), [#177](https://github.com/Flinesoft/BartyCrouch/issues/177) | PR: [#181](https://github.com/Flinesoft/BartyCrouch/pull/181) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  Issues: [#166](https://github.com/FlineDev/BartyCrouch/issues/166), [#177](https://github.com/FlineDev/BartyCrouch/issues/177) | PR: [#181](https://github.com/FlineDev/BartyCrouch/pull/181) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Removed
 - Removed code magic that used the localization comment from Interface Builder files as a source for new translation values.  
-  Issue: [#140](https://github.com/Flinesoft/BartyCrouch/issues/140) | PR: [#182](https://github.com/Flinesoft/BartyCrouch/pull/182) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  Issue: [#140](https://github.com/FlineDev/BartyCrouch/issues/140) | PR: [#182](https://github.com/FlineDev/BartyCrouch/pull/182) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Fixed
 - Normalize sortByKeys no longer adds empty line to begining of .strings file.  
-  Issue: [#178](https://github.com/Flinesoft/BartyCrouch/issues/178) | PR: [#180](https://github.com/Flinesoft/BartyCrouch/pull/180) | Author: [Patrick Wolowicz](https://github.com/hactar)
+  Issue: [#178](https://github.com/FlineDev/BartyCrouch/issues/178) | PR: [#180](https://github.com/FlineDev/BartyCrouch/pull/180) | Author: [Patrick Wolowicz](https://github.com/hactar)
 
 ## [4.1.1] - 2020-04-16
 ### Fixed
 - Fixed crashes in projects with large number of files by introducing new `plist` file based approach for passing arguments. See the new `--plist-arguments` option. Will be automatically turned on when needed (many files in project).  
-  Issues: [#92](https://github.com/Flinesoft/BartyCrouch/issues/92), [#99](https://github.com/Flinesoft/BartyCrouch/issues/99) | PRs: [#150](https://github.com/Flinesoft/BartyCrouch/pull/150), [#176](https://github.com/Flinesoft/BartyCrouch/pull/176) | Authors: [Christos Koninis](https://github.com/csknns), [Cihat Gündüz](https://github.com/Jeehut)
+  Issues: [#92](https://github.com/FlineDev/BartyCrouch/issues/92), [#99](https://github.com/FlineDev/BartyCrouch/issues/99) | PRs: [#150](https://github.com/FlineDev/BartyCrouch/pull/150), [#176](https://github.com/FlineDev/BartyCrouch/pull/176) | Authors: [Christos Koninis](https://github.com/csknns), [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.1.0] - 2020-04-10
 ### Added
 - Added support for specifying multiple paths for all `path` options.  
-  Issue: [#155](https://github.com/Flinesoft/BartyCrouch/issues/155) | PR: [#167](https://github.com/Flinesoft/HandySwift/pull/167) | Author: [Frederick Pietschmann](https://github.com/fredpi)
+  Issue: [#155](https://github.com/FlineDev/BartyCrouch/issues/155) | PR: [#167](https://github.com/FlineDev/HandySwift/pull/167) | Author: [Frederick Pietschmann](https://github.com/fredpi)
 ### Changed
 - Upgraded SwiftSyntax to Swift 5.2 version `0.50200.0`.  
-  Issue: [#170](https://github.com/Flinesoft/BartyCrouch/issues/170) | PRs: [#171](https://github.com/Flinesoft/BartyCrouch/pull/171), [#172](https://github.com/Flinesoft/BartyCrouch/pull/172), [#173](https://github.com/Flinesoft/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
+  Issue: [#170](https://github.com/FlineDev/BartyCrouch/issues/170) | PRs: [#171](https://github.com/FlineDev/BartyCrouch/pull/171), [#172](https://github.com/FlineDev/BartyCrouch/pull/172), [#173](https://github.com/FlineDev/BartyCrouch/pull/173) | Authors: [Tomoya Hirano](https://github.com/noppefoxwolf), [Cihat Gündüz](https://github.com/Jeehut)
 - Updated all dependencies to their latest versions to prevent warnings.  
-  PR: [#172](https://github.com/Flinesoft/BartyCrouch/pull/172) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+  PR: [#172](https://github.com/FlineDev/BartyCrouch/pull/172) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.0.2] - 2019-05-13
 ### Fixed
-- Make Code Transform, Normalize & Lint fast again (up to 50x faster). Fixes [#128](https://github.com/Flinesoft/BartyCrouch/issues/128) by [Frederick Pietschmann](https://github.com/fredpi).
+- Make Code Transform, Normalize & Lint fast again (up to 50x faster). Fixes [#128](https://github.com/FlineDev/BartyCrouch/issues/128) by [Frederick Pietschmann](https://github.com/fredpi).
 
 ## [4.0.1] - 2019-03-26
 ### Added
 - Support for Swift 5.0 and Xcode 10.2 command line tools. By [Cihat Gündüz](https://github.com/Dschee).
 ### Changed
-- Don't rewrite files if they didn't change to improve performance. Via [#111](https://github.com/Flinesoft/BartyCrouch/issues/120) by [Keith Bauer](https://github.com/OneSadCookie).
+- Don't rewrite files if they didn't change to improve performance. Via [#111](https://github.com/FlineDev/BartyCrouch/issues/120) by [Keith Bauer](https://github.com/OneSadCookie).
 ### Deprecated
 - None.
 ### Removed
 - Support for Swift 4.2 and Xcode <=10.1. If you need to run BartyCrouch with older Xcode versions and had a previous version of BartyCrouch installed, then simply switch to it via `brew switch bartycrouch 4.0.0`. By [Cihat Gündüz](https://github.com/Dschee).
 ### Fixed
-- Turns off multiple key/value pairs warning by default. Fixes [#120](https://github.com/Flinesoft/BartyCrouch/issues/120) via [#121](https://github.com/Flinesoft/BartyCrouch/pull/121) by [Robert Baker](https://github.com/magneticrob).
+- Turns off multiple key/value pairs warning by default. Fixes [#120](https://github.com/FlineDev/BartyCrouch/issues/120) via [#121](https://github.com/FlineDev/BartyCrouch/pull/121) by [Robert Baker](https://github.com/magneticrob).
 ### Security
 - None.
 
 ## [4.0.0] - 2019-02-04
 ### Added
-- Support for [installation](https://github.com/Flinesoft/BartyCrouch#installation) via Mint (SwiftSPM based).
-- Use [configuration file](https://github.com/Flinesoft/BartyCrouch#configuration) instead of thousands of command line options.
-- [Demo project based](https://github.com/Flinesoft/BartyCrouch/tree/stable/Demo/Untouched) integration tests.
+- Support for [installation](https://github.com/FlineDev/BartyCrouch#installation) via Mint (SwiftSPM based).
+- Use [configuration file](https://github.com/FlineDev/BartyCrouch#configuration) instead of thousands of command line options.
+- [Demo project based](https://github.com/FlineDev/BartyCrouch/tree/stable/Demo/Untouched) integration tests.
 - Sophisticated [SwiftGen](https://github.com/SwiftGen/SwiftGen)-Integration (automatic static NSLocalizedString code replacement) via new `transform` option.
 ### Changed
 - All subcommands except `lint` were bundled into the `update` subcommand.
-- [Own client implementation](https://github.com/Flinesoft/BartyCrouch/tree/stable/Sources/BartyCrouchTranslator) of updated Microsowft Translator API.
+- [Own client implementation](https://github.com/FlineDev/BartyCrouch/tree/stable/Sources/BartyCrouchTranslator) of updated Microsowft Translator API.
 ### Deprecated
 - None.
 ### Removed
@@ -169,7 +170,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ## [3.13.1] - 2018-07-26
 ### Added
 - Added ability to ignore empty strings.
-  via [#107](https://github.com/Flinesoft/BartyCrouch/pull/107) by [Ludvig Eriksson](https://github.com/ludvigeriksson)
+  via [#107](https://github.com/FlineDev/BartyCrouch/pull/107) by [Ludvig Eriksson](https://github.com/ludvigeriksson)
 ### Changed
 - Restructure code for SPM compatibility.
 - Introduce CHANGELOG.md, CONTRIBUTION.md and CODE_OF_CONDUCT.md
@@ -222,7 +223,7 @@ This will:
 
 ## [3.10.1] - 2018-03-08
 ### Fixed
-- Reverts [#67](https://github.com/Flinesoft/BartyCrouch/issues/67) to fix [#11](https://github.com/Flinesoft/BartyCrouch/issues/11) and [#88](https://github.com/Flinesoft/BartyCrouch/issues/88).
+- Reverts [#67](https://github.com/FlineDev/BartyCrouch/issues/67) to fix [#11](https://github.com/FlineDev/BartyCrouch/issues/11) and [#88](https://github.com/FlineDev/BartyCrouch/issues/88).
 
 ## [3.10.0] - 2018-02-05
 ### Added
@@ -231,21 +232,21 @@ This will:
 
 ## [3.9.2] - 2018-01-09
 ### Fixed
-Fixes [#72](https://github.com/Flinesoft/BartyCrouch/issues/72).
+Fixes [#72](https://github.com/FlineDev/BartyCrouch/issues/72).
 
 ## [3.9.1] - 2017-12-11
 ### Fixed
-Fixes [#65](https://github.com/Flinesoft/BartyCrouch/issues/65).
+Fixes [#65](https://github.com/FlineDev/BartyCrouch/issues/65).
 
 ## [3.9.0] - 2017-09-26
 ### Changed
 - Update to Swift 4 & Xcode 9
 ### Fixed
-Fixes [#66](https://github.com/Flinesoft/BartyCrouch/issues/66).
+Fixes [#66](https://github.com/FlineDev/BartyCrouch/issues/66).
 
 ## [3.8.1] - 2017-08-02
 ### Fixed
-Fixes [#55](https://github.com/Flinesoft/BartyCrouch/issues/55), [#60](https://github.com/Flinesoft/BartyCrouch/issues/60) and [#63](https://github.com/Flinesoft/BartyCrouch/issues/63).
+Fixes [#55](https://github.com/FlineDev/BartyCrouch/issues/55), [#60](https://github.com/FlineDev/BartyCrouch/issues/60) and [#63](https://github.com/FlineDev/BartyCrouch/issues/63).
 
 ## [3.8.0] - 2017-05-22
 ### Added
@@ -305,7 +306,7 @@ See also their documentation sections in the README for additional details.
 ### Removed
 - Input (`-i`), Exclude (`-e`) and Output (`-o`) options
 
-Please have a look at the [migration guide](https://github.com/Flinesoft/BartyCrouch#migration-guides) for a flawless upgrade from version 2.x.
+Please have a look at the [migration guide](https://github.com/FlineDev/BartyCrouch#migration-guides) for a flawless upgrade from version 2.x.
 
 
 ## [2.0.0] - 2016-04-30

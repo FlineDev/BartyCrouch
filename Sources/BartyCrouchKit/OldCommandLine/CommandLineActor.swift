@@ -111,7 +111,8 @@ public class CommandLineActor {
     override: Bool,
     verbose: Bool,
     secret: Secret,
-    locale: String
+    locale: String,
+    separateWithEmptyLine: Bool
   ) {
     let inputFilePaths =
       paths.flatMap {
@@ -132,7 +133,14 @@ public class CommandLineActor {
 
       let outputStringsFilePaths = StringsFilesSearch.shared.findAllLocalesForStringsFile(sourceFilePath: inputFilePath)
         .filter { $0 != inputFilePath }
-      self.translate(secret: secret, inputFilePath, outputStringsFilePaths, override: override, verbose: verbose)
+      self.translate(
+        secret: secret,
+        inputFilePath,
+        outputStringsFilePaths,
+        override: override,
+        verbose: verbose,
+        separateWithEmptyLine: separateWithEmptyLine
+      )
     }
   }
 
@@ -143,7 +151,8 @@ public class CommandLineActor {
     verbose: Bool,
     locale: String,
     sortByKeys: Bool,
-    harmonizeWithSource: Bool
+    harmonizeWithSource: Bool,
+    separateWithEmptyLine: Bool
   ) {
     let sourceFilePaths =
       paths.flatMap {
@@ -176,7 +185,8 @@ public class CommandLineActor {
         for filePath in targetStringsFilePaths {
           let stringsFileUpdater = StringsFileUpdater(path: filePath)
           do {
-            try stringsFileUpdater?.harmonizeKeys(withSource: sourceFilePath)
+            try stringsFileUpdater?
+              .harmonizeKeys(withSource: sourceFilePath, separateWithEmptyLine: separateWithEmptyLine)
           }
           catch {
             print("Could not harmonize keys with source file at path \(sourceFilePath).", level: .error)
@@ -188,7 +198,7 @@ public class CommandLineActor {
       if sortByKeys {
         for filePath in allStringsFilePaths {
           let stringsFileUpdater = StringsFileUpdater(path: filePath)
-          stringsFileUpdater?.sortByKeys()
+          stringsFileUpdater?.sortByKeys(separateWithEmptyLine: separateWithEmptyLine)
         }
       }
     }
@@ -418,7 +428,8 @@ public class CommandLineActor {
     _ inputFilePath: String,
     _ outputStringsFilePaths: [String],
     override: Bool,
-    verbose: Bool
+    verbose: Bool,
+    separateWithEmptyLine: Bool
   ) {
     var overallTranslatedValuesCount = 0
     var filesWithTranslatedValuesCount = 0
@@ -430,6 +441,7 @@ public class CommandLineActor {
         let translationsCount = try stringsFileUpdater.translateEmptyValues(
           usingValuesFromStringsFile: inputFilePath,
           clientSecret: secret,
+          separateWithEmptyLine: separateWithEmptyLine,
           override: override
         )
 

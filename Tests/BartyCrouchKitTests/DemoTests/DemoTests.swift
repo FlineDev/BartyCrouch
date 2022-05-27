@@ -162,7 +162,8 @@ class DemoTests: XCTestCase {
       paths: ["."],
       subpathsToIgnore: [],
       secret: .microsoftTranslator(secret: microsoftSubscriptionKey),
-      sourceLocale: "en"
+      sourceLocale: "en",
+      separateWithEmptyLine: true
     )
     TranslateTaskHandler(options: translateOptions).perform()
 
@@ -254,7 +255,8 @@ class DemoTests: XCTestCase {
       supportedLanguageEnumPath: ".",
       typeName: "BartyCrouch",
       translateMethodName: "translate",
-      customLocalizableName: nil
+      customLocalizableName: nil,
+      separateWithEmptyLine: true
     )
 
     TransformTaskHandler(options: transformOptions).perform()
