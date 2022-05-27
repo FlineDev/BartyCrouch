@@ -19,8 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Adds new `separateWithEmptyLine` options to allow removing the empty line between Strings entries.  
-  Issues: [#251](https://github.com/FlineDev/BartyCrouch/issues/251) | PR: [#254](https://github.com/FlineDev/BartyCrouch/pull/254) | Author: [Cihat Gündüz](https://github.com/Jeehut)  
+- None.
 ### Changed
 - None.
 ### Deprecated
@@ -28,10 +27,17 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Removed
 - None.
 ### Fixed
-- Fixed an issue where defaulting to Microsoft Translator no longer worked after starting to support DeepL as a translator, too.    
-  Author: [Cihat Gündüz](https://github.com/Jeehut)  
+- None.
 ### Security
 - None.
+
+## [4.11.0] - 2022-05-27
+### Added
+- Adds new `separateWithEmptyLine` options to allow removing the empty line between Strings entries.  
+  Issues: [#251](https://github.com/FlineDev/BartyCrouch/issues/251) | PR: [#254](https://github.com/FlineDev/BartyCrouch/pull/254) | Author: [Cihat Gündüz](https://github.com/Jeehut)  
+### Fixed
+- Fixed an issue where defaulting to Microsoft Translator no longer worked after starting to support DeepL as a translator, too.    
+  Author: [Cihat Gündüz](https://github.com/Jeehut)  
 
 ## [4.10.2] - 2022-03-26
 ### Changed
