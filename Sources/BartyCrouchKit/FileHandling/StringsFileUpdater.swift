@@ -569,8 +569,4 @@ extension String {
   var normalized: String {
     return folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en"))
   }
-
-  func normalized(_ locale: Locale) -> String {
-    return folding(options: [], locale: locale)
-  }
 }
