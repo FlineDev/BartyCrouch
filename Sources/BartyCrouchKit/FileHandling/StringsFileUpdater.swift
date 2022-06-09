@@ -174,12 +174,12 @@ public class StringsFileUpdater {
     )
   }
 
-  public func removeEmptyLines(separateWithEmptyLine: Bool, keepWhitespaceSurroundings: Bool = false) {
+  public func removeEmptyLines() {
     let translations = findTranslations(inString: oldContentString)
     rewriteFile(
         with: translations,
-        keepWhitespaceSurroundings: keepWhitespaceSurroundings,
-        separateWithEmptyLine: separateWithEmptyLine
+        keepWhitespaceSurroundings: false,
+        separateWithEmptyLine: false
     )
   }
 

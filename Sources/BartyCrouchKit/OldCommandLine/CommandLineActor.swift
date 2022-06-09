@@ -203,7 +203,7 @@ public class CommandLineActor {
       } else if !separateWithEmptyLine {
         for filePath in allStringsFilePaths {
           let stringsFileUpdater = StringsFileUpdater(path: filePath)
-          stringsFileUpdater?.removeEmptyLines(separateWithEmptyLine: separateWithEmptyLine)
+          stringsFileUpdater?.removeEmptyLines()
         }
       }
     }
