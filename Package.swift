@@ -17,7 +17,7 @@ let package = Package(
     .package(name: "Rainbow", url: "https://github.com/onevcat/Rainbow.git", from: "3.1.5"),
     .package(name: "SwiftCLI", url: "https://github.com/jakeheis/SwiftCLI.git", from: "6.0.3"),
     .package(name: "Toml", url: "https://github.com/jdfergason/swift-toml.git", .branch("master")),
-    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50600.1")),
+    .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50700.0")),
 
     // A collection of tools for debugging, diffing, and testing your application's data structures.
     .package(url: "https://github.com/pointfreeco/swift-custom-dump.git", from: "0.3.0"),
