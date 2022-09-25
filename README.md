@@ -14,11 +14,11 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/FlineDev/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.11.0-blue.svg"
-         alt="Version: 4.11.0">
+    <img src="https://img.shields.io/badge/Version-4.12.0-blue.svg"
+         alt="Version: 4.12.0">
   </a>
-  <img src="https://img.shields.io/badge/Swift-5.6-FFAC45.svg"
-     alt="Swift: 5.6">
+  <img src="https://img.shields.io/badge/Swift-5.7-FFAC45.svg"
+     alt="Swift: 5.7">
   <a href="https://github.com/FlineDev/BartyCrouch/blob/main/LICENSE.md">
     <img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"
          alt="License: MIT">
