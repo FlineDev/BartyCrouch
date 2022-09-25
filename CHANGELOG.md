@@ -31,6 +31,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.12.0] - 2022-09-25
+### Changed
+- Update SwiftSyntax dependency to Swift 5.7 to support Xcode 14.  
+  Issues: [#201](https://github.com/FlineDev/BartyCrouch/issues/201), [#262](https://github.com/FlineDev/BartyCrouch/pull/262) | Author: [Texot](https://github.com/tete1030)
+
 ## [4.11.0] - 2022-05-27
 ### Added
 - Adds new `separateWithEmptyLine` options to allow removing the empty line between Strings entries.  
