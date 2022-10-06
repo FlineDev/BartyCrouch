@@ -31,6 +31,10 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.12.1] - 2022-10-06
+### Fixed
+- Fixes an issue with linking of SwiftSyntaxParser. See [here](https://github.com/apple/swift-syntax/commit/4f33e361829415ab913778a582eda3ad682f81c1).
+
 ## [4.12.0] - 2022-09-25
 ### Changed
 - Update SwiftSyntax dependency to Swift 5.7 to support Xcode 14.  
