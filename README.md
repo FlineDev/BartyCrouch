@@ -263,6 +263,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 - `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files.
+- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files. 
 
 </details>
 

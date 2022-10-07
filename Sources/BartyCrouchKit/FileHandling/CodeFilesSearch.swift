@@ -49,13 +49,11 @@ extension Array where Element == String {
   func containsCaseInsensitive(subarray: [Element]) -> Bool {
     guard let firstSubArrayElement = subarray.first else { return false }
 
-    for (index, element) in enumerated() {
-      // sample: this = [a, b, c], subarray = [b, c], firstIndex = 1, subRange = 1 ..< 3
-      if element.lowercased() == firstSubArrayElement.lowercased() {
-        let subRange = index..<index + subarray.count
-        let subRangeElements = self[subRange]
-        return subRangeElements.map { $0.lowercased() } == subarray.map { $0.lowercased() }
-      }
+    // sample: this = [a, b, c], subarray = [b, c], firstIndex = 1, subRange = 1 ..< 3
+    for (index, element) in enumerated() where element.lowercased() == firstSubArrayElement.lowercased() {
+      let subRange = index..<index + subarray.count
+      let subRangeElements = self[subRange]
+      return subRangeElements.map { $0.lowercased() } == subarray.map { $0.lowercased() }
     }
 
     return false

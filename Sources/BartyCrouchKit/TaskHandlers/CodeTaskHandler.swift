@@ -18,7 +18,7 @@ extension CodeTaskHandler: TaskHandler {
             localizables: options.localizablePaths,
             defaultToKeys: options.defaultToKeys,
             additive: options.additive,
-            overrideComments: false,
+            overrideComments: options.overrideComments,
             unstripped: options.unstripped,
             customFunction: options.customFunction,
             customLocalizableName: options.customLocalizableName,
