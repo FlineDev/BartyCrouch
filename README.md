@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/FlineDev/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.12.1-blue.svg"
-         alt="Version: 4.12.1">
+    <img src="https://img.shields.io/badge/Version-4.13.0-blue.svg"
+         alt="Version: 4.13.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.7-FFAC45.svg"
      alt="Swift: 5.7">
@@ -263,6 +263,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 - `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files.
+- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files. 
 
 </details>
 

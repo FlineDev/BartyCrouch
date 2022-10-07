@@ -544,8 +544,8 @@ extension String {
   }
 
   func containsAny(of substrings: [String]) -> Bool {
-    for substring in substrings {  // swiftlint:disable:this if_as_guard
-      if contains(substring) { return true }
+    for substring in substrings where contains(substring) {
+      return true
     }
 
     return false
