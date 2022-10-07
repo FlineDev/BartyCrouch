@@ -30,7 +30,7 @@ let package = Package(
     ),
     .executableTarget(
       name: "BartyCrouch",
-      dependencies: ["BartyCrouchKit"]
+      dependencies: ["BartyCrouchKit", "lib_InternalSwiftSyntaxParser"]
     ),
     .target(
       name: "BartyCrouchKit",
@@ -43,7 +43,6 @@ let package = Package(
         "SwiftCLI",
         .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
         .product(name: "SwiftSyntax", package: "swift-syntax"),
-        "lib_InternalSwiftSyntaxParser",
         "BartyCrouchUtility",
       ]
     ),
