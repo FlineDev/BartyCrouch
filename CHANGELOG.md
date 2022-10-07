@@ -19,8 +19,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- Re-implement option `overrideComments` for code update (see README).  
-  Issues: [#261](https://github.com/FlineDev/BartyCrouch/issues/261) | Author: [Cihat Gündüz](https://github.com/Jeehut)
+- None.
 ### Changed
 - None.
 ### Deprecated
@@ -31,6 +30,11 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 - None.
 ### Security
 - None.
+
+## [4.13.0] - 2022-10-07
+### Added
+- Re-implement option `overrideComments` for code update (see README).  
+  Issues: [#261](https://github.com/FlineDev/BartyCrouch/issues/261) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 
 ## [4.12.1] - 2022-10-06
 ### Fixed
