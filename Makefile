@@ -18,14 +18,16 @@ bartycrouch: $(SOURCES)
 	@swift build \
 		-c release \
 		--disable-sandbox \
-		--build-path "$(BUILDDIR)"
+		--scratch-path "$(BUILDDIR)" \
+		-Xlinker -dead_strip_dylibs
 
 bartycrouch_universal: $(SOURCES)
 	@swift build \
 		-c release \
 		--arch arm64 --arch x86_64 \
 		--disable-sandbox \
-		--build-path "$(BUILDDIR)"
+		--scratch-path "$(BUILDDIR)" \
+		-Xlinker -dead_strip_dylibs
 
 .PHONY: install
 install: bartycrouch

@@ -19,7 +19,8 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 
 ## [Unreleased]
 ### Added
-- None.
+- Re-implement option `overrideComments` for code update (see README).  
+  Issues: [#261](https://github.com/FlineDev/BartyCrouch/issues/261) | Author: [Cihat Gündüz](https://github.com/Jeehut)
 ### Changed
 - None.
 ### Deprecated
