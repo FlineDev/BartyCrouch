@@ -117,6 +117,7 @@ class ConfigurationTests: XCTestCase {
       XCTAssertEqual(configuration.updateOptions.code.customLocalizableName, "MyOwnLocalizable")
       XCTAssertEqual(configuration.updateOptions.code.defaultToKeys, true)
       XCTAssertEqual(configuration.updateOptions.code.unstripped, true)
+      XCTAssertEqual(configuration.updateOptions.code.overrideComments, false)
 
       XCTAssertEqual(configuration.updateOptions.transform.codePaths, ["Sources"])
       XCTAssertEqual(configuration.updateOptions.transform.localizablePaths, ["Sources/SupportingFiles"])
@@ -168,6 +169,7 @@ class ConfigurationTests: XCTestCase {
       unstripped = true
       plistArguments = true
       ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
+      overrideComments = false
 
       [update.transform]
       codePaths = ["."]
