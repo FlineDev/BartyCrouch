@@ -50,6 +50,14 @@
   • <a href="#license">License</a>
 </p>
 
+> :sparkles: **Important Notice** :sparkles:
+> 
+> There's [**now a new Mac app called ReMafoX**](https://remafox.app) which is the _successor_ to BartyCrouch. It improves upon several aspects of BartyCrouch, such as having **no flaky dependencies**, adding **pluralization** support, **smart** machine translation, a built-in SwiftUI-compatible **enum generator**, built-in **step-by-step instructions** for easier setup, **detailed explanations** of all config options, and even [**a set of video guides**](https://www.youtube.com/watch?v=ObGIiWARjmw&list=PLvkAveYAfY4TLPtPd5jnqMwpAzY_pdxs5) for things like setup, key naming best practices and team onboarding. Get it for free [here](https://apps.apple.com/us/app/remafox-easy-app-localization/id1605635026).
+>
+> Note that ReMafoX is being **actively worked on**, you can even [vote for or request new features here](https://github.com/FlineDev/ReMafoX/issues?q=is%3Aissue+label%3A%22Feature+Request%22+sort%3Areactions-%2B1-desc).
+> In comparison, BartyCrouch is kept up-to-date mostly by the community.
+
+
 # BartyCrouch
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
