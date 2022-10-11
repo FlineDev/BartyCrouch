@@ -380,7 +380,7 @@ The example AppIntents code that can be localized with `bartycrouch` will look l
 
 ```
 struct ExportAllTransactionsIntent: AppIntent {
-    static var title: LocalizedStringResource = LocalizedStringResource("Export all transactions", comment: "")
+    static var title = LocalizedStringResource("Export all transactions", comment: "")
     
     static var description =
         IntentDescription(LocalizedStringResource("Exports your transaction history as CSV data.", comment: ""))
