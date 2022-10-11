@@ -168,6 +168,7 @@ class ConfigurationTests: XCTestCase {
       unstripped = true
       plistArguments = true
       ignoreKeys = ["#bartycrouch-ignore!", "#bc-ignore!", "#i!"]
+      overrideComments = false
 
       [update.transform]
       codePaths = ["."]

@@ -426,6 +426,11 @@ See the file [MIGRATION_GUIDES.md](https://github.com/FlineDev/BartyCrouch/blob/
 
 Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
 
+In order for the tests to run build issues, you need to run – also add an an API key in the new file to run the translations tests, too:
+```shell
+cp Tests/BartyCrouchTranslatorTests/Secrets/secrets.json.sample Tests/BartyCrouchTranslatorTests/Secrets/secrets.json
+```  
+
 After Release Checklist:
 
 1. Run `make portable_zip` to generate `.build/release/portable_bartycrouch.zip`
