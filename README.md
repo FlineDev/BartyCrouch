@@ -258,7 +258,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
-- `customFunction`: Use alternative name to search for strings to localize, in addition to `NSLocalizedString`, and `CFCopyLocalizedString`. If not specified, look for `LocalizedStringResource`.
+- `customFunction`: Use alternative name to search for strings to localize, in addition to `NSLocalizedString`, and `CFCopyLocalizedString`. Defaults to `LocalizedStringResource`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
