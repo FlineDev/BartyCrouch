@@ -359,7 +359,7 @@ NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not sup
 
 Historically, Apple platforms used `CFCopyLocalizedString`, and `NSLocalizedString` macros and their variants, to mark strings used in code to be localized, and to load their localized versions during runtime from `Localizable.strings` file.
 
-Since introduction of SwiftUI, the localized strings in code are typically typed as `LocalizedStringResource`, and are no longer marked explicitely.
+Since introduction of the AppIntents framework, the localized strings in code can also be typed as `LocalizedStringResource`, and are no longer marked explicitly.
 
 Let's examine this snippet of AppIntents code:
 
