@@ -355,7 +355,7 @@ self.title = L10n.Onboarding.FirstPage.headerTitle
 
 NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
 
-### Localizing strings of `LocalizableStringResource` type (AppIntents, SwiftUI, ...)
+### Localizing strings of `LocalizableStringResource` type (AppIntents, ...)
 
 Historically, Apple platforms used `CFCopyLocalizedString`, and `NSLocalizedString` macros and their variants, to mark strings used in code to be localized, and to load their localized versions during runtime from `Localizable.strings` file.
 
