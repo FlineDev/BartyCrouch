@@ -266,7 +266,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
-- `customFunction`: Use alternative name to `NSLocalizedString`.
+- `customFunction`: Use alternative name to search for strings to localize, in addition to `NSLocalizedString`, and `CFCopyLocalizedString`. Defaults to `LocalizedStringResource`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
@@ -362,6 +362,40 @@ self.title = L10n.Onboarding.FirstPage.headerTitle
 * Not as fast as `code` since [SwiftSyntax](https://github.com/apple/swift-syntax) currently isn't [particularly fast](https://www.jpsim.com/evaluating-swiftsyntax-for-use-in-swiftlint/). (But this should improve over time!)
 
 NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
+
+### Localizing strings of `LocalizableStringResource` type (AppIntents, ...)
+
+Historically, Apple platforms used `CFCopyLocalizedString`, and `NSLocalizedString` macros and their variants, to mark strings used in code to be localized, and to load their localized versions during runtime from `Localizable.strings` file.
+
+Since introduction of the AppIntents framework, the localized strings in code can also be typed as `LocalizedStringResource`, and are no longer marked explicitly.
+
+Let's examine this snippet of AppIntents code:
+
+```
+struct ExportAllTransactionsIntent: AppIntent {
+    static var title: LocalizedStringResource = "Export all transactions"
+    
+    static var description =
+        IntentDescription("Exports your transaction history as CSV data.")
+}
+```
+
+In the example above, both the `"Export all transactions"`, and `"Exports your transaction history as CSV data."` are actually `StaticString` instances that will be converted during compilation into `LocalizedStringResource` instances, and will lookup their respective localizations during runtime from `Localized.strings` file the same way as when using `NSLocalizedString` in the past. The only exception being that such strings are not marked explicitly, and require swift compiler to parse and extract such strings for localization. This is what Xcode does from version 13 when using `Product -> Export Localizations...` option.
+
+In order to continue translating these strings with `bartycrouch` it is required to mark them explicitely with `LocalizedStringResource(_: String, comment: String)` call, and specify `customFunction="LocalizedStringResource"` in `code` task options.
+
+The example AppIntents code that can be localized with `bartycrouch` will look like this:
+
+```
+struct ExportAllTransactionsIntent: AppIntent {
+    static var title = LocalizedStringResource("Export all transactions", comment: "")
+    
+    static var description =
+        IntentDescription(LocalizedStringResource("Exports your transaction history as CSV data.", comment: ""))
+}
+```
+
+Note that you must use the full form of `LocalizedStringResource(_: StaticString, comment: StaticString)` for the `bartycrouch`, or more specifically for the `extractLocStrings` (see `xcrun extractLocStrings`) to properly parse the strings.
 
 ### Build Script
 

@@ -21,7 +21,7 @@ class ConfigurationTests: XCTestCase {
       XCTAssertEqual(configuration.updateOptions.code.codePaths, ["."])
       XCTAssertEqual(configuration.updateOptions.code.localizablePaths, ["."])
       XCTAssertEqual(configuration.updateOptions.code.additive, true)
-      XCTAssertEqual(configuration.updateOptions.code.customFunction, nil)
+      XCTAssertEqual(configuration.updateOptions.code.customFunction, "LocalizedStringResource")
       XCTAssertEqual(configuration.updateOptions.code.customLocalizableName, nil)
       XCTAssertEqual(configuration.updateOptions.code.defaultToKeys, false)
       XCTAssertEqual(configuration.updateOptions.code.unstripped, false)
@@ -117,6 +117,7 @@ class ConfigurationTests: XCTestCase {
       XCTAssertEqual(configuration.updateOptions.code.customLocalizableName, "MyOwnLocalizable")
       XCTAssertEqual(configuration.updateOptions.code.defaultToKeys, true)
       XCTAssertEqual(configuration.updateOptions.code.unstripped, true)
+      XCTAssertEqual(configuration.updateOptions.code.overrideComments, false)
 
       XCTAssertEqual(configuration.updateOptions.transform.codePaths, ["Sources"])
       XCTAssertEqual(configuration.updateOptions.transform.localizablePaths, ["Sources/SupportingFiles"])
