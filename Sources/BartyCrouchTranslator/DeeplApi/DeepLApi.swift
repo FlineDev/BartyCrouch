@@ -77,7 +77,7 @@ extension DeepLApi: Endpoint {
   }
 
   var headers: [String: String] {
-    ["Content-Type": "application/json"]
+    [:]
   }
 
   static func baseUrl(for apiType: ApiType) -> URL {
