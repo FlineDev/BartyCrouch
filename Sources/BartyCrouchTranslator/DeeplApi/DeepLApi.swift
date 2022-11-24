@@ -16,7 +16,7 @@ enum DeepLApi {
 
     for text in texts {
       if currentBatch.count < maximumTextsPerRequest
-        && text.count + currentBatchTotalLength < maximumTextsLengthPerRequest
+          && text.count + currentBatchTotalLength < maximumTextsLengthPerRequest
       {
         currentBatch.append(text)
         currentBatchTotalLength += text.count
@@ -47,10 +47,6 @@ extension DeepLApi: Endpoint {
     return decoder
   }
 
-  var encoder: JSONEncoder {
-    JSONEncoder()
-  }
-
   var subpath: String {
     switch self {
     case .translate:
@@ -59,25 +55,20 @@ extension DeepLApi: Endpoint {
   }
 
   var method: HttpMethod {
-    .get
-  }
-
-  var queryParameters: [String: QueryParameterValue] {
-    var urlParameters: [String: QueryParameterValue] = [:]
-
     switch self {
-    case let .translate(texts, sourceLanguage, targetLanguage, apiKey):
-      urlParameters["text"] = .array(texts)
-      urlParameters["source_lang"] = sourceLanguage.deepLParameterValue
-      urlParameters["target_lang"] = targetLanguage.deepLParameterValue
-      urlParameters["auth_key"] = .string(apiKey)
+    case .translate(let texts, let sourceLanguage, let targetLanguage, let authKey):
+      let textEntries = texts.map { "text=\($0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)" }
+        .joined(separator: "&")
+      let authKeyEntry = "auth_key=\(authKey)"
+      let sourceLanguageEntry = "source_lang=\(sourceLanguage.deepLParameterValue)"
+      let targetLanguageEntry = "target_lang=\(targetLanguage.deepLParameterValue)"
+      let bodyString = [authKeyEntry, sourceLanguageEntry, targetLanguageEntry, textEntries].joined(separator: "&")
+      return .post(body: bodyString.data(using: .utf8)!)
     }
-
-    return urlParameters
   }
 
   var headers: [String: String] {
-    ["Content-Type": "application/json"]
+    ["Content-Type": "application/x-www-form-urlencoded"]
   }
 
   static func baseUrl(for apiType: ApiType) -> URL {
@@ -92,13 +83,13 @@ extension DeepLApi: Endpoint {
 }
 
 private extension Language {
-  var deepLParameterValue: QueryParameterValue {
+  var deepLParameterValue: String {
     switch self {
     case .chineseSimplified:
-      return .string("ZH")
+      return "ZH"
 
     default:
-      return .string(rawValue.uppercased())
+      return rawValue.uppercased()
     }
   }
 }
