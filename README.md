@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/FlineDev/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.13.0-blue.svg"
-         alt="Version: 4.13.0">
+    <img src="https://img.shields.io/badge/Version-4.14.0-blue.svg"
+         alt="Version: 4.14.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.7-FFAC45.svg"
      alt="Swift: 5.7">
@@ -51,10 +51,10 @@
 </p>
 
 > :sparkles: **Important Notice** :sparkles:
-> 
-> There's [**now a new Mac app called ReMafoX**](https://remafox.app?source=github.com.BartyCrouch) which is the _successor_ to BartyCrouch. It improves upon several aspects of BartyCrouch, such as having **no flaky dependencies**, adding **pluralization** support, **smart** machine translation, a built-in SwiftUI-compatible **enum generator**, built-in **step-by-step instructions** for easier setup, **detailed explanations** of all config options, and even [**a set of video guides**](https://www.youtube.com/watch?v=ObGIiWARjmw&list=PLvkAveYAfY4TLPtPd5jnqMwpAzY_pdxs5) for things like setup, key naming best practices and team onboarding. Get it for free [here](https://apps.apple.com/app/apple-store/id1605635026?pt=549314&ct=github.com.BartyCrouch&mt=8).
 >
-> Note that ReMafoX is being **actively worked on**, you can even [vote for or request new features here](https://github.com/FlineDev/ReMafoX/issues?q=is%3Aissue+label%3A%22Feature+Request%22+sort%3Areactions-%2B1-desc).
+> There's [**now a new Mac app called RemafoX**](https://remafox.app?source=github.com.BartyCrouch) which is the _successor_ to BartyCrouch. It improves upon several aspects of BartyCrouch, such as having **no flaky dependencies**, adding **pluralization** support, **smart** machine translation, a built-in SwiftUI-compatible **enum generator**, built-in **step-by-step instructions** for easier setup, **detailed explanations** of all config options, and even [**a set of video guides**](https://www.youtube.com/watch?v=ObGIiWARjmw&list=PLvkAveYAfY4TLPtPd5jnqMwpAzY_pdxs5) for things like setup, key naming best practices and team onboarding. Get it for free [here](https://apps.apple.com/app/apple-store/id1605635026?pt=549314&ct=github.com.BartyCrouch&mt=8).
+>
+> Note that RemafoX is being **actively worked on**, you can even [vote for or request new features here](https://github.com/FlineDev/RemafoX/issues?q=is%3Aissue+label%3A%22Feature+Request%22+sort%3Areactions-%2B1-desc).
 > In comparison, BartyCrouch is kept up-to-date mostly by the community.
 
 
@@ -66,7 +66,7 @@ Checkout [this blog post](https://jeehut.medium.com/localization-in-swift-like-a
 
 ## Requirements
 
-- Xcode 13.3+ & Swift 5.6+
+- Xcode 14+ & Swift 5.7+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
@@ -271,7 +271,7 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 - `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files.
-- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files. 
+- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files.
 
 </details>
 
@@ -374,7 +374,7 @@ Let's examine this snippet of AppIntents code:
 ```
 struct ExportAllTransactionsIntent: AppIntent {
     static var title: LocalizedStringResource = "Export all transactions"
-    
+
     static var description =
         IntentDescription("Exports your transaction history as CSV data.")
 }
@@ -389,7 +389,7 @@ The example AppIntents code that can be localized with `bartycrouch` will look l
 ```
 struct ExportAllTransactionsIntent: AppIntent {
     static var title = LocalizedStringResource("Export all transactions", comment: "")
-    
+
     static var description =
         IntentDescription(LocalizedStringResource("Exports your transaction history as CSV data.", comment: ""))
 }

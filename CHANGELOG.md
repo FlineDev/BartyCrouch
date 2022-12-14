@@ -31,6 +31,12 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Security
 - None.
 
+## [4.14.0] - 2022-12-14
+### Added
+- BartyCrouch now recognizes `LocalizedStringResource` entries by default (unless you override the `customFunction` option). This helps support localization in newer APIs like the AppIntents framework. See README for more info.
+### Fixed
+- Updated DeepL API to a POST request according to the documentation to fix issues.
+
 ## [4.13.0] - 2022-10-07
 ### Added
 - Re-implement option `overrideComments` for code update (see README).  
