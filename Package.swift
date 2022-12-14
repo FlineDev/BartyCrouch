@@ -23,11 +23,6 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-custom-dump.git", from: "0.3.0"),
   ],
   targets: [
-    .binaryTarget(
-        name: "lib_InternalSwiftSyntaxParser",
-        url: "https://github.com/keith/StaticInternalSwiftSyntaxParser/releases/download/5.7/lib_InternalSwiftSyntaxParser.xcframework.zip",
-        checksum: "99803975d10b2664fc37cc223a39b4e37fe3c79d3d6a2c44432007206d49db15"
-    ),
     .executableTarget(
       name: "BartyCrouch",
       dependencies: ["BartyCrouchKit"]
@@ -43,7 +38,6 @@ let package = Package(
         "SwiftCLI",
         .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
         .product(name: "SwiftSyntax", package: "swift-syntax"),
-        "lib_InternalSwiftSyntaxParser",
         "BartyCrouchUtility",
       ]
     ),

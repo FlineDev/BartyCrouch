@@ -14,8 +14,8 @@
     <img src="https://api.codacy.com/project/badge/Coverage/7b34ad9193c2438aa32aa29a0490451f"/>
   </a>
   <a href="https://github.com/FlineDev/BartyCrouch/releases">
-    <img src="https://img.shields.io/badge/Version-4.13.0-blue.svg"
-         alt="Version: 4.13.0">
+    <img src="https://img.shields.io/badge/Version-4.14.0-blue.svg"
+         alt="Version: 4.14.0">
   </a>
   <img src="https://img.shields.io/badge/Swift-5.7-FFAC45.svg"
      alt="Swift: 5.7">
@@ -50,6 +50,14 @@
   • <a href="#license">License</a>
 </p>
 
+> :sparkles: **Important Notice** :sparkles:
+>
+> There's [**now a new Mac app called RemafoX**](https://remafox.app?source=github.com.BartyCrouch) which is the _successor_ to BartyCrouch. It improves upon several aspects of BartyCrouch, such as having **no flaky dependencies**, adding **pluralization** support, **smart** machine translation, a built-in SwiftUI-compatible **enum generator**, built-in **step-by-step instructions** for easier setup, **detailed explanations** of all config options, and even [**a set of video guides**](https://www.youtube.com/watch?v=ObGIiWARjmw&list=PLvkAveYAfY4TLPtPd5jnqMwpAzY_pdxs5) for things like setup, key naming best practices and team onboarding. Get it for free [here](https://apps.apple.com/app/apple-store/id1605635026?pt=549314&ct=github.com.BartyCrouch&mt=8).
+>
+> Note that RemafoX is being **actively worked on**, you can even [vote for or request new features here](https://github.com/FlineDev/RemafoX/issues?q=is%3Aissue+label%3A%22Feature+Request%22+sort%3Areactions-%2B1-desc).
+> In comparison, BartyCrouch is kept up-to-date mostly by the community.
+
+
 # BartyCrouch
 
 BartyCrouch **incrementally updates** your Strings files from your Code *and* from Interface Builder files. "Incrementally" means that BartyCrouch will by default **keep** both your already **translated values** and even your altered comments. Additionally you can also use BartyCrouch for **machine translating** from one language to 60+ other languages. Using BartyCrouch is as easy as **running a few simple commands** from the command line what can even be **automated using a [build script](#build-script)** within your project.
@@ -58,7 +66,7 @@ Checkout [this blog post](https://jeehut.medium.com/localization-in-swift-like-a
 
 ## Requirements
 
-- Xcode 13.3+ & Swift 5.6+
+- Xcode 14+ & Swift 5.7+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
 
 ## Getting Started
@@ -258,12 +266,12 @@ tasks = ["interfaces", "code", "transform", "normalize"]
 - `localizablePaths`: The enclosing path(s) containing the localized `Localizable.strings` files.
 - `defaultToKeys`: Add new keys both as key and value.
 - `additive`: Prevents cleaning up keys not found in code.
-- `customFunction`: Use alternative name to `NSLocalizedString`.
+- `customFunction`: Use alternative name to search for strings to localize, in addition to `NSLocalizedString`, and `CFCopyLocalizedString`. Defaults to `LocalizedStringResource`.
 - `customLocalizableName`: Use alternative name for `Localizable.strings`.
 - `unstripped`: Keeps whitespaces at beginning & end of Strings files.
 - `plistArguments`: Use a plist file to store all the code files for the ExtractLocStrings tool. (Recommended for large projects.)
 - `ignoreKeys`: Keys (e.g. in the comment) indicating that specific translation entries should be ignored when generating String files.
-- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files. 
+- `overrideComments`: Always overrides the comment with the keys new translation, useful for IB files.
 
 </details>
 
@@ -355,6 +363,40 @@ self.title = L10n.Onboarding.FirstPage.headerTitle
 
 NOTE: As of version 4.x of BartyCrouch *formatted* localized Strings are not supported by this automatic feature.
 
+### Localizing strings of `LocalizableStringResource` type (AppIntents, ...)
+
+Historically, Apple platforms used `CFCopyLocalizedString`, and `NSLocalizedString` macros and their variants, to mark strings used in code to be localized, and to load their localized versions during runtime from `Localizable.strings` file.
+
+Since introduction of the AppIntents framework, the localized strings in code can also be typed as `LocalizedStringResource`, and are no longer marked explicitly.
+
+Let's examine this snippet of AppIntents code:
+
+```
+struct ExportAllTransactionsIntent: AppIntent {
+    static var title: LocalizedStringResource = "Export all transactions"
+
+    static var description =
+        IntentDescription("Exports your transaction history as CSV data.")
+}
+```
+
+In the example above, both the `"Export all transactions"`, and `"Exports your transaction history as CSV data."` are actually `StaticString` instances that will be converted during compilation into `LocalizedStringResource` instances, and will lookup their respective localizations during runtime from `Localized.strings` file the same way as when using `NSLocalizedString` in the past. The only exception being that such strings are not marked explicitly, and require swift compiler to parse and extract such strings for localization. This is what Xcode does from version 13 when using `Product -> Export Localizations...` option.
+
+In order to continue translating these strings with `bartycrouch` it is required to mark them explicitely with `LocalizedStringResource(_: String, comment: String)` call, and specify `customFunction="LocalizedStringResource"` in `code` task options.
+
+The example AppIntents code that can be localized with `bartycrouch` will look like this:
+
+```
+struct ExportAllTransactionsIntent: AppIntent {
+    static var title = LocalizedStringResource("Export all transactions", comment: "")
+
+    static var description =
+        IntentDescription(LocalizedStringResource("Exports your transaction history as CSV data.", comment: ""))
+}
+```
+
+Note that you must use the full form of `LocalizedStringResource(_: StaticString, comment: StaticString)` for the `bartycrouch`, or more specifically for the `extractLocStrings` (see `xcrun extractLocStrings`) to properly parse the strings.
+
 ### Build Script
 
 In order to truly profit from BartyCrouch's ability to update & lint your `.strings` files you can make it a natural part of your development workflow within Xcode. In order to do this select your target, choose the `Build Phases` tab and click the + button on the top left corner of that pane. Select `New Run Script Phase` and copy the following into the text box below the `Shell: /bin/sh` of your new run script phase:
@@ -425,6 +467,11 @@ See the file [MIGRATION_GUIDES.md](https://github.com/FlineDev/BartyCrouch/blob/
 ## Contributing
 
 Contributions are welcome. Feel free to open an issue on GitHub with your ideas or implement an idea yourself and post a pull request. If you want to contribute code, please try to follow the same syntax and semantic in your **commit messages** (see rationale [here](http://chris.beams.io/posts/git-commit/)). Also, please make sure to add an entry to the `CHANGELOG.md` file which explains your change.
+
+In order for the tests to run build issues, you need to run – also add an an API key in the new file to run the translations tests, too:
+```shell
+cp Tests/BartyCrouchTranslatorTests/Secrets/secrets.json.sample Tests/BartyCrouchTranslatorTests/Secrets/secrets.json
+```  
 
 After Release Checklist:
 

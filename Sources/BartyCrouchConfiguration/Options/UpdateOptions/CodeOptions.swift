@@ -27,7 +27,7 @@ extension CodeOptions: TomlCodable {
       localizablePaths: toml.filePaths(update, code, singularKey: "localizablePath", pluralKey: "localizablePaths"),
       defaultToKeys: toml.bool(update, code, "defaultToKeys") ?? false,
       additive: toml.bool(update, code, "additive") ?? true,
-      customFunction: toml.string(update, code, "customFunction"),
+      customFunction: toml.string(update, code, "customFunction") ?? "LocalizedStringResource",
       customLocalizableName: toml.string(update, code, "customLocalizableName"),
       unstripped: toml.bool(update, code, "unstripped") ?? false,
       plistArguments: toml.bool(update, code, "plistArguments") ?? true,
