@@ -20,4 +20,7 @@ Pod::Spec.new do |s|
   s.source         = { :http => "#{s.homepage}/releases/download/#{s.version}/portable_bartycrouch.zip" }
   s.preserve_paths = "*"
 
+  s.osx.deployment_target  = '13.0'
+  s.swift_version          = '5.7'
+
 end
