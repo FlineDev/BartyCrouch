@@ -40,12 +40,18 @@ install: bartycrouch
 
 .PHONY: portable_zip
 portable_zip: bartycrouch_universal
-	rm -f "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
-	zip -j "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip" \
-		"$(BUILDDIR)/Apple/Products/Release/bartycrouch" \
+	@rm -f "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
+	
+	$(eval TMP := $(shell mktemp -d))
+	@cp "$(BUILDDIR)/Apple/Products/Release/bartycrouch" "$(TMP)/bartycrouch"
+	@install_name_tool -add_rpath "@executable_path/." "$(TMP)/bartycrouch"
+	
+	@zip -q -j "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip" \
+		"$(TMP)/bartycrouch" \
 		"$(REPODIR)/LICENSE" \
 		".build/artifacts/swift-syntax/_InternalSwiftSyntaxParser.xcframework/macos-arm64_x86_64/lib_InternalSwiftSyntaxParser.dylib"
-	echo "Portable ZIP created at: $(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
+	@echo "Portable ZIP created at: $(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
+	@rm -rf $(TMP)
 
 .PHONY: uninstall
 uninstall:
