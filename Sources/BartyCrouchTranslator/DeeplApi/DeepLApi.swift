@@ -57,13 +57,24 @@ extension DeepLApi: Endpoint {
   var method: HttpMethod {
     switch self {
     case .translate(let texts, let sourceLanguage, let targetLanguage, let authKey):
-      let textEntries = texts.map { "text=\($0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)" }
-        .joined(separator: "&")
-      let authKeyEntry = "auth_key=\(authKey)"
-      let sourceLanguageEntry = "source_lang=\(sourceLanguage.deepLParameterValue)"
-      let targetLanguageEntry = "target_lang=\(targetLanguage.deepLParameterValue)"
-      let bodyString = [authKeyEntry, sourceLanguageEntry, targetLanguageEntry, textEntries].joined(separator: "&")
-      return .post(body: bodyString.data(using: .utf8)!)
+      
+      let authKeyItem = URLQueryItem(name: "auth_key", value: authKey)
+      let textItems = texts.map { URLQueryItem(name: "text", value: $0) }
+      let targetLangItem = URLQueryItem(name: "target_lang", value: targetLanguage.deepLParameterValue)
+      let sourceLangItem = URLQueryItem(name: "source_lang", value: sourceLanguage.deepLParameterValue)
+      
+      var components = URLComponents()
+      components.queryItems = ([authKeyItem, targetLangItem, sourceLangItem] + textItems).compactMap { $0 }
+      
+      guard var queryItemsString = components.string else {
+          fatalError("Invalid arguments.")
+      }
+      // queryItemsString starts with a ? but post API expects the query string without leading ?
+      if queryItemsString.hasPrefix("?") {
+        queryItemsString.removeFirst()
+      }
+                
+      return .post(body: queryItemsString.data(using: .utf8)!)
     }
   }
 
