@@ -10,6 +10,7 @@ class SupportedLanguagesReader: SyntaxVisitor {
     typeName: String
   ) {
     self.typeName = typeName
+    super.init(viewMode: .sourceAccurate)
   }
 
   override func visit(_ enumDeclaration: EnumDeclSyntax) -> SyntaxVisitorContinueKind {
