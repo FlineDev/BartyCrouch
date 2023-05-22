@@ -35,7 +35,7 @@ If needed, pluralize to `Tasks`, `PRs` or `Authors` and list multiple entries se
 ### Changed
 - Improved implementation of DeepL API client for more reliable escaping than the previous manual escaping logic.  
   PR: [#277](https://github.com/FlineDev/BartyCrouch/issues/277) | Author: [Nico](https://github.com/NickAtGit)
-- Upgraded Swift-Syntax dependency to work with Swift 5.8 to fix build issues.
+- Upgraded Swift-Syntax dependency to work with Swift 5.8 to fix build issues.  
   PR: [#279](https://github.com/FlineDev/BartyCrouch/issues/279) | Author: [Alex Deem](https://github.com/alexdeem)
 
 ## [4.14.0] - 2022-12-14
