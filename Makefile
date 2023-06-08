@@ -31,12 +31,6 @@ bartycrouch_universal: $(SOURCES)
 install: bartycrouch
 	@install -d "$(bindir)" "$(libdir)"
 	@install "$(BUILDDIR)/release/bartycrouch" "$(bindir)"
-	@install ".build/artifacts/swift-syntax/_InternalSwiftSyntaxParser.xcframework/macos-arm64_x86_64/lib_InternalSwiftSyntaxParser.dylib" \
-		"$(libdir)"
-	@install_name_tool -change \
-		"@rpath/lib_InternalSwiftSyntaxParser.dylib" \
-		"$(libdir)/lib_InternalSwiftSyntaxParser.dylib" \
-		"$(bindir)/bartycrouch"
 
 .PHONY: portable_zip
 portable_zip: bartycrouch_universal
@@ -49,7 +43,6 @@ portable_zip: bartycrouch_universal
 	@zip -q -j "$(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip" \
 		"$(TMP)/bartycrouch" \
 		"$(REPODIR)/LICENSE" \
-		".build/artifacts/swift-syntax/_InternalSwiftSyntaxParser.xcframework/macos-arm64_x86_64/lib_InternalSwiftSyntaxParser.dylib"
 	@echo "Portable ZIP created at: $(BUILDDIR)/Apple/Products/Release/portable_bartycrouch.zip"
 	@rm -rf $(TMP)
 
