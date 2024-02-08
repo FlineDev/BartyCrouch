@@ -52,11 +52,11 @@
 
 > :sparkles: **Important Notice** :sparkles:
 >
-> There's [**now a new Mac app called RemafoX**](https://remafox.app?source=github.com.BartyCrouch) which is the _successor_ to BartyCrouch. It improves upon several aspects of BartyCrouch, such as having **no flaky dependencies**, adding **pluralization** support, **smart** machine translation, a built-in SwiftUI-compatible **enum generator**, built-in **step-by-step instructions** for easier setup, **detailed explanations** of all config options, and even [**a set of video guides**](https://www.youtube.com/watch?v=ObGIiWARjmw&list=PLvkAveYAfY4TLPtPd5jnqMwpAzY_pdxs5) for things like setup, key naming best practices and team onboarding. Get it for free [here](https://apps.apple.com/app/apple-store/id1605635026?pt=549314&ct=github.com.BartyCrouch&mt=8).
+> Apple introduced String Catalogs in Xcode 15 which implements many aspects of BartyCrouch like the incremental auto-extraction, or warning against empty translations. It's also fully backward-compatible with all iOS versions. Migrating is as simple as right-clicking a `.strings` file and choosing "Migrate to String Catalog...". I wrote a [detailed FAQ](https://www.fline.dev/the-missing-string-catalogs-faq-for-xcode-15/) about String Catalogs if you want to learn more. It's really awesome, everybody should migrate to it!
 >
-> Note that RemafoX is being **actively worked on**, you can even [vote for or request new features here](https://github.com/FlineDev/RemafoX/issues?q=is%3Aissue+label%3A%22Feature+Request%22+sort%3Areactions-%2B1-desc).
-> In comparison, BartyCrouch is kept up-to-date mostly by the community.
-
+> The only feature it's missing is machine translation, but I wrote an app to fill the gap and it supports even more translation services than BartyCrouch. Use [String Catalog Translator](https://apps.apple.com/app/apple-store/id6476773066?pt=549314&ct=github.com&mt=8) in the future by simply drag & dropping the String Catalog file and letting it handle the translation, it's really easy.
+>
+> Note that String Catalog Translator is being **actively worked on**. In comparison, BartyCrouch is kept up-to-date mostly by the community.
 
 # BartyCrouch
 
