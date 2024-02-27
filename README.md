@@ -68,6 +68,7 @@ Checkout [this blog post](https://jeehut.medium.com/localization-in-swift-like-a
 
 - Xcode 14+ & Swift 5.7+
 - Xcode Command Line Tools (see [here](http://stackoverflow.com/a/9329325/3451975) for installation instructions)
+- In Xcode 15 or later: Set "User Script Sandboxing" to NO in your target's "Build Settings" tab
 
 ## Getting Started
 
