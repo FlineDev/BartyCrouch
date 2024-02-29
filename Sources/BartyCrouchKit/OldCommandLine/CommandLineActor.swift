@@ -200,6 +200,11 @@ public class CommandLineActor {
           let stringsFileUpdater = StringsFileUpdater(path: filePath)
           stringsFileUpdater?.sortByKeys(separateWithEmptyLine: separateWithEmptyLine)
         }
+      } else if !separateWithEmptyLine {
+        for filePath in allStringsFilePaths {
+          let stringsFileUpdater = StringsFileUpdater(path: filePath)
+          stringsFileUpdater?.removeEmptyLines()
+        }
       }
     }
   }
