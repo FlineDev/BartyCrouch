@@ -32,7 +32,7 @@ public final class CodeCommander {
     let files = try findFiles(in: codeDirectoryPath, subpathsToIgnore: subpathsToIgnore)
     let customFunctionArgs = customFunction != nil ? ["-s", "\(customFunction!)"] : []
 
-    let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"]
+    let argumentsWithoutTheFiles = ["extractLocStrings"] + ["-o", stringsFilePath] + customFunctionArgs + ["-q"] + ["-a"]
 
     let arguments = try appendFiles(
       files,

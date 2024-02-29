@@ -308,21 +308,22 @@ public class CommandLineActor {
     usePlistArguments: Bool,
     ignoreKeys: [String]
   ) {
+    let extractedStringsFileDirectory = NSTemporaryDirectory()
+    let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
+
+    do {
+      try FileManager.default.createDirectory(
+        atPath: extractedStringsFileDirectory,
+        withIntermediateDirectories: true,
+        attributes: nil
+      )
+    }
+    catch {
+      print(error.localizedDescription, level: .error)
+      return
+    }
+
     for inputDirectoryPath in inputDirectoryPaths {
-      let extractedStringsFileDirectory = inputDirectoryPath + "/tmpstrings/"
-
-      do {
-        try FileManager.default.createDirectory(
-          atPath: extractedStringsFileDirectory,
-          withIntermediateDirectories: true,
-          attributes: nil
-        )
-      }
-      catch {
-        print(error.localizedDescription, level: .error)
-        return
-      }
-
       do {
         try CodeCommander.shared.export(
           stringsFilesToPath: extractedStringsFileDirectory,
@@ -331,47 +332,41 @@ public class CommandLineActor {
           usePlistArguments: usePlistArguments,
           subpathsToIgnore: subpathsToIgnore
         )
+        print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPath)
       }
       catch {
         print("Could not extract strings from Code in directory '\(inputDirectoryPath)'.", level: .error)
         return
       }
+    }
 
-      let extractedLocalizableStringsFilePath = extractedStringsFileDirectory + "Localizable.strings"
-      guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
-        print("No localizations extracted from Code in directory '\(inputDirectoryPath)'.", level: .warning)
+    guard FileManager.default.fileExists(atPath: extractedLocalizableStringsFilePath) else {
+      print("No localizations extracted from Code.", level: .warning)
+      return // NOTE: Expecting to see this only for empty project situations.
+    }
 
-        // BUGFIX: Remove empty /tmpstrings/ folder again.
-        try? FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
+    for outputStringsFilePath in outputStringsFilePaths {
+      guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
 
-        return  // NOTE: Expecting to see this only for empty project situations.
-      }
+      stringsFileUpdater.incrementallyUpdateKeys(
+        withStringsFileAtPath: extractedLocalizableStringsFilePath,
+        addNewValuesAsEmpty: !defaultToKeys,
+        ignoreBaseKeysAndComment: ignoreKeys,
+        override: override,
+        keepExistingKeys: additive,
+        overrideComments: overrideComments,
+        keepWhitespaceSurroundings: unstripped
+      )
 
-      for outputStringsFilePath in outputStringsFilePaths {
-        guard let stringsFileUpdater = StringsFileUpdater(path: outputStringsFilePath) else { continue }
+      if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info) }
+    }
 
-        stringsFileUpdater.incrementallyUpdateKeys(
-          withStringsFileAtPath: extractedLocalizableStringsFilePath,
-          addNewValuesAsEmpty: !defaultToKeys,
-          ignoreBaseKeysAndComment: ignoreKeys,
-          override: override,
-          keepExistingKeys: additive,
-          overrideComments: overrideComments,
-          keepWhitespaceSurroundings: unstripped
-        )
-
-        if verbose { print("Incrementally updated keys of file '\(outputStringsFilePath)'.", level: .info) }
-      }
-
-      do {
-        try FileManager.default.removeItem(atPath: extractedStringsFileDirectory)
-      }
-      catch {
-        print("Temporary strings files couldn't be deleted at path '\(extractedStringsFileDirectory)'", level: .error)
-        return
-      }
-
-      print("Successfully updated strings file(s) of Code files.", level: .success, file: inputDirectoryPath)
+    do {
+      try FileManager.default.removeItem(atPath: extractedLocalizableStringsFilePath)
+    }
+    catch {
+      print("Temporary strings files couldn't be deleted at path '\(extractedLocalizableStringsFilePath)'", level: .error)
+      return
     }
   }
 
