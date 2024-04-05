@@ -54,9 +54,9 @@
 >
 > Apple introduced String Catalogs in Xcode 15 which implements many aspects of BartyCrouch like the incremental auto-extraction, or warning against empty translations. It's also fully backward-compatible with all iOS versions. Migrating is as simple as right-clicking a `.strings` file and choosing "Migrate to String Catalog...". I wrote a [detailed FAQ](https://www.fline.dev/the-missing-string-catalogs-faq-for-xcode-15/) about String Catalogs if you want to learn more. It's really awesome, everybody should migrate to it!
 >
-> The only feature it's missing is machine translation, but I wrote an app to fill the gap and it supports even more translation services than BartyCrouch. Use [String Catalog Translator](https://apps.apple.com/app/apple-store/id6476773066?pt=549314&ct=github.com&mt=8) in the future by simply drag & dropping the String Catalog file and letting it handle the translation, it's really easy.
+> The only feature it's missing is machine translation, but I wrote an app to fill the gap and it supports even more translation services than BartyCrouch. Use [TranslateKit](https://apps.apple.com/app/apple-store/id6476773066?pt=549314&ct=github.com&mt=8) in the future by simply drag & dropping the String Catalog file and letting it handle the translation, it's really easy.
 >
-> Note that String Catalog Translator is being **actively worked on**. In comparison, BartyCrouch is kept up-to-date mostly by the community.
+> Note that TranslateKit is being **actively worked on**. In comparison, BartyCrouch is kept up-to-date only by volunteers in the community.
 
 # BartyCrouch
 
