@@ -174,6 +174,15 @@ public class StringsFileUpdater {
     )
   }
 
+  public func removeEmptyLines() {
+    let translations = findTranslations(inString: oldContentString)
+    rewriteFile(
+        with: translations,
+        keepWhitespaceSurroundings: false,
+        separateWithEmptyLine: false
+    )
+  }
+
   private func translationEntrySortingClosure(lhs: TranslationEntry, rhs: TranslationEntry) -> Bool {
     // ensure keys with empty values are appended to the end
     if lhs.value.isEmpty == rhs.value.isEmpty {
